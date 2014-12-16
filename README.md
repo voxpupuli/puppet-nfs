@@ -14,7 +14,7 @@
 
 This module installs, configures and manages everything on NFS clients and servers.
 
-Github Master: [![Build Status](https://secure.travis-ci.org/echocat/puppet-nfs.png?branch=master)](https://travis-ci.org/echocat/puppet-nfs)
+Github Master: [![Build Status](https://secure.travis-ci.org/derdanne/puppet-nfs.png?branch=master)](https://travis-ci.org/derdanne/puppet-nfs)
 
 ##Module Description
 
