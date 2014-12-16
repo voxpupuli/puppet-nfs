@@ -29,15 +29,13 @@ class nfs::client::service {
     $ensure = stopped,
     $enable = false,
     $hasrestart = false,
-    $hasstatus = false,
-    $subscribe = undef
+    $hasstatus = false
   ){
     service { $name:
       ensure => $ensure,
       enable => $enable,
       hasrestart => $hasrestart,
-      hasstatus => $hasstatus,
-      subscribe => $subscribe
+      hasstatus => $hasstatus
     }
   }
 
