@@ -4,13 +4,13 @@ define nfs::functions::nfsv4_bindmount (
   $ensure = 'mounted'
 ) {
   $expdir = "${nfs::server::nfs_v4_export_root}/${v4_export_name}"
-  mkdir_p { $expdir: }
+  nfs::functions::mkdir { $expdir: }
   mount { $expdir:
     ensure  => $ensure,
     device  => $name,
     atboot  => true,
     fstype  => 'none',
     options => $bind,
-    require => Mkdir_p[$expdir],
+    require => Nfs::Functions::Mkdir[$expdir],
   }
 }
