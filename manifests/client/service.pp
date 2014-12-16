@@ -24,23 +24,8 @@
 
 class nfs::client::service {
 
-  define ensureService(
-    $name       = undef,
-    $ensure     = stopped,
-    $enable     = false,
-    $hasrestart = false,
-    $hasstatus  = false
-  ){
-    service { $name:
-      ensure     => $ensure,
-      enable     => $enable,
-      hasrestart => $hasrestart,
-      hasstatus  => $hasstatusbe
-    }
-  }
-
   if $::nfs::nfs_v4 == true {
-    ensureService { $::nfs::client_nfsv4_services:
+    nfs::functions::ensure_service { $::nfs::client_nfsv4_services:
       ensure     => $::nfs::client_service_ensure,
       enable     => $::nfs::client_service_enable,
       hasrestart => $::nfs::client_service_hasrestart,
@@ -48,7 +33,7 @@ class nfs::client::service {
       subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ]
       }
   } else {
-    ensureService { $::nfs::client_services:
+    nfs::functions::ensure_service { $::nfs::client_services:
       ensure     => $::nfs::client_service_ensure,
       enable     => $::nfs::client_service_enable,
       hasrestart => $::nfs::client_services_hasrestart,
