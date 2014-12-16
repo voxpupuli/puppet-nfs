@@ -33,7 +33,9 @@ This will export /data/folder on the server and automagically mount it on client
 
 <pre>
   node server {
-    include nfs::server
+    class { '::nfs':
+      server => true
+    }
     nfs::server::export{ '/data_folder':
       ensure  => 'mounted',
       clients => '10.0.0.0/24(rw,insecure,async,no_root_squash) localhost(rw)'
@@ -42,7 +44,9 @@ This will export /data/folder on the server and automagically mount it on client
   # By default, mounts are mounted in the same folder on the clients as
   # they were exported from on the server
   node client {
-    include nfs::client
+    class { '::nfs':
+          client => true
+    }
     Nfs::Client::Mount &lt;&lt;| |&gt;&gt;
   }
 
@@ -54,7 +58,9 @@ This will export /data/folder on the server and automagically mount it on client
 
 <pre>
   node server1 {
-    include nfs::server
+    class { '::nfs':
+      server => true
+    }
     nfs::server::export{
       '/data_folder':
         ensure  => 'mounted',
