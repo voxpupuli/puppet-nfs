@@ -64,7 +64,6 @@ class nfs::params {
   # packages - ensure
   case $::operatingsystem {
     'Debian, Ubuntu': {
-      $server_package
       $server_packages = [ 'nfs-common', 'nfs-kernel-server', 'nfs4-acl-tools' ]
       $client_packages = [ 'nfs-common', 'nfs4-acl-tools' ]
     }

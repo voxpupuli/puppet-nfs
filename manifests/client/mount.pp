@@ -36,33 +36,6 @@ define nfs::client::mount (
   $nfs_v4           = $nfs::nfs_v4
 ){
 
-  define mkdir_p () {
-    exec { "mkdir_recurse_${name}":
-      path => [ '/bin', '/usr/bin' ],
-      command => "mkdir -p ${name}",
-      unless => "test -d ${name}"
-    }
-    file { $name:
-      ensure  => directory,
-      require => Exec["mkdir_recurse_${name}"]
-    }
-  }
-
-  define bindmount (
-    $mount_name = undef,
-    $ensure = 'present'
-  ) {
-    mkdir_p { $mount_name: }
-    mount { $mount_name:
-      ensure  => $ensure,
-      device  => $name,
-      atboot  => true,
-      fstype  => 'none',
-      options => 'rw,bind',
-      require => Mkdir_p[$mount_name]
-    }
-  }
-
   if $nfs::nfs_v4 == true {
     if $mount == undef {
       $mountname = "${nfs::client::nfs_v4_mount_root}/${share}"
@@ -70,7 +43,7 @@ define nfs::client::mount (
       $mountname = $mount
     }
 
-    mkdir_p { $mountname: }
+    nfs::client::mkdir_p { $mountname: }
     mount { "shared ${share} by ${::clientcert} on ${mountname}":
       ensure   => $ensure,
       device   => "${server}:/${share}",
@@ -79,11 +52,11 @@ define nfs::client::mount (
       options  => $options_nfsv4,
       remounts => $remounts,
       atboot   => $atboot,
-      require  => Mkdir_p[$mountname]
+      require  => Nfs::Client::Mkdir_p[$mountname]
     }
 
     if $bindmount != undef {
-      bindmount { $mountname:
+      nfs::client::bindmount { $mountname:
         ensure     => $ensure,
         mount_name => $bindmount
       }
@@ -95,7 +68,7 @@ define nfs::client::mount (
       $mountname = $mount
     }
 
-    mkdir_p { $mountname: }
+    nfs::client::mkdir_p { $mountname: }
     mount { "shared ${share} by ${::clientcert} on ${mountname}":
       ensure   => $ensure,
       device   => "${server}:${share}",
@@ -104,7 +77,7 @@ define nfs::client::mount (
       options  => $options_nfs,
       remounts => $remounts,
       atboot   => $atboot,
-      require  => Mkdir_p[$mountname]
+      require  => Nfs::Client::Mkdir_p[$mountname]
     }
   }
 }
