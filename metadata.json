@@ -1,0 +1,14 @@
+{
+  "name": "derdanne-nfs",
+  "version": "0.0.1",
+  "source": "git clone https://github.com/derdanne/puppet-nfs.git",
+  "author": "derdanne",
+  "license": "Apache 2.0",
+  "summary": "Installs and configures NFS server and clients",
+  "project_page": "https://github.com/derdanne/puppet-nfs",
+  "issues_url": "https://github.com/derdanne/puppet-nfs/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 3.2.0"},
+    {"name":"puppetlabs-concat","version_requirement":">= 1.1.1"}
+  ]
+}
