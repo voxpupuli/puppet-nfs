@@ -37,7 +37,7 @@
       <file leaf-file-name="params.pp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/manifests/params.pp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="0" selection-start="2688" selection-end="2749" vertical-scroll-proportion="0.0" vertical-offset="864" max-vertical-offset="2502">
+            <state line="66" column="0" selection-start="1683" selection-end="1683" vertical-scroll-proportion="0.0" vertical-offset="1134" max-vertical-offset="2484">
               <folding />
             </state>
           </provider>
@@ -46,16 +46,16 @@
       <file leaf-file-name="client.pp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/manifests/client.pp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="3" selection-start="586" selection-end="586" vertical-scroll-proportion="0.0" vertical-offset="94" max-vertical-offset="1170">
+            <state line="45" column="20" selection-start="891" selection-end="891" vertical-scroll-proportion="0.0" vertical-offset="448" max-vertical-offset="1656">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="export.pp" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="export.pp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/manifests/server/export.pp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="0" selection-start="1412" selection-end="1412" vertical-scroll-proportion="0.0" vertical-offset="1224" max-vertical-offset="2322">
+            <state line="49" column="31" selection-start="1139" selection-end="1139" vertical-scroll-proportion="0.25084364" vertical-offset="659" max-vertical-offset="1548">
               <folding />
             </state>
           </provider>
@@ -82,7 +82,7 @@
       <file leaf-file-name="package.pp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/manifests/server/package.pp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="1" selection-start="360" selection-end="360" vertical-scroll-proportion="0.0" vertical-offset="396" max-vertical-offset="612">
+            <state line="22" column="1" selection-start="360" selection-end="360" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
               <folding />
             </state>
           </provider>
@@ -100,7 +100,7 @@
       <file leaf-file-name="server.pp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/manifests/server.pp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="0" selection-start="1105" selection-end="1261" vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="1350">
+            <state line="80" column="5" selection-start="1875" selection-end="1875" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2106">
               <folding />
             </state>
           </provider>
@@ -127,13 +127,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="131" selection-start="647" selection-end="647" vertical-scroll-proportion="0.3392226" vertical-offset="0" max-vertical-offset="4824">
+            <state line="59" column="16" selection-start="1570" selection-end="1570" vertical-scroll-proportion="-20.11111" vertical-offset="519" max-vertical-offset="4932">
               <folding />
             </state>
           </provider>
@@ -238,7 +238,7 @@
       <file leaf-file-name="mount.pp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/manifests/client/mount.pp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="26" selection-start="384" selection-end="384" vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="2088">
+            <state line="79" column="38" selection-start="1956" selection-end="1956" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1602">
               <folding />
             </state>
           </provider>
@@ -277,14 +277,11 @@
       <list>
         <option value="$PROJECT_DIR$/manifests/package.pp" />
         <option value="$PROJECT_DIR$/manifests/service.pp" />
-        <option value="$PROJECT_DIR$/manifests/params.pp" />
         <option value="$PROJECT_DIR$/manifests/init.pp" />
-        <option value="$PROJECT_DIR$/manifests/server/export.pp" />
         <option value="$PROJECT_DIR$/manifests/server/package.pp" />
         <option value="$PROJECT_DIR$/manifests/server/service.pp" />
         <option value="$PROJECT_DIR$/manifests/client/service.pp" />
         <option value="$PROJECT_DIR$/manifests/client/package.pp" />
-        <option value="$PROJECT_DIR$/manifests/client/mount.pp" />
         <option value="$PROJECT_DIR$/manifests/client/config.pp" />
         <option value="$PROJECT_DIR$/manifests/server/config.pp" />
         <option value="$PROJECT_DIR$/LICENSE" />
@@ -293,8 +290,6 @@
         <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/.fixtures.yml" />
-        <option value="$PROJECT_DIR$/manifests/server.pp" />
-        <option value="$PROJECT_DIR$/manifests/client.pp" />
         <option value="$PROJECT_DIR$/spec/classes/server_redhat_spec.rb" />
         <option value="$PROJECT_DIR$/spec/classes/server_gentoo_spec.rb" />
         <option value="$PROJECT_DIR$/spec/classes/server_debian_spec.rb" />
@@ -303,6 +298,13 @@
         <option value="$PROJECT_DIR$/spec/classes/client_gentoo_spec.rb" />
         <option value="$PROJECT_DIR$/spec/classes/client_spec.rb" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/manifests/params.pp" />
+        <option value="$PROJECT_DIR$/manifests/client/functions.pp" />
+        <option value="$PROJECT_DIR$/manifests/client.pp" />
+        <option value="$PROJECT_DIR$/manifests/server/functions.pp" />
+        <option value="$PROJECT_DIR$/manifests/server.pp" />
+        <option value="$PROJECT_DIR$/manifests/server/export.pp" />
+        <option value="$PROJECT_DIR$/manifests/client/mount.pp" />
       </list>
     </option>
   </component>
@@ -528,7 +530,19 @@
       <created>1418742229222</created>
       <updated>1418742229222</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added travis link">
+      <created>1418742392471</created>
+      <updated>1418742392471</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added travis link">
+      <created>1418742719332</created>
+      <updated>1418742719332</updated>
+    </task>
+    <task id="LOCAL-00005" summary="bugfixes">
+      <created>1418743587905</created>
+      <updated>1418743587905</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -542,7 +556,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25772098" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25772098" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -571,19 +585,13 @@
     </option>
     <MESSAGE value="modified specs" />
     <MESSAGE value="added travis link" />
-    <option name="LAST_COMMIT_MESSAGE" value="added travis link" />
+    <MESSAGE value="bugfixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="bugfixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/manifests/server/export.pp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0" vertical-offset="414" max-vertical-offset="1260">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manifests/init.pp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="14" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="144">
@@ -765,20 +773,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/manifests/server/export.pp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="0" selection-start="1412" selection-end="1412" vertical-scroll-proportion="0.0" vertical-offset="1224" max-vertical-offset="2322">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manifests/server/package.pp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="1" selection-start="360" selection-end="360" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manifests/init.pp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="2229" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1332">
@@ -786,23 +780,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/manifests/server/config.pp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="0" selection-start="1466" selection-end="1466" vertical-scroll-proportion="0.0" vertical-offset="220" max-vertical-offset="1134">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manifests/client/config.pp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="46" selection-start="710" selection-end="710" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="882">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manifests/client/mount.pp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="26" selection-start="384" selection-end="384" vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="2088">
           <folding />
         </state>
       </provider>
@@ -866,34 +846,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/manifests/server.pp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="0" selection-start="1105" selection-end="1261" vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="1350">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manifests/client.pp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="3" selection-start="586" selection-end="586" vertical-scroll-proportion="0.0" vertical-offset="94" max-vertical-offset="1170">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manifests/server/service.pp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="28" selection-start="393" selection-end="393" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manifests/params.pp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="0" selection-start="2688" selection-end="2749" vertical-scroll-proportion="0.0" vertical-offset="864" max-vertical-offset="2502">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/spec/classes/server_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="7" selection-start="1154" selection-end="1154" vertical-scroll-proportion="-20.0" vertical-offset="0" max-vertical-offset="1566">
@@ -940,7 +892,63 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="131" selection-start="647" selection-end="647" vertical-scroll-proportion="0.3392226" vertical-offset="0" max-vertical-offset="4824">
+        <state line="59" column="16" selection-start="1570" selection-end="1570" vertical-scroll-proportion="-20.11111" vertical-offset="519" max-vertical-offset="4932">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifests/server.pp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="80" column="5" selection-start="1875" selection-end="1875" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2106">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifests/params.pp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="0" selection-start="1683" selection-end="1683" vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="2484">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifests/client.pp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="20" selection-start="891" selection-end="891" vertical-scroll-proportion="0.0" vertical-offset="448" max-vertical-offset="1656">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifests/server/package.pp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="1" selection-start="360" selection-end="360" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifests/server/service.pp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="28" selection-start="393" selection-end="393" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifests/server/config.pp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="0" selection-start="1466" selection-end="1466" vertical-scroll-proportion="0.0" vertical-offset="220" max-vertical-offset="1134">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifests/client/mount.pp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="38" selection-start="1956" selection-end="1956" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1602">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifests/server/export.pp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="31" selection-start="1139" selection-end="1139" vertical-scroll-proportion="0.25084364" vertical-offset="659" max-vertical-offset="1548">
           <folding />
         </state>
       </provider>
