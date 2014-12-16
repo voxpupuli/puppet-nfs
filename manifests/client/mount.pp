@@ -45,19 +45,19 @@ define nfs::client::mount (
 
     nfs::functions::mkdir { $mountname: }
     mount { "shared ${share} by ${::clientcert} on ${mountname}":
-      ensure   => $ensure,
-      device   => "${server}:/${share}",
-      fstype   => $nfs::client_nfsv4_fstype,
-      name     => $mountname,
-      options  => $options_nfsv4,
+      ensure => $ensure,
+      device => "${server}:/${share}",
+      fstype => $nfs::client_nfsv4_fstype,
+      name => $mountname,
+      options => $options_nfsv4,
       remounts => $remounts,
-      atboot   => $atboot,
-      require  => Nfs::Functions::Mkdir[$mountname]
+      atboot => $atboot,
+      require => Nfs::Functions::Mkdir[$mountname]
     }
 
     if $bindmount != undef {
       nfs::functions::bindmount { $mountname:
-        ensure     => $ensure,
+        ensure => $ensure,
         mount_name => $bindmount
       }
     }
@@ -70,14 +70,14 @@ define nfs::client::mount (
 
     nfs::functions::mkdir { $mountname: }
     mount { "shared ${share} by ${::clientcert} on ${mountname}":
-      ensure   => $ensure,
-      device   => "${server}:${share}",
-      fstype   => $nfs::client_nfs_fstype,
-      name     => $mountname,
-      options  => $options_nfs,
+      ensure => $ensure,
+      device => "${server}:${share}",
+      fstype => $nfs::client_nfs_fstype,
+      name => $mountname,
+      options => $options_nfs,
       remounts => $remounts,
-      atboot   => $atboot,
-      require  => Nfs::Functions::Mkdir[$mountname]
+      atboot => $atboot,
+      require => Nfs::Functions::Mkdir[$mountname]
     }
   }
 }

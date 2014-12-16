@@ -84,11 +84,11 @@ class nfs::params {
   # service parameters
   case $::operatingsystem {
     'Debian', 'Ubuntu': {
-      $server_service_name       = 'nfs-kernel-server'
-      $server_service_hasrestart = true
-      $server_service_hasstatus  = true
-      $client_services           = [ 'rpcbind' ]
-      $client_nfsv4_services     = [ 'rpcbind', 'nfs-lock' ]
+      $server_service_name        = 'nfs-kernel-server'
+      $server_service_hasrestart  = true
+      $server_service_hasstatus   = true
+      $client_services            = [ 'rpcbind' ]
+      $client_nfsv4_services      = [ 'rpcbind', 'nfs-lock' ]
       $client_services_hasrestart = true
       $client_services_hasstatus  = true
       $client_idmapd_setting      = [ 'set NEED_IDMAPD yes' ]
@@ -98,11 +98,11 @@ class nfs::params {
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
     }
     'Redhat': {
-      $server_service_name       = 'nfs'
-      $server_service_hasrestart = true
-      $server_service_hasstatus  = true
-      $client_services           = [ 'rpcbind' ]
-      $client_nfsv4_services     = [ 'rpcbind', 'idmapd' ]
+      $server_service_name        = 'nfs'
+      $server_service_hasrestart  = true
+      $server_service_hasstatus   = true
+      $client_services            = [ 'rpcbind' ]
+      $client_nfsv4_services      = [ 'rpcbind', 'idmapd' ]
       $client_services_hasrestart = true
       $client_services_hasstatus  = true
       $client_idmapd_setting      = undef
@@ -112,11 +112,11 @@ class nfs::params {
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
     }
     'Gentoo': {
-      $server_service_name       = 'nfs'
-      $server_service_hasrestart = true
-      $server_service_hasstatus  = true
-      $client_services           = [ 'rpcbind' ]
-      $client_nfsv4_services     = [ 'rpcbind', 'rpc.idmapd' ]
+      $server_service_name        = 'nfs'
+      $server_service_hasrestart  = true
+      $server_service_hasstatus   = true
+      $client_services            = [ 'rpcbind' ]
+      $client_nfsv4_services      = [ 'rpcbind', 'rpc.idmapd' ]
       $client_services_hasrestart = true
       $client_services_hasstatus  = true
       $client_idmapd_setting      = [ 'set NFS_NEEDED_SERVICES rpc.idmapd' ]

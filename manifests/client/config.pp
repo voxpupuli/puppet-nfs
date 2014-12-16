@@ -34,8 +34,8 @@ class nfs::client::configure{
     if $nfs::idmapd_file != undef {
       augeas { $nfs::idmapd_file:
         context => "/files/${nfs::idmapd_file}/General",
-        lens => 'Puppet.lns',
-        incl => $nfs::idmapd_file,
+        lens    => 'Puppet.lns',
+        incl    => $nfs::idmapd_file,
         changes => ["set Domain ${nfs::client::debian::nfs_v4_idmap_domain}"];
       }
     }
