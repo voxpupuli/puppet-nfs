@@ -35,7 +35,7 @@ class nfs::client::service {
       ensure => $ensure,
       enable => $enable,
       hasrestart => $hasrestart,
-      hasstatus => $hasstatus
+      hasstatus => $hasstatusbe
     }
   }
 
