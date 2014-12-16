@@ -43,7 +43,7 @@ define nfs::client::mount (
       $mountname = $mount
     }
 
-    nfs::client::mkdir_p { $mountname: }
+    nfs::functions::mkdir { $mountname: }
     mount { "shared ${share} by ${::clientcert} on ${mountname}":
       ensure   => $ensure,
       device   => "${server}:/${share}",
@@ -52,11 +52,11 @@ define nfs::client::mount (
       options  => $options_nfsv4,
       remounts => $remounts,
       atboot   => $atboot,
-      require  => Nfs::Client::Mkdir_p[$mountname]
+      require  => Nfs::Functions::Mkdir[$mountname]
     }
 
     if $bindmount != undef {
-      nfs::client::bindmount { $mountname:
+      nfs::functions::bindmount { $mountname:
         ensure     => $ensure,
         mount_name => $bindmount
       }
@@ -68,7 +68,7 @@ define nfs::client::mount (
       $mountname = $mount
     }
 
-    nfs::client::mkdir_p { $mountname: }
+    nfs::functions::mkdir { $mountname: }
     mount { "shared ${share} by ${::clientcert} on ${mountname}":
       ensure   => $ensure,
       device   => "${server}:${share}",
@@ -77,7 +77,7 @@ define nfs::client::mount (
       options  => $options_nfs,
       remounts => $remounts,
       atboot   => $atboot,
-      require  => Nfs::Client::Mkdir_p[$mountname]
+      require  => Nfs::Functions::Mkdir[$mountname]
     }
   }
 }

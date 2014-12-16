@@ -41,33 +41,6 @@ class nfs::client (
   # service(s)
   class { 'nfs::client::service': }
 
-  define mkdir_p () {
-    exec { "mkdir_recurse_${name}":
-      path => [ '/bin', '/usr/bin' ],
-      command => "mkdir -p ${name}",
-      unless => "test -d ${name}"
-    }
-    file { $name:
-      ensure  => directory,
-      require => Exec["mkdir_recurse_${name}"]
-    }
-  }
-
-  define bindmount (
-    $mount_name = undef,
-    $ensure = 'present'
-  ) {
-    mkdir_p { $mount_name: }
-    mount { $mount_name:
-      ensure  => $ensure,
-      device  => $name,
-      atboot  => true,
-      fstype  => 'none',
-      options => 'rw,bind',
-      require => Mkdir_p[$mount_name]
-    }
-  }
-
   if $ensure == 'present' {
     # we need the software before configuring it
     Anchor['nfs::client::begin']

@@ -39,15 +39,15 @@ define nfs::server::export(
 ){
 
   if $nfs::server::nfs_v4 {
-    nfs::server::nfsv4_bindmount { $name:
+    nfs::functions::nfsv4_bindmount { $name:
       ensure => $ensure,
       v4_export_name => $v4_export_name,
       bind => $bind
     }
-    nfs::server::createExport { "${nfs::server::nfs_v4_export_root}/${v4_export_name}":
+    nfs::functions::create_export { "${nfs::server::nfs_v4_export_root}/${v4_export_name}":
       ensure  => $ensure,
       clients => $clients,
-      require => Nfs::Server::Nfsv4_bindmount[$name]
+      require => Nfs::Functions::Nfsv4_bindmount[$name]
     }
 
     @@nfs::client::mount {"shared ${v4_export_name} by ${::clientcert}":
