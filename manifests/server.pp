@@ -41,6 +41,16 @@ class nfs::server (
   anchor {'nfs::server::begin': }
   anchor {'nfs::server::end': }
 
+  # package(s)
+  class { 'nfs::server::package': }
+
+  # configuration
+  class { 'nfs::server::config': }
+
+  # service(s)
+  class { 'nfs::server::service': }
+
+
   if $ensure == 'present' {
     # we need the software before configuring it
     Anchor['nfs::server::begin']
