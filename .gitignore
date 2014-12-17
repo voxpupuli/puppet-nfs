@@ -1,1 +1,5 @@
 .idea
+Gemfile.lock
+.bundle
+fixtures/manifests/*
+fixtures/modules/*
