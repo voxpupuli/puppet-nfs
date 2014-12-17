@@ -103,6 +103,7 @@ describe 'nfs' do
       end
     end
     context "operatingsysten => debian" do
+      let(:params) {{ :client_enabled => true, :server_enabled => false  }}
       let(:facts) { {:operatingsystem => 'ubuntu', :concat_basedir => '/tmp', } }
       it { should contain_class('nfs::client::config') }
       it { should contain_class('nfs::client::package') }
@@ -126,6 +127,7 @@ describe 'nfs' do
       end
     end
     context "operatingsysten => redhat" do
+      let(:params) {{ :client_enabled => true, :server_enabled => false  }}
       let(:facts) { {:operatingsystem => 'redhat', :concat_basedir => '/tmp', } }
       it { should contain_class('nfs::client::config') }
       it { should contain_class('nfs::client::package') }
@@ -156,7 +158,8 @@ describe 'nfs' do
       end
     end
     context "operatingsysten => gentoo" do
-      let(:facts) { {:operatingsystem => 'gentoo', :concat_basedir => '/tmp',  :client_enabled => true } }
+      let(:params) {{ :client_enabled => true, :server_enabled => false  }}
+      let(:facts) { {:operatingsystem => 'gentoo', :concat_basedir => '/tmp' } }
       it { should contain_class('nfs::client::config') }
       it { should contain_class('nfs::client::package') }
       it { should contain_class('nfs::client::service') }
@@ -179,12 +182,5 @@ describe 'nfs' do
         end
       end
     end
-  end
-  context "operatingsysten => gentoo" do
-    let(:facts) { {:operatingsystem => 'ubuntu', :concat_basedir => '/tmp', } }
-    let(:params) { { :nfs_v4 => true, :client_enabled => true, } }
-    it { should contain_class('nfs::client::config') }
-    it { should contain_class('nfs::client::package') }
-    it { should contain_class('nfs::client::service') }
   end
 end
