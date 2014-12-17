@@ -95,6 +95,7 @@ describe 'nfs' do
     end
     context ":nfs_v4 => true" do
       let(:params) {{ :nfs_v4 => true }}
+      it do
         should contain_augeas('/etc/default/nfs-common')
         should contain_augeas('/etc/idmapd.conf')
         should contain_service('rpcbind').with(
