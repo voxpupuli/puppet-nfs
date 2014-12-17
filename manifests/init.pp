@@ -27,7 +27,7 @@ class nfs(
   $ensure                     = present,
   $server                     = false,
   $client                     = false,
-  $nfs_v4                     = $::nfs::params::nfs_v4,
+  $nfs_v4                     = false,
   $status                     = $::nfs::params::status,
   $exports_file               = $::nfs::params::exports_file,
   $idmapd_file                = $::nfs::params::idmapd_file,
