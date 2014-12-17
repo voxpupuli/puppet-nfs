@@ -9,6 +9,6 @@ define nfs::functions::ensure_service(
     ensure     => $ensure,
     enable     => $enable,
     hasrestart => $hasrestart,
-    hasstatus  => $hasstatusbe
+    hasstatus  => $hasstatus
   }
 }

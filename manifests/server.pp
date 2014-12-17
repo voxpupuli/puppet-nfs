@@ -24,11 +24,11 @@
 #
 
 class nfs::server (
-  $ensure                       = $nfs::params::ensure,
-  $nfs_v4                       = $nfs::params::nfs_v4,
-  $nfs_v4_export_root           = $nfs::params::nfs_v4_export_root,
-  $nfs_v4_export_root_clients   = $nfs::params::nfs_v4_export_root_clients,
-  $nfs_v4_idmap_domain          = $nfs::params::nfs_v4_idmap_domain,
+  $ensure                       = $nfs::ensure,
+  $nfs_v4                       = $nfs::nfs_v4,
+  $nfs_v4_export_root           = $nfs::nfs_v4_export_root,
+  $nfs_v4_export_root_clients   = $nfs::nfs_v4_export_root_clients,
+  $nfs_v4_idmap_domain          = $nfs::nfs_v4_idmap_domain,
   $nfs_v4_root_export_ensure    = 'mounted',
   $nfs_v4_root_export_mount     = undef,
   $nfs_v4_root_export_remounts  = false,

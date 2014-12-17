@@ -22,7 +22,7 @@
 # * Daniel Klockenkämper <mailto:dk@marketing-factory.de>
 #
 
-class nfs::client::configure{
+class nfs::client::config {
 
   if $nfs::nfs_v4 == true {
     if $nfs::defaults_file != undef {

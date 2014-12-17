@@ -24,9 +24,10 @@
 #
 
 class nfs::client (
-  $nfs_v4              = $::nfs::params::nfs_v4,
-  $nfs_v4_mount_root   = $::nfs::params::nfs_v4_mount_root,
-  $nfs_v4_idmap_domain = $::nfs::params::nfs_v4_idmap_domain
+  $ensure              = $::nfs::ensure,
+  $nfs_v4              = $::nfs::nfs_v4,
+  $nfs_v4_mount_root   = $::nfs::nfs_v4_mount_root,
+  $nfs_v4_idmap_domain = $::nfs::nfs_v4_idmap_domain
 ) {
 
   anchor {'nfs::client::begin': }

@@ -27,7 +27,7 @@ class nfs(
   $ensure                     = present,
   $server                     = false,
   $client                     = false,
-  $nfs_v4                     = true,
+  $nfs_v4                     = $::nfs::params::nfs_v4,
   $status                     = $::nfs::params::status,
   $exports_file               = $::nfs::params::exports_file,
   $idmapd_file                = $::nfs::params::idmapd_file,
@@ -47,7 +47,11 @@ class nfs(
   $client_nfs_fstype          = $::nfs::params::client_nfs_fstype,
   $client_nfs_options         = $::nfs::params::client_nfs_options,
   $client_nfsv4_fstype        = $::nfs::params::client_nfsv4_fstype,
-  $client_nfsv4_options       = $::nfs::params::client_nfsv4_options
+  $client_nfsv4_options       = $::nfs::params::client_nfsv4_options,
+  $nfs_v4_export_root         = $::nfs::params::nfs_v4_export_root,
+  $nfs_v4_export_root_clients = $::nfs::params::nfs_v4_export_root_clients,
+  $nfs_v4_mount_root          = $::nfs::params::nfs_v4_mount_root,
+  $nfs_v4_idmap_domain        = $::nfs::params::nfs_v4_idmap_domain
 ) {
 
   validate_bool($server)
