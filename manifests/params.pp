@@ -38,7 +38,7 @@ class nfs::params {
 
   # Different path definitions
   case $::operatingsystem {
-    'Debian, Ubuntu': {
+    'Debian', 'Ubuntu': {
       $exports_file   = '/etc/exports'
       $idmapd_file    = '/etc/idmapd.conf'
       $defaults_file  = '/etc/default/nfs-common'
@@ -62,7 +62,7 @@ class nfs::params {
 
   # packages - ensure
   case $::operatingsystem {
-    'Debian, Ubuntu': {
+  'Debian', 'Ubuntu': {
       $server_packages = [ 'nfs-common', 'nfs-kernel-server', 'nfs4-acl-tools', 'rpcbind' ]
       $client_packages = [ 'nfs-common', 'nfs4-acl-tools' ]
     }
@@ -86,8 +86,9 @@ class nfs::params {
       $server_service_name        = 'nfs-kernel-server'
       $server_service_hasrestart  = true
       $server_service_hasstatus   = true
-      $client_services            = [ 'rpcbind' ]
-      $client_nfsv4_services      = [ 'rpcbind', 'nfs-lock' ]
+      $server_nfsv4_servicehelper = 'idmapd'
+      $client_services            = { 'rpcbind' => {} }
+      $client_nfsv4_services      = { 'rpcbind' => {}, 'nfs-lock' => {}, 'idmapd' => {} }
       $client_services_hasrestart = true
       $client_services_hasstatus  = true
       $client_idmapd_setting      = [ 'set NEED_IDMAPD yes' ]
@@ -100,8 +101,9 @@ class nfs::params {
       $server_service_name        = 'nfs'
       $server_service_hasrestart  = true
       $server_service_hasstatus   = true
-      $client_services            = [ 'rpcbind' ]
-      $client_nfsv4_services      = [ 'rpcbind', 'idmapd' ]
+      $server_nfsv4_servicehelper = 'idmapd'
+      $client_services            = { 'rpcbind' => {} }
+      $client_nfsv4_services      = { 'rpcbind' => {}, 'idmapd' => {} }
       $client_services_hasrestart = true
       $client_services_hasstatus  = true
       $client_idmapd_setting      = undef
@@ -114,8 +116,9 @@ class nfs::params {
       $server_service_name        = 'nfs'
       $server_service_hasrestart  = true
       $server_service_hasstatus   = true
-      $client_services            = [ 'rpcbind' ]
-      $client_nfsv4_services      = [ 'rpcbind', 'rpc.idmapd' ]
+      $server_nfsv4_servicehelper = 'rpc.idmapd'
+      $client_services            = { 'rpcbind' => {} }
+      $client_nfsv4_services      = { 'rpcbind' => {}, 'rpc.idmapd' => {} }
       $client_services_hasrestart = true
       $client_services_hasstatus  = true
       $client_idmapd_setting      = [ 'set NFS_NEEDED_SERVICES rpc.idmapd' ]
@@ -128,5 +131,15 @@ class nfs::params {
       fail("\"${module_name}\" provides no service parameters
             for \"${::operatingsystem}\"")
     }
+  }
+
+  if $::nfs::server_enabled {
+    $effective_client_packages       = difference($client_packages, $server_packages)
+    $effective_nfsv4_client_services = delete($client_nfsv4_services, $server_nfsv4_servicehelper)
+    $effective_client_services       = $client_services
+  } else {
+    $effective_client_packages       = $client_packages
+    $effective_nfsv4_client_services = $client_nfsv4_services
+    $effective_client_services       = $client_services
   }
 }

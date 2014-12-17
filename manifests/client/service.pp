@@ -24,21 +24,23 @@
 
 class nfs::client::service {
 
-  if $::nfs::nfs_v4 == true {
-    nfs::functions::ensure_service { $::nfs::client_nfsv4_services:
-      ensure     => $::nfs::client_service_ensure,
-      enable     => $::nfs::client_service_enable,
-      hasrestart => $::nfs::client_service_hasrestart,
-      hasstatus  => $::nfs::client_service_hasstatus,
-      subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ]
-      }
-  } else {
-    nfs::functions::ensure_service { $::nfs::client_services:
-      ensure     => $::nfs::client_service_ensure,
-      enable     => $::nfs::client_service_enable,
+  if $::nfs::nfs_v4 {
+    $service_defaults = {
+      ensure     => running,
+      enable     => true,
       hasrestart => $::nfs::client_services_hasrestart,
-      hasstatus  => $::nfs::client_services_hasrestart,
+      hasstatus  => $::nfs::client_services_hasstatus,
+      subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ]
+    }
+    create_resources('service', $::nfs::effective_nfsv4_client_services, $service_defaults )
+  } else {
+    $service_defaults = {
+      ensure     => running,
+      enable     => true,
+      hasrestart => $::nfs::client_services_hasrestart,
+      hasstatus  => $::nfs::client_services_hasstatus,
       subscribe  => [ Concat[$::nfs::exports_file] ]
     }
+    create_resources('service', $::nfs::effective_client_services, $service_defaults )
   }
 }

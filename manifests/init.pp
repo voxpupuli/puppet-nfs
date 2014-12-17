@@ -25,8 +25,8 @@
 
 class nfs(
   $ensure                     = present,
-  $server                     = false,
-  $client                     = false,
+  $server_enabled             = false,
+  $client_enabled             = false,
   $nfs_v4                     = false,
   $status                     = $::nfs::params::status,
   $exports_file               = $::nfs::params::exports_file,
@@ -39,6 +39,7 @@ class nfs(
   $server_service_enable      = true,
   $server_service_hasrestart  = $::nfs::params::server_service_hasrestart,
   $server_service_hasstatus   = $::nfs::params::server_service_hasstatus,
+  $server_nfsv4_servicehelper = $::nfs::params::server_nfsv4_servicehelper,
   $client_services            = $::nfs::params::client_services,
   $client_nfsv4_services      = $::nfs::params::client_nfsv4_services,
   $client_services_hasrestart = $::nfs::params::client_services_hasrestart,
@@ -52,22 +53,16 @@ class nfs(
   $nfs_v4_export_root_clients = $::nfs::params::nfs_v4_export_root_clients,
   $nfs_v4_mount_root          = $::nfs::params::nfs_v4_mount_root,
   $nfs_v4_idmap_domain        = $::nfs::params::nfs_v4_idmap_domain
-) {
+) inherits nfs::params {
 
-  validate_bool($server)
-  validate_bool($client)
+  validate_bool($server_enabled)
+  validate_bool($client_enabled)
   validate_bool($nfs_v4)
 
-  if $server == true {
-    include nfs::server
+  if $server_enabled {
+    class { '::nfs::server': }
   }
-
-  if $client == true {
-    if $server == true {
-      $effective_client_packages = difference($client_packages, $server_packages)
-    } else {
-      $effective_client_packages = $client_packages
-    }
-    include nfs::client
+  if $client_enabled {
+    class { '::nfs::client': }
   }
 }

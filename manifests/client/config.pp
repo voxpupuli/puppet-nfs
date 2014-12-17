@@ -1,4 +1,4 @@
-# == Class: nfs::client::service
+# == Class: nfs::client::config
 #
 # This Function exists to
 #  1. configure nfs as a client
@@ -24,7 +24,7 @@
 
 class nfs::client::config {
 
-  if $::nfs::nfs_v4 == true {
+  if $::nfs::nfs_v4 {
     if $::nfs::defaults_file != undef {
       augeas { $::nfs::defaults_file:
         context => "/files/${::nfs::defaults_file}",
