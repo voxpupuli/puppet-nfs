@@ -63,16 +63,16 @@ class nfs::params {
   # packages - ensure
   case $::operatingsystem {
     'Debian, Ubuntu': {
-      $server_packages = [ 'nfs-common', 'nfs-kernel-server', 'nfs4-acl-tools' ]
+      $server_packages = [ 'nfs-common', 'nfs-kernel-server', 'nfs4-acl-tools', 'rpcbind' ]
       $client_packages = [ 'nfs-common', 'nfs4-acl-tools' ]
     }
     'Redhat': {
-      $server_packages = [ 'nfs-utils', 'nfs4-acl-tools', 'rpcbind', 'portmap' ]
-      $client_packages = $server_packages
+      $server_packages = [ 'nfs-utils', 'nfs4-acl-tools', 'rpcbind' ]
+      $client_packages = [ 'nfs-utils', 'nfs4-acl-tools', 'rpcbind' ]
     }
     'Gentoo': {
       $server_packages = ['net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap']
-      $client_packages = $server_packages
+      $client_packages = ['net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap']
     }
     default: {
       fail("\"${module_name}\" provides no package default value
