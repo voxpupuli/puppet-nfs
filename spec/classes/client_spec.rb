@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-describe 'nfs::client' do
+describe 'nfs' do
+  let(:params) {{:client => true}}
   context "operatingsysten => ubuntu" do
     let(:facts) { {:operatingsystem => 'ubuntu', } }
     it { should contain_class('nfs::client::config') }

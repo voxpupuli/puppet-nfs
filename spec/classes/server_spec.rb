@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-describe 'nfs::server' do
+describe 'nfs' do
+  let(:params) {{:server => true}}
   let(:facts) { {:operatingsystem => 'ubuntu', :concat_basedir => '/tmp', } }
   it do
     should contain_concat__fragment('nfs_exports_header').with( 'target' => '/etc/exports' )
@@ -19,7 +20,6 @@ describe 'nfs::server' do
     it { should contain_class('nfs::server::package') }
     it { should contain_class('nfs::server::service') }
     it do
-      should contain_class('nfs::client::debian')
       should contain_package('nfs-kernel-server')
       should contain_service('nfs-kernel-server').with( 'ensure' => 'running'  )
     end
@@ -36,7 +36,6 @@ describe 'nfs::server' do
     it { should contain_class('nfs::server::package') }
     it { should contain_class('nfs::server::service') }
     it do
-      should contain_class('nfs::client::debian')
       should contain_package('nfs-kernel-server')
       should contain_service('nfs-kernel-server').with( 'ensure' => 'running'  )
     end
@@ -68,7 +67,6 @@ describe 'nfs::server' do
     it { should contain_class('nfs::server::package') }
     it { should contain_class('nfs::server::service') }
     it do
-      should contain_class('nfs::client::gentoo')
       should contain_service('nfs').with( 'ensure' => 'running'  )
     end
     context ":nfs_v4 => true" do
