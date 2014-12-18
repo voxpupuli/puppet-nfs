@@ -52,8 +52,8 @@ class nfs::server::config {
     }
 
     @@nfs::client::mount { $::nfs::nfs_v4_mount_root:
-      server        => $::clientcert,
       ensure        => $::nfs::server::nfs_v4_root_export_ensure,
+      server        => $::clientcert,
       remounts      => $::nfs::server::nfs_v4_root_export_remounts,
       atboot        => $::nfs::server::nfs_v4_root_export_atboot,
       options_nfsv4 => $::nfs::server::nfs_v4_root_export_options,

@@ -23,10 +23,10 @@
 #
 
 define nfs::client::mount (
-  $ensure           = 'mounted',
-  $mount            = $title,
   $server,
   $share,
+  $ensure           = 'mounted',
+  $mount            = $title,
   $remounts         = false,
   $atboot           = false,
   $options_nfsv4    = $::nfs::client_nfsv4_options,
