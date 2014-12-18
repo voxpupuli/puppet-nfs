@@ -14,6 +14,18 @@
 
 This module installs, configures and manages everything on NFS clients and servers.
 
+This module is a complete refactor of the module haraldsk/nfs, because Harald Skoglund sadly is not
+maintaining his module actively anymore. It is stripped down to use only the class 'nfs'
+and parametrized to act as a server, client or both with the parameters 'server_enabled'
+and 'client_enabled'. It also has some dependencies on newer stdlib functions like 'difference'.
+
+It supports Ubuntu, Debian, Redhat 7 and Gentoo. This module needs a lot more testing right now.
+Feedback, bugreports, and feature requests are always welcome, visit https://github.com/derdanne/puppet-nfs
+or send me an email.
+
+If you want to contribute, please do a fork on github, create a branch "feature name" with your
+features and do a pull request.
+
 Github Master: [![Build Status](https://secure.travis-ci.org/derdanne/puppet-nfs.png?branch=master)](https://travis-ci.org/derdanne/puppet-nfs)
 
 ##Module Description
@@ -266,18 +278,20 @@ This will export /data/folder on the server and automagically mount it on client
 
 ###Modules needed:
 
-stdlib by puppetlabs
-concat by puppetlabs
+puppetlabs/stdlib >= 4.5.0
+puppetlabs/concat >= 1.1.2
 
 ###Software versions needed:
 
 facter > 1.6.2
-puppet > 2.6.2
+puppet > 3.2.0
 
 ##Limitations
 
 ##Contributing
 
-Derdanne modules are open projects. So if you want to make this module even better, you can contribute to this module on [Github](https://github.com/derdanne/puppet-nfs).
+Derdanne modules are open projects. So if you want to make this module even better,
+you can contribute to this module on [Github](https://github.com/derdanne/puppet-nfs).
 
-This module based on Harald Skoglund <haraldsk@redpill-linpro.com> from https://github.com/haraldsk/puppet-module-nfs/ but has been fundementally refactored
+This module based on Harald Skoglund <haraldsk@redpill-linpro.com> from
+https://github.com/haraldsk/puppet-module-nfs/ but has been fundementally refactored

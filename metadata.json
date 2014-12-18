@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "source": "git clone https://github.com/derdanne/puppet-nfs.git",
   "author": "derdanne",
-  "license": "Apache 2.0",
+  "license": "Apache License, Version 2.0",
   "summary": "Installs and configures NFS server and clients",
   "project_page": "https://github.com/derdanne/puppet-nfs",
   "issues_url": "https://github.com/derdanne/puppet-nfs/issues",
@@ -43,6 +43,12 @@
       "operatingsystemrelease": [
         "*"
       ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">=2.7.20 <4.0.0"
     }
   ]
 }
