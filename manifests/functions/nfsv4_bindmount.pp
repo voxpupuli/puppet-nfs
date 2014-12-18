@@ -1,3 +1,27 @@
+# == Function: nfs::functions::nfsv4_bindmount
+#
+# This Function exists to
+#  1. manage bindmounts for nfs4
+#
+# === Parameters
+#
+# TODO: has to be filled
+#
+# === Examples
+#
+# TODO: has to be filled
+#
+#
+# === Links
+#
+# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
+#
+#
+# === Authors
+#
+# * Daniel Klockenkämper <mailto:dk@marketing-factory.de>
+#
+
 define nfs::functions::nfsv4_bindmount (
   $v4_export_name,
   $bind,

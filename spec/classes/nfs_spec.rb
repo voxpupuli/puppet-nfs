@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe 'nfs' do
+describe 'nfs', :type => 'class' do
   context "server => true" do
-    let(:params) {{ :server_enabled => true }}
+    let :params do {
+      :server_enabled => true
+    } end
     let(:facts) { {:operatingsystem => 'ubuntu', :concat_basedir => '/tmp', } }
-    it do
-      should contain_concat__fragment('nfs_exports_header').with( 'target' => '/etc/exports' )
-    end
+    it { should contain_concat__fragment('nfs_exports_header').with( 'target' => '/etc/exports' ) }
     context "nfs_v4 => true" do
       let(:params) { {:nfs_v4 => true, :server_enabled => true } }
       it { should contain_concat__fragment('nfs_exports_root').with( 'target' => '/etc/exports' ) }
