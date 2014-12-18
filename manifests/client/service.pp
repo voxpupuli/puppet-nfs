@@ -32,7 +32,7 @@ class nfs::client::service {
       hasstatus  => $::nfs::client_services_hasstatus,
       subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ]
     }
-    create_resources('service', $::nfs::params::effective_nfsv4_client_services, $service_defaults )
+    create_resources('service', $::nfs::effective_nfsv4_client_services, $service_defaults )
   } else {
     $service_defaults = {
       ensure     => running,
@@ -41,6 +41,6 @@ class nfs::client::service {
       hasstatus  => $::nfs::client_services_hasstatus,
       subscribe  => [ Concat[$::nfs::exports_file] ]
     }
-    create_resources('service', $::nfs::params::effective_client_services, $service_defaults )
+    create_resources('service', $::nfs::effective_client_services, $service_defaults )
   }
 }

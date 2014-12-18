@@ -25,8 +25,8 @@
 define nfs::client::mount (
   $ensure           = 'mounted',
   $mount            = $title,
-  $server           = undef,
-  $share            = undef,
+  $server,
+  $share,
   $remounts         = false,
   $atboot           = false,
   $options_nfsv4    = $::nfs::client_nfsv4_options,
@@ -36,7 +36,7 @@ define nfs::client::mount (
   $nfs_v4           = $::nfs::nfs_v4
 ){
 
-  if $nfs::nfs_v4 == true {
+  if $nfs_v4 == true {
     if $mount == undef {
       $mountname = "${nfs::nfs_v4_mount_root}/${share}"
     } else {

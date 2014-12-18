@@ -132,14 +132,4 @@ class nfs::params {
             for \"${::operatingsystem}\"")
     }
   }
-
-  if $::nfs::server_enabled {
-    $effective_client_packages       = difference($client_packages, $server_packages)
-    $effective_nfsv4_client_services = delete($client_nfsv4_services, $server_nfsv4_servicehelper)
-    $effective_client_services       = $client_services
-  } else {
-    $effective_client_packages       = $client_packages
-    $effective_nfsv4_client_services = $client_nfsv4_services
-    $effective_client_services       = $client_services
-  }
 }

@@ -36,7 +36,7 @@ define nfs::server::export(
   $options        = '_netdev',
   $bindmount      = undef,
   $nfstag         = undef
-){
+) {
 
   if $nfs::server::nfs_v4 {
     nfs::functions::nfsv4_bindmount { $name:
@@ -61,6 +61,7 @@ define nfs::server::export(
       server        => $::clientcert,
     }
   } else {
+
     nfs::functions::create_export { $v3_export_name:
       ensure  => $ensure,
       clients => $clients,
