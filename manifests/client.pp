@@ -25,7 +25,7 @@
 
 class nfs::client (
   $ensure                     = $::nfs::ensure,
-  $nfs_v4                     = $::nfs::nfs_v4,
+  $nfs_v4                     = $::nfs::nfs_v4_client,
   $nfs_v4_mount_root          = $::nfs::nfs_v4_mount_root,
   $nfs_v4_idmap_domain        = $::nfs::nfs_v4_idmap_domain,
   $server_packages            = $::nfs::server_packages,

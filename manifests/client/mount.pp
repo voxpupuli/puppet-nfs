@@ -33,7 +33,7 @@ define nfs::client::mount (
   $options_nfs      = $::nfs::client_nfs_options,
   $bindmount        = undef,
   $nfstag           = undef,
-  $nfs_v4           = $::nfs::nfs_v4
+  $nfs_v4           = $::nfs::client::nfs_v4
 ){
 
   if $nfs_v4 == true {

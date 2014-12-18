@@ -9,7 +9,7 @@
   "issues_url": "https://github.com/derdanne/puppet-nfs/issues",
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 4.5.0"},
-    {"name":"puppetlabs-concat","version_requirement":">= 1.1.1"}
+    {"name":"puppetlabs-concat","version_requirement":">= 1.1.2"}
   ],
   "operatingsystem_support": [
     {

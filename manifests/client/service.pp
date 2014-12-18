@@ -24,7 +24,7 @@
 
 class nfs::client::service {
 
-  if $::nfs::nfs_v4 {
+  if $::nfs::client::nfs_v4 {
     $service_defaults = {
       ensure     => running,
       enable     => true,

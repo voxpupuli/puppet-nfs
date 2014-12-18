@@ -25,7 +25,7 @@
 class nfs::client::config {
 
 
-  if $::nfs::nfs_v4 {
+  if $::nfs::client::nfs_v4 {
     if $::nfs::defaults_file != undef {
       augeas { $::nfs::defaults_file:
         context => "/files/${::nfs::defaults_file}",

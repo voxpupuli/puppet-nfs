@@ -23,6 +23,7 @@ It makes use of storeconfigs on the puppetmaster to get its resources.
 
 ##Setup
 
+This Module depends on puppetlabs-stdlib >= 4.5.0 and puppetlabs-concat >= 1.1.2.
 
 Examples
 ----------------------
