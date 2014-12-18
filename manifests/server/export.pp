@@ -50,7 +50,7 @@ define nfs::server::export(
       require => Nfs::Functions::Nfsv4_bindmount[$name]
     }
 
-    @@nfs::client::mount {  $mount:
+    @@nfs::client::mount {  "shared ${v4_export_name} by ${::clientcert}":
       ensure        => $ensure,
       remounts      => $remounts,
       atboot        => $atboot,
@@ -67,7 +67,7 @@ define nfs::server::export(
       clients => $clients,
     }
 
-    @@nfs::client::mount { $mount:
+    @@nfs::client::mount { "shared ${v3_export_name} by ${::clientcert}":
       ensure      => $ensure,
       remounts    => $remounts,
       atboot      => $atboot,
