@@ -31,6 +31,7 @@
 class nfs::params {
   #### Default values for the parameters of the main module class, init.pp
 
+  $nfs_v4                     = false
   $nfs_v4_export_root         = '/export'
   $nfs_v4_export_root_clients = "*.${::domain}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)"
   $nfs_v4_mount_root          = '/srv'
@@ -106,7 +107,7 @@ class nfs::params {
       $client_nfsv4_services      = { 'rpcbind' => {}, 'idmapd' => {} }
       $client_services_hasrestart = true
       $client_services_hasstatus  = true
-      $client_idmapd_setting      = undef
+      $client_idmapd_setting      = [ '' ]
       $client_nfs_fstype          = 'nfs'
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
       $client_nfsv4_fstype        = 'nfs4'

@@ -86,8 +86,8 @@ describe 'nfs', :type => 'class' do
       end
       it { should contain_package('nfs-common') }
       it { should contain_package('nfs4-acl-tools') }
-      context ":nfs_v4 => true" do
-        let(:params) {{ :nfs_v4 => true, :client_enabled => true }}
+      context ":nfs_v4_client => true" do
+        let(:params) {{ :nfs_v4_client => true, :client_enabled => true }}
         it { should contain_augeas('/etc/default/nfs-common') }
         it { should contain_augeas('/etc/idmapd.conf') }
         it do
@@ -115,8 +115,8 @@ describe 'nfs', :type => 'class' do
       end
       it { should contain_package('nfs-common') }
       it { should contain_package('nfs4-acl-tools') }
-      context ":nfs_v4 => true" do
-        let(:params) {{ :nfs_v4 => true, :client_enabled => true }}
+      context ":nfs_v4_client => true" do
+        let(:params) {{ :nfs_v4_client => true, :client_enabled => true }}
         it { should contain_augeas('/etc/default/nfs-common') }
         it { should contain_augeas('/etc/idmapd.conf') }
         it do
@@ -145,8 +145,8 @@ describe 'nfs', :type => 'class' do
           'ensure' => 'running'
         )
       end
-      context ":nfs_v4 => true" do
-        let(:params) {{ :nfs_v4 => true, :client_enabled => true }}
+      context ":nfs_v4_client => true" do
+        let(:params) {{ :nfs_v4_client => true, :client_enabled => true }}
         it { should contain_augeas('/etc/default/nfs-common') }
         it { should contain_augeas('/etc/idmapd.conf') }
         it do
@@ -170,8 +170,8 @@ describe 'nfs', :type => 'class' do
       it { should contain_package('net-nds/rpcbind') }
       it { should contain_package('net-fs/nfs-utils') }
       it { should contain_package('net-libs/libnfsidmap') }
-      context ":nfs_v4 => true" do
-        let(:params) {{ :nfs_v4 => true, :client_enabled => true, }}
+      context ":nfs_v4_client => true" do
+        let(:params) {{ :nfs_v4_client => true, :client_enabled => true, }}
         it { should contain_augeas('/etc/conf.d/nfs') }
         it { should contain_augeas('/etc/idmapd.conf') }
         it do

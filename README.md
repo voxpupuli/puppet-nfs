@@ -163,7 +163,7 @@ This will export /data/folder on the server and automagically mount it on client
   node server {
     class { '::nfs':
       server_enabled => true,
-      nfs_v4 => true,
+      nfs_v4         => true,
       nfs_v4_export_root_clients =>
         '10.0.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)'
     }
@@ -177,8 +177,8 @@ This will export /data/folder on the server and automagically mount it on client
 
   node client {
     class { '::nfs':
-      client_enabled => true,
-      nfs_v4 => true,
+      client_enabled  => true,
+      nfs_v4_client   => true,
       nfs_v4_export_root_clients =>
         '10.0.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)'
     }
@@ -193,7 +193,7 @@ This will export /data/folder on the server and automagically mount it on client
     $server = 'server'
     class { '::nfs':
       client_enabled => true,
-      nfs_v4 = true,
+      nfs_v4_client  => true,
     }
     Nfs::Client::Mount::Nfs_v4::Root &lt;&lt;| server == $server |&gt;&gt; {
       mount => "/srv/$server",
@@ -209,7 +209,8 @@ This will export /data/folder on the server and automagically mount it on client
 
   # and on individual nodes.
   node server {
-    class { 'nfs::server':
+    class { '::nfs':
+      server_enabled      => true,
       nfs_v4              => true,
       # Below are defaults
       nfs_v4_idmap_domain => $::domain,
@@ -248,7 +249,8 @@ This will export /data/folder on the server and automagically mount it on client
 
   node client {
     class { 'nfs::server':
-      nfs_v4              => true,
+      client_enabled      => true,
+      nfs_v4_client       => true,
       nfs_v4_idmap_domain => $::domain
       nfs_v4_mount_root   => '/srv',
     }

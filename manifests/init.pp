@@ -145,8 +145,8 @@ class nfs(
   $ensure                       = present,
   $server_enabled               = false,
   $client_enabled               = false,
-  $nfs_v4                       = false,
-  $nfs_v4_client                = $nfs_v4,
+  $nfs_v4                       = $::nfs::params::nfs_v4,
+  $nfs_v4_client                = $::nfs::params::nfs_v4,
   $exports_file                 = $::nfs::params::exports_file,
   $idmapd_file                  = $::nfs::params::idmapd_file,
   $defaults_file                = $::nfs::params::defaults_file,
@@ -180,9 +180,58 @@ class nfs(
   $nfs_v4_root_export_tag       = undef
 ) inherits nfs::params {
 
+  # validate all params
+
+  if ! ($ensure in [ 'present', 'absent', 'running', 'stopped', 'disabled' ]) {
+    fail("\"${$ensure}\" is not a valid ensure parameter value")
+  }
+
   validate_bool($server_enabled)
   validate_bool($client_enabled)
   validate_bool($nfs_v4)
+  validate_bool($nfs_v4_client)
+  validate_string($exports_file)
+  validate_string($idmapd_file)
+  validate_string($defaults_file)
+  validate_array($server_packages)
+  validate_array($client_packages)
+  validate_string($server_service_name)
+
+  if ! ($server_service_ensure in [ 'present', 'absent', 'running', 'stopped', 'disabled' ]) {
+    fail("\"${server_service_ensure}\" is not a valid ensure parameter value")
+  }
+
+  validate_bool($server_service_enable)
+  validate_bool($server_service_hasrestart)
+  validate_bool($server_service_hasstatus)
+  validate_string($server_nfsv4_servicehelper)
+  validate_hash($client_services)
+  validate_hash($client_nfsv4_services)
+  validate_array($client_idmapd_setting)
+  validate_string($client_nfs_fstype)
+  validate_string($client_nfs_options)
+  validate_string($nfs_v4_export_root)
+  validate_string($nfs_v4_export_root_clients)
+  validate_string($nfs_v4_mount_root)
+  validate_string($nfs_v4_idmap_domain)
+  validate_string($nfs_v4_root_export_ensure)
+
+  if $nfs_v4_root_export_mount != undef  {
+    validate_string($nfs_v4_root_export_mount)
+  }
+
+  validate_bool($nfs_v4_root_export_remounts)
+  validate_bool($nfs_v4_root_export_atboot)
+  validate_string($nfs_v4_root_export_options)
+
+  if $nfs_v4_root_export_bindmount != undef  {
+    validate_string($nfs_v4_root_export_bindmount)
+  }
+
+  if $nfs_v4_root_export_tag != undef  {
+    validate_string($nfs_v4_root_export_tag)
+  }
+
 
   if $server_enabled {
     $effective_client_packages       = difference($client_packages, $server_packages)
