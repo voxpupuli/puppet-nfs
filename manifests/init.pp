@@ -128,7 +128,7 @@
 #
 # === Examples
 #
-# TODO: has to be filled
+# * {Please take a look at} [https://github.com/derdanne/puppet-nfs#examples]
 #
 #
 # === Links
