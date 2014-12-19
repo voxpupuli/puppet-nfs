@@ -45,7 +45,7 @@
 #   nfs_v4_export_root_clients => '1.2.3.4/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)',
 # }
 #
-# nfs::client::export { '/srv/nfs_exported/directory':
+# nfs::server::export { '/srv/nfs_exported/directory':
 #   clients => '1.2.3.4/24(rw,insecure,no_subtree_check,async,no_root_squash) 5.6.7.8/24(ro)',
 #   share => 'share_name_on_nfs_server',
 # }

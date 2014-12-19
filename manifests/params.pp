@@ -62,7 +62,7 @@ class nfs::params {
 
   # packages - ensure
   case $::operatingsystem {
-  'Debian', 'Ubuntu': {
+    'Debian', 'Ubuntu': {
       $server_packages = [ 'nfs-common', 'nfs-kernel-server', 'nfs4-acl-tools', 'rpcbind' ]
       $client_packages = [ 'nfs-common', 'nfs4-acl-tools' ]
     }
