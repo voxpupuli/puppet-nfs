@@ -40,16 +40,16 @@
 #
 # class { '::nfs':
 #   client_enabled => true,
-#   nfs_v4_client => true
+#   nfs_v4_client  => true
 # }
 #
 # nfs::client::mount { '/target/directory':
-#   server => '1.2.3.4',
-#   share => 'share_name_on_nfs_server',
-#   remounts => true,
-#   atboot => true,
+#   server        => '1.2.3.4',
+#   share         => 'share_name_on_nfs_server',
+#   remounts      => true,
+#   atboot        => true,
 #   options_nfsv4 => 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-#   }
+# }
 #
 # === Authors
 #
