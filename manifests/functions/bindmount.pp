@@ -5,12 +5,15 @@
 #
 # === Parameters
 #
-# TODO: has to be filled
+# [*mount_name*]
+#   String. Sets the target directory for the bindmount
+#
+# [*ensure*]
+#   String. Sets if enabled or not.
 #
 # === Examples
 #
-# TODO: has to be filled
-#
+# This Function should not be called directly.
 #
 # === Links
 #

@@ -5,12 +5,15 @@
 #
 # === Parameters
 #
-# TODO: has to be filled
+# [*clients*]
+#   String. Sets the clients allowed to mount the export with options.
+#
+# [*ensure*]
+#   String. Sets if enabled or not.
 #
 # === Examples
 #
-# TODO: has to be filled
-#
+# This Function should not be called directly.
 #
 # === Links
 #

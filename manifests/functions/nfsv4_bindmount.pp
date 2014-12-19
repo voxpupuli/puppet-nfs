@@ -5,12 +5,18 @@
 #
 # === Parameters
 #
-# TODO: has to be filled
+# [*v4_export_name*]
+#   String. Sets the target directory for the bindmount
+#
+# [*bind*]
+#   String. Sets the bindmount options.
+#
+# [*ensure*]
+#   String. Sets if mounted or not.
 #
 # === Examples
 #
-# TODO: has to be filled
-#
+# This Function should not be called directly.
 #
 # === Links
 #

@@ -5,12 +5,11 @@
 #
 # === Parameters
 #
-# TODO: has to be filled
+# None
 #
 # === Examples
 #
-# TODO: has to be filled
-#
+# This Function should not be called directly.
 #
 # === Links
 #
