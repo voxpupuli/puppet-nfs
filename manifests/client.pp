@@ -27,12 +27,7 @@ class nfs::client (
   $ensure                     = $::nfs::ensure,
   $nfs_v4                     = $::nfs::nfs_v4_client,
   $nfs_v4_mount_root          = $::nfs::nfs_v4_mount_root,
-  $nfs_v4_idmap_domain        = $::nfs::nfs_v4_idmap_domain,
-  $server_packages            = $::nfs::server_packages,
-  $server_nfsv4_servicehelper = $::nfs::server_nfsv4_servicehelper,
-  $client_packages            = $::nfs::client_packages,
-  $client_services            = $::nfs::client_services,
-  $client_nfsv4_services      = $::nfs::client_nfsv4_services
+  $nfs_v4_idmap_domain        = $::nfs::nfs_v4_idmap_domain
 ) {
 
   anchor {'nfs::client::begin': }

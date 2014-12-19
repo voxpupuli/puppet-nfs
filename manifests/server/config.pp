@@ -48,7 +48,7 @@ class nfs::server::config {
       context => "/files/${::nfs::idmapd_file}/General",
       lens    => 'Puppet.lns',
       incl    => $::nfs::idmapd_file,
-      changes => ["set Domain ${nfs::nfs_v4_idmap_domain}"],
+      changes => ["set Domain ${nfs::server::nfs_v4_idmap_domain}"],
     }
 
     @@nfs::client::mount { $::nfs::nfs_v4_mount_root:
