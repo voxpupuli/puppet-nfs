@@ -3,14 +3,6 @@
 # This class exists to
 #  1. configure nfs as a server
 #
-# === Parameters
-#
-# TODO: has to be filled
-#
-# === Examples
-#
-# TODO: has to be filled
-#
 #
 # === Links
 #

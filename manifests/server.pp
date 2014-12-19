@@ -4,15 +4,6 @@
 #  1. order the loading of classes
 #  2. including all needed classes for nfs as a server
 #
-# === Parameters
-#
-# TODO: has to be filled
-#
-# === Examples
-#
-# TODO: has to be filled
-#
-#
 # === Links
 #
 # * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]

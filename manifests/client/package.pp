@@ -3,14 +3,6 @@
 # This Function exists to
 #  1. install needed packages for nfs clients
 #
-# === Parameters
-#
-# TODO: has to be filled
-#
-# === Examples
-#
-# TODO: has to be filled
-#
 #
 # === Links
 #

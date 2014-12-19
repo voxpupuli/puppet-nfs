@@ -3,14 +3,6 @@
 # This Function exists to
 #  1. manage the needed services for nfs clients
 #
-# === Parameters
-#
-# TODO: has to be filled
-#
-# === Examples
-#
-# TODO: has to be filled
-#
 #
 # === Links
 #
