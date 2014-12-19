@@ -8,7 +8,7 @@
 4. [Usage - The class and available configurations](#usage)
 5. [Requirements](#requirements)
 6. [Limitations - OS compatibility, etc.](#limitations)
-7. [Contributing to the graphite module](#contributing)
+7. [Contributing to the nfs module](#contributing)
 
 ##Overview
 
