@@ -5,16 +5,16 @@ describe 'nfs', :type => 'class' do
     let :params do {
       :server_enabled => true
     } end
-    let(:facts) { {:operatingsystem => 'ubuntu', :concat_basedir => '/tmp', } }
+    let(:facts) { {:operatingsystem => 'ubuntu', :osfamily => 'debian', :concat_basedir => '/tmp', } }
     it { should contain_concat__fragment('nfs_exports_header').with( 'target' => '/etc/exports' ) }
     context "nfs_v4 => true" do
-      let(:params) { {:nfs_v4 => true, :server_enabled => true } }
+      let(:params) { {:nfs_v4 => true, :server_enabled => true, :clientcert => 'test.host' } }
       it { should contain_concat__fragment('nfs_exports_root').with( 'target' => '/etc/exports' ) }
       it { should contain_file('/export').with( 'ensure' => 'directory' ) }
     end
 
     context "operatingsysten => ubuntu" do
-      let(:facts) { {:operatingsystem => 'ubuntu', :concat_basedir => '/tmp', } }
+      let(:facts) { {:operatingsystem => 'ubuntu', :osfamily => 'debian', :concat_basedir => '/tmp', :clientcert => 'test.host'} }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
       it { should contain_class('nfs::server::service') }
@@ -23,13 +23,13 @@ describe 'nfs', :type => 'class' do
         should contain_service('nfs-kernel-server').with( 'ensure' => 'running'  )
       end
       context ":nfs_v4 => true" do
-        let(:params) {{ :nfs_v4 => true, :server_enabled => true, :nfs_v4_idmap_domain => 'teststring'  }}
+        let(:params) {{ :nfs_v4 => true, :server_enabled => true, :nfs_v4_idmap_domain => 'teststring'}}
         it { should contain_service('idmapd').with( 'ensure' => 'running'  ) }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
     context "operatingsysten => debian" do
-      let(:facts) { {:operatingsystem => 'debian', :concat_basedir => '/tmp',} }
+      let(:facts) { {:operatingsystem => 'debian', :osfamily => 'debian', :concat_basedir => '/tmp', :clientcert => 'test.host'  } }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
       it { should contain_class('nfs::server::service') }
@@ -38,13 +38,13 @@ describe 'nfs', :type => 'class' do
         should contain_service('nfs-kernel-server').with( 'ensure' => 'running'  )
       end
       context ":nfs_v4 => true" do
-        let(:params) {{ :nfs_v4 => true, :server_enabled => true, :nfs_v4_idmap_domain => 'teststring'  }}
+        let(:params) {{ :nfs_v4 => true, :server_enabled => true, :nfs_v4_idmap_domain => 'teststring' }}
         it { should contain_service('idmapd').with( 'ensure' => 'running'  ) }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
     context "operatingsysten => redhat" do
-      let(:facts) { {:operatingsystem => 'redhat', :concat_basedir => '/tmp',} }
+      let(:facts) { {:operatingsystem => 'redhat', :osfamily => 'redhat', :concat_basedir => '/tmp', :clientcert => 'test.host' } }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
       it { should contain_class('nfs::server::service') }
@@ -58,7 +58,7 @@ describe 'nfs', :type => 'class' do
       end
     end
     context "operatingsysten => gentoo" do
-      let(:facts) { {:operatingsystem => 'gentoo', :concat_basedir => '/tmp',} }
+      let(:facts) { {:operatingsystem => 'gentoo', :osfamily => 'gentoo', :concat_basedir => '/tmp', :clientcert => 'test.host' } }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
       it { should contain_class('nfs::server::service') }
@@ -66,7 +66,7 @@ describe 'nfs', :type => 'class' do
         should contain_service('nfs').with( 'ensure' => 'running'  )
       end
       context ":nfs_v4 => true" do
-        let(:params) {{ :nfs_v4 => true, :server_enabled => true, :nfs_v4_idmap_domain => 'teststring' }}
+        let(:params) {{ :nfs_v4 => true, :server_enabled => true, :nfs_v4_idmap_domain => 'teststring'}}
         it { should contain_service('rpc.idmapd').with( 'ensure' => 'running'  ) }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end

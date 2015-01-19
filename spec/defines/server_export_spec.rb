@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'nfs::server::export', :type => 'define' do
 
   context "nvs_v4 => false" do
-    let(:facts) {{ :operatingsystem => 'ubuntu', :concat_basedir => '/dne' }}
+    let(:facts) {{ :operatingsystem => 'ubuntu', :concat_basedir => '/dne', :osfamily => 'debian', :clientcert => 'test.host' }}
     let(:title) { '/srv/test' }
 
     let(:pre_condition) { 'class {"nfs": server_enabled => true,}'}
