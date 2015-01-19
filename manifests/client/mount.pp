@@ -72,7 +72,7 @@ define nfs::client::mount (
 
   if $nfs_v4 == true {
     if $mount == undef {
-      $mountname = "${nfs::nfs_v4_mount_root}/${share}"
+      $mountname = "${::nfs::nfs_v4_mount_root}/${share}"
     } else {
       $mountname = $mount
     }
@@ -81,7 +81,7 @@ define nfs::client::mount (
     mount { "shared ${share} by ${::clientcert} on ${mountname}":
       ensure   => $ensure,
       device   => "${server}:/${share}",
-      fstype   => $nfs::client_nfsv4_fstype,
+      fstype   => $::nfs::client_nfsv4_fstype,
       name     => $mountname,
       options  => $options_nfsv4,
       remounts => $remounts,
@@ -106,7 +106,7 @@ define nfs::client::mount (
     mount { "shared ${share} by ${::clientcert} on ${mountname}":
       ensure   => $ensure,
       device   => "${server}:${share}",
-      fstype   => $nfs::client_nfs_fstype,
+      fstype   => $::nfs::client_nfs_fstype,
       name     => $mountname,
       options  => $options_nfs,
       remounts => $remounts,

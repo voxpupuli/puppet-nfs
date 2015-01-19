@@ -1,41 +1,19 @@
-require 'rubygems'
 require 'puppetlabs_spec_helper/rake_tasks'
+require 'puppet-lint/tasks/puppet-lint'
 
-exclude_paths = [
-  "pkg/**/*",
-  "vendor/**/*",
-  "spec/**/*",
+PuppetLint.configuration.log_format = "%{path}:%{linenumber}:%{check}:%{KIND}:%{message}"
+PuppetLint.configuration.fail_on_warnings = true
+
+PuppetLint.configuration.send('disable_80chars')
+PuppetLint.configuration.send('disable_class_inherits_from_params_class')
+PuppetLint.configuration.send('disable_class_parameter_defaults')
+PuppetLint.configuration.send('disable_autoloader_layout')
+PuppetLint.configuration.send('disable_documentation')
+PuppetLint.configuration.ignore_paths = ["spec/**/*.pp", "pkg/**/*.pp"]
+
+desc "Run syntax, lint, and spec tests."
+task :test => [
+  :syntax,
+  :lint,
+  :spec,
 ]
-
-begin
-  require 'puppet-doc-lint/rake_task'
-  PuppetDocLint.configuration.ignore_paths = exclude_paths
-rescue LoadError
-end
-
-task :validate do
-  Dir['manifests/**/*.pp'].each do |manifest|
-    sh "puppet parser validate --noop #{manifest}"
-  end
-  Dir['lib/**/*.rb'].each do |lib_file|
-    sh "ruby -c #{lib_file}"
-  end
-  Dir['templates/**/*.erb'].each do |template|
-    sh "erb -P -x -T '-' #{template} | ruby -c"
-  end
-end
-
-begin
-  require 'puppet-lint/tasks/puppet-lint'
-  require 'puppet-syntax/tasks/puppet-syntax'
-
-  PuppetSyntax.exclude_paths = exclude_paths
-  PuppetSyntax.future_parser = true if ENV['FUTURE_PARSER'] == 'true'
-
-  PuppetLint.configuration.send("disable_80chars")
-  PuppetLint.configuration.send("disable_class_inherits_from_params_class")
-  PuppetLint.configuration.send('disable_class_parameter_defaults')
-  PuppetLint.configuration.ignore_paths = exclude_paths
-  PuppetLint.configuration.log_format = "%{path}:%{linenumber}:%{check}:%{KIND}:%{message}"
-rescue LoadError
-end
