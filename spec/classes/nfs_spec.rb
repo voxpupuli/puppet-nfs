@@ -8,7 +8,7 @@ describe 'nfs', :type => 'class' do
     let(:facts) { {:operatingsystem => 'ubuntu', :osfamily => 'debian', :concat_basedir => '/tmp', } }
     it { should contain_concat__fragment('nfs_exports_header').with( 'target' => '/etc/exports' ) }
     context "nfs_v4 => true" do
-      let(:params) { {:nfs_v4 => true, :server_enabled => true, :clientcert => 'test.host' } }
+      let(:params) { {:nfs_v4 => true, :server_enabled => true } }
       it { should contain_concat__fragment('nfs_exports_root').with( 'target' => '/etc/exports' ) }
       it { should contain_file('/export').with( 'ensure' => 'directory' ) }
     end
