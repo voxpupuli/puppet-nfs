@@ -12,6 +12,8 @@
 
 ##Overview
 
+Github Master: [![Build Status](https://secure.travis-ci.org/derdanne/puppet-nfs.png?branch=master)](https://travis-ci.org/derdanne/puppet-nfs)
+
 This module installs, configures and manages everything on NFS clients and servers.
 
 This module is a complete refactor of the module haraldsk/nfs, because Harald Skoglund sadly is not
@@ -19,19 +21,17 @@ maintaining his module actively anymore. It is stripped down to use only the cla
 and parametrized to act as a server, client or both with the parameters 'server_enabled'
 and 'client_enabled'. It also has some dependencies on newer stdlib functions like 'difference'.
 
-It supports Ubuntu, Debian, Redhat 7 and Gentoo. This module needs a lot more testing right now.
-Feedback, bugreports, and feature requests are always welcome, visit https://github.com/derdanne/puppet-nfs
+It supports Ubuntu, Debian, Redhat 7 and Gentoo. Feedback, bugreports, and feature requests are always welcome, visit https://github.com/derdanne/puppet-nfs
 or send me an email.
 
 If you want to contribute, please do a fork on github, create a branch "feature name" with your
 features and do a pull request.
 
-Github Master: [![Build Status](https://secure.travis-ci.org/derdanne/puppet-nfs.png?branch=master)](https://travis-ci.org/derdanne/puppet-nfs)
-
 ##Module Description
 
 This module can be used to simply mount nfs shares on a client or to configure your nfs servers.
-It makes use of storeconfigs on the puppetmaster to get its resources.
+It makes use of storeconfigs on the puppetmaster to get its resources. You can also easily use the 
+create_resources function when you store your exports i.e. via hiera.
 
 ##Setup
 
@@ -47,7 +47,7 @@ This will export /data/folder on the server and automagically mount it on client
 <pre>
   node server {
     class { '::nfs':
-      server_enabled => true.
+      server_enabled => true
     }
     nfs::server::export{ '/data_folder':
       ensure  => 'mounted',
@@ -276,6 +276,44 @@ This will export /data/folder on the server and automagically mount it on client
 
 </pre>
 
+### Simple create_resources with hiera example
+
+#### HIERA:
+
+<pre>
+  
+  nas::nfs_exports_global:
+    /var/www: {}
+    /var/smb: {}
+
+</pre>
+  
+#### PUPPET:
+
+<pre>
+  
+  $nfs_exports_global = hiera_hash('nas::nfs_exports_global', false)
+  
+  class { '::nfs':
+    server_enabled => true,
+    client_enabled => true,
+    nfs_v4 => true,
+    nfs_v4_idmap_domain => $::domain,
+    nfs_v4_export_root => '/share',
+    nfs_v4_export_root_clients => '192.168.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)',
+  }
+  
+  $defaults_nfs_exports = {
+    ensure => 'mounted',
+    clients => '192.168.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)
+  }
+
+  if $nfs_exports_global {
+    create_resources('::nfs::server::export', $nfs_exports_global, $defaults_nfs_exports)
+  }
+
+</pre>
+
 ##Requirements
 
 ###Modules needed:
@@ -287,6 +325,10 @@ puppetlabs/concat >= 1.1.2
 
 facter > 1.6.2
 puppet > 3.2.0
+
+###Ruby Gems needed:
+
+augeas
 
 ##Limitations
 
