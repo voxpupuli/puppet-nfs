@@ -1,6 +1,6 @@
 {
   "name": "derdanne-nfs",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "source": "https://github.com/derdanne/puppet-nfs.git",
   "author": "derdanne",
   "license": "Apache-2.0",
@@ -11,6 +11,7 @@
     {"name":"puppetlabs-stdlib","version_requirement":">= 4.5.0"},
     {"name":"puppetlabs-concat","version_requirement":">= 1.1.2"}
   ],
+  "tags": ["nfs", "nfs4", "exports", "mount", "mfc"],
   "operatingsystem_support": [
     {
       "operatingsystem": "Ubuntu",

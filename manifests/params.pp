@@ -55,8 +55,8 @@ class nfs::params {
       $defaults_file  = '/etc/conf.d/nfs'
     }
     default: {
-      fail("\"${module_name}\" provides no config directory default value
-           for \"${::kernel}\"")
+      notice("\"${module_name}\" provides no package default value
+            for \"${::operatingsystem}\", make sure you set all needed parameters...")
     }
   }
 
@@ -76,8 +76,8 @@ class nfs::params {
       $client_packages = ['net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap']
     }
     default: {
-      fail("\"${module_name}\" provides no package default value
-            for \"${::operatingsystem}\"")
+      notice("\"${module_name}\" provides no package default value
+            for \"${::operatingsystem}\", make sure you set all needed parameters...")
     }
   }
 
@@ -129,8 +129,8 @@ class nfs::params {
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
     }
     default: {
-      fail("\"${module_name}\" provides no service parameters
-            for \"${::operatingsystem}\"")
+      notice("\"${module_name}\" provides no package default value
+            for \"${::operatingsystem}\", make sure you set all needed parameters...")
     }
   }
 }
