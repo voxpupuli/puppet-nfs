@@ -3,7 +3,13 @@ require 'spec_helper'
 describe 'nfs::client::mount', :type => 'define' do
 
   context "nvs_v4 => false" do
-    let(:facts) {{ :operatingsystem => 'ubuntu', :concat_basedir => '/dne', :clientcert => 'example.com' }}
+    let(:facts) {{
+      :operatingsystem => 'Ubuntu',
+      :osfamily => 'Debian',
+      :operatingsystemmajrelease => '12.04',
+      :concat_basedir => '/dne',
+      :clientcert => 'example.com',
+    }}
     let(:title) { '/srv/test' }
 
     let(:pre_condition) { 'class {"nfs": client_enabled => true,}'}
@@ -14,7 +20,13 @@ describe 'nfs::client::mount', :type => 'define' do
   end
 
   context "nvs_v4 => true" do
-    let(:facts) {{ :operatingsystem => 'ubuntu', :concat_basedir => '/dne', :clientcert => 'example.com' }}
+    let(:facts) {{
+      :operatingsystem => 'Ubuntu',
+      :osfamily => 'Debian',
+      :operatingsystemmajrelease => '12.04',
+      :concat_basedir => '/dne',
+      :clientcert => 'example.com',
+    }}
     let(:title) { '/srv/test' }
 
     let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4 => true }'}
