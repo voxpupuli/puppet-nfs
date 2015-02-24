@@ -135,7 +135,8 @@ describe 'nfs', :type => 'class' do
       it { should contain_class('nfs::client::service') }
       it do
         should contain_service('rpcbind').with(
-          'ensure' => 'running'
+          'ensure' => 'running',
+          'subscribe' => nil
         )
       end
       it { should contain_package('nfs-common') }
@@ -146,12 +147,30 @@ describe 'nfs', :type => 'class' do
         it { should contain_augeas('/etc/idmapd.conf') }
         it do
           should contain_service('rpcbind').with(
-            'ensure' => 'running'
+            'ensure' => 'running',
+            'subscribe' => 'Augeas[/etc/idmapd.conf]'
           )
         end
         it do
           should contain_service('nfs-lock').with(
-            'ensure' => 'running'
+            'ensure' => 'running',
+            'subscribe' => 'Augeas[/etc/idmapd.conf]'
+          )
+        end
+      end
+      context ":nfs_v4_client => true, server_enabled => true" do
+        let(:params) {{ :nfs_v4_client => true, :client_enabled => true, :server_enabled => true }}
+        it { should contain_augeas('/etc/default/nfs-common') }
+        it do
+          should contain_service('rpcbind').with(
+            'ensure' => 'running',
+            'subscribe' => '[Concat[/etc/exports]{:name=>"/etc/exports"}, Augeas[/etc/idmapd.conf]{:name=>"/etc/idmapd.conf"}]'
+          )
+        end
+        it do
+          should contain_service('nfs-lock').with(
+            'ensure' => 'running',
+            'subscribe' => '[Concat[/etc/exports]{:name=>"/etc/exports"}, Augeas[/etc/idmapd.conf]{:name=>"/etc/idmapd.conf"}]'
           )
         end
       end
