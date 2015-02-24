@@ -5,7 +5,12 @@ describe 'nfs', :type => 'class' do
     let :params do {
       :server_enabled => true
     } end
-    let(:facts) { {:operatingsystem => 'ubuntu', :osfamily => 'debian', :concat_basedir => '/tmp', } }
+    let(:facts) { {
+      :operatingsystem => 'Ubuntu',
+      :osfamily => 'Debian',
+      :operatingsystemmajrelease => '12.04',
+      :concat_basedir => '/tmp',
+    } }
     it { should contain_concat__fragment('nfs_exports_header').with( 'target' => '/etc/exports' ) }
     context "nfs_v4 => true" do
       let(:params) { {:nfs_v4 => true, :server_enabled => true } }
@@ -14,7 +19,13 @@ describe 'nfs', :type => 'class' do
     end
 
     context "operatingsysten => ubuntu" do
-      let(:facts) { {:operatingsystem => 'ubuntu', :osfamily => 'debian', :concat_basedir => '/tmp', :clientcert => 'test.host'} }
+      let(:facts) { {
+        :operatingsystem => 'Ubuntu',
+        :osfamily => 'Debian',
+        :operatingsystemmajrelease => '12.04',
+        :concat_basedir => '/tmp',
+        :clientcert => 'test.host',
+      } }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
       it { should contain_class('nfs::server::service') }
@@ -29,7 +40,13 @@ describe 'nfs', :type => 'class' do
       end
     end
     context "operatingsysten => debian" do
-      let(:facts) { {:operatingsystem => 'debian', :osfamily => 'debian', :concat_basedir => '/tmp', :clientcert => 'test.host'  } }
+      let(:facts) { {
+        :operatingsystem => 'Debian',
+        :osfamily => 'Debian',
+        :operatingsystemmajrelease => '7',
+        :concat_basedir => '/tmp',
+        :clientcert => 'test.host',
+      } }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
       it { should contain_class('nfs::server::service') }
@@ -44,7 +61,13 @@ describe 'nfs', :type => 'class' do
       end
     end
     context "operatingsysten => redhat" do
-      let(:facts) { {:operatingsystem => 'redhat', :osfamily => 'redhat', :concat_basedir => '/tmp', :clientcert => 'test.host' } }
+      let(:facts) { {
+        :operatingsystem => 'RedHat',
+        :osfamily => 'RedHat',
+        :operatingsystemmajrelease => '6',
+        :concat_basedir => '/tmp',
+        :clientcert => 'test.host',
+      } }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
       it { should contain_class('nfs::server::service') }
@@ -53,12 +76,38 @@ describe 'nfs', :type => 'class' do
       end
       context ":nfs_v4 => true" do
         let(:params) {{ :nfs_v4 => true, :server_enabled => true, :nfs_v4_idmap_domain => 'teststring' }}
-        it { should contain_service('idmapd').with( 'ensure' => 'running'  ) }
+        it { should contain_service('rpcidmapd').with( 'ensure' => 'running'  ) }
+        it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
+      end
+    end
+    context "operatingsysten => redhat" do
+      let(:facts) { {
+        :operatingsystem => 'RedHat',
+        :osfamily => 'RedHat',
+        :operatingsystemmajrelease => '7',
+        :concat_basedir => '/tmp',
+        :clientcert => 'test.host',
+      } }
+      it { should contain_class('nfs::server::config') }
+      it { should contain_class('nfs::server::package') }
+      it { should contain_class('nfs::server::service') }
+      it do
+        should contain_service('nfs').with( 'ensure' => 'running'  )
+      end
+      context ":nfs_v4 => true" do
+        let(:params) {{ :nfs_v4 => true, :server_enabled => true, :nfs_v4_idmap_domain => 'teststring' }}
+        it { should contain_service('nfs-idmap').with( 'ensure' => 'running'  ) }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
     context "operatingsysten => gentoo" do
-      let(:facts) { {:operatingsystem => 'gentoo', :osfamily => 'gentoo', :concat_basedir => '/tmp', :clientcert => 'test.host' } }
+      let(:facts) { {
+        :operatingsystem => 'Gentoo',
+        :osfamily => 'Gentoo',
+        :operatingsystemmajrelease => '7',
+        :concat_basedir => '/tmp',
+        :clientcert => 'test.host',
+      } }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
       it { should contain_class('nfs::server::service') }
@@ -75,7 +124,12 @@ describe 'nfs', :type => 'class' do
   context "client => true" do
     context "operatingsysten => ubuntu" do
       let(:params) {{ :client_enabled => true, :server_enabled => false  }}
-      let(:facts) { {:operatingsystem => 'ubuntu', :concat_basedir => '/tmp', } }
+      let(:facts) { {
+        :operatingsystem => 'Ubuntu',
+        :osfamily => 'Debian',
+        :operatingsystemmajrelease => '12.04',
+        :concat_basedir => '/tmp',
+      } }
       it { should contain_class('nfs::client::config') }
       it { should contain_class('nfs::client::package') }
       it { should contain_class('nfs::client::service') }
@@ -104,7 +158,12 @@ describe 'nfs', :type => 'class' do
     end
     context "operatingsysten => debian" do
       let(:params) {{ :client_enabled => true, :server_enabled => false  }}
-      let(:facts) { {:operatingsystem => 'ubuntu', :concat_basedir => '/tmp', } }
+      let(:facts) { {
+        :operatingsystem => 'Debian',
+        :osfamily => 'Debian',
+        :operatingsystemmajrelease => '7',
+        :concat_basedir => '/tmp',
+      } }
       it { should contain_class('nfs::client::config') }
       it { should contain_class('nfs::client::package') }
       it { should contain_class('nfs::client::service') }
@@ -133,7 +192,12 @@ describe 'nfs', :type => 'class' do
     end
     context "operatingsysten => redhat" do
       let(:params) {{ :client_enabled => true, :server_enabled => false  }}
-      let(:facts) { {:operatingsystem => 'redhat', :concat_basedir => '/tmp', } }
+      let(:facts) { {
+        :operatingsystem => 'RedHat',
+        :osfamily => 'RedHat',
+        :operatingsystemmajrelease => '7',
+        :concat_basedir => '/tmp',
+      } }
       it { should contain_class('nfs::client::config') }
       it { should contain_class('nfs::client::package') }
       it { should contain_class('nfs::client::service') }
@@ -155,7 +219,7 @@ describe 'nfs', :type => 'class' do
           )
         end
         it do
-          should contain_service('idmapd').with(
+          should contain_service('nfs-idmap').with(
             'ensure' => 'running'
           )
         end
@@ -163,7 +227,12 @@ describe 'nfs', :type => 'class' do
     end
     context "operatingsysten => gentoo" do
       let(:params) {{ :client_enabled => true, }}
-      let(:facts) { {:operatingsystem => 'gentoo', :concat_basedir => '/tmp' } }
+      let(:facts) { {
+        :operatingsystem => 'Gentoo',
+        :osfamily => 'Gentoo',
+        :operatingsystemmajrelease => '7',
+        :concat_basedir => '/tmp',
+      } }
       it { should contain_class('nfs::client::config') }
       it { should contain_class('nfs::client::package') }
       it { should contain_class('nfs::client::service') }

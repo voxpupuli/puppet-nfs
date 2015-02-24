@@ -38,13 +38,13 @@ class nfs::params {
   $nfs_v4_idmap_domain        = $::domain
 
   # Different path definitions
-  case $::operatingsystem {
-    'Debian', 'Ubuntu': {
+  case $::osfamily {
+    'Debian': {
       $exports_file   = '/etc/exports'
       $idmapd_file    = '/etc/idmapd.conf'
       $defaults_file  = '/etc/default/nfs-common'
     }
-    'Redhat': {
+    'RedHat': {
       $exports_file   = '/etc/exports'
       $idmapd_file    = '/etc/idmapd.conf'
       $defaults_file  = '/etc/default/nfs-common'
@@ -55,19 +55,21 @@ class nfs::params {
       $defaults_file  = '/etc/conf.d/nfs'
     }
     default: {
-      notice("\"${module_name}\" provides no package default value
-            for \"${::operatingsystem}\", make sure you set all needed parameters...")
+      $exports_file   = undef
+      $idmapd_file    = undef
+      $defaults_file  = undef
+      notice("\"${module_name}\" provides no config directory default values for OS family \"${::osfamily}\"")
     }
   }
 
 
   # packages - ensure
-  case $::operatingsystem {
-    'Debian', 'Ubuntu': {
+  case $::osfamily {
+    'Debian': {
       $server_packages = [ 'nfs-common', 'nfs-kernel-server', 'nfs4-acl-tools', 'rpcbind' ]
       $client_packages = [ 'nfs-common', 'nfs4-acl-tools' ]
     }
-    'Redhat': {
+    'RedHat': {
       $server_packages = [ 'nfs-utils', 'nfs4-acl-tools', 'rpcbind' ]
       $client_packages = [ 'nfs-utils', 'nfs4-acl-tools', 'rpcbind' ]
     }
@@ -76,61 +78,68 @@ class nfs::params {
       $client_packages = ['net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap']
     }
     default: {
-      notice("\"${module_name}\" provides no package default value
-            for \"${::operatingsystem}\", make sure you set all needed parameters...")
+      $server_packages = undef
+      $client_packages = undef
+      notice("\"${module_name}\" provides no package default values for OS family \"${::osfamily}\"")
     }
   }
 
   # service parameters
-  case $::operatingsystem {
-    'Debian', 'Ubuntu': {
-      $server_service_name        = 'nfs-kernel-server'
-      $server_service_hasrestart  = true
-      $server_service_hasstatus   = true
-      $server_nfsv4_servicehelper = 'idmapd'
-      $client_services            = { 'rpcbind' => {} }
-      $client_nfsv4_services      = { 'rpcbind' => {}, 'nfs-lock' => {}, 'idmapd' => {} }
-      $client_services_hasrestart = true
-      $client_services_hasstatus  = true
+  # params that are the same on all (known) OSes.
+  $client_nfs_fstype          = 'nfs'
+  $client_services            = { 'rpcbind' => {} }
+  $client_services_hasrestart = true
+  $client_services_hasstatus  = true
+  $server_service_hasrestart  = true
+  $server_service_hasstatus   = true
+  # params with OS-specific values
+  case "${::osfamily}-${::operatingsystemmajrelease}" {
+    /^Debian/: {
       $client_idmapd_setting      = [ 'set NEED_IDMAPD yes' ]
-      $client_nfs_fstype          = 'nfs'
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-    }
-    'Redhat': {
-      $server_service_name        = 'nfs'
-      $server_service_hasrestart  = true
-      $server_service_hasstatus   = true
+      $client_nfsv4_services      = { 'rpcbind' => {}, 'nfs-lock' => {}, 'idmapd' => {} }
       $server_nfsv4_servicehelper = 'idmapd'
-      $client_services            = { 'rpcbind' => {} }
-      $client_nfsv4_services      = { 'rpcbind' => {}, 'idmapd' => {} }
-      $client_services_hasrestart = true
-      $client_services_hasstatus  = true
+      $server_service_name        = 'nfs-kernel-server'
+    }
+    'RedHat-7': {
       $client_idmapd_setting      = [ '' ]
-      $client_nfs_fstype          = 'nfs'
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-    }
-    'Gentoo': {
+      $client_nfsv4_services      = { 'rpcbind' => {}, 'nfs-idmap' => {} }
+      $server_nfsv4_servicehelper = 'nfs-idmap'
       $server_service_name        = 'nfs'
-      $server_service_hasrestart  = true
-      $server_service_hasstatus   = true
-      $server_nfsv4_servicehelper = 'rpc.idmapd'
-      $client_services            = { 'rpcbind' => {} }
-      $client_nfsv4_services      = { 'rpcbind' => {}, 'rpc.idmapd' => {} }
-      $client_services_hasrestart = true
-      $client_services_hasstatus  = true
+    }
+    /^RedHat/: {
+      $client_idmapd_setting      = [ '' ]
+      $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+      $client_nfsv4_fstype        = 'nfs4'
+      $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+      $client_nfsv4_services      = { 'rpcbind' => {}, 'rpcidmapd' => {} }
+      $server_nfsv4_servicehelper = 'rpcidmapd'
+      $server_service_name        = 'nfs'
+    }
+    /^Gentoo/: {
       $client_idmapd_setting      = [ 'set NFS_NEEDED_SERVICES rpc.idmapd' ]
-      $client_nfs_fstype          = 'nfs'
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
       $client_nfsv4_fstype        = 'nfs'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
+      $client_nfsv4_services      = { 'rpcbind' => {}, 'rpc.idmapd' => {} }
+      $server_nfsv4_servicehelper = 'rpc.idmapd'
+      $server_service_name        = 'nfs'
     }
     default: {
-      notice("\"${module_name}\" provides no package default value
-            for \"${::operatingsystem}\", make sure you set all needed parameters...")
+      # need to explicitly set unknown params to undef to work with strict_variables=true
+      $client_idmapd_setting      = undef
+      $client_nfs_options         = undef
+      $client_nfsv4_fstype        = undef
+      $client_nfsv4_options       = undef
+      $client_nfsv4_services      = undef
+      $server_nfsv4_servicehelper = undef
+      $server_service_name        = undef
+      notice("\"${module_name}\" provides no service parameters for OS family \"${::osfamily}\"")
     }
   }
 }
