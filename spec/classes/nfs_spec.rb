@@ -168,12 +168,12 @@ describe 'nfs', :type => 'class' do
         it do
           should contain_service('rpcbind')\
             .with('ensure' => 'running')\
-            .with_subscribe(['Augeas[/etc/idmapd.conf]'])
+            .with_subscribe('Augeas[/etc/idmapd.conf]')
         end
         it do
           should contain_service('nfs-lock')\
             .with('ensure' => 'running')\
-            .with_subscribe(['Augeas[/etc/idmapd.conf]'])
+            .with_subscribe('Augeas[/etc/idmapd.conf]')
         end
       end
       context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
@@ -219,12 +219,12 @@ describe 'nfs', :type => 'class' do
           it do
             should contain_service('rpcbind')\
               .with('ensure' => 'running')\
-              .with_subscribe(['Augeas[/etc/idmapd.conf]'])
+              .with_subscribe('Augeas[/etc/idmapd.conf]')
           end
           it do
             should contain_service('nfs-lock')\
               .with('ensure' => 'running')\
-              .with_subscribe(['Augeas[/etc/idmapd.conf]'])
+              .with_subscribe('Augeas[/etc/idmapd.conf]')
           end
         end
         context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
@@ -271,12 +271,12 @@ describe 'nfs', :type => 'class' do
         it do
           should contain_service('rpcbind')\
            .with('ensure' => 'running')\
-           .with_subscribe(['Augeas[/etc/idmapd.conf]'])
+           .with_subscribe('Augeas[/etc/idmapd.conf]')
         end
         it do
           should contain_service('nfs-idmap')\
-           .with('ensure' => 'running')\
-           .with_subscribe(['Augeas[/etc/idmapd.conf]'])
+            .with('ensure' => 'running')\
+            .with_subscribe('Augeas[/etc/idmapd.conf]')
         end
       end
       context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
@@ -322,12 +322,12 @@ describe 'nfs', :type => 'class' do
         it do
           should contain_service('rpcbind')\
             .with('ensure' => 'running')\
-            .with_subscribe(['Augeas[/etc/idmapd.conf]'])
+            .with_subscribe('Augeas[/etc/idmapd.conf]')
         end
         it do
           should contain_service('rpc.idmapd')\
             .with('ensure' => 'running')\
-            .with_subscribe(['Augeas[/etc/idmapd.conf]'])
+            .with_subscribe('Augeas[/etc/idmapd.conf]')
         end
       end
       context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
