@@ -10,6 +10,9 @@ describe 'nfs', :type => 'class' do
       :osfamily => 'Debian',
       :operatingsystemmajrelease => '12.04',
       :concat_basedir => '/tmp',
+      :is_pe => false,
+      :id => 'root',
+      :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     } }
     it { should contain_concat__fragment('nfs_exports_header').with( 'target' => '/etc/exports' ) }
     context "nfs_v4 => true" do
@@ -25,6 +28,9 @@ describe 'nfs', :type => 'class' do
         :operatingsystemmajrelease => '12.04',
         :concat_basedir => '/tmp',
         :clientcert => 'test.host',
+        :is_pe => false,
+        :id => 'root',
+        :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
       } }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
@@ -46,6 +52,9 @@ describe 'nfs', :type => 'class' do
         :operatingsystemmajrelease => '7',
         :concat_basedir => '/tmp',
         :clientcert => 'test.host',
+        :is_pe => false,
+        :id => 'root',
+        :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
       } }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
@@ -67,6 +76,9 @@ describe 'nfs', :type => 'class' do
         :operatingsystemmajrelease => '6',
         :concat_basedir => '/tmp',
         :clientcert => 'test.host',
+        :is_pe => false,
+        :id => 'root',
+        :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
       } }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
@@ -87,6 +99,9 @@ describe 'nfs', :type => 'class' do
         :operatingsystemmajrelease => '7',
         :concat_basedir => '/tmp',
         :clientcert => 'test.host',
+        :is_pe => false,
+        :id => 'root',
+        :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
       } }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
@@ -107,6 +122,9 @@ describe 'nfs', :type => 'class' do
         :operatingsystemmajrelease => '7',
         :concat_basedir => '/tmp',
         :clientcert => 'test.host',
+        :is_pe => false,
+        :id => 'root',
+        :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
       } }
       it { should contain_class('nfs::server::config') }
       it { should contain_class('nfs::server::package') }
@@ -129,6 +147,9 @@ describe 'nfs', :type => 'class' do
         :osfamily => 'Debian',
         :operatingsystemmajrelease => '12.04',
         :concat_basedir => '/tmp',
+        :is_pe => false,
+        :id => 'root',
+        :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
       } }
       it { should contain_class('nfs::client::config') }
       it { should contain_class('nfs::client::package') }
@@ -141,7 +162,7 @@ describe 'nfs', :type => 'class' do
       it { should contain_package('nfs-common') }
       it { should contain_package('nfs4-acl-tools') }
       context ":nfs_v4_client => true" do
-        let(:params) {{ :nfs_v4_client => true, :client_enabled => true }}
+        let(:params) {{ :nfs_v4_client => true, :nfs_v4 => true, :client_enabled => true, :server_enabled => false }}
         it { should contain_augeas('/etc/default/nfs-common') }
         it { should contain_augeas('/etc/idmapd.conf') }
         it do
@@ -177,6 +198,9 @@ describe 'nfs', :type => 'class' do
           :osfamily => 'Debian',
           :operatingsystemmajrelease => '12.04',
           :concat_basedir => '/tmp',
+          :is_pe => false,
+          :id => 'root',
+          :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
         } }
         it { should contain_class('nfs::client::config') }
         it { should contain_class('nfs::client::package') }
@@ -225,6 +249,9 @@ describe 'nfs', :type => 'class' do
         :osfamily => 'RedHat',
         :operatingsystemmajrelease => '7',
         :concat_basedir => '/tmp',
+        :is_pe => false,
+        :id => 'root',
+        :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
       } }
       it { should contain_class('nfs::client::config') }
       it { should contain_class('nfs::client::package') }
@@ -273,6 +300,9 @@ describe 'nfs', :type => 'class' do
         :osfamily => 'Gentoo',
         :operatingsystemmajrelease => '7',
         :concat_basedir => '/tmp',
+        :is_pe => false,
+        :id => 'root',
+        :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
       } }
       it { should contain_class('nfs::client::config') }
       it { should contain_class('nfs::client::package') }

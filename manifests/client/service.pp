@@ -17,14 +17,14 @@
 class nfs::client::service {
 
   if $::nfs::client::nfs_v4 {
-    $services = $::nfs::effective_nfsv4_client_services
+    $create_services = $::nfs::effective_nfsv4_client_services
     if $::nfs::server_enabled {
       $subscription = [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ]
     } else {
       $subscription = [ Augeas[$::nfs::idmapd_file] ]
     }
   } else {
-    $services = $::nfs::effective_client_services
+    $create_services = $::nfs::effective_client_services
     if $::nfs::server_enabled {
       $subscription  = [ Concat[$::nfs::exports_file] ]
     } else {
@@ -40,5 +40,5 @@ class nfs::client::service {
     subscribe  => $subscription
   }
 
-  create_resources('service', $services, $service_defaults )
+  create_resources('service', $create_services, $service_defaults )
 }
