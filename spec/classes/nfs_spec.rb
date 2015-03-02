@@ -161,8 +161,8 @@ describe 'nfs', :type => 'class' do
       end
       it { should contain_package('nfs-common') }
       it { should contain_package('nfs4-acl-tools') }
-      context ":nfs_v4_client => true" do
-        let(:params) {{ :nfs_v4_client => true, :nfs_v4 => true, :client_enabled => true, :server_enabled => false }}
+      context ":nfs_v4_client => true, server_enabled => false" do
+        let(:params) {{ :client_enabled => true, :nfs_v4_client => true, }}
         it { should contain_augeas('/etc/default/nfs-common') }
         it { should contain_augeas('/etc/idmapd.conf') }
         it do
