@@ -17,22 +17,28 @@
 class nfs::client::service {
 
   if $::nfs::client::nfs_v4 {
-    $service_defaults = {
-      ensure     => running,
-      enable     => true,
-      hasrestart => $::nfs::client_services_hasrestart,
-      hasstatus  => $::nfs::client_services_hasstatus,
-      subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ]
+    $create_services = $::nfs::effective_nfsv4_client_services
+    if $::nfs::server_enabled {
+      $subscription = [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ]
+    } else {
+      $subscription = [ Augeas[$::nfs::idmapd_file] ]
     }
-    create_resources('service', $::nfs::effective_nfsv4_client_services, $service_defaults )
   } else {
-    $service_defaults = {
-      ensure     => running,
-      enable     => true,
-      hasrestart => $::nfs::client_services_hasrestart,
-      hasstatus  => $::nfs::client_services_hasstatus,
-      subscribe  => [ Concat[$::nfs::exports_file] ]
+    $create_services = $::nfs::effective_client_services
+    if $::nfs::server_enabled {
+      $subscription  = [ Concat[$::nfs::exports_file] ]
+    } else {
+      $subscription = []
     }
-    create_resources('service', $::nfs::effective_client_services, $service_defaults )
   }
+
+  $service_defaults = {
+    ensure     => running,
+    enable     => true,
+    hasrestart => $::nfs::client_services_hasrestart,
+    hasstatus  => $::nfs::client_services_hasstatus,
+    subscribe  => $subscription
+  }
+
+  create_resources('service', $create_services, $service_defaults )
 }

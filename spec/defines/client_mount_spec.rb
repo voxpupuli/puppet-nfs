@@ -9,6 +9,9 @@ describe 'nfs::client::mount', :type => 'define' do
       :operatingsystemmajrelease => '12.04',
       :concat_basedir => '/dne',
       :clientcert => 'example.com',
+      :is_pe => false,
+      :id => 'root',
+      :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     }}
     let(:title) { '/srv/test' }
 
@@ -26,6 +29,9 @@ describe 'nfs::client::mount', :type => 'define' do
       :operatingsystemmajrelease => '12.04',
       :concat_basedir => '/dne',
       :clientcert => 'example.com',
+      :is_pe => false,
+      :id => 'root',
+      :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     }}
     let(:title) { '/srv/test' }
 

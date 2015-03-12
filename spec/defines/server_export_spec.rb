@@ -8,6 +8,9 @@ describe 'nfs::server::export', :type => 'define' do
       :osfamily => 'Debian',
       :operatingsystemmajrelease => '12.04',
       :concat_basedir => '/dne',
+      :is_pe => false,
+      :id => 'root',
+      :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     }}
     let(:title) { '/srv/test' }
 
@@ -24,6 +27,9 @@ describe 'nfs::server::export', :type => 'define' do
       :osfamily => 'Debian',
       :operatingsystemmajrelease => '12.04',
       :concat_basedir => '/dne',
+      :is_pe => false,
+      :id => 'root',
+      :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     }}
     let(:title) { '/srv/test' }
     let(:pre_condition) { 'class {"nfs": server_enabled => true, nfs_v4 => true}'}
