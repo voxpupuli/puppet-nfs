@@ -21,8 +21,9 @@ maintaining his module actively anymore. It is stripped down to use only the cla
 and parametrized to act as a server, client or both with the parameters 'server_enabled'
 and 'client_enabled'. It also has some dependencies on newer stdlib functions like 'difference'.
 
-It supports Ubuntu, Debian, Redhat 7 and Gentoo. Feedback, bugreports, and feature requests are always welcome, visit https://github.com/derdanne/puppet-nfs
-or send me an email.
+It supports the OS Families Ubuntu, Debian, Redhat and Gentoo. It supports also Strict Variables, so if you pass all 
+OS specific parameters correctly it should work on your preferred OS too. Feedback, bugreports, 
+and feature requests are always welcome, visit https://github.com/derdanne/puppet-nfs or send me an email.
 
 If you want to contribute, please do a fork on github, create a branch "feature name" with your
 features and do a pull request.
@@ -61,6 +62,26 @@ This will export /data/folder on the server and automagically mount it on client
       client_enabled => true,
     }
     Nfs::Client::Mount &lt;&lt;| |&gt;&gt;
+  }
+
+</pre>
+
+### Simple NFSv4 client example
+
+This will mount /data on client in /share/data.
+
+<pre>
+
+  class { '::nfs':
+    server_enabled => false,
+    client_enabled => true,
+    nfs_v4_client => true,
+    nfs_v4_idmap_domain => $::domain,
+  }
+
+  nfs::client::mount { '/share/data':
+      server => '192.168.0.1',
+      share => 'data',
   }
 
 </pre>
@@ -248,7 +269,7 @@ This will export /data/folder on the server and automagically mount it on client
   }
 
   node client {
-    class { 'nfs::server':
+    class { '::nfs':
       client_enabled      => true,
       nfs_v4_client       => true,
       nfs_v4_idmap_domain => $::domain
@@ -296,7 +317,7 @@ This will export /data/folder on the server and automagically mount it on client
   
   class { '::nfs':
     server_enabled => true,
-    client_enabled => true,
+    client_enabled => false,
     nfs_v4 => true,
     nfs_v4_idmap_domain => $::domain,
     nfs_v4_export_root => '/share',
