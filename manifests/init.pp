@@ -138,7 +138,7 @@
 #
 # === Authors
 #
-# * Daniel Klockenkämper <mailto:dk@marketing-factory.de>
+# * Daniel Klockenkamper <mailto:dk@marketing-factory.de>
 #
 
 class nfs(
