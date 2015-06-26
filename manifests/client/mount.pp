@@ -120,10 +120,11 @@ define nfs::client::mount (
 
   if $owner != undef or $group != undef or $mode != undef {
     file{$mountname:
-      ensure => directory,
-      owner  => $owner,
-      group  => $group,
-      mode   => $mode,
+      ensure  => directory,
+      owner   => $owner,
+      group   => $group,
+      mode    => $mode,
+      require => Mount["shared ${share} by ${::clientcert} on ${mountname}"]
     }
   }
 }
