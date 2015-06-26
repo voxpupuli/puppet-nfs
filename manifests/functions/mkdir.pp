@@ -27,8 +27,4 @@ define nfs::functions::mkdir () {
     command => "mkdir -p ${name}",
     unless  => "test -d ${name}",
   }
-  file { $name:
-    ensure  => directory,
-    require => Exec["mkdir_recurse_${name}"],
-  }
 }
