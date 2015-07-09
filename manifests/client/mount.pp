@@ -67,7 +67,10 @@ define nfs::client::mount (
   $options_nfs      = $::nfs::client_nfs_options,
   $bindmount        = undef,
   $nfstag           = undef,
-  $nfs_v4           = $::nfs::client::nfs_v4
+  $nfs_v4           = $::nfs::client::nfs_v4,
+  $owner            = undef,
+  $group            = undef,
+  $mode             = undef
 ){
 
   if $nfs_v4 == true {
@@ -112,6 +115,16 @@ define nfs::client::mount (
       remounts => $remounts,
       atboot   => $atboot,
       require  => Nfs::Functions::Mkdir[$mountname]
+    }
+  }
+
+  if $owner != undef or $group != undef or $mode != undef {
+    file{$mountname:
+      ensure  => directory,
+      owner   => $owner,
+      group   => $group,
+      mode    => $mode,
+      require => Mount["shared ${share} by ${::clientcert} on ${mountname}"]
     }
   }
 }
