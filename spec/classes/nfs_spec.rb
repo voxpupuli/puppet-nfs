@@ -3,7 +3,8 @@ require 'spec_helper'
 describe 'nfs', :type => 'class' do
   context "server => true" do
     let :params do {
-      :server_enabled => true
+      :server_enabled => true,
+      :client_enabled => false,
     } end
     let(:facts) { {
       :operatingsystem => 'Ubuntu',
@@ -86,6 +87,15 @@ describe 'nfs', :type => 'class' do
       it do
         should contain_service('nfs').with( 'ensure' => 'running'  )
       end
+      it do
+        should contain_package('rpcbind').with( 'ensure' => 'installed'  )
+      end
+      it do
+        should contain_package('nfs-utils').with( 'ensure' => 'installed'  )
+      end
+      it do
+        should contain_package('nfs4-acl-tools').with( 'ensure' => 'installed'  )
+      end
       context ":nfs_v4 => true" do
         let(:params) {{ :nfs_v4 => true, :server_enabled => true, :nfs_v4_idmap_domain => 'teststring' }}
         it { should contain_service('rpcidmapd').with( 'ensure' => 'running'  ) }
@@ -107,11 +117,11 @@ describe 'nfs', :type => 'class' do
       it { should contain_class('nfs::server::package') }
       it { should contain_class('nfs::server::service') }
       it do
-        should contain_service('nfs').with( 'ensure' => 'running'  )
+        should contain_service('nfs-server.service').with( 'ensure' => 'running'  )
       end
       context ":nfs_v4 => true" do
         let(:params) {{ :nfs_v4 => true, :server_enabled => true, :nfs_v4_idmap_domain => 'teststring' }}
-        it { should contain_service('nfs-idmap').with( 'ensure' => 'running'  ) }
+        it { should contain_service('nfs-idmap.service').with( 'ensure' => 'running'  ) }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
@@ -168,12 +178,7 @@ describe 'nfs', :type => 'class' do
         it do
           should contain_service('rpcbind')\
             .with('ensure' => 'running')\
-            .with_subscribe('Augeas[/etc/idmapd.conf]')
-        end
-        it do
-          should contain_service('nfs-lock')\
-            .with('ensure' => 'running')\
-            .with_subscribe('Augeas[/etc/idmapd.conf]')
+            .with_subscribe(/Augeas/)
         end
       end
       context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
@@ -181,11 +186,6 @@ describe 'nfs', :type => 'class' do
         it { should contain_augeas('/etc/default/nfs-common') }
         it do
           should contain_service('rpcbind')\
-            .with('ensure' => 'running')\
-            .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
-        end
-        it do
-          should contain_service('nfs-lock')\
             .with('ensure' => 'running')\
             .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
         end
@@ -219,12 +219,7 @@ describe 'nfs', :type => 'class' do
           it do
             should contain_service('rpcbind')\
               .with('ensure' => 'running')\
-              .with_subscribe('Augeas[/etc/idmapd.conf]')
-          end
-          it do
-            should contain_service('nfs-lock')\
-              .with('ensure' => 'running')\
-              .with_subscribe('Augeas[/etc/idmapd.conf]')
+              .with_subscribe(/Augeas/)
           end
         end
         context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
@@ -232,11 +227,6 @@ describe 'nfs', :type => 'class' do
           it { should contain_augeas('/etc/default/nfs-common') }
           it do
             should contain_service('rpcbind')\
-              .with('ensure' => 'running')\
-              .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
-          end
-          it do
-            should contain_service('nfs-lock')\
               .with('ensure' => 'running')\
               .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
           end
@@ -260,7 +250,7 @@ describe 'nfs', :type => 'class' do
       it { should contain_package('nfs4-acl-tools') }
       it {  should contain_package('rpcbind') }
       it do
-        should contain_service('rpcbind')\
+        should contain_service('rpcbind.service')\
          .with('ensure' => 'running')\
          .with_subscribe([])
       end
@@ -269,26 +259,26 @@ describe 'nfs', :type => 'class' do
         it { should contain_augeas('/etc/default/nfs-common') }
         it { should contain_augeas('/etc/idmapd.conf') }
         it do
-          should contain_service('rpcbind')\
+          should contain_service('rpcbind.service')\
            .with('ensure' => 'running')\
-           .with_subscribe('Augeas[/etc/idmapd.conf]')
+           .with_subscribe(/Augeas/)
         end
         it do
-          should contain_service('nfs-idmap')\
+          should contain_service('nfs-idmap.service')\
             .with('ensure' => 'running')\
-            .with_subscribe('Augeas[/etc/idmapd.conf]')
+            .with_subscribe(/Augeas/)
         end
       end
       context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
         let(:params) {{ :nfs_v4_client => true, :nfs_v4 => true, :client_enabled => true, :server_enabled => true }}
         it { should contain_augeas('/etc/default/nfs-common') }
         it do
-          should contain_service('rpcbind')\
+          should contain_service('rpcbind.service')\
             .with('ensure' => 'running')\
             .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
         end
         it do
-          should contain_service('nfs-idmap')\
+          should contain_service('nfs-idmap.service')\
            .with('ensure' => 'running')
         end
       end
@@ -322,12 +312,12 @@ describe 'nfs', :type => 'class' do
         it do
           should contain_service('rpcbind')\
             .with('ensure' => 'running')\
-            .with_subscribe('Augeas[/etc/idmapd.conf]')
+            .with_subscribe(/Augeas/)
         end
         it do
           should contain_service('rpc.idmapd')\
             .with('ensure' => 'running')\
-            .with_subscribe('Augeas[/etc/idmapd.conf]')
+            .with_subscribe(/Augeas/)
         end
       end
       context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do

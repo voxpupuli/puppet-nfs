@@ -11,7 +11,7 @@
 #
 # === Authors
 #
-# * Daniel Klockenkämper <mailto:dk@marketing-factory.de>
+# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 #
 
 class nfs::server::service {
@@ -30,7 +30,7 @@ class nfs::server::service {
       enable     => $::nfs::server_service_enable,
       hasrestart => $::nfs::server_service_hasrestart,
       hasstatus  => $::nfs::server_service_hasstatus,
-      subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ]
+      subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ],
     }
 
   } else {
