@@ -18,7 +18,7 @@
 #
 # === Authors
 #
-# * Daniel Klockenkämper <mailto:dk@marketing-factory.de>
+# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 #
 
 define nfs::functions::mkdir () {
@@ -26,9 +26,5 @@ define nfs::functions::mkdir () {
     path    => ['/bin', '/usr/bin'],
     command => "mkdir -p ${name}",
     unless  => "test -d ${name}",
-  }
-  file { $name:
-    ensure  => directory,
-    require => Exec["mkdir_recurse_${name}"],
   }
 }
