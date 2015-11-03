@@ -1,3 +1,13 @@
+##2015-11-03 - Release 0.0.8
+###Summary
+
+####Bugfixes
+- $mount == $name and can't be undef, we need to look at whether or not $share is undef
+
+####Features
+- Set perms on mounted directories
+- Tested Puppet 4.2 compatibility
+
 ##2015-07-09 - Release 0.0.7
 ###Summary
 
