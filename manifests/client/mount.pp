@@ -74,7 +74,7 @@ define nfs::client::mount (
 ){
 
   if $nfs_v4 == true {
-    if $mount == undef {
+    if $share == undef {
       $mountname = "${::nfs::nfs_v4_mount_root}/${share}"
     } else {
       $mountname = $mount
@@ -99,7 +99,7 @@ define nfs::client::mount (
       }
     }
   } else {
-    if $mount == undef {
+    if $share == undef {
       $mountname = $share
     } else {
       $mountname = $mount
