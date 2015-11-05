@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'nfs::client::mount', :type => 'define' do
 
-  context "nvs_v4 => false" do
+  context "nfs_v4 => false, minimal arguments" do
     let(:facts) {{
       :operatingsystem => 'Ubuntu',
       :osfamily => 'Debian',
@@ -22,7 +22,7 @@ describe 'nfs::client::mount', :type => 'define' do
     it { should contain_mount('shared /srv/test by example.com on /srv/test') }
   end
 
-  context "nvs_v4 => false" do
+  context "nfs_v4 => false, specified mountpoint and sharename" do
     let(:facts) {{
       :operatingsystem => 'Ubuntu',
       :osfamily => 'Debian',
@@ -42,7 +42,7 @@ describe 'nfs::client::mount', :type => 'define' do
     it { should contain_mount('shared /export/srv by example.com on /srv') }
   end
 
-  context "nvs_v4 => true" do
+  context "nfs_v4 => true, specified share" do
     let(:facts) {{
       :operatingsystem => 'Ubuntu',
       :osfamily => 'Debian',
@@ -62,7 +62,7 @@ describe 'nfs::client::mount', :type => 'define' do
     it { should contain_mount('shared /srv/test by example.com on /srv/test') }
   end
 
-  context "nvs_v4 => true" do
+  context "nfs_v4 => true, minimal arguments" do
     let(:facts) {{
       :operatingsystem => 'Ubuntu',
       :osfamily => 'Debian',
@@ -82,7 +82,7 @@ describe 'nfs::client::mount', :type => 'define' do
     it { should contain_mount('shared /srv/test by example.com on /srv/test') }
   end
 
-  context "nvs_v4 => true" do
+  context "nfs_v4 => true, non-default mountpoints" do
     let(:facts) {{
       :operatingsystem => 'Ubuntu',
       :osfamily => 'Debian',
