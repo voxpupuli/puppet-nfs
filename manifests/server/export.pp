@@ -35,6 +35,8 @@
 # [*nfstag*]
 #   String. Sets the nfstag parameter of the mount.
 #
+# [*mount*]
+#   String. Sets the mountpoint the client will mount the exported resource mount on.
 #
 # === Examples
 #
@@ -98,6 +100,7 @@ define nfs::server::export(
       nfstag        => $nfstag,
       share         => $v4_export_name,
       server        => $::clientcert,
+      mount         => $mount,
     }
   } else {
 
@@ -114,6 +117,7 @@ define nfs::server::export(
       nfstag      => $nfstag,
       share       => $v3_export_name,
       server      => $::clientcert,
+      mount       => $mount,
     }
   }
 }
