@@ -95,7 +95,7 @@ class nfs::params {
   case "${::osfamily}-${::operatingsystemmajrelease}" {
     /^Debian/: {
       $client_idmapd_setting      = [ 'set NEED_IDMAPD yes' ]
-      $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+      $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
       $client_services            = { 'rpcbind' => {} }
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
