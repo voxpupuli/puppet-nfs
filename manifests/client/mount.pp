@@ -58,7 +58,7 @@
 
 define nfs::client::mount (
   $server,
-  $share,
+  $share            = undef,
   $ensure           = 'mounted',
   $mount            = $title,
   $remounts         = false,
