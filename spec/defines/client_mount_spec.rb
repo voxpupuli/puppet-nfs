@@ -95,7 +95,7 @@ describe 'nfs::client::mount', :type => 'define' do
     }}
     let(:title) { '/opt/sample' }
 
-    let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4 => true, nfs_v4_mount_root => \'/srv\' }'}
+    let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4 => true, nfs_v4_mount_root => "/srv" }'}
 
     let(:params) {{ :share => 'test', :server => '1.2.3.4' } }
     it { should contain_nfs__functions__mkdir('/opt/sample') }
