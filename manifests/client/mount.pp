@@ -75,15 +75,15 @@ define nfs::client::mount (
 
   if $nfs_v4 == true {
     if $share != undef {
-      $mountname = "${::nfs::nfs_v4_mount_root}/${share}"
+      $sharename = "${::nfs::nfs_v4_mount_root}/${share}"
     } else {
-      $mountname = $mount
+      $sharename = $mount
     }
 
     nfs::functions::mkdir { $mountname: }
-    mount { "shared ${share} by ${::clientcert} on ${mountname}":
+    mount { "shared ${sharename} by ${::clientcert} on ${mountname}":
       ensure   => $ensure,
-      device   => "${server}:/${share}",
+      device   => "${server}:/${sharename}",
       fstype   => $::nfs::client_nfsv4_fstype,
       name     => $mountname,
       options  => $options_nfsv4,
@@ -100,30 +100,30 @@ define nfs::client::mount (
     }
   } else {
     if $share != undef {
-      $mountname = $share
+      $sharename = $share
     } else {
-      $mountname = $mount
+      $sharename = $mount
     }
 
-    nfs::functions::mkdir { $mountname: }
-    mount { "shared ${share} by ${::clientcert} on ${mountname}":
+    nfs::functions::mkdir { $mount: }
+    mount { "shared ${sharename} by ${::clientcert} on ${mount}":
       ensure   => $ensure,
-      device   => "${server}:${share}",
+      device   => "${server}:${sharename}",
       fstype   => $::nfs::client_nfs_fstype,
-      name     => $mountname,
+      name     => $mount,
       options  => $options_nfs,
       remounts => $remounts,
       atboot   => $atboot,
-      require  => Nfs::Functions::Mkdir[$mountname]
+      require  => Nfs::Functions::Mkdir[$mount]
     }
   }
   if $owner != undef or $group != undef or $mode != undef {
-    file{$mountname:
+    file{$mount:
       ensure  => directory,
       owner   => $owner,
       group   => $group,
       mode    => $mode,
-      require => Mount["shared ${share} by ${::clientcert} on ${mountname}"]
+      require => Mount["shared ${sharename} by ${::clientcert} on ${mount}"]
     }
   }
 }
