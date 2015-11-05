@@ -33,7 +33,7 @@ describe 'nfs::client::mount', :type => 'define' do
       :id => 'root',
       :path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     }}
-    let(:title) { '/srv' }
+    let(:title) { 'Import /srv' }
 
     let(:pre_condition) { 'class {"nfs": client_enabled => true,}'}
 
