@@ -1,3 +1,14 @@
+##2015-11-06 - Release 0.0.9
+###Summary
+
+####Bugfixes
+- fixed failed manual merge $mount == $name and can't be undef, we need to look at whether or not $share is undef
+- fixed sharename handling
+- Debian 7.9 defaults to v4
+
+####Features
+- added option to set mountpoint on exported resource
+
 ##2015-11-03 - Release 0.0.8
 ###Summary
 
