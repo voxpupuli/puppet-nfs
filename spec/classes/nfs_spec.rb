@@ -273,8 +273,8 @@ describe 'nfs', :type => 'class' do
       it {  should contain_package('rpcbind') }
       it do
         should contain_service('rpcbind.service')\
-         .with('ensure' => 'running')\
-         .with_subscribe([])
+          .with('ensure' => 'running')\
+          .with_subscribe([])
       end
       context ":nfs_v4_client => true" do
         let(:params) {{ :nfs_v4_client => true, :client_enabled => true }}
@@ -282,8 +282,8 @@ describe 'nfs', :type => 'class' do
         it { should contain_augeas('/etc/idmapd.conf') }
         it do
           should contain_service('rpcbind.service')\
-           .with('ensure' => 'running')\
-           .with_subscribe(/Augeas/)
+            .with('ensure' => 'running')\
+            .with_subscribe(/Augeas/)
         end
         it do
           should contain_service('nfs-idmap.service')\
@@ -301,7 +301,7 @@ describe 'nfs', :type => 'class' do
         end
         it do
           should contain_service('nfs-idmap.service')\
-           .with('ensure' => 'running')
+            .with('ensure' => 'running')
         end
       end
     end
@@ -324,8 +324,8 @@ describe 'nfs', :type => 'class' do
       it { should contain_package('net-libs/libnfsidmap') }
       it do
         should contain_service('rpcbind')\
-         .with('ensure' => 'running')\
-         .with_subscribe([])
+          .with('ensure' => 'running')\
+          .with_subscribe([])
       end
       context ":nfs_v4_client => true" do
         let(:params) {{ :nfs_v4_client => true, :client_enabled => true, }}
@@ -352,7 +352,7 @@ describe 'nfs', :type => 'class' do
         end
         it do
           should contain_service('rpc.idmapd')\
-           .with('ensure' => 'running')
+            .with('ensure' => 'running')
         end
       end
     end
@@ -404,7 +404,7 @@ describe 'nfs', :type => 'class' do
         end
         it do
           should contain_service('nfsserver')\
-           .with('ensure' => 'running')
+            .with('ensure' => 'running')
         end
       end
     end
