@@ -54,6 +54,11 @@ class nfs::params {
       $idmapd_file    = '/etc/idmapd.conf'
       $defaults_file  = '/etc/conf.d/nfs'
     }
+    'Suse': {
+      $exports_file   = '/etc/exports'
+      $idmapd_file    = '/etc/idmapd.conf'
+      $defaults_file  = undef
+    }
     default: {
       $exports_file   = undef
       $idmapd_file    = undef
@@ -76,6 +81,10 @@ class nfs::params {
     'Gentoo': {
       $server_packages = ['net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap']
       $client_packages = ['net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap']
+    }
+    'Suse': {
+      $server_packages = ['nfs-kernel-server']
+      $client_packages = ['nfsidmap', 'nfs-client', 'rpcbind']
     }
     default: {
       $server_packages = undef
@@ -132,6 +141,15 @@ class nfs::params {
       $client_nfsv4_services      = { 'rpcbind' => {}, 'rpc.idmapd' => {} }
       $server_nfsv4_servicehelper = 'rpc.idmapd'
       $server_service_name        = 'nfs'
+    }
+    /^Suse/: {
+      $client_idmapd_setting      = [ '' ]
+      $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+      $client_services            = { 'rpcbind' => { before => Service['nfs'] }, 'nfs' => {} }
+      $client_nfsv4_fstype        = 'nfs4'
+      $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
+      $client_nfsv4_services      = { 'rpcbind' => { before => Service['nfs'] }, 'nfs' => {} }
+      $server_service_name        = 'nfsserver'
     }
     default: {
       # need to explicitly set unknown params to undef to work with strict_variables=true
