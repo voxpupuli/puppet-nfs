@@ -1,6 +1,6 @@
 {
   "name": "derdanne-nfs",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "source": "https://github.com/derdanne/puppet-nfs.git",
   "author": "derdanne",
   "license": "Apache-2.0",
@@ -44,6 +44,18 @@
       "operatingsystem": "Gentoo",
       "operatingsystemrelease": [
         "1.0"
+      ]
+    },
+    {
+      "operatingsystem": "SLES",
+      "operatingsystemrelease": [
+        "12"
+      ]
+    },
+    {
+      "operatingsystem": "openSUSE",
+      "operatingsystemrelease": [
+        "13"
       ]
     }
   ],

@@ -1,3 +1,12 @@
+##2015-11-26 - Release 0.0.10
+###Summary
+
+####Bugfixes
+- fixed non UTF8 char # in params.pp
+
+####Features
+- added support for openSUSE and SLES
+
 ##2015-11-06 - Release 0.0.9
 ###Summary
 
