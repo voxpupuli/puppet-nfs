@@ -100,7 +100,7 @@ class nfs::params {
   $client_services_hasstatus  = true
   $server_service_hasrestart  = true
   $server_service_hasstatus   = true
-  # params with OS-specific values
+  #params with OS-specific values
   case "${::osfamily}-${::operatingsystemmajrelease}" {
     /^Debian/: {
       $client_idmapd_setting      = [ 'set NEED_IDMAPD yes' ]
