@@ -19,7 +19,7 @@ describe 'nfs::client::mount', :type => 'define' do
 
     let(:params) {{ :server => '1.2.3.4' } }
     it { should contain_nfs__functions__mkdir('/srv/test') }
-    it { should contain_mount('shared /srv/test by example.com on /srv/test') }
+    it { should contain_mount('shared /srv/test by 1.2.3.4 on /srv/test') }
   end
 
   context "nfs_v4 => false, specified mountpoint and sharename" do
@@ -39,7 +39,7 @@ describe 'nfs::client::mount', :type => 'define' do
 
     let(:params) {{ :share => '/export/srv', :mount => '/srv', :server => '1.2.3.4' } }
     it { should contain_nfs__functions__mkdir('/srv') }
-    it { should contain_mount('shared /export/srv by example.com on /srv') }
+    it { should contain_mount('shared /export/srv by 1.2.3.4 on /srv') }
   end
 
   context "nfs_v4 => true, specified share" do
@@ -59,7 +59,7 @@ describe 'nfs::client::mount', :type => 'define' do
 
     let(:params) {{ :share => 'test', :server => '1.2.3.4' } }
     it { should contain_nfs__functions__mkdir('/srv/test') }
-    it { should contain_mount('shared /srv/test by example.com on /srv/test') }
+    it { should contain_mount('shared /test by 1.2.3.4 on /srv/test') }
   end
 
   context "nfs_v4 => true, minimal arguments" do
@@ -79,7 +79,7 @@ describe 'nfs::client::mount', :type => 'define' do
 
     let(:params) {{ :server => '1.2.3.4' } }
     it { should contain_nfs__functions__mkdir('/srv/test') }
-    it { should contain_mount('shared /srv/test by example.com on /srv/test') }
+    it { should contain_mount('shared /test by 1.2.3.4 on /srv/test') }
   end
 
   context "nfs_v4 => true, non-default mountpoints" do
@@ -99,6 +99,6 @@ describe 'nfs::client::mount', :type => 'define' do
 
     let(:params) {{ :share => 'test', :server => '1.2.3.4' } }
     it { should contain_nfs__functions__mkdir('/opt/sample') }
-    it { should contain_mount('shared /srv/test by example.com on /opt/sample') }
+    it { should contain_mount('shared /test by 1.2.3.4 on /opt/sample') }
   end
 end

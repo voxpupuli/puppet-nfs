@@ -21,7 +21,7 @@ maintaining his module actively anymore. It is stripped down to use only the cla
 and parametrized to act as a server, client or both with the parameters 'server_enabled'
 and 'client_enabled'. It also has some dependencies on newer stdlib functions like 'difference'.
 
-It supports the OS Families Ubuntu, Debian, Redhat and Gentoo. It supports also Strict Variables, so if you pass all 
+It supports the OS Families Ubuntu, Debian, Redhat, SUSE and Gentoo. It supports also Strict Variables, so if you pass all 
 OS specific parameters correctly it should work on your preferred OS too. Feedback, bugreports, 
 and feature requests are always welcome, visit https://github.com/derdanne/puppet-nfs or send me an email.
 

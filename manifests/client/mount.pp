@@ -36,6 +36,20 @@
 # [*nfs_v4*]
 #   Boolean. When set to true, it uses nfs version 4 to mount a share.
 #
+# [*owner*]
+#   String. Set owner of mount dir
+#
+# [*group*]
+#   String. Set group of mount dir
+#
+# [*mode*]
+#   String. Set mode of mount dir
+#
+# [*mount_root*]
+#   String. Overwrite mount root if differs from server config
+#
+
+
 # === Examples
 #
 # class { '::nfs':
@@ -70,20 +84,26 @@ define nfs::client::mount (
   $nfs_v4           = $::nfs::client::nfs_v4,
   $owner            = undef,
   $group            = undef,
-  $mode             = undef
+  $mode             = undef,
+  $mount_root       = undef,
 ){
 
   if $nfs_v4 == true {
-    if $share != undef {
-      $sharename = "${::nfs::client::nfs_v4_mount_root}/${share}"
+    if $mount_root == undef {
+      $root = ''
     } else {
-      $sharename = $mount
+      $root = $mount_root
+    }
+    if $share != undef {
+      $sharename = "${root}/${share}"
+    } else {
+      $sharename = regsubst($mount, '.*(/.*)', '\1' )
     }
 
     nfs::functions::mkdir { $mount: }
-    mount { "shared ${sharename} by ${::clientcert} on ${mount}":
+    mount { "shared ${sharename} by ${server} on ${mount}":
       ensure   => $ensure,
-      device   => "${server}:/${sharename}",
+      device   => "${server}:${sharename}",
       fstype   => $::nfs::client_nfsv4_fstype,
       name     => $mount,
       options  => $options_nfsv4,
@@ -106,7 +126,7 @@ define nfs::client::mount (
     }
 
     nfs::functions::mkdir { $mount: }
-    mount { "shared ${sharename} by ${::clientcert} on ${mount}":
+    mount { "shared ${sharename} by ${server} on ${mount}":
       ensure   => $ensure,
       device   => "${server}:${sharename}",
       fstype   => $::nfs::client_nfs_fstype,
@@ -123,7 +143,7 @@ define nfs::client::mount (
       owner   => $owner,
       group   => $group,
       mode    => $mode,
-      require => Mount["shared ${sharename} by ${::clientcert} on ${mount}"]
+      require => Mount["shared ${sharename} by ${server} on ${mount}"]
     }
   }
 }
