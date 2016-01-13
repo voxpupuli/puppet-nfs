@@ -1,3 +1,12 @@
+##2015-01-13 - Release 0.0.11
+###Summary
+
+####Bugfixes
+- update client mount to use relative devicename to "fsid=root" in nfs v4
+- update client mount spec tests
+- fix https://github.com/derdanne/puppet-nfs/issues/19
+- update gentoo default $client_nfsv4_fstype to reflect syntax update in net-fs/nfs-utils
+
 ##2015-11-26 - Release 0.0.10
 ###Summary
 
