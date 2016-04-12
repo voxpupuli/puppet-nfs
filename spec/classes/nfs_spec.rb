@@ -22,7 +22,7 @@ describe 'nfs', :type => 'class' do
       it { should contain_file('/export').with( 'ensure' => 'directory' ) }
     end
 
-    context "operatingsysten => ubuntu" do
+    context "operatingsystem => ubuntu" do
       let(:facts) { {
         :operatingsystem => 'Ubuntu',
         :osfamily => 'Debian',
@@ -46,7 +46,7 @@ describe 'nfs', :type => 'class' do
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
-    context "operatingsysten => debian" do
+    context "operatingsystem => debian" do
       let(:facts) { {
         :operatingsystem => 'Debian',
         :osfamily => 'Debian',
@@ -70,7 +70,7 @@ describe 'nfs', :type => 'class' do
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
-    context "operatingsysten => redhat" do
+    context "operatingsystem => redhat" do
       let(:facts) { {
         :operatingsystem => 'RedHat',
         :osfamily => 'RedHat',
@@ -102,7 +102,7 @@ describe 'nfs', :type => 'class' do
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
-    context "operatingsysten => redhat" do
+    context "operatingsystem => redhat" do
       let(:facts) { {
         :operatingsystem => 'RedHat',
         :osfamily => 'RedHat',
@@ -125,7 +125,7 @@ describe 'nfs', :type => 'class' do
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
-    context "operatingsysten => gentoo" do
+    context "operatingsystem => gentoo" do
       let(:facts) { {
         :operatingsystem => 'Gentoo',
         :osfamily => 'Gentoo',
@@ -148,7 +148,7 @@ describe 'nfs', :type => 'class' do
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
-    context "operatingsysten => SLES" do
+    context "operatingsystem => SLES" do
       let(:facts) { {
         :operatingsystem => 'SLES',
         :osfamily => 'Suse',
@@ -172,7 +172,7 @@ describe 'nfs', :type => 'class' do
     end
   end
   context "client => true" do
-    context "operatingsysten => ubuntu" do
+    context "operatingsystem => ubuntu" do
       let(:params) {{ :client_enabled => true, :server_enabled => false  }}
       let(:facts) { {
         :operatingsystem => 'Ubuntu',
@@ -213,7 +213,7 @@ describe 'nfs', :type => 'class' do
         end
       end
     end
-    context "operatingsysten => debian" do
+    context "operatingsystem => debian" do
       let(:params) {{ :client_enabled => true, :server_enabled => false  }}
         let(:facts) { {
           :operatingsystem => 'Ubuntu',
@@ -254,7 +254,7 @@ describe 'nfs', :type => 'class' do
           end
         end
     end
-    context "operatingsysten => redhat" do
+    context "operatingsystem => redhat" do
       let(:params) {{ :client_enabled => true, :server_enabled => false  }}
       let(:facts) { {
         :operatingsystem => 'RedHat',
@@ -285,11 +285,6 @@ describe 'nfs', :type => 'class' do
             .with('ensure' => 'running')\
             .with_subscribe(/Augeas/)
         end
-        it do
-          should contain_service('nfs-idmap.service')\
-            .with('ensure' => 'running')\
-            .with_subscribe(/Augeas/)
-        end
       end
       context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
         let(:params) {{ :nfs_v4_client => true, :nfs_v4 => true, :client_enabled => true, :server_enabled => true }}
@@ -305,7 +300,7 @@ describe 'nfs', :type => 'class' do
         end
       end
     end
-    context "operatingsysten => gentoo" do
+    context "operatingsystem => gentoo" do
       let(:params) {{ :client_enabled => true, }}
       let(:facts) { {
         :operatingsystem => 'Gentoo',
@@ -356,7 +351,7 @@ describe 'nfs', :type => 'class' do
         end
       end
     end
-    context "operatingsysten => SLES" do
+    context ":operatingsystem => SLES" do
       let(:params) {{ :client_enabled => true, }}
       let(:facts) { {
         :operatingsystem => 'SLES',

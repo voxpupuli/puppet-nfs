@@ -1,4 +1,13 @@
-##2015-01-13 - Release 0.0.11
+##2016-04-12 - Release 0.0.12
+###Summary
+
+####Bugfixes
+- remove nfs-idmap.service from $client_nfsv4_services in params.pp for RHEL 7 
+- add $server_nfsv4_servicehelper for Suse 
+- add correct testing for server_nfsv4_servicehelper in server::service 
+- specified correct puppet dependencies in metadata.json
+
+##2016-01-13 - Release 0.0.11
 ###Summary
 
 ####Bugfixes

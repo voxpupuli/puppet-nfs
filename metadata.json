@@ -1,6 +1,6 @@
 {
   "name": "derdanne-nfs",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "source": "https://github.com/derdanne/puppet-nfs.git",
   "author": "derdanne",
   "license": "Apache-2.0",
@@ -62,11 +62,11 @@
   "requirements": [
     {
       "name": "pe",
-      "version_requirement": "3.x"
+      "version_requirement": ">= 3.2.0 < 5.0.0"
     },
     {
       "name": "puppet",
-      "version_requirement": "3.x"
+      "version_requirement": ">= 3.0.0 < 5.0.0"
     }
   ]
 }
