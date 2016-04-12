@@ -25,7 +25,7 @@ class nfs::server::service {
       hasstatus  => $::nfs::server_service_hasstatus,
       subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ]
     }
-    if $::nfs::server_nfsv4_servicehelper {
+    if $::nfs::server_nfsv4_servicehelper != undef {
       service { $::nfs::server_nfsv4_servicehelper:
         ensure     => $::nfs::server_service_ensure,
         enable     => $::nfs::server_service_enable,
