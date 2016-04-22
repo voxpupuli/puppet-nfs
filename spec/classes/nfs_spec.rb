@@ -5,7 +5,8 @@ describe 'nfs', type: 'class' do
     let :params do {
       server_enabled: true,
       client_enabled: false,
-    } end
+    } 
+    end
     let(:facts) { {
       operatingsystem: 'Ubuntu',
       osfamily: 'Debian',
