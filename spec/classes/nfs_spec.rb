@@ -103,6 +103,62 @@ describe 'nfs', type: 'class' do
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
+    context 'operatingsystem => debian' do
+      let(:facts) { {
+        operatingsystem: 'Debian',
+        osfamily: 'Debian',
+        operatingsystemmajrelease: '8',
+        concat_basedir: '/tmp',
+        clientcert: 'test.host',
+        is_pe: false,
+        id: 'root',
+        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+      } }
+      it { should contain_class('nfs::server::config') }
+      it { should contain_class('nfs::server::package') }
+      it { should contain_class('nfs::server::service') }
+      it do
+        should contain_package('nfs-kernel-server')
+        should contain_service('nfs-kernel-server').with('ensure' => 'running')
+      end
+      context ':nfs_v4 => true' do
+        let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
+        it { should contain_service('idmapd').with('ensure' => 'running') }
+        it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
+      end
+    end
+    context 'operatingsystem => redhat' do
+      let(:facts) { {
+        operatingsystem: 'RedHat',
+        osfamily: 'RedHat',
+        operatingsystemmajrelease: '6',
+        concat_basedir: '/tmp',
+        clientcert: 'test.host',
+        is_pe: false,
+        id: 'root',
+        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+      } }
+      it { should contain_class('nfs::server::config') }
+      it { should contain_class('nfs::server::package') }
+      it { should contain_class('nfs::server::service') }
+      it do
+        should contain_service('nfs').with('ensure' => 'running')
+      end
+      it do
+        should contain_package('rpcbind').with('ensure' => 'installed')
+      end
+      it do
+        should contain_package('nfs-utils').with('ensure' => 'installed')
+      end
+      it do
+        should contain_package('nfs4-acl-tools').with('ensure' => 'installed')
+      end
+      context ':nfs_v4 => true' do
+        let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
+        it { should contain_service('rpcidmapd').with('ensure' => 'running') }
+        it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
+      end
+    end
     context 'operatingsystem => redhat' do
       let(:facts) { {
         operatingsystem: 'RedHat',
