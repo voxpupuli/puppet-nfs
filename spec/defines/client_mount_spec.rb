@@ -15,9 +15,9 @@ describe 'nfs::client::mount', type: 'define' do
     }}
     let(:title) { '/srv/test' }
 
-    let(:pre_condition) { 'class {"nfs": client_enabled => true,}'}
+    let(:pre_condition) { 'class {"nfs": client_enabled => true,}' }
 
-    let(:params) {{ server: '1.2.3.4' } }
+    let(:params) { { server: '1.2.3.4' } }
     it { should contain_nfs__functions__mkdir('/srv/test') }
     it { should contain_mount('shared /srv/test by 1.2.3.4 on /srv/test') }
   end
@@ -35,9 +35,9 @@ describe 'nfs::client::mount', type: 'define' do
     }}
     let(:title) { 'Import /srv' }
 
-    let(:pre_condition) { 'class {"nfs": client_enabled => true,}'}
+    let(:pre_condition) { 'class {"nfs": client_enabled => true,}' }
 
-    let(:params) {{ share: '/export/srv', mount: '/srv', server: '1.2.3.4' } }
+    let(:params) { { share: '/export/srv', mount: '/srv', server: '1.2.3.4' } }
     it { should contain_nfs__functions__mkdir('/srv') }
     it { should contain_mount('shared /export/srv by 1.2.3.4 on /srv') }
   end
@@ -55,9 +55,9 @@ describe 'nfs::client::mount', type: 'define' do
     }}
     let(:title) { '/srv/test' }
 
-    let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true }'}
+    let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true }' }
 
-    let(:params) {{ share: 'test', server: '1.2.3.4' } }
+    let(:params) { { share: 'test', server: '1.2.3.4' } }
     it { should contain_nfs__functions__mkdir('/srv/test') }
     it { should contain_mount('shared /test by 1.2.3.4 on /srv/test') }
   end
@@ -75,9 +75,9 @@ describe 'nfs::client::mount', type: 'define' do
     }}
     let(:title) { '/srv/test' }
 
-    let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true }'}
+    let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true }' }
 
-    let(:params) {{ server: '1.2.3.4' } }
+    let(:params) { { server: '1.2.3.4' } }
     it { should contain_nfs__functions__mkdir('/srv/test') }
     it { should contain_mount('shared /test by 1.2.3.4 on /srv/test') }
   end
@@ -95,9 +95,9 @@ describe 'nfs::client::mount', type: 'define' do
     }}
     let(:title) { '/opt/sample' }
 
-    let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true }'}
+    let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true }' }
 
-    let(:params) {{ share: 'test', server: '1.2.3.4' } }
+    let(:params) { { share: 'test', server: '1.2.3.4' } }
     it { should contain_nfs__functions__mkdir('/opt/sample') }
     it { should contain_mount('shared /test by 1.2.3.4 on /opt/sample') }
   end

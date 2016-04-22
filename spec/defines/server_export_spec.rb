@@ -14,9 +14,9 @@ describe 'nfs::server::export', type: 'define' do
     }}
     let(:title) { '/srv/test' }
 
-    let(:pre_condition) { 'class {"nfs": server_enabled => true,}'}
+    let(:pre_condition) { 'class {"nfs": server_enabled => true,}' }
 
-    let(:params) {{ clients: '1.2.3.4(rw)' } }
+    let(:params) { { clients: '1.2.3.4(rw)' } }
     it do
       should contain_nfs__functions__create_export('/srv/test').with({ 'ensure' => 'mounted', 'clients' => '1.2.3.4(rw)', })
     end
@@ -32,9 +32,9 @@ describe 'nfs::server::export', type: 'define' do
       path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     }}
     let(:title) { '/srv/test' }
-    let(:pre_condition) { 'class {"nfs": server_enabled => true, nfs_v4 => true}'}
+    let(:pre_condition) { 'class {"nfs": server_enabled => true, nfs_v4 => true}' }
 
-    let(:params) {{ clients: '1.2.3.4(rw)', bind: 'sbind' }}
+    let(:params) { { clients: '1.2.3.4(rw)', bind: 'sbind' } }
     it do
       should contain_nfs__functions__nfsv4_bindmount('/srv/test').with({ 'ensure' => 'mounted', 'v4_export_name' => 'test', 'bind' => 'sbind', })
     end
