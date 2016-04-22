@@ -30,7 +30,7 @@ class nfs::server::config {
     concat::fragment { 'nfs_exports_root':
       target  => '/etc/exports',
       content => "${::nfs::server::nfs_v4_export_root} ${::nfs::server::nfs_v4_export_root_clients}\n",
-      order   => 02
+      order   => 02,
     }
     file { $::nfs::server::nfs_v4_export_root:
       ensure => directory,
