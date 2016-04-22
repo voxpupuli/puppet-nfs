@@ -26,13 +26,13 @@ class nfs::client (
   anchor {'nfs::client::end': }
 
   # package(s)
-  class { 'nfs::client::package': }
+  class { '::nfs::client::package': }
 
   # configuration
-  class { 'nfs::client::config': }
+  class { '::nfs::client::config': }
 
   # service(s)
-  class { 'nfs::client::service': }
+  class { '::nfs::client::service': }
 
   if $ensure == 'present' {
     # we need the software before configuring it
