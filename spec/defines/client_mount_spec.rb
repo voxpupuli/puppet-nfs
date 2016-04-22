@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'nfs::client::mount', type: 'define' do
-
   context 'nfs_v4 => false, minimal arguments' do
     let(:facts) {{
       operatingsystem: 'Ubuntu',

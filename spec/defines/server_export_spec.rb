@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'nfs::server::export', type: 'define' do
-
   context 'nvs_v4 => false' do
     let(:facts) {{
       operatingsystem: 'Ubuntu',
