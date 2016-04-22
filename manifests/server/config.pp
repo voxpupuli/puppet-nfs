@@ -23,14 +23,14 @@ class nfs::server::config {
   concat::fragment { 'nfs_exports_header':
     target  => '/etc/exports',
     content => "# This file is configured through the nfs::server puppet module\n",
-    order   => 01;
+    order   => 1;
   }
 
   if $::nfs::nfs_v4 {
     concat::fragment { 'nfs_exports_root':
       target  => '/etc/exports',
       content => "${::nfs::server::nfs_v4_export_root} ${::nfs::server::nfs_v4_export_root_clients}\n",
-      order   => 02,
+      order   => 2,
     }
     file { $::nfs::server::nfs_v4_export_root:
       ensure => directory,
