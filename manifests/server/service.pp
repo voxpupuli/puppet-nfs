@@ -23,7 +23,7 @@ class nfs::server::service {
       enable     => $::nfs::server_service_enable,
       hasrestart => $::nfs::server_service_hasrestart,
       hasstatus  => $::nfs::server_service_hasstatus,
-      subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ]
+      subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ],
     }
     if $::nfs::server_nfsv4_servicehelper != undef {
       service { $::nfs::server_nfsv4_servicehelper:
@@ -40,7 +40,7 @@ class nfs::server::service {
     enable     => $::nfs::server_service_enable,
     hasrestart => $::nfs::server_service_hasrestart,
     hasstatus  => $::nfs::server_service_hasstatus,
-    subscribe  => Concat[$::nfs::exports_file]
+    subscribe  => Concat[$::nfs::exports_file],
     }
   }
 }
