@@ -16,7 +16,7 @@ RSpec.configure do |c|
     ENV.each_key { |k| @old_env[k] = ENV[k] }
 
     if ENV['STRICT_VARIABLES'] == 'yes'
-      Puppet.settings[:strict_variables]=true
+      Puppet.settings[:strict_variables] = true
     end
   end
 end
