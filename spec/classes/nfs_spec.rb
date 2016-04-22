@@ -255,6 +255,47 @@ describe 'nfs', type: 'class' do
         end
       end
     end
+    context 'operatingsystem => debian' do
+      let(:params) { { client_enabled: true, server_enabled: false } }
+      let(:facts) { {
+        operatingsystem: 'Debian',
+        osfamily: 'Debian',
+        operatingsystemmajrelease: '8',
+        concat_basedir: '/tmp',
+        is_pe: false,
+        id: 'root',
+        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+      } }
+      it { should contain_class('nfs::client::config') }
+      it { should contain_class('nfs::client::package') }
+      it { should contain_class('nfs::client::service') }
+      it do
+        should contain_service('rpcbind')\
+          .with('ensure' => 'running')\
+          .with_subscribe([])
+      end
+      it { should contain_package('nfs-common') }
+      it { should contain_package('nfs4-acl-tools') }
+      context ':nfs_v4_client => true' do
+        let(:params) { { nfs_v4_client: true, client_enabled: true } }
+        it { should contain_augeas('/etc/default/nfs-common') }
+        it { should contain_augeas('/etc/idmapd.conf') }
+        it do
+          should contain_service('rpcbind')\
+            .with('ensure' => 'running')\
+            .with_subscribe(/Augeas/)
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true } }
+        it { should contain_augeas('/etc/default/nfs-common') }
+        it do
+          should contain_service('rpcbind')\
+            .with('ensure' => 'running')\
+            .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
+        end
+      end
+    end
     context 'operatingsystem => redhat' do
       let(:params) { { client_enabled: true, server_enabled: false } }
       let(:facts) { {
