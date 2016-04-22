@@ -109,13 +109,13 @@ define nfs::client::mount (
       options  => $options_nfsv4,
       remounts => $remounts,
       atboot   => $atboot,
-      require  => Nfs::Functions::Mkdir[$mount]
+      require  => Nfs::Functions::Mkdir[$mount],
     }
 
     if $bindmount != undef {
       nfs::functions::bindmount { $mount:
         ensure     => $ensure,
-        mount_name => $bindmount
+        mount_name => $bindmount,
       }
     }
   } else {
@@ -134,7 +134,7 @@ define nfs::client::mount (
       options  => $options_nfs,
       remounts => $remounts,
       atboot   => $atboot,
-      require  => Nfs::Functions::Mkdir[$mount]
+      require  => Nfs::Functions::Mkdir[$mount],
     }
   }
   if $owner != undef or $group != undef or $mode != undef {
@@ -143,7 +143,7 @@ define nfs::client::mount (
       owner   => $owner,
       group   => $group,
       mode    => $mode,
-      require => Mount["shared ${sharename} by ${server} on ${mount}"]
+      require => Mount["shared ${sharename} by ${server} on ${mount}"],
     }
   }
 }
