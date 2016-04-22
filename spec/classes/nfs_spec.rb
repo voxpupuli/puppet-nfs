@@ -217,9 +217,9 @@ describe 'nfs', type: 'class' do
     context 'operatingsystem => debian' do
       let(:params) { { client_enabled: true, server_enabled: false } }
       let(:facts) { {
-        operatingsystem: 'Ubuntu',
+        operatingsystem: 'Debian',
         osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
+        operatingsystemmajrelease: '7',
         concat_basedir: '/tmp',
         is_pe: false,
         id: 'root',
