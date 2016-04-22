@@ -17,7 +17,7 @@ describe 'nfs', type: 'class' do
     } }
     it { should contain_concat__fragment('nfs_exports_header').with( 'target' => '/etc/exports' ) }
     context 'nfs_v4 => true' do
-      let(:params) { {nfs_v4: true, server_enabled: true } }
+      let(:params) { { nfs_v4: true, server_enabled: true } }
       it { should contain_concat__fragment('nfs_exports_root').with( 'target' => '/etc/exports' ) }
       it { should contain_file('/export').with( 'ensure' => 'directory' ) }
     end
@@ -41,7 +41,7 @@ describe 'nfs', type: 'class' do
         should contain_service('nfs-kernel-server').with( 'ensure' => 'running' )
       end
       context ':nfs_v4 => true' do
-        let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring'} }
+        let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
         it { should contain_service('idmapd').with( 'ensure' => 'running' ) }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
@@ -143,7 +143,7 @@ describe 'nfs', type: 'class' do
         should contain_service('nfs').with( 'ensure' => 'running' )
       end
       context ':nfs_v4 => true' do
-        let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring'} }
+        let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
         it { should contain_service('rpc.idmapd').with( 'ensure' => 'running' ) }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
@@ -166,7 +166,7 @@ describe 'nfs', type: 'class' do
         should contain_service('nfsserver').with( 'ensure' => 'running' )
       end
       context ':nfs_v4 => true' do
-        let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring'} }
+        let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
