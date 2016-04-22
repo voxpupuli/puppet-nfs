@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'nfs', type: 'class' do
-  context "server => true" do
+  context 'server => true' do
     let :params do {
       server_enabled: true,
       client_enabled: false,
@@ -16,13 +16,13 @@ describe 'nfs', type: 'class' do
       path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     } }
     it { should contain_concat__fragment('nfs_exports_header').with( 'target' => '/etc/exports' ) }
-    context "nfs_v4 => true" do
+    context 'nfs_v4 => true' do
       let(:params) { {nfs_v4: true, server_enabled: true } }
       it { should contain_concat__fragment('nfs_exports_root').with( 'target' => '/etc/exports' ) }
       it { should contain_file('/export').with( 'ensure' => 'directory' ) }
     end
 
-    context "operatingsystem => ubuntu" do
+    context 'operatingsystem => ubuntu' do
       let(:facts) { {
         operatingsystem: 'Ubuntu',
         osfamily: 'Debian',
@@ -40,13 +40,13 @@ describe 'nfs', type: 'class' do
         should contain_package('nfs-kernel-server')
         should contain_service('nfs-kernel-server').with( 'ensure' => 'running'  )
       end
-      context ":nfs_v4 => true" do
+      context ':nfs_v4 => true' do
         let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring'} }
         it { should contain_service('idmapd').with( 'ensure' => 'running'  ) }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
-    context "operatingsystem => debian" do
+    context 'operatingsystem => debian' do
       let(:facts) { {
         operatingsystem: 'Debian',
         osfamily: 'Debian',
@@ -64,13 +64,13 @@ describe 'nfs', type: 'class' do
         should contain_package('nfs-kernel-server')
         should contain_service('nfs-kernel-server').with( 'ensure' => 'running'  )
       end
-      context ":nfs_v4 => true" do
+      context ':nfs_v4 => true' do
         let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
         it { should contain_service('idmapd').with( 'ensure' => 'running'  ) }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
-    context "operatingsystem => redhat" do
+    context 'operatingsystem => redhat' do
       let(:facts) { {
         operatingsystem: 'RedHat',
         osfamily: 'RedHat',
@@ -96,13 +96,13 @@ describe 'nfs', type: 'class' do
       it do
         should contain_package('nfs4-acl-tools').with( 'ensure' => 'installed'  )
       end
-      context ":nfs_v4 => true" do
+      context ':nfs_v4 => true' do
         let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
         it { should contain_service('rpcidmapd').with( 'ensure' => 'running'  ) }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
-    context "operatingsystem => redhat" do
+    context 'operatingsystem => redhat' do
       let(:facts) { {
         operatingsystem: 'RedHat',
         osfamily: 'RedHat',
@@ -119,13 +119,13 @@ describe 'nfs', type: 'class' do
       it do
         should contain_service('nfs-server.service').with( 'ensure' => 'running'  )
       end
-      context ":nfs_v4 => true" do
+      context ':nfs_v4 => true' do
         let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
         it { should contain_service('nfs-idmap.service').with( 'ensure' => 'running'  ) }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
-    context "operatingsystem => gentoo" do
+    context 'operatingsystem => gentoo' do
       let(:facts) { {
         operatingsystem: 'Gentoo',
         osfamily: 'Gentoo',
@@ -142,13 +142,13 @@ describe 'nfs', type: 'class' do
       it do
         should contain_service('nfs').with( 'ensure' => 'running'  )
       end
-      context ":nfs_v4 => true" do
+      context ':nfs_v4 => true' do
         let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring'} }
         it { should contain_service('rpc.idmapd').with( 'ensure' => 'running'  ) }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
-    context "operatingsystem => SLES" do
+    context 'operatingsystem => SLES' do
       let(:facts) { {
         operatingsystem: 'SLES',
         osfamily: 'Suse',
@@ -165,14 +165,14 @@ describe 'nfs', type: 'class' do
       it do
         should contain_service('nfsserver').with( 'ensure' => 'running'  )
       end
-      context ":nfs_v4 => true" do
+      context ':nfs_v4 => true' do
         let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring'} }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
   end
-  context "client => true" do
-    context "operatingsystem => ubuntu" do
+  context 'client => true' do
+    context 'operatingsystem => ubuntu' do
       let(:params) { { client_enabled: true, server_enabled: false  } }
       let(:facts) { {
         operatingsystem: 'Ubuntu',
@@ -193,7 +193,7 @@ describe 'nfs', type: 'class' do
       end
       it { should contain_package('nfs-common') }
       it { should contain_package('nfs4-acl-tools') }
-      context ":nfs_v4_client => true, server_enabled => false" do
+      context ':nfs_v4_client => true, server_enabled => false' do
         let(:params) { { client_enabled: true, nfs_v4_client: true, } }
         it { should contain_augeas('/etc/default/nfs-common') }
         it { should contain_augeas('/etc/idmapd.conf') }
@@ -203,7 +203,7 @@ describe 'nfs', type: 'class' do
             .with_subscribe(/Augeas/)
         end
       end
-      context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true } }
         it { should contain_augeas('/etc/default/nfs-common') }
         it do
@@ -213,7 +213,7 @@ describe 'nfs', type: 'class' do
         end
       end
     end
-    context "operatingsystem => debian" do
+    context 'operatingsystem => debian' do
       let(:params) { { client_enabled: true, server_enabled: false  } }
         let(:facts) { {
           operatingsystem: 'Ubuntu',
@@ -234,7 +234,7 @@ describe 'nfs', type: 'class' do
         end
         it { should contain_package('nfs-common') }
         it { should contain_package('nfs4-acl-tools') }
-        context ":nfs_v4_client => true" do
+        context ':nfs_v4_client => true' do
           let(:params) { { nfs_v4_client: true, client_enabled: true } }
           it { should contain_augeas('/etc/default/nfs-common') }
           it { should contain_augeas('/etc/idmapd.conf') }
@@ -244,7 +244,7 @@ describe 'nfs', type: 'class' do
               .with_subscribe(/Augeas/)
           end
         end
-        context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
+        context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true' do
           let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true } }
           it { should contain_augeas('/etc/default/nfs-common') }
           it do
@@ -254,7 +254,7 @@ describe 'nfs', type: 'class' do
           end
         end
     end
-    context "operatingsystem => redhat" do
+    context 'operatingsystem => redhat' do
       let(:params) { { client_enabled: true, server_enabled: false  } }
       let(:facts) { {
         operatingsystem: 'RedHat',
@@ -276,7 +276,7 @@ describe 'nfs', type: 'class' do
           .with('ensure' => 'running')\
           .with_subscribe([])
       end
-      context ":nfs_v4_client => true" do
+      context ':nfs_v4_client => true' do
         let(:params) { { nfs_v4_client: true, client_enabled: true } }
         it { should contain_augeas('/etc/default/nfs-common') }
         it { should contain_augeas('/etc/idmapd.conf') }
@@ -286,7 +286,7 @@ describe 'nfs', type: 'class' do
             .with_subscribe(/Augeas/)
         end
       end
-      context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true } }
         it { should contain_augeas('/etc/default/nfs-common') }
         it do
@@ -300,7 +300,7 @@ describe 'nfs', type: 'class' do
         end
       end
     end
-    context "operatingsystem => gentoo" do
+    context 'operatingsystem => gentoo' do
       let(:params) { { client_enabled: true, } }
       let(:facts) { {
         operatingsystem: 'Gentoo',
@@ -322,7 +322,7 @@ describe 'nfs', type: 'class' do
           .with('ensure' => 'running')\
           .with_subscribe([])
       end
-      context ":nfs_v4_client => true" do
+      context ':nfs_v4_client => true' do
         let(:params) { { nfs_v4_client: true, client_enabled: true, } }
         it { should contain_augeas('/etc/conf.d/nfs') }
         it { should contain_augeas('/etc/idmapd.conf') }
@@ -337,7 +337,7 @@ describe 'nfs', type: 'class' do
             .with_subscribe(/Augeas/)
         end
       end
-      context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true } }
         it { should contain_augeas('/etc/conf.d/nfs') }
         it do
@@ -351,7 +351,7 @@ describe 'nfs', type: 'class' do
         end
       end
     end
-    context ":operatingsystem => SLES" do
+    context ':operatingsystem => SLES' do
       let(:params) { { client_enabled: true, } }
       let(:facts) { {
         operatingsystem: 'SLES',
@@ -374,7 +374,7 @@ describe 'nfs', type: 'class' do
           .with_subscribe([])\
           .that_comes_before('Service[nfs]')
       end
-      context ":nfs_v4_client => true" do
+      context ':nfs_v4_client => true' do
         let(:params) { { nfs_v4_client: true, client_enabled: true, } }
         it { should contain_augeas('/etc/idmapd.conf') }
         it do
@@ -389,7 +389,7 @@ describe 'nfs', type: 'class' do
             .with_subscribe(/Augeas/)
         end
       end
-      context ":nfs_v4_client => true, :nfs_v4 => true, server_enabled => true" do
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true } }
         it do
           should contain_service('rpcbind')\

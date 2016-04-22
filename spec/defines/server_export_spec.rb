@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'nfs::server::export', type: 'define' do
 
-  context "nvs_v4 => false" do
+  context 'nvs_v4 => false' do
     let(:facts) {{
       operatingsystem: 'Ubuntu',
       osfamily: 'Debian',
@@ -21,7 +21,7 @@ describe 'nfs::server::export', type: 'define' do
       should contain_nfs__functions__create_export('/srv/test').with({ 'ensure' => 'mounted', 'clients' => '1.2.3.4(rw)', })
     end
   end
-  context "nvs_v4 => true" do
+  context 'nvs_v4 => true' do
     let(:facts) {{
       operatingsystem: 'Ubuntu',
       osfamily: 'Debian',
