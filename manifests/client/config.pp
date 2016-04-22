@@ -21,7 +21,7 @@ class nfs::client::config {
     if $::nfs::defaults_file != undef {
       augeas { $::nfs::defaults_file:
         context => "/files/${::nfs::defaults_file}",
-        changes => $::nfs::client_idmapd_setting
+        changes => $::nfs::client_idmapd_setting,
       }
     }
     if $::nfs::server_enabled == false {
