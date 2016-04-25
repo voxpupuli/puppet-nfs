@@ -21,8 +21,8 @@ maintaining his module actively anymore. It is stripped down to use only the cla
 and parametrized to act as a server, client or both with the parameters 'server_enabled'
 and 'client_enabled'. It also has some dependencies on newer stdlib functions like 'difference'.
 
-It supports the OS Families Ubuntu, Debian, Redhat, SUSE and Gentoo. It supports also Strict Variables, so if you pass all 
-OS specific parameters correctly it should work on your preferred OS too. Feedback, bugreports, 
+It supports the OS Families Ubuntu, Debian, Redhat, SUSE and Gentoo. It supports also Strict Variables, so if you pass all
+OS specific parameters correctly it should work on your preferred OS too. Feedback, bugreports,
 and feature requests are always welcome, visit https://github.com/derdanne/puppet-nfs or send me an email.
 
 If you want to contribute, please do a fork on github, create a branch "feature name" with your
@@ -31,12 +31,12 @@ features and do a pull request.
 ##Module Description
 
 This module can be used to simply mount nfs shares on a client or to configure your nfs servers.
-It makes use of storeconfigs on the puppetmaster to get its resources. You can also easily use the 
+It makes use of storeconfigs on the puppetmaster to get its resources. You can also easily use the
 create_resources function when you store your exports i.e. via hiera.
 
 ##Setup
 
-This Module depends on puppetlabs-stdlib >= 4.5.0 and puppetlabs-concat >= 1.1.2. It is tested till 
+This Module depends on puppetlabs-stdlib >= 4.5.0 and puppetlabs-concat >= 1.1.2. It is tested till
 Puppet Version 4.2.
 
 Examples
@@ -303,19 +303,19 @@ This will mount /data on client in /share/data.
 #### HIERA:
 
 <pre>
-  
+
   nas::nfs_exports_global:
     /var/www: {}
     /var/smb: {}
 
 </pre>
-  
+
 #### PUPPET:
 
 <pre>
-  
+
   $nfs_exports_global = hiera_hash('nas::nfs_exports_global', false)
-  
+
   class { '::nfs':
     server_enabled => true,
     client_enabled => false,
@@ -324,7 +324,7 @@ This will mount /data on client in /share/data.
     nfs_v4_export_root => '/share',
     nfs_v4_export_root_clients => '192.168.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)',
   }
-  
+
   $defaults_nfs_exports = {
     ensure => 'mounted',
     clients => '192.168.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)
