@@ -67,6 +67,13 @@ class nfs::params {
       $client_packages  = ['nfsidmap', 'nfs-client', 'rpcbind']
       $defaults_file    = undef
     }
+    'Archlinux': {
+      $exports_file     = '/etc/exports'
+      $idmapd_file      = '/etc/idmapd.conf'
+      $server_packages  = ['nfs-utils']
+      $client_packages  = ['nfsidmap', 'rpcbind']
+      $defaults_file    = undef
+    }
     default: {
       $exports_file     = undef
       $idmapd_file      = undef
