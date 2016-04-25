@@ -54,6 +54,7 @@ This will export /data/folder on the server and automagically mount it on client
     nfs::server::export{ '/data_folder':
       ensure  => 'mounted',
       clients => '10.0.0.0/24(rw,insecure,async,no_root_squash) localhost(rw)'
+    }
   }
 
   # By default, mounts are mounted in the same folder on the clients as
