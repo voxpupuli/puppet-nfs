@@ -46,7 +46,7 @@ Examples
 
 This will export /data/folder on the server and automagically mount it on client.
 
-<pre>
+```puppet
   node server {
     class { '::nfs':
       server_enabled => true
@@ -65,15 +65,13 @@ This will export /data/folder on the server and automagically mount it on client
     }
     Nfs::Client::Mount &lt;&lt;| |&gt;&gt;
   }
-
-</pre>
+```
 
 ### Simple NFSv4 client example
 
 This will mount /data on client in /share/data.
 
-<pre>
-
+```pupppet
   class { '::nfs':
     server_enabled => false,
     client_enabled => true,
@@ -85,14 +83,12 @@ This will mount /data on client in /share/data.
       server => '192.168.0.1',
       share => 'data',
   }
-
-</pre>
+```
 
 
 ### NFSv3 multiple exports, servers and multiple node example
 
-
-<pre>
+```puppet
   node server1 {
     class { '::nfs':
       server_enabled => true
@@ -165,14 +161,12 @@ This will mount /data on client in /share/data.
       ensure => 'absent',
     }
   }
-
-</pre>
+```
 
 ### NFSv4 Simple example
 
 
-<pre>
-
+```puppet
   # We use the $::domain fact for the Domain setting in
   # /etc/idmapd.conf.
   # For NFSv4 to work this has to be equal on servers and clients
@@ -222,14 +216,12 @@ This will mount /data on client in /share/data.
       mount => "/srv/$server",
     }
   }
-
-</pre>
+```
 
 ### NFSv4 insanely overcomplicated reference example
 
 
-<pre>
-
+```puppet
   # and on individual nodes.
   node server {
     class { '::nfs':
@@ -296,25 +288,21 @@ This will mount /data on client in /share/data.
       bindmount => undef,
     }
   }
-
-</pre>
+```
 
 ### Simple create_resources with hiera example
 
 #### HIERA:
 
-<pre>
-
+```yaml
   nas::nfs_exports_global:
     /var/www: {}
     /var/smb: {}
-
-</pre>
+```
 
 #### PUPPET:
 
-<pre>
-
+```puppet
   $nfs_exports_global = hiera_hash('nas::nfs_exports_global', false)
 
   class { '::nfs':
@@ -334,8 +322,7 @@ This will mount /data on client in /share/data.
   if $nfs_exports_global {
     create_resources('::nfs::server::export', $nfs_exports_global, $defaults_nfs_exports)
   }
-
-</pre>
+```
 
 ##Requirements
 
