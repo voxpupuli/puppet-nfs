@@ -144,6 +144,16 @@ class nfs::params {
       $server_nfsv4_servicehelper = undef
       $server_service_name        = 'nfsserver'
     }
+    /^Archlinux/: {
+      $client_idmapd_setting      = [ '' ]
+      $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+      $client_services            = { 'rpcbind' => {} }
+      $client_nfsv4_fstype        = 'nfs4'
+      $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
+      $client_nfsv4_services      = { 'rpcbind' => {}, 'rpc.idmapd' => {} }
+      $server_nfsv4_servicehelper = 'rpc.idmapd'
+      $server_service_name        = 'nfs-server.service'
+    }
     default: {
       # need to explicitly set unknown params to undef to work with strict_variables=true
       $client_idmapd_setting      = undef
