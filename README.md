@@ -21,8 +21,8 @@ maintaining his module actively anymore. It is stripped down to use only the cla
 and parametrized to act as a server, client or both with the parameters 'server_enabled'
 and 'client_enabled'. It also has some dependencies on newer stdlib functions like 'difference'.
 
-It supports the OS Families Ubuntu, Debian, Redhat, SUSE and Gentoo. It supports also Strict Variables, so if you pass all 
-OS specific parameters correctly it should work on your preferred OS too. Feedback, bugreports, 
+It supports the OS Families Ubuntu, Debian, Redhat, SUSE and Gentoo. It supports also Strict Variables, so if you pass all
+OS specific parameters correctly it should work on your preferred OS too. Feedback, bugreports,
 and feature requests are always welcome, visit https://github.com/derdanne/puppet-nfs or send me an email.
 
 If you want to contribute, please do a fork on github, create a branch "feature name" with your
@@ -31,12 +31,12 @@ features and do a pull request.
 ##Module Description
 
 This module can be used to simply mount nfs shares on a client or to configure your nfs servers.
-It makes use of storeconfigs on the puppetmaster to get its resources. You can also easily use the 
+It makes use of storeconfigs on the puppetmaster to get its resources. You can also easily use the
 create_resources function when you store your exports i.e. via hiera.
 
 ##Setup
 
-This Module depends on puppetlabs-stdlib >= 4.5.0 and puppetlabs-concat >= 1.1.2. It is tested till 
+This Module depends on puppetlabs-stdlib >= 4.5.0 and puppetlabs-concat >= 1.1.2. It is tested till
 Puppet Version 4.2.
 
 Examples
@@ -46,7 +46,7 @@ Examples
 
 This will export /data/folder on the server and automagically mount it on client.
 
-<pre>
+```puppet
   node server {
     class { '::nfs':
       server_enabled => true
@@ -54,6 +54,7 @@ This will export /data/folder on the server and automagically mount it on client
     nfs::server::export{ '/data_folder':
       ensure  => 'mounted',
       clients => '10.0.0.0/24(rw,insecure,async,no_root_squash) localhost(rw)'
+    }
   }
 
   # By default, mounts are mounted in the same folder on the clients as
@@ -64,15 +65,13 @@ This will export /data/folder on the server and automagically mount it on client
     }
     Nfs::Client::Mount &lt;&lt;| |&gt;&gt;
   }
-
-</pre>
+```
 
 ### Simple NFSv4 client example
 
 This will mount /data on client in /share/data.
 
-<pre>
-
+```pupppet
   class { '::nfs':
     server_enabled => false,
     client_enabled => true,
@@ -84,14 +83,12 @@ This will mount /data on client in /share/data.
       server => '192.168.0.1',
       share => 'data',
   }
-
-</pre>
+```
 
 
 ### NFSv3 multiple exports, servers and multiple node example
 
-
-<pre>
+```puppet
   node server1 {
     class { '::nfs':
       server_enabled => true
@@ -164,14 +161,12 @@ This will mount /data on client in /share/data.
       ensure => 'absent',
     }
   }
-
-</pre>
+```
 
 ### NFSv4 Simple example
 
 
-<pre>
-
+```puppet
   # We use the $::domain fact for the Domain setting in
   # /etc/idmapd.conf.
   # For NFSv4 to work this has to be equal on servers and clients
@@ -221,14 +216,12 @@ This will mount /data on client in /share/data.
       mount => "/srv/$server",
     }
   }
-
-</pre>
+```
 
 ### NFSv4 insanely overcomplicated reference example
 
 
-<pre>
-
+```puppet
   # and on individual nodes.
   node server {
     class { '::nfs':
@@ -295,27 +288,23 @@ This will mount /data on client in /share/data.
       bindmount => undef,
     }
   }
-
-</pre>
+```
 
 ### Simple create_resources with hiera example
 
 #### HIERA:
 
-<pre>
-  
+```yaml
   nas::nfs_exports_global:
     /var/www: {}
     /var/smb: {}
+```
 
-</pre>
-  
 #### PUPPET:
 
-<pre>
-  
+```puppet
   $nfs_exports_global = hiera_hash('nas::nfs_exports_global', false)
-  
+
   class { '::nfs':
     server_enabled => true,
     client_enabled => false,
@@ -324,7 +313,7 @@ This will mount /data on client in /share/data.
     nfs_v4_export_root => '/share',
     nfs_v4_export_root_clients => '192.168.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)',
   }
-  
+
   $defaults_nfs_exports = {
     ensure => 'mounted',
     clients => '192.168.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)
@@ -333,8 +322,7 @@ This will mount /data on client in /share/data.
   if $nfs_exports_global {
     create_resources('::nfs::server::export', $nfs_exports_global, $defaults_nfs_exports)
   }
-
-</pre>
+```
 
 ##Requirements
 

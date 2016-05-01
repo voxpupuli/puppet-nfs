@@ -37,61 +37,53 @@ class nfs::params {
   $nfs_v4_mount_root          = '/srv'
   $nfs_v4_idmap_domain        = $::domain
 
-  # Different path definitions
+  # Different path and package definitions
   case $::osfamily {
     'Debian': {
-      $exports_file   = '/etc/exports'
-      $idmapd_file    = '/etc/idmapd.conf'
-      $defaults_file  = '/etc/default/nfs-common'
+      $exports_file     = '/etc/exports'
+      $idmapd_file      = '/etc/idmapd.conf'
+      $defaults_file    = '/etc/default/nfs-common'
+      $server_packages  = [ 'nfs-common', 'nfs-kernel-server', 'nfs4-acl-tools', 'rpcbind' ]
+      $client_packages  = [ 'nfs-common', 'nfs4-acl-tools' ]
     }
     'RedHat': {
-      $exports_file   = '/etc/exports'
-      $idmapd_file    = '/etc/idmapd.conf'
-      $defaults_file  = '/etc/default/nfs-common'
+      $exports_file     = '/etc/exports'
+      $idmapd_file      = '/etc/idmapd.conf'
+      $defaults_file    = '/etc/default/nfs-common'
+      $server_packages  = [ 'nfs-utils', 'nfs4-acl-tools', 'rpcbind' ]
+      $client_packages  = [ 'nfs-utils', 'nfs4-acl-tools', 'rpcbind' ]
     }
     'Gentoo': {
-      $exports_file   = '/etc/exports'
-      $idmapd_file    = '/etc/idmapd.conf'
-      $defaults_file  = '/etc/conf.d/nfs'
+      $exports_file     = '/etc/exports'
+      $idmapd_file      = '/etc/idmapd.conf'
+      $defaults_file    = '/etc/conf.d/nfs'
+      $server_packages  = ['net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap']
+      $client_packages  = ['net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap']
     }
     'Suse': {
-      $exports_file   = '/etc/exports'
-      $idmapd_file    = '/etc/idmapd.conf'
-      $defaults_file  = undef
+      $exports_file     = '/etc/exports'
+      $idmapd_file      = '/etc/idmapd.conf'
+      $server_packages  = ['nfs-kernel-server']
+      $client_packages  = ['nfsidmap', 'nfs-client', 'rpcbind']
+      $defaults_file    = undef
+    }
+    'Archlinux': {
+      $exports_file     = '/etc/exports'
+      $idmapd_file      = '/etc/idmapd.conf'
+      $server_packages  = ['nfs-utils']
+      $client_packages  = ['nfsidmap', 'rpcbind']
+      $defaults_file    = undef
     }
     default: {
-      $exports_file   = undef
-      $idmapd_file    = undef
-      $defaults_file  = undef
-      notice("\"${module_name}\" provides no config directory default values for OS family \"${::osfamily}\"")
+      $exports_file     = undef
+      $idmapd_file      = undef
+      $defaults_file    = undef
+      $server_packages  = undef
+      $client_packages  = undef
+      notice("\"${module_name}\" provides no config directory and package default values for OS family \"${::osfamily}\"")
     }
   }
 
-
-  # packages - ensure
-  case $::osfamily {
-    'Debian': {
-      $server_packages = [ 'nfs-common', 'nfs-kernel-server', 'nfs4-acl-tools', 'rpcbind' ]
-      $client_packages = [ 'nfs-common', 'nfs4-acl-tools' ]
-    }
-    'RedHat': {
-      $server_packages = [ 'nfs-utils', 'nfs4-acl-tools', 'rpcbind' ]
-      $client_packages = [ 'nfs-utils', 'nfs4-acl-tools', 'rpcbind' ]
-    }
-    'Gentoo': {
-      $server_packages = ['net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap']
-      $client_packages = ['net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap']
-    }
-    'Suse': {
-      $server_packages = ['nfs-kernel-server']
-      $client_packages = ['nfsidmap', 'nfs-client', 'rpcbind']
-    }
-    default: {
-      $server_packages = undef
-      $client_packages = undef
-      notice("\"${module_name}\" provides no package default values for OS family \"${::osfamily}\"")
-    }
-  }
 
   # service parameters
   # params that are the same on all (known) OSes.
@@ -151,6 +143,16 @@ class nfs::params {
       $client_nfsv4_services      = { 'rpcbind' => { before => Service['nfs'] }, 'nfs' => {} }
       $server_nfsv4_servicehelper = undef
       $server_service_name        = 'nfsserver'
+    }
+    /^Archlinux/: {
+      $client_idmapd_setting      = [ '' ]
+      $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+      $client_services            = { 'rpcbind' => {} }
+      $client_nfsv4_fstype        = 'nfs4'
+      $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
+      $client_nfsv4_services      = { 'rpcbind' => {}, 'rpc.idmapd' => {} }
+      $server_nfsv4_servicehelper = 'rpc.idmapd'
+      $server_service_name        = 'nfs-server.service'
     }
     default: {
       # need to explicitly set unknown params to undef to work with strict_variables=true

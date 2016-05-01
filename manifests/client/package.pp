@@ -18,7 +18,7 @@ class nfs::client::package {
 
   if $::nfs::effective_client_packages != undef {
     package { $::nfs::effective_client_packages:
-        ensure => installed
+        ensure => installed,
     }
   }
 }

@@ -36,6 +36,6 @@ define nfs::functions::bindmount (
     atboot  => true,
     fstype  => 'none',
     options => 'rw,bind',
-    require => Nfs::Functions::Mkdir[$mount_name]
+    require => Nfs::Functions::Mkdir[$mount_name],
   }
 }

@@ -1,25 +1,34 @@
 ---
+sudo: false
 language: ruby
-bundler_args: --without system_tests
-script: "bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--format documentation'"
+cache: bundler
+bundler_args: --without system_tests development
+before_install: rm Gemfile.lock || true
+script:
+  - 'bundle exec rake $CHECK'
 matrix:
   fast_finish: true
   include:
-  - rvm: 1.9.3
-    env: PUPPET_GEM_VERSION="~> 3.0"
-  - rvm: 2.0.0
-    env: PUPPET_GEM_VERSION="~> 3.0"
-  - rvm: 2.1.2
-    env: PUPPET_GEM_VERSION="~> 3.0"
-  - rvm: 1.9.3
-    env: PUPPET_GEM_VERSION="~> 3.5.0" STRICT_VARIABLES="yes"
-  - rvm: 2.0.0
-    env: PUPPET_GEM_VERSION="~> 3.5.0" STRICT_VARIABLES="yes"
-  - rvm: 2.1.2
-    env: PUPPET_GEM_VERSION="~> 3.5.0" STRICT_VARIABLES="yes"
+  - rvm: jruby-19mode
+    env: PUPPET_VERSION="~> 3.0" STRICT_VARIABLES="yes" CHECK=test
+  - rvm: jruby-19mode
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=test
+  - rvm: 2.1
+    env: PUPPET_VERSION="~> 3.0" STRICT_VARIABLES="yes" CHECK=test
+  - rvm: 2.1
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=test
   - rvm: 2.2
-    env: PUPPET_GEM_VERSION="~> 4.1.0" STRICT_VARIABLES="yes"
-  - rvm: 2.2
-    env: PUPPET_GEM_VERSION="~> 4.2.0" STRICT_VARIABLES="yes"
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=test
+  - rvm: 2.3.0
+    env: PUPPET_VERSION="~> 4.1.0" STRICT_VARIABLES="yes" CHECK=test
+  - rvm: 2.3.0
+    env: PUPPET_VERSION="~> 4.2.0" STRICT_VARIABLES="yes" CHECK=test
+  - rvm: 2.3.0
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=rubocop
+  - rvm: 2.3.0
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=test
+  allow_failures:
+    - rvm: 2.3.0
+      env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=test
 notifications:
   email: false
