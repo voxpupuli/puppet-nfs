@@ -232,15 +232,18 @@ class nfs(
     validate_string($nfs_v4_root_export_tag)
   }
 
-
   if $server_enabled {
-    $effective_client_packages       = difference($client_packages, $server_packages)
-    $effective_nfsv4_client_services = delete($client_nfsv4_services, $server_nfsv4_servicehelper)
-    $effective_client_services       = $client_services
+    $effective_client_packages = difference($client_packages, $server_packages)
+    if $server_nfsv4_servicehelper != undef {
+      $effective_nfsv4_client_services = delete($client_nfsv4_services, $server_nfsv4_servicehelper)
+    } else {
+      $effective_nfsv4_client_services = $client_nfsv4_services
+    }
+    $effective_client_services = $client_services
   } else {
-    $effective_client_packages       = $client_packages
+    $effective_client_packages = $client_packages
     $effective_nfsv4_client_services = $client_nfsv4_services
-    $effective_client_services       = $client_services
+    $effective_client_services = $client_services
   }
 
   if $server_enabled {
