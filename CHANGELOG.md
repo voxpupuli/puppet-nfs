@@ -1,3 +1,14 @@
+##2016-05-02 - Release 0.0.13
+###Summary
+
+####Bugfixes
+- avoid doing a delete($client_nfsv4_services, $server_nfsv4_servicehelper) when $server_nfsv4_servicehelper is undef
+- some minor fixes like using absolute scopes and adding commas
+
+####Features
+- added support for Archlinux
+- enhanced testing suite
+
 ##2016-04-12 - Release 0.0.12
 ###Summary
 
