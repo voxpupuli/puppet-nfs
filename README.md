@@ -63,7 +63,7 @@ This will export /data/folder on the server and automagically mount it on client
     class { '::nfs':
       client_enabled => true,
     }
-    Nfs::Client::Mount &lt;&lt;| |&gt;&gt;
+    Nfs::Client::Mount <<| |>>
   }
 ```
 
@@ -121,7 +121,7 @@ This will mount /data on client in /share/data.
     class { '::nfs':
       client_enabled => true,
     }
-    Nfs::Client::Mount &lt;&lt;| |&gt;&gt;
+    Nfs::Client::Mount <<| |>>
   }
 
   # Using a storeconfig override, to change ensure option, so we mount
@@ -130,7 +130,7 @@ This will mount /data on client in /share/data.
     class { '::nfs':
       client_enabled => true,
     }
-    Nfs::Client::Mount &lt;&lt;| |&gt;&gt; {
+    Nfs::Client::Mount <<| |>> {
       ensure => 'mounted'
     }
   }
@@ -142,7 +142,7 @@ This will mount /data on client in /share/data.
     class { '::nfs':
       client_enabled => true,
     }
-    Nfs::Client::Mount &lt;&lt;|nfstag == 'media' | &gt;&gt; {
+    Nfs::Client::Mount <<|nfstag == 'media' | >> {
       ensure => 'mounted',
       mount  => '/import/media'
     }
@@ -157,7 +157,7 @@ This will mount /data on client in /share/data.
     class { '::nfs':
       client_enabled => true,
     }
-    Nfs::Client::Mount &lt;&lt;| server == 'server1' |&gt;&gt; {
+    Nfs::Client::Mount <<| server == 'server1' |>> {
       ensure => 'absent',
     }
   }
@@ -199,7 +199,7 @@ This will mount /data on client in /share/data.
       nfs_v4_export_root_clients =>
         '10.0.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)'
     }
-    Nfs::Client::Mount &lt;&lt;| |&gt;&gt;
+    Nfs::Client::Mount <<| |>>
   }
 
   # We can also mount the NFSv4 Root directly through nfs::client::mount::nfsv4::root.
@@ -212,7 +212,7 @@ This will mount /data on client in /share/data.
       client_enabled => true,
       nfs_v4_client  => true,
     }
-    Nfs::Client::Mount::Nfs_v4::Root &lt;&lt;| server == $server |&gt;&gt; {
+    Nfs::Client::Mount::Nfs_v4::Root <<| server == $server |>> {
       mount => "/srv/$server",
     }
   }
@@ -275,7 +275,7 @@ This will mount /data on client in /share/data.
     # Be careful. Don't override mount points unless you are sure
     # that only one export will match your filter!
 
-    Nfs::Client::Mount &lt;&lt;| # filter goes here # |&gt;&gt; {
+    Nfs::Client::Mount <<| # filter goes here # |>> {
       # Directory where we want export mounted on client
       mount     => undef,
       remounts  => false,
