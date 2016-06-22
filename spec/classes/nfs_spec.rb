@@ -11,6 +11,7 @@ describe 'nfs', type: 'class' do
       operatingsystem: 'Ubuntu',
       osfamily: 'Debian',
       operatingsystemmajrelease: '12.04',
+      lsbdistcodename: 'precise',
       concat_basedir: '/tmp',
       is_pe: false,
       id: 'root',
@@ -28,6 +29,7 @@ describe 'nfs', type: 'class' do
         operatingsystem: 'Ubuntu',
         osfamily: 'Debian',
         operatingsystemmajrelease: '12.04',
+        lsbdistcodename: 'precise',
         concat_basedir: '/tmp',
         clientcert: 'test.host',
         is_pe: false,
@@ -52,6 +54,7 @@ describe 'nfs', type: 'class' do
         operatingsystem: 'Debian',
         osfamily: 'Debian',
         operatingsystemmajrelease: '7',
+        lsbdistcodename: 'wheezy',
         concat_basedir: '/tmp',
         clientcert: 'test.host',
         is_pe: false,
@@ -108,6 +111,7 @@ describe 'nfs', type: 'class' do
         operatingsystem: 'Debian',
         osfamily: 'Debian',
         operatingsystemmajrelease: '8',
+        lsbdistcodename: 'jessie',
         concat_basedir: '/tmp',
         clientcert: 'test.host',
         is_pe: false,
@@ -123,7 +127,7 @@ describe 'nfs', type: 'class' do
       end
       context ':nfs_v4 => true' do
         let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
-        it { should contain_service('idmapd').with('ensure' => 'running') }
+        it { should contain_service('nfs-common').with('ensure' => 'running') }
         it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
       end
     end
@@ -235,6 +239,7 @@ describe 'nfs', type: 'class' do
         operatingsystem: 'Ubuntu',
         osfamily: 'Debian',
         operatingsystemmajrelease: '12.04',
+        lsbdistcodename: 'precise',
         concat_basedir: '/tmp',
         is_pe: false,
         id: 'root',
@@ -276,6 +281,7 @@ describe 'nfs', type: 'class' do
         operatingsystem: 'Debian',
         osfamily: 'Debian',
         operatingsystemmajrelease: '7',
+        lsbdistcodename: 'wheezy',
         concat_basedir: '/tmp',
         is_pe: false,
         id: 'root',
@@ -317,6 +323,7 @@ describe 'nfs', type: 'class' do
         operatingsystem: 'Debian',
         osfamily: 'Debian',
         operatingsystemmajrelease: '8',
+        lsbdistcodename: 'jessie',
         concat_basedir: '/tmp',
         is_pe: false,
         id: 'root',

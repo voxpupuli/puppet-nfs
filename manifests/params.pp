@@ -93,64 +93,92 @@ class nfs::params {
   $server_service_hasrestart  = true
   $server_service_hasstatus   = true
   #params with OS-specific values
-  case "${::osfamily}-${::operatingsystemmajrelease}" {
-    /^Debian/: {
-      $client_idmapd_setting      = [ 'set NEED_IDMAPD yes' ]
+  case $::osfamily {
+    'Debian': {
+      case $::lsbdistcodename {
+        'jessie': {
+          $client_idmapd_setting      = ['set NEED_IDMAPD yes']
+          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+          $client_services            = {'rpcbind' => {}}
+          $client_nfsv4_fstype        = 'nfs4'
+          $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_nfsv4_services      = {'rpcbind' => {}, 'idmapd' => {}}
+          $server_nfsv4_servicehelper = 'nfs-common'
+          $server_service_name        = 'nfs-kernel-server'
+        }
+        'xenial': {
+          $client_idmapd_setting      = ['set NEED_IDMAPD yes']
+          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+          $client_services            = {'rpcbind' => {}}
+          $client_nfsv4_fstype        = 'nfs4'
+          $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_nfsv4_services      = {'rpcbind' => {}}
+          $server_nfsv4_servicehelper = 'nfs-idmapd'
+          $server_service_name        = 'nfs-server'
+        }
+        default: {
+          $client_idmapd_setting      = ['set NEED_IDMAPD yes']
+          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+          $client_services            = {'rpcbind' => {}}
+          $client_nfsv4_fstype        = 'nfs4'
+          $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_nfsv4_services      = {'rpcbind' => {}, 'idmapd' => {}}
+          $server_nfsv4_servicehelper = 'idmapd'
+          $server_service_name        = 'nfs-kernel-server'
+        }
+      }
+    }
+    'Redhat': {
+      case $::operatingsystemmajrelease {
+        '7': {
+          $client_idmapd_setting      = ['']
+          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_services            = {'rpcbind.service' => {}}
+          $client_nfsv4_fstype        = 'nfs4'
+          $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_nfsv4_services      = {'rpcbind.service' => {}}
+          $server_nfsv4_servicehelper = 'nfs-idmap.service'
+          $server_service_name        = 'nfs-server.service'
+        }
+        default: {
+          $client_idmapd_setting      = ['']
+          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_services            = {'rpcbind' => {}}
+          $client_nfsv4_fstype        = 'nfs4'
+          $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_nfsv4_services      = {'rpcbind' => {}, 'rpcidmapd' => {}}
+          $server_nfsv4_servicehelper = 'rpcidmapd'
+          $server_service_name        = 'nfs'
+        }
+      }
+    }
+    'Gentoo': {
+      $client_idmapd_setting      = ['set NFS_NEEDED_SERVICES rpc.idmapd']
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
-      $client_services            = { 'rpcbind' => {} }
-      $client_nfsv4_fstype        = 'nfs4'
-      $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-      $client_nfsv4_services      = { 'rpcbind' => {}, 'idmapd' => {} }
-      $server_nfsv4_servicehelper = 'idmapd'
-      $server_service_name        = 'nfs-kernel-server'
-    }
-    'RedHat-7': {
-      $client_idmapd_setting      = [ '' ]
-      $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-      $client_services            = { 'rpcbind.service' => {} }
-      $client_nfsv4_fstype        = 'nfs4'
-      $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-      $client_nfsv4_services      = { 'rpcbind.service' => {} }
-      $server_nfsv4_servicehelper = 'nfs-idmap.service'
-      $server_service_name        = 'nfs-server.service'
-    }
-    /^RedHat/: {
-      $client_idmapd_setting      = [ '' ]
-      $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-      $client_services            = { 'rpcbind' => {} }
-      $client_nfsv4_fstype        = 'nfs4'
-      $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-      $client_nfsv4_services      = { 'rpcbind' => {}, 'rpcidmapd' => {} }
-      $server_nfsv4_servicehelper = 'rpcidmapd'
-      $server_service_name        = 'nfs'
-    }
-    /^Gentoo/: {
-      $client_idmapd_setting      = [ 'set NFS_NEEDED_SERVICES rpc.idmapd' ]
-      $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
-      $client_services            = { 'rpcbind' => {} }
+      $client_services            = {'rpcbind' => {} }
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
-      $client_nfsv4_services      = { 'rpcbind' => {}, 'rpc.idmapd' => {} }
+      $client_nfsv4_services      = {'rpcbind' => {}, 'rpc.idmapd' => {}}
       $server_nfsv4_servicehelper = 'rpc.idmapd'
       $server_service_name        = 'nfs'
     }
-    /^Suse/: {
-      $client_idmapd_setting      = [ '' ]
+    'Suse': {
+      $client_idmapd_setting      = ['']
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
-      $client_services            = { 'rpcbind' => { before => Service['nfs'] }, 'nfs' => {} }
+      $client_services            = {'rpcbind' => { before => Service['nfs'] }, 'nfs' => {}}
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
-      $client_nfsv4_services      = { 'rpcbind' => { before => Service['nfs'] }, 'nfs' => {} }
+      $client_nfsv4_services      = {'rpcbind' => { before => Service['nfs'] }, 'nfs' => {}}
       $server_nfsv4_servicehelper = undef
       $server_service_name        = 'nfsserver'
     }
-    /^Archlinux/: {
-      $client_idmapd_setting      = [ '' ]
+    'Archlinux': {
+      $client_idmapd_setting      = ['']
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
-      $client_services            = { 'rpcbind' => {} }
+      $client_services            = {'rpcbind' => {}}
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
-      $client_nfsv4_services      = { 'rpcbind' => {}, 'rpc.idmapd' => {} }
+      $client_nfsv4_services      = {'rpcbind' => {}, 'rpc.idmapd' => {}}
       $server_nfsv4_servicehelper = 'rpc.idmapd'
       $server_service_name        = 'nfs-server.service'
     }
