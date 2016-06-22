@@ -1,3 +1,12 @@
+##2016-06-22 - Release 0.0.14
+###Summary
+
+####Features
+- added support for Ubuntu 16.04 (xenial) and Debian 8 (jessie)
+
+####Bugfixes
+- cosmetic changes to README.md
+
 ##2016-05-02 - Release 0.0.13
 ###Summary
 
@@ -13,9 +22,9 @@
 ###Summary
 
 ####Bugfixes
-- remove nfs-idmap.service from $client_nfsv4_services in params.pp for RHEL 7 
-- add $server_nfsv4_servicehelper for Suse 
-- add correct testing for server_nfsv4_servicehelper in server::service 
+- remove nfs-idmap.service from $client_nfsv4_services in params.pp for RHEL 7
+- add $server_nfsv4_servicehelper for Suse
+- add correct testing for server_nfsv4_servicehelper in server::service
 - specified correct puppet dependencies in metadata.json
 
 ##2016-01-13 - Release 0.0.11
