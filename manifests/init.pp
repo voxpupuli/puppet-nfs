@@ -68,6 +68,9 @@
 # [*server_service_hasstatus*]
 #   Boolean. It defines the service parameter hasstatus for nfs server service.
 #
+# [*server_service_restart_cmd*]
+#   String. It defines the service parameter restart for nfs server service.
+#
 # [*server_nfsv4_servicehelper*]
 #   String. It defines the service helper like idmapd for servers configured with
 #   nfs version 4.
@@ -157,6 +160,7 @@ class nfs(
   $server_service_enable        = true,
   $server_service_hasrestart    = $::nfs::params::server_service_hasrestart,
   $server_service_hasstatus     = $::nfs::params::server_service_hasstatus,
+  $server_service_restart_cmd   = $::nfs::params::server_service_restart_cmd,
   $server_nfsv4_servicehelper   = $::nfs::params::server_nfsv4_servicehelper,
   $client_services              = $::nfs::params::client_services,
   $client_nfsv4_services        = $::nfs::params::client_nfsv4_services,

@@ -92,6 +92,7 @@ class nfs::params {
   $client_services_hasstatus  = true
   $server_service_hasrestart  = true
   $server_service_hasstatus   = true
+  $server_service_restart_cmd = undef
   #params with OS-specific values
   case $::osfamily {
     'Debian': {
