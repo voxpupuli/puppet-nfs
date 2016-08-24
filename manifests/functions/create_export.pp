@@ -36,5 +36,9 @@ define nfs::functions::create_export (
       target  => '/etc/exports',
       content => $line,
     }
+
+    file { $name:
+      ensure => directory
+    }
   }
 }
