@@ -208,6 +208,7 @@ class nfs(
   validate_bool($server_service_enable)
   validate_bool($server_service_hasrestart)
   validate_bool($server_service_hasstatus)
+  validate_string($server_service_restart_cmd)
   validate_string($server_nfsv4_servicehelper)
   validate_hash($client_services)
   validate_hash($client_nfsv4_services)
