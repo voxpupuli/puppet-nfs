@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'nfs::server::export', type: 'define' do
   context 'nvs_v4 => false' do
-    let(:facts) {{
+    let(:facts) { {
       operatingsystem: 'Ubuntu',
       osfamily: 'Debian',
       operatingsystemmajrelease: '12.04',
@@ -11,7 +11,7 @@ describe 'nfs::server::export', type: 'define' do
       is_pe: false,
       id: 'root',
       path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    }}
+    } }
     let(:title) { '/srv/test' }
 
     let(:pre_condition) { 'class {"nfs": server_enabled => true,}' }
@@ -22,7 +22,7 @@ describe 'nfs::server::export', type: 'define' do
     end
   end
   context 'nvs_v4 => true' do
-    let(:facts) {{
+    let(:facts) { {
       operatingsystem: 'Ubuntu',
       osfamily: 'Debian',
       operatingsystemmajrelease: '12.04',
@@ -31,7 +31,7 @@ describe 'nfs::server::export', type: 'define' do
       is_pe: false,
       id: 'root',
       path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    }}
+    } }
     let(:title) { '/srv/test' }
     let(:pre_condition) { 'class {"nfs": server_enabled => true, nfs_v4 => true}' }
 
