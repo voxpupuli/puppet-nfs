@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'nfs::client::mount', type: 'define' do
   context 'nfs_v4 => false, minimal arguments' do
-    let(:facts) {{
+    let(:facts) { {
       operatingsystem: 'Ubuntu',
       osfamily: 'Debian',
       operatingsystemmajrelease: '12.04',
@@ -12,7 +12,7 @@ describe 'nfs::client::mount', type: 'define' do
       is_pe: false,
       id: 'root',
       path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    }}
+    } }
     let(:title) { '/srv/test' }
 
     let(:pre_condition) { 'class {"nfs": client_enabled => true,}' }
@@ -23,7 +23,7 @@ describe 'nfs::client::mount', type: 'define' do
   end
 
   context 'nfs_v4 => false, specified mountpoint and sharename' do
-    let(:facts) {{
+    let(:facts) { {
       operatingsystem: 'Ubuntu',
       osfamily: 'Debian',
       operatingsystemmajrelease: '12.04',
@@ -33,7 +33,7 @@ describe 'nfs::client::mount', type: 'define' do
       is_pe: false,
       id: 'root',
       path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    }}
+    } }
     let(:title) { 'Import /srv' }
 
     let(:pre_condition) { 'class {"nfs": client_enabled => true,}' }
@@ -44,7 +44,7 @@ describe 'nfs::client::mount', type: 'define' do
   end
 
   context 'nfs_v4 => true, specified share' do
-    let(:facts) {{
+    let(:facts) { {
       operatingsystem: 'Ubuntu',
       osfamily: 'Debian',
       operatingsystemmajrelease: '12.04',
@@ -54,7 +54,7 @@ describe 'nfs::client::mount', type: 'define' do
       is_pe: false,
       id: 'root',
       path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    }}
+    } }
     let(:title) { '/srv/test' }
 
     let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true }' }
@@ -65,7 +65,7 @@ describe 'nfs::client::mount', type: 'define' do
   end
 
   context 'nfs_v4 => true, minimal arguments' do
-    let(:facts) {{
+    let(:facts) { {
       operatingsystem: 'Ubuntu',
       osfamily: 'Debian',
       operatingsystemmajrelease: '12.04',
@@ -75,7 +75,7 @@ describe 'nfs::client::mount', type: 'define' do
       is_pe: false,
       id: 'root',
       path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    }}
+    } }
     let(:title) { '/srv/test' }
 
     let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true }' }
@@ -86,7 +86,7 @@ describe 'nfs::client::mount', type: 'define' do
   end
 
   context 'nfs_v4 => true, non-default mountpoints' do
-    let(:facts) {{
+    let(:facts) { {
       operatingsystem: 'Ubuntu',
       osfamily: 'Debian',
       operatingsystemmajrelease: '12.04',
@@ -96,7 +96,7 @@ describe 'nfs::client::mount', type: 'define' do
       is_pe: false,
       id: 'root',
       path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    }}
+    } }
     let(:title) { '/opt/sample' }
 
     let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true }' }
