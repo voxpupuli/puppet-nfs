@@ -1,3 +1,15 @@
+##2016-08-26 - Release 0.0.15
+###Summary
+
+####Features
+- added setting to manage services
+- added setting to setup other options for package ensure
+- added create folder for nfsv3
+- added setting for server service restart command
+
+####Bugfixes
+- Exported resource mounts did not work
+
 ##2016-06-22 - Release 0.0.14
 ###Summary
 
