@@ -39,7 +39,7 @@ class nfs::client::service {
     hasstatus  => $::nfs::client_services_hasstatus,
     subscribe  => $subscription,
   }
-  if $create_services != undef {
+  if $create_services != undef and $::nfs::manage_client_service {
     create_resources('service', $create_services, $service_defaults )
   }
 }

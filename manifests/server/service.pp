@@ -18,15 +18,17 @@ class nfs::server::service {
 
   # services
   if $::nfs::nfs_v4 == true {
-    service { $::nfs::server_service_name:
-      ensure     => $::nfs::server_service_ensure,
-      enable     => $::nfs::server_service_enable,
-      hasrestart => $::nfs::server_service_hasrestart,
-      hasstatus  => $::nfs::server_service_hasstatus,
-      restart    => $::nfs::server_service_restart_cmd,
-      subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ],
+    if $::nfs::manage_server_service {
+      service { $::nfs::server_service_name:
+        ensure     => $::nfs::server_service_ensure,
+        enable     => $::nfs::server_service_enable,
+        hasrestart => $::nfs::server_service_hasrestart,
+        hasstatus  => $::nfs::server_service_hasstatus,
+        restart    => $::nfs::server_service_restart_cmd,
+        subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ],
+      }
     }
-    if $::nfs::server_nfsv4_servicehelper != undef {
+    if $::nfs::server_nfsv4_servicehelper != undef and $::nfs::manage_server_servicehelper {
       service { $::nfs::server_nfsv4_servicehelper:
         ensure     => $::nfs::server_service_ensure,
         enable     => $::nfs::server_service_enable,
@@ -36,13 +38,15 @@ class nfs::server::service {
       }
     }
   } else {
-  service { $::nfs::server_service_name:
-    ensure     => $::nfs::server_service_ensure,
-    enable     => $::nfs::server_service_enable,
-    hasrestart => $::nfs::server_service_hasrestart,
-    hasstatus  => $::nfs::server_service_hasstatus,
-    restart    => $::nfs::server_service_restart_cmd,
-    subscribe  => Concat[$::nfs::exports_file],
+    if $::nfs::manage_server_service {
+      service { $::nfs::server_service_name:
+        ensure     => $::nfs::server_service_ensure,
+        enable     => $::nfs::server_service_enable,
+        hasrestart => $::nfs::server_service_hasrestart,
+        hasstatus  => $::nfs::server_service_hasstatus,
+        restart    => $::nfs::server_service_restart_cmd,
+        subscribe  => Concat[$::nfs::exports_file],
+      }
     }
   }
 }
