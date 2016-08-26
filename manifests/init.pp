@@ -49,9 +49,22 @@
 #   Array. It defines the packages needed to be installed for acting as
 #   a nfs server
 #
+# [*server_package_ensure*]
+#   String. It defines the packages state - any of present, installed,
+#   absent, purged, held, latest
+#
 # [*client_packages*]
 #   Array. It defines the packages needed to be installed for acting as
 #   a nfs client
+#
+# [*manage_server_service*]
+#   Boolean. Defines if module should manage server_service
+#
+# [*manage_server_servicehelper*]
+#   Boolean. Defines if module should manage server_servicehelper
+#
+# [*manage_client_service*]
+#   Boolean. Defines if module should manage client_service
 #
 # [*server_service_name*]
 #   String. It defines the servicename of the nfs server service
@@ -154,7 +167,11 @@ class nfs(
   $idmapd_file                  = $::nfs::params::idmapd_file,
   $defaults_file                = $::nfs::params::defaults_file,
   $server_packages              = $::nfs::params::server_packages,
+  $server_package_ensure        = installed,
   $client_packages              = $::nfs::params::client_packages,
+  $manage_server_service        = true,
+  $manage_server_servicehelper  = true,
+  $manage_client_service        = true,
   $server_service_name          = $::nfs::params::server_service_name,
   $server_service_ensure        = running,
   $server_service_enable        = true,
@@ -198,7 +215,11 @@ class nfs(
   validate_string($idmapd_file)
   validate_string($defaults_file)
   validate_array($server_packages)
+  validate_re($server_package_ensure, ['present', 'installed', 'absent', 'purged', 'held', 'latest'])
   validate_array($client_packages)
+  validate_bool($manage_server_service)
+  validate_bool($manage_server_servicehelper)
+  validate_bool($manage_client_service)
   validate_string($server_service_name)
 
   if ! ($server_service_ensure in [ 'present', 'absent', 'running', 'stopped', 'disabled' ]) {

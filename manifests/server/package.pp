@@ -16,6 +16,6 @@
 
 class nfs::server::package {
   package { $::nfs::server_packages:
-      ensure => installed,
+    ensure => $::nfs::server_package_ensure,
   }
 }

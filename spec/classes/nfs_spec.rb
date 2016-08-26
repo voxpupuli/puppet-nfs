@@ -274,6 +274,21 @@ describe 'nfs', type: 'class' do
             .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
         end
       end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false, server_package_ensure: 'latest', } }
+        it do
+          should_not contain_service('rpcbind')
+        end
+        it do
+          should_not contain_service('idmapd')
+        end
+        it do
+          should_not contain_service('nfs-kernel-server')
+        end
+        it do
+          should contain_package('nfs-kernel-server').with('ensure' => 'latest')
+        end
+      end
     end
     context 'operatingsystem => debian' do
       let(:params) { { client_enabled: true, server_enabled: false } }
@@ -316,6 +331,21 @@ describe 'nfs', type: 'class' do
             .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
         end
       end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false, server_package_ensure: 'latest', } }
+        it do
+          should_not contain_service('rpcbind')
+        end
+        it do
+          should_not contain_service('idmapd')
+        end
+        it do
+          should_not contain_service('nfs-kernel-server')
+        end
+        it do
+          should contain_package('nfs-kernel-server').with('ensure' => 'latest')
+        end
+      end
     end
     context 'operatingsystem => debian' do
       let(:params) { { client_enabled: true, server_enabled: false } }
@@ -356,6 +386,24 @@ describe 'nfs', type: 'class' do
           should contain_service('rpcbind')\
             .with('ensure' => 'running')\
             .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest,' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false, server_package_ensure: 'latest', } }
+        it do
+          should_not contain_service('rpcbind')
+        end
+        it do
+          should_not contain_service('idmapd')
+        end
+        it do
+          should_not contain_service('nfs-common')
+        end
+        it do
+          should_not contain_service('nfs-kernel-server')
+        end
+        it do
+          should contain_package('nfs-kernel-server').with('ensure' => 'latest')
         end
       end
     end
@@ -402,6 +450,21 @@ describe 'nfs', type: 'class' do
         it do
           should contain_service('nfs-idmap.service')\
             .with('ensure' => 'running')
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest,' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false, server_package_ensure: 'latest', } }
+        it do
+          should_not contain_service('rpcbind.service')
+        end
+        it do
+          should_not contain_service('nfs-idmap.service')
+        end
+        it do
+          should_not contain_service('nfs-server.service')
+        end
+        it do
+          should contain_package('nfs-utils').with('ensure' => 'latest')
         end
       end
     end
@@ -455,6 +518,21 @@ describe 'nfs', type: 'class' do
             .with('ensure' => 'running')
         end
       end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false, server_package_ensure: 'latest', } }
+        it do
+          should_not contain_service('rpcbind')
+        end
+        it do
+          should_not contain_service('rpc.idmapd')
+        end
+        it do
+          should_not contain_service('nfs')
+        end
+        it do
+          should contain_package('net-fs/nfs-utils').with('ensure' => 'latest')
+        end
+      end
     end
     context ':operatingsystem => SLES' do
       let(:params) { { client_enabled: true, } }
@@ -505,6 +583,18 @@ describe 'nfs', type: 'class' do
         it do
           should contain_service('nfsserver')\
             .with('ensure' => 'running')
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false, server_package_ensure: 'latest', } }
+        it do
+          should_not contain_service('rpcbind')
+        end
+        it do
+          should_not contain_service('nfsserver')
+        end
+        it do
+          should contain_package('nfs-kernel-server').with('ensure' => 'latest')
         end
       end
     end
