@@ -332,7 +332,7 @@ describe 'nfs', type: 'class' do
         end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest' do
-        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false ,server_package_ensure: 'latest', } }
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false, server_package_ensure: 'latest', } }
         it do
           should_not contain_service('rpcbind')
         end
