@@ -36,7 +36,8 @@
 #   String. Sets the nfstag parameter of the mount.
 #
 # [*mount*]
-#   String. Sets the mountpoint the client will mount the exported resource mount on.
+#   String. Sets the mountpoint the client will mount the exported resource mount on. If undef
+#   it defaults to the same path as on the server
 #
 # === Examples
 #
@@ -91,7 +92,13 @@ define nfs::server::export(
       require => Nfs::Functions::Nfsv4_bindmount[$name],
     }
 
-    @@nfs::client::mount {  "shared ${v4_export_name} by ${::clientcert}":
+    if $mount != undef {
+      $mount_name = $mount
+    } else {
+      $mount_name = $v4_export_name
+    }
+
+    @@nfs::client::mount { $mount_name:
       ensure        => $ensure,
       remounts      => $remounts,
       atboot        => $atboot,
@@ -100,16 +107,21 @@ define nfs::server::export(
       nfstag        => $nfstag,
       share         => $v4_export_name,
       server        => $::clientcert,
-      mount         => $mount,
     }
   } else {
+
+    if $mount != undef {
+      $mount_name = $mount
+    } else {
+      $mount_name = $v3_export_name
+    }
 
     nfs::functions::create_export { $v3_export_name:
       ensure  => $ensure,
       clients => $clients,
     }
 
-    @@nfs::client::mount { "shared ${v3_export_name} by ${::clientcert}":
+    @@nfs::client::mount { $mount_name:
       ensure      => $ensure,
       remounts    => $remounts,
       atboot      => $atboot,
@@ -117,7 +129,6 @@ define nfs::server::export(
       nfstag      => $nfstag,
       share       => $v3_export_name,
       server      => $::clientcert,
-      mount       => $mount,
     }
   }
 }
