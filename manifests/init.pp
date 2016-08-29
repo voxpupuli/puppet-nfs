@@ -57,6 +57,10 @@
 #   Array. It defines the packages needed to be installed for acting as
 #   a nfs client
 #
+# [*client_package_ensure*]
+#   String. It defines the packages state - any of present, installed,
+#   absent, purged, held, latest
+#
 # [*manage_server_service*]
 #   Boolean. Defines if module should manage server_service
 #
@@ -169,6 +173,7 @@ class nfs(
   $server_packages              = $::nfs::params::server_packages,
   $server_package_ensure        = installed,
   $client_packages              = $::nfs::params::client_packages,
+  $client_package_ensure        = installed,
   $manage_server_service        = true,
   $manage_server_servicehelper  = true,
   $manage_client_service        = true,
@@ -217,6 +222,7 @@ class nfs(
   validate_array($server_packages)
   validate_re($server_package_ensure, ['present', 'installed', 'absent', 'purged', 'held', 'latest'])
   validate_array($client_packages)
+  validate_re($client_package_ensure, ['present', 'installed', 'absent', 'purged', 'held', 'latest'])
   validate_bool($manage_server_service)
   validate_bool($manage_server_servicehelper)
   validate_bool($manage_client_service)
