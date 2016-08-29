@@ -220,7 +220,7 @@ class nfs(
   validate_string($idmapd_file)
   validate_string($defaults_file)
   validate_array($server_packages)
-  validate_re($server_package_ensure, ['present', 'installed', 'absent', 'purged', 'held', 'latest'])
+  validate_string($server_package_ensure)
   validate_array($client_packages)
   validate_re($client_package_ensure, ['present', 'installed', 'absent', 'purged', 'held', 'latest'])
   validate_bool($manage_server_service)
