@@ -18,7 +18,8 @@ group :test do
   gem 'puppet-strings',                                             :require => false, :git => 'https://github.com/puppetlabs/puppetlabs-strings.git'
   gem 'metadata-json-lint',                                         :require => false
   gem 'rspec-puppet-facts',                                         :require => false
-  gem 'rspec',                                                      :require => false
+  gem 'rspec', '~> 3.5.0',                                          :require => false
+  gem 'rspec-core', '~> 3.5.0',                                     :require => false
   gem 'puppet-blacksmith',                                          :require => false, :git => 'https://github.com/voxpupuli/puppet-blacksmith.git'
   gem 'voxpupuli-release',                                          :require => false, :git => 'https://github.com/voxpupuli/voxpupuli-release-gem.git'
   gem 'rubocop', '~> 0.39',                                         :require => false

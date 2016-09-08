@@ -264,6 +264,14 @@ describe 'nfs', type: 'class' do
             .with('ensure' => 'running')\
             .with_subscribe(/Augeas/)
         end
+        it do
+          is_expected.to contain_package('nfs-common')\
+            .that_notifies('Service[rpcbind]')\
+            .that_notifies('Service[idmapd]')
+          is_expected.to contain_package('nfs4-acl-tools')\
+            .that_notifies('Service[rpcbind]')\
+            .that_notifies('Service[idmapd]')
+        end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true } }
@@ -272,6 +280,11 @@ describe 'nfs', type: 'class' do
           should contain_service('rpcbind')\
             .with('ensure' => 'running')\
             .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
+        end
+        it do
+          should contain_package('nfs-kernel-server')\
+            .with('ensure' => 'installed')\
+            .that_notifies('Service[nfs-kernel-server]')
         end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest' do
@@ -287,6 +300,15 @@ describe 'nfs', type: 'class' do
         end
         it do
           should contain_package('nfs-kernel-server').with('ensure' => 'latest')
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_packages => false' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        it do
+          should_not contain_package('nfs-common')
+          should_not contain_package('nfs-kernel-server')
+          should_not contain_package('nfs4-acl-tools')
+          should_not contain_package('rpcbind')
         end
       end
     end
@@ -321,6 +343,14 @@ describe 'nfs', type: 'class' do
             .with('ensure' => 'running')\
             .with_subscribe(/Augeas/)
         end
+        it do
+          is_expected.to contain_package('nfs-common')\
+            .that_notifies('Service[rpcbind]')\
+            .that_notifies('Service[idmapd]')
+          is_expected.to contain_package('nfs4-acl-tools')\
+            .that_notifies('Service[rpcbind]')\
+            .that_notifies('Service[idmapd]')
+        end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true } }
@@ -329,6 +359,11 @@ describe 'nfs', type: 'class' do
           should contain_service('rpcbind')\
             .with('ensure' => 'running')\
             .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
+        end
+        it do
+          should contain_package('nfs-kernel-server')\
+            .with('ensure' => 'installed')\
+            .with('notify' => 'Service[nfs-kernel-server]')
         end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest' do
@@ -343,7 +378,17 @@ describe 'nfs', type: 'class' do
           should_not contain_service('nfs-kernel-server')
         end
         it do
-          should contain_package('nfs-kernel-server').with('ensure' => 'latest')
+          should contain_package('nfs-kernel-server')\
+            .with('ensure' => 'latest')\
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_packages => false' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        it do
+          should_not contain_package('nfs-common')
+          should_not contain_package('nfs-kernel-server')
+          should_not contain_package('nfs4-acl-tools')
+          should_not contain_package('rpcbind')
         end
       end
     end
@@ -378,6 +423,14 @@ describe 'nfs', type: 'class' do
             .with('ensure' => 'running')\
             .with_subscribe(/Augeas/)
         end
+        it do
+          is_expected.to contain_package('nfs-common')\
+            .that_notifies('Service[rpcbind]')\
+            .that_notifies('Service[idmapd]')
+          is_expected.to contain_package('nfs4-acl-tools')\
+            .that_notifies('Service[rpcbind]')\
+            .that_notifies('Service[idmapd]')
+        end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true } }
@@ -386,6 +439,11 @@ describe 'nfs', type: 'class' do
           should contain_service('rpcbind')\
             .with('ensure' => 'running')\
             .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
+        end
+        it do
+          should contain_package('nfs-kernel-server')\
+            .with('ensure' => 'installed')\
+            .that_notifies('Service[nfs-kernel-server]')
         end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest,' do
@@ -404,6 +462,15 @@ describe 'nfs', type: 'class' do
         end
         it do
           should contain_package('nfs-kernel-server').with('ensure' => 'latest')
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_packages => false' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        it do
+          should_not contain_package('nfs-common')
+          should_not contain_package('nfs-kernel-server')
+          should_not contain_package('nfs4-acl-tools')
+          should_not contain_package('rpcbind')
         end
       end
     end
@@ -438,6 +505,14 @@ describe 'nfs', type: 'class' do
             .with('ensure' => 'running')\
             .with_subscribe(/Augeas/)
         end
+        it do
+          is_expected.to contain_package('nfs-utils')\
+            .that_notifies('Service[rpcbind.service]')
+          is_expected.to contain_package('nfs4-acl-tools')\
+            .that_notifies('Service[rpcbind.service]')
+          is_expected.to contain_package('rpcbind')\
+            .that_notifies('Service[rpcbind.service]')
+        end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true } }
@@ -450,6 +525,11 @@ describe 'nfs', type: 'class' do
         it do
           should contain_service('nfs-idmap.service')\
             .with('ensure' => 'running')
+        end
+        it do
+          should contain_package('nfs-utils')\
+            .with('ensure' => 'installed')\
+            .that_notifies('Service[nfs-server.service]')
         end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest,' do
@@ -465,6 +545,14 @@ describe 'nfs', type: 'class' do
         end
         it do
           should contain_package('nfs-utils').with('ensure' => 'latest')
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_packages => false' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        it do
+          should_not contain_package('nfs-utils')
+          should_not contain_package('nfs4-acl-tools')
+          should_not contain_package('rpcbind')
         end
       end
     end
@@ -504,6 +592,17 @@ describe 'nfs', type: 'class' do
             .with('ensure' => 'running')\
             .with_subscribe(/Augeas/)
         end
+        it do
+          is_expected.to contain_package('net-nds/rpcbind')\
+            .that_notifies('Service[rpcbind]')\
+            .that_notifies('Service[rpc.idmapd]')
+          is_expected.to contain_package('net-fs/nfs-utils')\
+            .that_notifies('Service[rpcbind]')\
+            .that_notifies('Service[rpc.idmapd]')
+          is_expected.to contain_package('net-libs/libnfsidmap')\
+            .that_notifies('Service[rpcbind]')\
+            .that_notifies('Service[rpc.idmapd]')
+        end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true } }
@@ -516,6 +615,11 @@ describe 'nfs', type: 'class' do
         it do
           should contain_service('rpc.idmapd')\
             .with('ensure' => 'running')
+        end
+        it do
+          should contain_package('net-fs/nfs-utils')\
+            .with('ensure' => 'installed')\
+            .that_notifies('Service[nfs]')
         end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest' do
@@ -531,6 +635,14 @@ describe 'nfs', type: 'class' do
         end
         it do
           should contain_package('net-fs/nfs-utils').with('ensure' => 'latest')
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_packages => false' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        it do
+          should_not contain_package('net-fs/nfs-utils')
+          should_not contain_package('net-nds/rpcbind')
+          should_not contain_package('net-libs/libnfsidmap')
         end
       end
     end
@@ -571,6 +683,17 @@ describe 'nfs', type: 'class' do
             .with('ensure' => 'running')\
             .with_subscribe(/Augeas/)
         end
+        it do
+          is_expected.to contain_package('nfsidmap')\
+            .that_notifies('Service[rpcbind]')\
+            .that_notifies('Service[nfs]')
+          is_expected.to contain_package('nfs-client')\
+            .that_notifies('Service[rpcbind]')\
+            .that_notifies('Service[nfs]')
+          is_expected.to contain_package('rpcbind')\
+            .that_notifies('Service[rpcbind]')\
+            .that_notifies('Service[nfs]')
+        end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true } }
@@ -584,6 +707,11 @@ describe 'nfs', type: 'class' do
           should contain_service('nfsserver')\
             .with('ensure' => 'running')
         end
+        it do
+          should contain_package('nfs-kernel-server')\
+            .with('ensure' => 'installed')\
+            .that_notifies('Service[nfsserver]')
+        end
       end
       context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_server_service => false, :manage_server_servicehelper => false, :manage_client_service => false, server_package_ensure => latest' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false, server_package_ensure: 'latest', } }
@@ -595,6 +723,15 @@ describe 'nfs', type: 'class' do
         end
         it do
           should contain_package('nfs-kernel-server').with('ensure' => 'latest')
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_packages => false' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        it do
+          should_not contain_package('nfs-kernel-server')
+          should_not contain_package('rpcbind')
+          should_not contain_package('nfs-client')
+          should_not contain_package('nfsidmap')
         end
       end
     end
