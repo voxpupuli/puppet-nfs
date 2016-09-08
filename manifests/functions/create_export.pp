@@ -37,8 +37,6 @@ define nfs::functions::create_export (
       content => $line,
     }
 
-    file { $name:
-      ensure => directory,
-    }
+    ensure_resource( 'file', $name, { ensure => directory, } )
   }
 }
