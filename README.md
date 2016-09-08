@@ -341,6 +341,9 @@ puppet > 3.2.0
 augeas
 
 ##Limitations
+If you want to have specific package versions installed you may manage the needed packages outside of this 
+module (use manage_packages => false). It is only tested to use 'present', 'installed', 'absent',
+'purged', 'held' and 'latest' as argument for the parameters server_package_ensure and client_package_ensure.
 
 ##Contributing
 

@@ -1,3 +1,13 @@
+##2016-09-08 - Release 0.0.16
+###Summary
+
+####Features
+- added possibility to not manage packages by module
+- added setting to manage client services
+- added service notify from package resources
+- added new rspec tests for service and package management
+- replaced file resource with ensure_resource('file' ...)
+
 ##2016-08-26 - Release 0.0.15
 ###Summary
 
