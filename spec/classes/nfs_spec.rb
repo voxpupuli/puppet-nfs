@@ -302,6 +302,15 @@ describe 'nfs', type: 'class' do
           should contain_package('nfs-kernel-server').with('ensure' => 'latest')
         end
       end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_packages => false' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        it do
+          should_not contain_package('nfs-common')
+          should_not contain_package('nfs-kernel-server')
+          should_not contain_package('nfs4-acl-tools')
+          should_not contain_package('rpcbind')
+        end
+      end
     end
     context 'operatingsystem => debian' do
       let(:params) { { client_enabled: true, server_enabled: false } }
@@ -371,6 +380,15 @@ describe 'nfs', type: 'class' do
         it do
           should contain_package('nfs-kernel-server')\
             .with('ensure' => 'latest')\
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_packages => false' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        it do
+          should_not contain_package('nfs-common')
+          should_not contain_package('nfs-kernel-server')
+          should_not contain_package('nfs4-acl-tools')
+          should_not contain_package('rpcbind')
         end
       end
     end
@@ -446,6 +464,15 @@ describe 'nfs', type: 'class' do
           should contain_package('nfs-kernel-server').with('ensure' => 'latest')
         end
       end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_packages => false' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        it do
+          should_not contain_package('nfs-common')
+          should_not contain_package('nfs-kernel-server')
+          should_not contain_package('nfs4-acl-tools')
+          should_not contain_package('rpcbind')
+        end
+      end
     end
     context 'operatingsystem => redhat' do
       let(:params) { { client_enabled: true, server_enabled: false } }
@@ -518,6 +545,14 @@ describe 'nfs', type: 'class' do
         end
         it do
           should contain_package('nfs-utils').with('ensure' => 'latest')
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_packages => false' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        it do
+          should_not contain_package('nfs-utils')
+          should_not contain_package('nfs4-acl-tools')
+          should_not contain_package('rpcbind')
         end
       end
     end
@@ -602,6 +637,14 @@ describe 'nfs', type: 'class' do
           should contain_package('net-fs/nfs-utils').with('ensure' => 'latest')
         end
       end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_packages => false' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        it do
+          should_not contain_package('net-fs/nfs-utils')
+          should_not contain_package('net-nds/rpcbind')
+          should_not contain_package('net-libs/libnfsidmap')
+        end
+      end
     end
     context ':operatingsystem => SLES' do
       let(:params) { { client_enabled: true, } }
@@ -680,6 +723,15 @@ describe 'nfs', type: 'class' do
         end
         it do
           should contain_package('nfs-kernel-server').with('ensure' => 'latest')
+        end
+      end
+      context ':nfs_v4_client => true, :nfs_v4 => true, server_enabled => true, :manage_packages => false' do
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        it do
+          should_not contain_package('nfs-kernel-server')
+          should_not contain_package('rpcbind')
+          should_not contain_package('nfs-client')
+          should_not contain_package('nfsidmap')
         end
       end
     end
