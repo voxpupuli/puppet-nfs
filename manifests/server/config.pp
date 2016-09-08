@@ -32,9 +32,7 @@ class nfs::server::config {
       content => "${::nfs::server::nfs_v4_export_root} ${::nfs::server::nfs_v4_export_root_clients}\n",
       order   => 2,
     }
-    file { $::nfs::server::nfs_v4_export_root:
-      ensure => directory,
-    }
+    ensure_resource( 'file', $::nfs::server::nfs_v4_export_root, { ensure => directory, } )
 
     augeas { $::nfs::idmapd_file:
       context => "/files/${::nfs::idmapd_file}/General",
