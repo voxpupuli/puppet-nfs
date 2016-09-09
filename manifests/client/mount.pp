@@ -89,11 +89,13 @@ define nfs::client::mount (
 ){
 
   if $nfs_v4 == true {
+
     if $mount_root == undef {
       $root = ''
     } else {
       $root = $mount_root
     }
+
     if $share != undef {
       $sharename = "${root}/${share}"
     } else {
@@ -101,6 +103,7 @@ define nfs::client::mount (
     }
 
     nfs::functions::mkdir { $mount: }
+
     mount { "shared ${sharename} by ${server} on ${mount}":
       ensure   => $ensure,
       device   => "${server}:${sharename}",
@@ -118,7 +121,9 @@ define nfs::client::mount (
         mount_name => $bindmount,
       }
     }
+
   } else {
+
     if $share != undef {
       $sharename = $share
     } else {
@@ -137,6 +142,7 @@ define nfs::client::mount (
       require  => Nfs::Functions::Mkdir[$mount],
     }
   }
+
   if $owner != undef or $group != undef or $mode != undef {
     file{$mount:
       ensure  => directory,

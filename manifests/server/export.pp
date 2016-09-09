@@ -77,15 +77,17 @@ define nfs::server::export(
   $options_nfsv4  = $::nfs::client_nfsv4_options,
   $options_nfs    = $::nfs::client_nfs_options,
   $bindmount      = undef,
-  $nfstag         = undef
+  $nfstag         = undef,
 ) {
 
   if $nfs::server::nfs_v4 {
+
     nfs::functions::nfsv4_bindmount { $name:
       ensure         => $ensure,
       v4_export_name => $v4_export_name,
       bind           => $bind,
     }
+
     nfs::functions::create_export { "${::nfs::server::nfs_v4_export_root}/${v4_export_name}":
       ensure  => $ensure,
       clients => $clients,
@@ -108,6 +110,7 @@ define nfs::server::export(
       share         => $v4_export_name,
       server        => $::clientcert,
     }
+
   } else {
 
     if $mount != undef {
@@ -130,5 +133,6 @@ define nfs::server::export(
       share       => $v3_export_name,
       server      => $::clientcert,
     }
+
   }
 }

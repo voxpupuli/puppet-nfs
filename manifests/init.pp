@@ -165,7 +165,7 @@
 #
 
 class nfs(
-  $ensure                       = present,
+  $ensure                       = 'present',
   $server_enabled               = false,
   $client_enabled               = false,
   $nfs_v4                       = $::nfs::params::nfs_v4,
@@ -175,14 +175,14 @@ class nfs(
   $defaults_file                = $::nfs::params::defaults_file,
   $manage_packages              = true,
   $server_packages              = $::nfs::params::server_packages,
-  $server_package_ensure        = installed,
+  $server_package_ensure        = 'installed',
   $client_packages              = $::nfs::params::client_packages,
-  $client_package_ensure        = installed,
+  $client_package_ensure        = 'installed',
   $manage_server_service        = true,
   $manage_server_servicehelper  = true,
   $manage_client_service        = true,
   $server_service_name          = $::nfs::params::server_service_name,
-  $server_service_ensure        = running,
+  $server_service_ensure        = 'running',
   $server_service_enable        = true,
   $server_service_hasrestart    = $::nfs::params::server_service_hasrestart,
   $server_service_hasstatus     = $::nfs::params::server_service_hasstatus,
@@ -207,7 +207,7 @@ class nfs(
   $nfs_v4_root_export_atboot    = false,
   $nfs_v4_root_export_options   = '_netdev',
   $nfs_v4_root_export_bindmount = undef,
-  $nfs_v4_root_export_tag       = undef
+  $nfs_v4_root_export_tag       = undef,
 ) inherits nfs::params {
 
   # validate all params
@@ -223,6 +223,7 @@ class nfs(
   validate_string($exports_file)
   validate_string($idmapd_file)
   validate_string($defaults_file)
+  validate_bool($manage_packages)
   validate_array($server_packages)
   validate_string($server_package_ensure)
   validate_array($client_packages)
@@ -243,9 +244,13 @@ class nfs(
   validate_string($server_nfsv4_servicehelper)
   validate_hash($client_services)
   validate_hash($client_nfsv4_services)
+  validate_bool($client_services_hasrestart)
+  validate_bool($client_services_hasstatus)
   validate_array($client_idmapd_setting)
   validate_string($client_nfs_fstype)
   validate_string($client_nfs_options)
+  validate_string($client_nfsv4_fstype)
+  validate_string($client_nfsv4_options)
   validate_string($nfs_v4_export_root)
   validate_string($nfs_v4_export_root_clients)
   validate_string($nfs_v4_mount_root)
@@ -269,22 +274,28 @@ class nfs(
   }
 
   if $server_enabled {
-    $effective_client_packages = difference($client_packages, $server_packages)
+
     if $server_nfsv4_servicehelper != undef {
       $effective_nfsv4_client_services = delete($client_nfsv4_services, $server_nfsv4_servicehelper)
     } else {
       $effective_nfsv4_client_services = $client_nfsv4_services
     }
+
     $effective_client_services = $client_services
+    $effective_client_packages = difference($client_packages, $server_packages)
+
   } else {
-    $effective_client_packages = $client_packages
+
     $effective_nfsv4_client_services = $client_nfsv4_services
     $effective_client_services = $client_services
+    $effective_client_packages = $client_packages
+
   }
 
   if $server_enabled {
     class { '::nfs::server': }
   }
+
   if $client_enabled {
     class { '::nfs::client': }
   }

@@ -16,8 +16,8 @@
 
 class nfs::server::service {
 
-  # services
   if $::nfs::nfs_v4 == true {
+
     if $::nfs::manage_server_service {
       service { $::nfs::server_service_name:
         ensure     => $::nfs::server_service_ensure,
@@ -28,6 +28,7 @@ class nfs::server::service {
         subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ],
       }
     }
+
     if $::nfs::server_nfsv4_servicehelper != undef and $::nfs::manage_server_servicehelper {
       service { $::nfs::server_nfsv4_servicehelper:
         ensure     => $::nfs::server_service_ensure,
@@ -37,7 +38,9 @@ class nfs::server::service {
         subscribe  => [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ],
       }
     }
+
   } else {
+
     if $::nfs::manage_server_service {
       service { $::nfs::server_service_name:
         ensure     => $::nfs::server_service_ensure,
@@ -48,5 +51,6 @@ class nfs::server::service {
         subscribe  => Concat[$::nfs::exports_file],
       }
     }
+
   }
 }

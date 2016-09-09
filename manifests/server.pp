@@ -26,7 +26,7 @@ class nfs::server (
   $nfs_v4_root_export_atboot    = $::nfs::nfs_v4_root_export_atboot ,
   $nfs_v4_root_export_options   = $::nfs::nfs_v4_root_export_options,
   $nfs_v4_root_export_bindmount = $::nfs::nfs_v4_root_export_bindmount,
-  $nfs_v4_root_export_tag       = $::nfs::nfs_v4_root_export_tag
+  $nfs_v4_root_export_tag       = $::nfs::nfs_v4_root_export_tag,
 ){
 
   anchor {'nfs::server::begin': }

@@ -27,7 +27,7 @@
 
 define nfs::functions::create_export (
   $clients,
-  $ensure = 'present'
+  $ensure = 'present',
 ) {
   if $ensure != 'absent' {
     $line = "${name} ${clients}\n"
