@@ -17,7 +17,6 @@ group :test do
   gem 'puppet-syntax',                                              :require => false
   gem 'puppet-strings',                                             :require => false, :git => 'https://github.com/puppetlabs/puppetlabs-strings.git'
   gem 'metadata-json-lint',                                         :require => false
-  gem 'rspec-puppet-facts',                                         :require => false
   gem 'rspec', '~> 3.5.0',                                          :require => false
   gem 'rspec-core', '~> 3.5.0',                                     :require => false
   gem 'puppet-blacksmith',                                          :require => false, :git => 'https://github.com/voxpupuli/puppet-blacksmith.git'

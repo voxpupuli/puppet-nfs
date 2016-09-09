@@ -57,21 +57,21 @@ class nfs::params {
       $exports_file     = '/etc/exports'
       $idmapd_file      = '/etc/idmapd.conf'
       $defaults_file    = '/etc/conf.d/nfs'
-      $server_packages  = ['net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap']
-      $client_packages  = ['net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap']
+      $server_packages  = [ 'net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap' ]
+      $client_packages  = [ 'net-nds/rpcbind', 'net-fs/nfs-utils', 'net-libs/libnfsidmap' ]
     }
     'Suse': {
       $exports_file     = '/etc/exports'
       $idmapd_file      = '/etc/idmapd.conf'
-      $server_packages  = ['nfs-kernel-server']
-      $client_packages  = ['nfsidmap', 'nfs-client', 'rpcbind']
+      $server_packages  = [ 'nfs-kernel-server' ]
+      $client_packages  = [ 'nfsidmap', 'nfs-client', 'rpcbind' ]
       $defaults_file    = undef
     }
     'Archlinux': {
       $exports_file     = '/etc/exports'
       $idmapd_file      = '/etc/idmapd.conf'
-      $server_packages  = ['nfs-utils']
-      $client_packages  = ['nfsidmap', 'rpcbind']
+      $server_packages  = [ 'nfs-utils' ]
+      $client_packages  = [ 'nfsidmap', 'rpcbind' ]
       $defaults_file    = undef
     }
     default: {
@@ -129,7 +129,7 @@ class nfs::params {
         }
       }
     }
-    'Redhat': {
+    'RedHat': {
       case $::operatingsystemmajrelease {
         '7': {
           $client_idmapd_setting      = ['']
