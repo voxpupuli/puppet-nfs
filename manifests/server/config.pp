@@ -27,13 +27,14 @@ class nfs::server::config {
   }
 
   if $::nfs::nfs_v4 {
+
     concat::fragment { 'nfs_exports_root':
       target  => '/etc/exports',
       content => "${::nfs::server::nfs_v4_export_root} ${::nfs::server::nfs_v4_export_root_clients}\n",
       order   => 2,
     }
-    ensure_resource( 'file', $::nfs::server::nfs_v4_export_root, { ensure => directory, } )
 
+    ensure_resource( 'file', $::nfs::server::nfs_v4_export_root, { ensure => directory, } )
     augeas { $::nfs::idmapd_file:
       context => "/files/${::nfs::idmapd_file}/General",
       lens    => 'Puppet.lns',
@@ -50,5 +51,6 @@ class nfs::server::config {
       bindmount     => $::nfs::server::nfs_v4_root_export_bindmount,
       nfstag        => $::nfs::server::nfs_v4_root_export_tag,
     }
+
   }
 }

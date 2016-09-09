@@ -17,6 +17,7 @@
 class nfs::server::package {
 
   if $::nfs::manage_packages {
+
     if $::nfs::manage_server_service {
       $notify_services = Service[$::nfs::server_service_name]
     } else {
@@ -27,5 +28,6 @@ class nfs::server::package {
       ensure => $::nfs::server_package_ensure,
       notify => $notify_services,
     }
+
   }
 }

@@ -16,14 +16,15 @@
 
 class nfs::client::config {
 
-
   if $::nfs::client::nfs_v4 {
+
     if $::nfs::defaults_file != undef {
       augeas { $::nfs::defaults_file:
         context => "/files/${::nfs::defaults_file}",
         changes => $::nfs::client_idmapd_setting,
       }
     }
+
     if $::nfs::server_enabled == false {
       if $::nfs::idmapd_file != undef {
         augeas { $::nfs::idmapd_file:
@@ -34,5 +35,6 @@ class nfs::client::config {
         }
       }
     }
+
   }
 }

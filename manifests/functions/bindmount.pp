@@ -27,7 +27,7 @@
 
 define nfs::functions::bindmount (
   $mount_name = undef,
-  $ensure = 'present'
+  $ensure = 'present',
 ) {
   nfs::functions::mkdir { $mount_name: }
   mount { $mount_name:

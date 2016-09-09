@@ -31,7 +31,7 @@
 define nfs::functions::nfsv4_bindmount (
   $v4_export_name,
   $bind,
-  $ensure = 'mounted'
+  $ensure = 'mounted',
 ) {
   $expdir = "${nfs::server::nfs_v4_export_root}/${v4_export_name}"
   nfs::functions::mkdir { $expdir: }
