@@ -30,7 +30,7 @@ describe 'nfs' do
         server_servicehelper = 'idmapd'
         server_packages = %w(nfs-common nfs-kernel-server nfs4-acl-tools rpcbind)
         client_services = %w(rpcbind)
-        client_nfsv4_services = %w(rpcbind)
+        client_nfs_vfour_services = %w(rpcbind)
         client_packages = %w(nfs-common nfs4-acl-tools)
 
       when 'Ubuntu_16.04'
@@ -47,7 +47,7 @@ describe 'nfs' do
         server_servicehelper = 'nfs-idmapd'
         server_packages = %w(nfs-common nfs-kernel-server nfs4-acl-tools rpcbind)
         client_services = %w(rpcbind)
-        client_nfsv4_services = %w(rpcbind)
+        client_nfs_vfour_services = %w(rpcbind)
         client_packages = %w(nfs-common nfs4-acl-tools)
 
       when 'Debian_default'
@@ -64,7 +64,7 @@ describe 'nfs' do
         server_servicehelper = 'idmapd'
         server_packages = %w(nfs-common nfs-kernel-server nfs4-acl-tools rpcbind)
         client_services = %w(rpcbind)
-        client_nfsv4_services = %w(rpcbind idmapd)
+        client_nfs_vfour_services = %w(rpcbind idmapd)
         client_packages = %w(nfs-common nfs4-acl-tools)
 
       when 'Debian_8'
@@ -81,7 +81,7 @@ describe 'nfs' do
         server_servicehelper = 'nfs-common'
         server_packages = %w(nfs-common nfs-kernel-server nfs4-acl-tools rpcbind)
         client_services = %w(rpcbind)
-        client_nfsv4_services = %w(rpcbind idmapd)
+        client_nfs_vfour_services = %w(rpcbind idmapd)
         client_packages = %w(nfs-common nfs4-acl-tools)
 
       when 'RedHat_default'
@@ -97,7 +97,7 @@ describe 'nfs' do
         server_servicehelper = 'rpcidmapd'
         server_packages = %w(nfs-utils nfs4-acl-tools rpcbind)
         client_services = %w(rpcbind)
-        client_nfsv4_services = %w(rpcbind rpcidmapd)
+        client_nfs_vfour_services = %w(rpcbind rpcidmapd)
         client_packages = %w(nfs-utils nfs4-acl-tools rpcbind)
 
       when 'RedHat_7'
@@ -113,7 +113,7 @@ describe 'nfs' do
         server_servicehelper = 'nfs-idmap.service'
         server_packages = %w(nfs-utils nfs4-acl-tools rpcbind)
         client_services = %w(rpcbind.service)
-        client_nfsv4_services = %w(rpcbind.service)
+        client_nfs_vfour_services = %w(rpcbind.service)
         client_packages = %w(nfs-utils nfs4-acl-tools rpcbind)
 
       when 'Gentoo'
@@ -129,7 +129,7 @@ describe 'nfs' do
         server_servicehelper = 'rpc.idmapd'
         server_packages = %w(net-nds/rpcbind net-fs/nfs-utils net-libs/libnfsidmap)
         client_services = %w(rpcbind)
-        client_nfsv4_services = %w(rpcbind rpc.idmapd)
+        client_nfs_vfour_services = %w(rpcbind rpc.idmapd)
         client_packages = %w(net-nds/rpcbind net-fs/nfs-utils net-libs/libnfsidmap)
 
       when 'SLES'
@@ -145,7 +145,7 @@ describe 'nfs' do
         server_servicehelper = ''
         server_packages = %w(nfs-kernel-server)
         client_services = %w(rpcbind nfs)
-        client_nfsv4_services = %w(rpcbind nfs)
+        client_nfs_vfour_services = %w(rpcbind nfs)
         client_packages = %w(nfsidmap nfs-client rpcbind)
 
       when 'Archlinux'
@@ -161,7 +161,7 @@ describe 'nfs' do
         server_servicehelper = 'rpc.idmapd'
         server_packages = %w(nfs-utils)
         client_services = %w(rpcbind)
-        client_nfsv4_services = %w(rpcbind rpc.idmapd)
+        client_nfs_vfour_services = %w(rpcbind rpc.idmapd)
         client_packages = %w(nfsidmap rpcbind)
 
       end
@@ -215,7 +215,7 @@ describe 'nfs' do
         context 'nfs_v4 => true' do
           let(:params) { { nfs_v4_client: true, server_enabled: false, client_enabled: true, } }
           it { should contain_augeas('/etc/idmapd.conf') }
-          client_nfsv4_services.each do |service|
+          client_nfs_vfour_services.each do |service|
             context os do
               it { should contain_service(service)
                 .with('ensure' => 'running')
@@ -225,7 +225,7 @@ describe 'nfs' do
           end
           client_packages.each do |package|
             context os do
-              client_nfsv4_services.each do |service|
+              client_nfs_vfour_services.each do |service|
                 service = 'Service[' + service + ']'
                 it { should contain_package(package).that_notifies(service) }
               end
@@ -283,7 +283,7 @@ describe 'nfs' do
 
       context ':nfs_v4_client => true, :nfs_v4 => true, :server_enabled => true, :manage_server_service => false, manage_server_servicehelper => false, :manage_client_service => false' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false, } }
-        client_nfsv4_services.each do |service|
+        client_nfs_vfour_services.each do |service|
           context os do
             it { should_not contain_service(service) }
           end

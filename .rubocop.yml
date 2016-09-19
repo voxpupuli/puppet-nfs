@@ -64,3 +64,6 @@ Style/BlockDelimiters:
 
 Style/MultilineBlockLayout:
   Enabled: False
+
+Style/VariableName:
+  EnforcedStyle: snake_case

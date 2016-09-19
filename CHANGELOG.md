@@ -1,3 +1,14 @@
+##2016-09-19 - Release 0.0.17
+###Summary
+
+####Features
+- added set owner/group/mode of the exported directory
+- rewrite testing suite
+
+####Bugfixes
+- replace ensure_resource again with "if ! defined(File[$name])"
+- fix some small issues
+
 ##2016-09-08 - Release 0.0.16
 ###Summary
 
