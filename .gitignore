@@ -6,3 +6,4 @@ fixtures/modules/*
 vendor/
 .vendor/
 spec/fixtures/
+pkg/
