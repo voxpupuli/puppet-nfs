@@ -11,6 +11,15 @@
 # [*ensure*]
 #   String. Sets if enabled or not.
 #
+# [*owner*]
+#   String. Sets the owner of the exported directory.
+#
+# [*group*]
+#   String. Sets the group of the exported directory.
+#
+# [*mode*]
+#   String. Sets the permissions of the exported directory.
+#
 # === Examples
 #
 # This Function should not be called directly.
@@ -28,6 +37,9 @@
 define nfs::functions::create_export (
   $clients,
   $ensure = 'present',
+  $owner  = undef,
+  $group  = undef,
+  $mode   = undef,
 ) {
   if $ensure != 'absent' {
     $line = "${name} ${clients}\n"
@@ -37,6 +49,13 @@ define nfs::functions::create_export (
       content => $line,
     }
 
-    ensure_resource( 'file', $name, { ensure => directory, } )
+    if ! defined(File[$name]) {
+      file { $name:
+        ensure => directory,
+        owner  => $owner,
+        group  => $group,
+        mode   => $mode,
+      }
+    }
   }
 }

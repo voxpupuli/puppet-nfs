@@ -34,7 +34,12 @@ class nfs::server::config {
       order   => 2,
     }
 
-    ensure_resource( 'file', $::nfs::server::nfs_v4_export_root, { ensure => directory, } )
+    if ! defined(File[$::nfs::server::nfs_v4_export_root]) {
+      file { $::nfs::server::nfs_v4_export_root:
+        ensure => directory,
+      }
+    }
+
     augeas { $::nfs::idmapd_file:
       context => "/files/${::nfs::idmapd_file}/General",
       lens    => 'Puppet.lns',

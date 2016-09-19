@@ -39,6 +39,15 @@
 #   String. Sets the mountpoint the client will mount the exported resource mount on. If undef
 #   it defaults to the same path as on the server
 #
+# [*owner*]
+#   String. Sets the owner of the exported directory
+#
+# [*group*]
+#   String. Sets the group of the exported directory
+#
+# [*mode*]
+#   String. Sets the permissions of the exported directory.
+#
 # === Examples
 #
 # class { '::nfs':
@@ -78,6 +87,9 @@ define nfs::server::export(
   $options_nfs    = $::nfs::client_nfs_options,
   $bindmount      = undef,
   $nfstag         = undef,
+  $owner          = undef,
+  $group          = undef,
+  $mode           = undef,
 ) {
 
   if $nfs::server::nfs_v4 {
@@ -91,6 +103,9 @@ define nfs::server::export(
     nfs::functions::create_export { "${::nfs::server::nfs_v4_export_root}/${v4_export_name}":
       ensure  => $ensure,
       clients => $clients,
+      owner   => $owner,
+      group   => $group,
+      mode    => $mode,
       require => Nfs::Functions::Nfsv4_bindmount[$name],
     }
 
@@ -122,6 +137,9 @@ define nfs::server::export(
     nfs::functions::create_export { $v3_export_name:
       ensure  => $ensure,
       clients => $clients,
+      owner   => $owner,
+      group   => $group,
+      mode    => $mode,
     }
 
     @@nfs::client::mount { $mount_name:
