@@ -146,7 +146,7 @@
 #   to be set to the same value on a server and client node to do correct uid and gid
 #   mapping. Defaults to <tt>$::domain</tt>.
 #
-# [*$nfs_v4_root_export**]
+# [*nfs_v4_root_export*]
 #   Vary. These settings define the options of the exported resource of the export root.
 #
 # === Examples
