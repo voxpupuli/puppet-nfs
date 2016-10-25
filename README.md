@@ -595,7 +595,7 @@ This will mount /data on client in /share/data.
 
   $defaults_nfs_exports = {
     ensure => 'mounted',
-    clients => '192.168.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)
+    clients => '192.168.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)'
   }
 
   if $nfs_exports_global {
