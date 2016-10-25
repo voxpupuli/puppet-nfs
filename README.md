@@ -46,12 +46,12 @@ Puppet Version 4.2.
 
 ####Public Classes
 
-* `nfs`: Main class, includes all other classes
+* [`nfs`](#class-nfs): Main class, includes all other classes
 
 ####Public Defines
 
-* `nfs::client::mount`: Handles all mounts on a nfs client.
-* `nfs::server::export`: Handles all nfs exports on a nfs server.
+* [`nfs::client::mount`](#define-nfs-client-mount): Handles all mounts on a nfs client.
+* [`nfs::server::export`](#define-nfs-server-export): Handles all nfs exports on a nfs server.
 
 ####Private Classes
 
@@ -74,9 +74,12 @@ Puppet Version 4.2.
 
 ###Parameters
 
+
+#### Class: `::nfs`
+
 **The following parameters are available in the `::nfs` class:**
 
-####`ensure`
+#####`ensure`
   String. Controls if the managed resources shall be <tt>present</tt> or
   <tt>absent</tt>. If set to <tt>absent</tt>:
   * The managed software packages are being uninstalled.
@@ -90,227 +93,230 @@ Puppet Version 4.2.
   * This is thus destructive and should be used with care.
   Defaults to <tt>present</tt>.
 
-####`server_enabled`
+#####`server_enabled`
   Boolean. If set to <tt>true</tt>, this module will configure the node
   to act as a nfs server.
 
-####`client_enabled`
+#####`client_enabled`
   Boolean. If set to <tt>true</tt>, this module will configure the node
   to act as a client server, you can use the exported mount resources
   from configured servers.
 
-####`nfs_v4`
+#####`nfs_v4`
   Boolean. If set to <tt>true</tt>, this module will use nfs version 4
   for exporting and mounting nfs resources.
 
-####`nfs_v4_client`
+#####`nfs_v4_client`
   Boolean. If set to <tt>true</tt>, this module will use nfs version 4
   for mounting nfs resources. If set to <tt>false</tt> it will use nfs
   version 3 to mount nfs resources. It defaults to the setting of `nfs_v4`
 
-####`exports_file`
+#####`exports_file`
   String. It defines the location of file with the nfs export resources used
   by the nfs server.
 
-####`idmapd_file`
+#####`idmapd_file`
   String. It defines the location of th file with the idmapd settings.
 
-####`defaults_file`
+#####`defaults_file`
   String. It defines the location of th file with the nfs settings.
 
-####`manage_packages`
+#####`manage_packages`
   Boolean. It defines if the packages should be managed through this module
 
-####`server_packages`
+#####`server_packages`
   Array. It defines the packages needed to be installed for acting as
   a nfs server
 
-####`server_package_ensure`
+#####`server_package_ensure`
   String. It defines the packages state - any of present, installed,
   absent, purged, held, latest
 
-####`client_packages`
+#####`client_packages`
   Array. It defines the packages needed to be installed for acting as
   a nfs client
 
-####`client_package_ensure`
+#####`client_package_ensure`
   String. It defines the packages state - any of present, installed,
   absent, purged, held, latest
 
-####`manage_server_service`
+#####`manage_server_service`
   Boolean. Defines if module should manage server_service
 
-####`manage_server_servicehelper`
+#####`manage_server_servicehelper`
   Boolean. Defines if module should manage server_servicehelper
 
-####`manage_client_service`
+#####`manage_client_service`
   Boolean. Defines if module should manage client_service
 
-####`server_service_name`
+#####`server_service_name`
   String. It defines the servicename of the nfs server service
 
-####`server_service_ensure`
+#####`server_service_ensure`
   Boolean. It defines the service parameter ensure for nfs server services.
 
-####`server_service_enable`
+#####`server_service_enable`
   Boolean. It defines the service parameter enable for nfs server service.
 
-####`server_service_hasrestart`
+#####`server_service_hasrestart`
   Boolean. It defines the service parameter hasrestart for nfs server service.
 
-####`server_service_hasstatus`
+#####`server_service_hasstatus`
   Boolean. It defines the service parameter hasstatus for nfs server service.
 
-####`server_service_restart_cmd`
+#####`server_service_restart_cmd`
   String. It defines the service parameter restart for nfs server service.
 
-####`server_nfsv4_servicehelper`
+#####`server_nfsv4_servicehelper`
   String. It defines the service helper like idmapd for servers configured with
   nfs version 4.
 
-####`client_services`
+#####`client_services`
   Nested Hash. It defines the servicenames need to be started when acting as a nfs client
 
-####`client_nfsv4_services`
+#####`client_nfsv4_services`
   Nested Hash. It defines the servicenames need to be started when acting as a nfs client
   version 4.
 
-####`client_service_hasrestart`
+#####`client_service_hasrestart`
   Boolean. It defines the service parameter hasrestart for nfs client services.
 
-####`client_service_hasstatus`
+#####`client_service_hasstatus`
   Boolean. It defines the service parameter hasstatus for nfs client services.
 
-####`client_idmapd_setting`
+#####`client_idmapd_setting`
   Array. It defines the Augeas parameter added in `defaults_file` when acting as a nfs
   version 4 client.
 
-####`client_nfs_fstype`
+#####`client_nfs_fstype`
   String. It defines the name of the nfs filesystem, when adding entries to /etc/fstab
   on a client node.
 
-####`client_nfs_options`
+#####`client_nfs_options`
   String. It defines the options for the nfs filesystem, when adding entries to /etc/fstab
   on a client node.
 
-####`client_nfsv4_fstype`
+#####`client_nfsv4_fstype`
   String. It defines the name of the nfs version 4 filesystem, when adding entries
   to /etc/fstab on a client node.
 
-####`client_nfsv4_options`
+#####`client_nfsv4_options`
   String. It defines the options for the nfs version 4filesystem, when adding entries
   to /etc/fstab on a client node.
 
-####`nfs_v4_export_root`
+#####`nfs_v4_export_root`
   String. It defines the location where nfs version 4 exports should be bindmounted to
   on a server node. Defaults to <tt>/export</tt>.
 
-####`nfs_v4_export_root_clients`
+#####`nfs_v4_export_root_clients`
   String. It defines the clients that are allowed to mount nfs version 4 exports and
   includes the option string. Defaults to
   <tt>*.${::domain}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)</tt>.
 
-####`nfs_v4_mount_root`
+#####`nfs_v4_mount_root`
   String. It defines the location where nfs version 4 clients find the mount root
   on a server node. Defaults to <tt>/srv</tt>.
 
-####`nfs_v4_idmap_domain`
+#####`nfs_v4_idmap_domain`
   String. It defines the name of the idmapd domain setting in `idmapd_file` needed
   to be set to the same value on a server and client node to do correct uid and gid
   mapping. Defaults to <tt>$::domain</tt>.
 
-####`nfs_v4_root_export`
+#####`nfs_v4_root_export`
   Vary. These settings define the options of the exported resource of the export root.
 
+#### Define: `::nfs::client::mount`
 
 **The following parameters are available in the `::nfs::client::mount` define:**
 
-####`server`
+#####`server`
   String. Sets the ip address of the server with the nfs export
 
-####`share`
+#####`share`
   String. Sets the name of the nfs share on the server
 
-####`ensure`
+#####`ensure`
   String. Sets the ensure parameter of the mount.
 
-####`remounts`
+#####`remounts`
   String. Sets the remounts parameter of the mount.
 
-####`atboot`
+#####`atboot`
   String. Sets the atboot parameter of the mount.
 
-####`options_nfsv4`
+#####`options_nfsv4`
   String. Sets the mount options for a nfs version 4 mount.
 
-####`options_nfs`
+#####`options_nfs`
   String. Sets the mount options for a nfs mount.
 
-####`bindmount`
+#####`bindmount`
   String. When not undef it will create a bindmount on the node
   for the nfs mount.
 
-####`nfstag`
+#####`nfstag`
   String. Sets the nfstag parameter of the mount.
 
-####`nfs_v4`
+#####`nfs_v4`
   Boolean. When set to true, it uses nfs version 4 to mount a share.
 
-####`owner`
+#####`owner`
   String. Set owner of mount dir
 
-####`group`
+#####`group`
   String. Set group of mount dir
 
-####`mode`
+#####`mode`
   String. Set mode of mount dir
 
-####`mount_root`
+#####`mount_root`
   String. Overwrite mount root if differs from server config
+
+#### Define: `::nfs::server::export`
 
 **The following parameters are available in the `::nfs::server::export` define:**
 
-####`clients`
+#####`clients`
   String. Sets the allowed clients and options for the export in the exports file.
   Defaults to <tt>rbind</tt>
 
-####`bind`
+#####`bind`
   String. Sets the bind options setted in /etc/fstab for the bindmounts created.
   Defaults to <tt>localhost(ro)</tt>
 
-####`ensure`
+#####`ensure`
   String. If enabled the mount will be created. Defaults to <tt>mounted</tt>
 
-####`remounts`
+#####`remounts`
   String. Sets the remounts parameter of the mount.
 
-####`atboot`
+#####`atboot`
   String. Sets the atboot parameter of the mount.
 
-####`options_nfsv4`
+#####`options_nfsv4`
   String. Sets the mount options for a nfs version 4 exported resource mount.
 
-####`options_nfs`
+#####`options_nfs`
   String. Sets the mount options for a nfs exported resource mount.
 
-####`bindmount`
+#####`bindmount`
   String. When not undef it will create a bindmount on the node
   for the nfs mount.
 
-####`nfstag`
+#####`nfstag`
   String. Sets the nfstag parameter of the mount.
 
-####`mount`
+#####`mount`
   String. Sets the mountpoint the client will mount the exported resource mount on. If undef
   it defaults to the same path as on the server
 
-####`owner`
+#####`owner`
   String. Sets the owner of the exported directory
 
-####`group`
+#####`group`
   String. Sets the group of the exported directory
 
-####`mode`
+#####`mode`
   String. Sets the permissions of the exported directory.
 
 ##Examples
