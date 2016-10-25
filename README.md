@@ -60,10 +60,12 @@ Puppet Version 4.2.
 * `nfs::client::package`: Handles the packages.
 * `nfs::client::service`: Handles the services.
 
-* `nfs::server`: Includes all relevant classes for configuring as a server
+* `nfs::server`: Includes all relevant classes for configuring as a server.
 * `nfs::server::config`: Handles the configuration files.
 * `nfs::server::package`: Handles the packages.
 * `nfs::server::service`: Handles the services.
+
+* `nfs::params`: Includes all os specific parameters.
 
 ####Private Defines
 
