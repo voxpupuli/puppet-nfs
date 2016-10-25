@@ -49,24 +49,24 @@ Puppet Version 4.2.
 
 ####Private Classes
 
-* nfs::client: Includes all relevant classes for configuring as a client.
-* nfs::client::config: Handles the configuration files.
-* nfs::client::package: Handles the packages.
-* nfs::client::service: Handles the services.
-* nfs::client::mount: Handles all mounts on a nfs client.
+* `nfs::client`: Includes all relevant classes for configuring as a client.
+* `nfs::client::config`: Handles the configuration files.
+* `nfs::client::package`: Handles the packages.
+* `nfs::client::service`: Handles the services.
+* `nfs::client::mount`: Handles all mounts on a nfs client.
 
-* nfs::server: Includes all relevant classes for configuring as a server
-* nfs::server::config: Handles the configuration files.
-* nfs::server::package: Handles the packages.
-* nfs::server::service: Handles the services.
-* nfs::server::export: Handles all nfs exports on a nfs server.
+* `nfs::server`: Includes all relevant classes for configuring as a server
+* `nfs::server::config`: Handles the configuration files.
+* `nfs::server::package`: Handles the packages.
+* `nfs::server::service`: Handles the services.
+* `nfs::server::export`: Handles all nfs exports on a nfs server.
 
 ####Private Defines
 
-* nfs::bindmount: Creates the bindmounts of non nfs 3 exports.
-* nfs::nfsv4_bindmount: Creates the bindmounts of non nfs 4 exports.
-* nfs::create_export: Creates the nfs exports.
-* nfs::mkdir: Creates directories recursive.
+* `nfs::bindmount`: Creates the bindmounts of non nfs 3 exports.
+* `nfs::nfsv4_bindmount`: Creates the bindmounts of non nfs 4 exports.
+* `nfs::create_export`: Creates the nfs exports.
+* `nfs::mkdir`: Creates directories recursive.
 
 ### Parameters
 
