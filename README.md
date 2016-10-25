@@ -6,9 +6,10 @@
 2. [Module Description - What does this module do?](#module-description)
 3. [Setup - The basics of getting started with nfs](#setup)
 4. [Usage - The class and available configurations](#usage)
-5. [Requirements](#requirements)
-6. [Limitations - OS compatibility, etc.](#limitations)
-7. [Contributing to the nfs module](#contributing)
+5. [Reference - The classes and all available parameters](#reference)
+6. [Requirements](#requirements)
+7. [Limitations - OS compatibility, etc.](#limitations)
+8. [Contributing to the nfs module](#contributing)
 
 ##Overview
 
@@ -71,9 +72,9 @@ Puppet Version 4.2.
 * `nfs::create_export`: Creates the nfs exports.
 * `nfs::mkdir`: Creates directories recursive.
 
-### Parameters
+###Parameters
 
-The following parameters are available in the `::nfs` class:
+**The following parameters are available in the `::nfs` class:**
 
 ####`ensure`
   String. Controls if the managed resources shall be <tt>present</tt> or
@@ -221,6 +222,96 @@ The following parameters are available in the `::nfs` class:
 ####`nfs_v4_root_export`
   Vary. These settings define the options of the exported resource of the export root.
 
+
+**The following parameters are available in the `::nfs::client::mount` define:**
+
+####`server`
+  String. Sets the ip address of the server with the nfs export
+
+####`share`
+  String. Sets the name of the nfs share on the server
+
+####`ensure`
+  String. Sets the ensure parameter of the mount.
+
+####`remounts`
+  String. Sets the remounts parameter of the mount.
+
+####`atboot`
+  String. Sets the atboot parameter of the mount.
+
+####`options_nfsv4`
+  String. Sets the mount options for a nfs version 4 mount.
+
+####`options_nfs`
+  String. Sets the mount options for a nfs mount.
+
+####`bindmount`
+  String. When not undef it will create a bindmount on the node
+  for the nfs mount.
+
+####`nfstag`
+  String. Sets the nfstag parameter of the mount.
+
+####`nfs_v4`
+  Boolean. When set to true, it uses nfs version 4 to mount a share.
+
+####`owner`
+  String. Set owner of mount dir
+
+####`group`
+  String. Set group of mount dir
+
+####`mode`
+  String. Set mode of mount dir
+
+####`mount_root`
+  String. Overwrite mount root if differs from server config
+
+**The following parameters are available in the `::nfs::server::export` define:**
+
+####`clients`
+  String. Sets the allowed clients and options for the export in the exports file.
+  Defaults to <tt>rbind</tt>
+
+####`bind`
+  String. Sets the bind options setted in /etc/fstab for the bindmounts created.
+  Defaults to <tt>localhost(ro)</tt>
+
+####`ensure`
+  String. If enabled the mount will be created. Defaults to <tt>mounted</tt>
+
+####`remounts`
+  String. Sets the remounts parameter of the mount.
+
+####`atboot`
+  String. Sets the atboot parameter of the mount.
+
+####`options_nfsv4`
+  String. Sets the mount options for a nfs version 4 exported resource mount.
+
+####`options_nfs`
+  String. Sets the mount options for a nfs exported resource mount.
+
+####`bindmount`
+  String. When not undef it will create a bindmount on the node
+  for the nfs mount.
+
+####`nfstag`
+  String. Sets the nfstag parameter of the mount.
+
+####`mount`
+  String. Sets the mountpoint the client will mount the exported resource mount on. If undef
+  it defaults to the same path as on the server
+
+####`owner`
+  String. Sets the owner of the exported directory
+
+####`group`
+  String. Sets the group of the exported directory
+
+####`mode`
+  String. Sets the permissions of the exported directory.
 
 ##Examples
 
