@@ -69,8 +69,8 @@ Puppet Version 4.2.
 
 ####Private Defines
 
-* `nfs::bindmount`: Creates the bindmounts of non nfs 3 exports.
-* `nfs::nfsv4_bindmount`: Creates the bindmounts of non nfs 4 exports.
+* `nfs::bindmount`: Creates the bindmounts of nfs 3 exports.
+* `nfs::nfsv4_bindmount`: Creates the bindmounts of nfs 4 exports.
 * `nfs::create_export`: Creates the nfs exports.
 * `nfs::mkdir`: Creates directories recursive.
 
