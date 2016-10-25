@@ -50,8 +50,8 @@ Puppet Version 4.2.
 
 ####Public Defines
 
-* [`nfs::client::mount`](#define-nfs-client-mount): Handles all mounts on a nfs client.
-* [`nfs::server::export`](#define-nfs-server-export): Handles all nfs exports on a nfs server.
+* [`nfs::client::mount`](#define-nfsclientmount): Handles all mounts on a nfs client.
+* [`nfs::server::export`](#define-nfsserverexport): Handles all nfs exports on a nfs server.
 
 ####Private Classes
 
