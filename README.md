@@ -101,7 +101,7 @@ Puppet Version 4.2.
 
 #####`client_enabled`
   Boolean. If set to <tt>true</tt>, this module will configure the node
-  to act as a client server, you can use the exported mount resources
+  to act as a nfs client, you can use the exported mount resources
   from configured servers.
 
 #####`nfs_v4`
@@ -114,14 +114,14 @@ Puppet Version 4.2.
   version 3 to mount nfs resources. It defaults to the setting of `nfs_v4`
 
 #####`exports_file`
-  String. It defines the location of file with the nfs export resources used
+  String. It defines the location of the file with the nfs export resources used
   by the nfs server.
 
 #####`idmapd_file`
-  String. It defines the location of th file with the idmapd settings.
+  String. It defines the location of the file with the idmapd settings.
 
 #####`defaults_file`
-  String. It defines the location of th file with the nfs settings.
+  String. It defines the location of the file with the nfs settings.
 
 #####`manage_packages`
   Boolean. It defines if the packages should be managed through this module
