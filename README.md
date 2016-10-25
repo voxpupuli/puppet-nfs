@@ -45,7 +45,12 @@ Puppet Version 4.2.
 
 ####Public Classes
 
-* nfs: Main class, includes all other classes
+* `nfs`: Main class, includes all other classes
+
+####Public Defines
+
+* `nfs::client::mount`: Handles all mounts on a nfs client.
+* `nfs::server::export`: Handles all nfs exports on a nfs server.
 
 ####Private Classes
 
@@ -53,13 +58,11 @@ Puppet Version 4.2.
 * `nfs::client::config`: Handles the configuration files.
 * `nfs::client::package`: Handles the packages.
 * `nfs::client::service`: Handles the services.
-* `nfs::client::mount`: Handles all mounts on a nfs client.
 
 * `nfs::server`: Includes all relevant classes for configuring as a server
 * `nfs::server::config`: Handles the configuration files.
 * `nfs::server::package`: Handles the packages.
 * `nfs::server::service`: Handles the services.
-* `nfs::server::export`: Handles all nfs exports on a nfs server.
 
 ####Private Defines
 
