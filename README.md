@@ -224,9 +224,6 @@ Puppet Version 4.2.
   to be set to the same value on a server and client node to do correct uid and gid
   mapping. Defaults to <tt>$::domain</tt>.
 
-#####`nfs_v4_root_export`
-  Vary. These settings define the options of the exported resource of the export root.
-
 #### Define: `::nfs::client::mount`
 
 **The following parameters are available in the `::nfs::client::mount` define:**
@@ -280,11 +277,11 @@ Puppet Version 4.2.
 
 #####`clients`
   String. Sets the allowed clients and options for the export in the exports file.
-  Defaults to <tt>rbind</tt>
+  Defaults to <tt>localhost(ro)</tt>
 
 #####`bind`
   String. Sets the bind options setted in /etc/fstab for the bindmounts created.
-  Defaults to <tt>localhost(ro)</tt>
+  Defaults to <tt>rbind</tt>
 
 #####`ensure`
   String. If enabled the mount will be created. Defaults to <tt>mounted</tt>
@@ -372,30 +369,30 @@ This will mount /data on client in /share/data.
 ```puppet
   node server1 {
     class { '::nfs':
-      server_enabled => true
+      server_enabled => true,
     }
-    nfs::server::export{
-      '/data_folder':
-        ensure  => 'mounted',
-        clients => '10.0.0.0/24(rw,insecure,async,no_root_squash) localhost(rw)'
-      # exports /homeexports and mounts them om /srv/home on the clients
-      '/homeexport':
-        ensure  => 'mounted',
-        clients => '10.0.0.0/24(rw,insecure,async,root_squash)',
-        mount   => '/srv/home'
+    nfs::server::export { '/data_folder':
+      ensure  => 'mounted',
+      clients => '10.0.0.0/24(rw,insecure,async,no_root_squash) localhost(rw)',
+    }
+    nfs::server::export { '/homeexport':
+      ensure  => 'mounted',
+      clients => '10.0.0.0/24(rw,insecure,async,root_squash)',
+      mount   => '/srv/home',
+    }
   }
 
   node server2 {
     class { '::nfs':
-      server_enabled => true
+      server_enabled => true,
     }
     # ensure is passed to mount, which will make the client not mount it
     # the directory automatically, just add it to fstab
-    nfs::server::export{
-      '/media_library':
-        ensure  => 'present',
-        nfstag     => 'media'
-        clients => '10.0.0.0/24(rw,insecure,async,no_root_squash) localhost(rw)'
+    nfs::server::export { '/media_library':
+      ensure  => 'present',
+      nfstag     => 'media',
+      clients => '10.0.0.0/24(rw,insecure,async,no_root_squash) localhost(rw)',
+    }
   }
 
   node client {
@@ -412,7 +409,7 @@ This will mount /data on client in /share/data.
       client_enabled => true,
     }
     Nfs::Client::Mount <<| |>> {
-      ensure => 'mounted'
+      ensure => 'mounted',
     }
   }
 
@@ -423,9 +420,9 @@ This will mount /data on client in /share/data.
     class { '::nfs':
       client_enabled => true,
     }
-    Nfs::Client::Mount <<|nfstag == 'media' | >> {
+    Nfs::Client::Mount <<| nfstag == 'media' |>> {
       ensure => 'mounted',
-      mount  => '/import/media'
+      mount  => '/import/media',
     }
   }
 
@@ -463,11 +460,12 @@ This will mount /data on client in /share/data.
       server_enabled => true,
       nfs_v4         => true,
       nfs_v4_export_root_clients =>
-        '10.0.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)'
+        '10.0.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)',
     }
-    nfs::server::export{ '/data_folder':
+    nfs::server::export { '/data_folder':
       ensure  => 'mounted',
-      clients => '10.0.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash) localhost(rw)'
+      clients => '10.0.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash) localhost(rw)',
+    }
   }
 
   # By default, mounts are mounted in the same folder on the clients as
@@ -494,7 +492,7 @@ This will mount /data on client in /share/data.
       nfs_v4_client  => true,
     }
     Nfs::Client::Mount::Nfs_v4::Root <<| server == $server |>> {
-      mount => "/srv/$server",
+      mount => "/srv/${server}",
     }
   }
 ```
@@ -513,11 +511,11 @@ This will mount /data on client in /share/data.
       nfs_v4_export_root  => '/export',
       # Default access settings of /export root
       nfs_v4_export_root_clients =>
-        "*.${::domain}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)"
+        "*.${::domain}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)",
 
 
     }
-    nfs::server::export{ '/data_folder':
+    nfs::server::export { '/data_folder':
       # These are the defaults
       ensure  => 'mounted',
       # rbind or bind mounting of folders bindmounted into /export
@@ -531,23 +529,24 @@ This will mount /data on client in /share/data.
       remounts  => false,
       atboot    => false,
       #  Don't remove that option, but feel free to add more.
-      options   => '_netdev',
+      options_nfs   => '_netdev',
       # If set will mount share inside /srv (or overridden mount_root)
       # and then bindmount to another directory elsewhere in the fs -
       # for fanatics.
       bindmount => undef,
       # Used to identify a catalog item for filtering by by
       # storeconfigs, kick ass.
-      nfstag     => undef,
+      nfstag     => 'kick-ass',
       # copied directly into /etc/exports as a string, for simplicity
-      clients => '10.0.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)'
+      clients => '10.0.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)',
+    }
   }
 
   node client {
     class { '::nfs':
       client_enabled      => true,
       nfs_v4_client       => true,
-      nfs_v4_idmap_domain => $::domain
+      nfs_v4_idmap_domain => $::domain,
       nfs_v4_mount_root   => '/srv',
     }
 
@@ -556,7 +555,7 @@ This will mount /data on client in /share/data.
     # Be careful. Don't override mount points unless you are sure
     # that only one export will match your filter!
 
-    Nfs::Client::Mount <<| # filter goes here # |>> {
+    Nfs::Client::Mount <<| nfstag == 'kick-ass' |>> {
       # Directory where we want export mounted on client
       mount     => undef,
       remounts  => false,
@@ -571,37 +570,65 @@ This will mount /data on client in /share/data.
   }
 ```
 
-### Simple create_resources with hiera example
+### Simple create nfs export resources with hiera example
 
-#### HIERA:
+**Hiera Server Role:**
 
 ```yaml
-  nas::nfs_exports_global:
+  classes:
+    - nfs
+
+  nfs::server_enabled: true
+  nfs::client_enabled :  false
+  nfs::nfs_v4:  true
+  nfs::nfs_v4_idmap_domain:  %{::domain}
+  nfs::nfs_v4_export_root:  '/share'
+  nfs::nfs_v4_export_root_clients:  '192.168.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)'
+
+
+  nfs::nfs_exports_global:
     /var/www: {}
     /var/smb: {}
 ```
+**Hiera Client Role:**
+```yaml
+  classes:
+    - nfs
 
-#### PUPPET:
+  nfs::client_enabled: true
+  nfs::nfs_v4_client: true
+  nfs::nfs_v4_idmap_domain: %{::domain}
+  nfs::nfs_v4_mount_root: '/share'
+  nfs::nfs_server: 'nfs-server-fqdn'
+
+```
+
+**Puppet:**
 
 ```puppet
-  $nfs_exports_global = hiera_hash('nas::nfs_exports_global', false)
-
-  class { '::nfs':
-    server_enabled => true,
-    client_enabled => false,
-    nfs_v4 => true,
-    nfs_v4_idmap_domain => $::domain,
-    nfs_v4_export_root => '/share',
-    nfs_v4_export_root_clients => '192.168.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)',
+  
+  node server {
+    hiera_include('classes')
+    $nfs_exports_global = hiera_hash('nfs::nfs_exports_global', false)
+  
+    $defaults_nfs_exports = {
+      ensure  => 'mounted',
+      clients => '192.168.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)',
+      nfstag     => $::fqdn,
+    }
+  
+    if $nfs_exports_global {
+      create_resources('::nfs::server::export', $nfs_exports_global, $defaults_nfs_exports)
+    }
   }
-
-  $defaults_nfs_exports = {
-    ensure => 'mounted',
-    clients => '192.168.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)'
-  }
-
-  if $nfs_exports_global {
-    create_resources('::nfs::server::export', $nfs_exports_global, $defaults_nfs_exports)
+  
+  node client {
+    hiera_include('classes')
+    $nfs_server = hiera('nfs::nfs_server', false)
+    
+    if $nfs_server {
+      Nfs::Client::Mount <<| nfstag == $nfs_server |>>
+    }
   }
 ```
 

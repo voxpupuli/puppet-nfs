@@ -7,11 +7,11 @@
 #
 # [*clients*]
 #   String. Sets the allowed clients and options for the export in the exports file.
-#   Defaults to <tt>rbind</tt>
+#   Defaults to <tt>localhost(ro)</tt>
 #
 # [*bind*]
 #   String. Sets the bind options setted in /etc/fstab for the bindmounts created.
-#   Defaults to <tt>localhost(ro)</tt>
+#   Defaults to <tt>rbind</tt>
 #
 # [*ensure*]
 #   String. If enabled the mount will be created. Defaults to <tt>mounted</tt>
