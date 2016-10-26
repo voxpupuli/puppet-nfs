@@ -1,4 +1,4 @@
-##2016-09-19 - Release 1.0.0
+##2016-09-19 - Release 1.0.1
 ###Summary
 
 ####Features
