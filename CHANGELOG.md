@@ -1,3 +1,10 @@
+##2016-09-19 - Release 1.0.0
+###Summary
+
+####Features
+- updated documentation
+- refactor testing suite
+
 ##2016-09-19 - Release 0.0.17
 ###Summary
 
