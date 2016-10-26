@@ -37,8 +37,7 @@ create_resources function when you store your exports i.e. via hiera.
 
 ##Setup
 
-This Module depends on puppetlabs-stdlib >= 4.5.0 and puppetlabs-concat >= 1.1.2. It is tested till
-Puppet Version 4.2.
+This Module depends on puppetlabs-stdlib >= 4.5.0 and puppetlabs-concat >= 1.1.2.
 
 ##Reference
 
