@@ -455,15 +455,24 @@ This will mount /data on client in /share/data.
 
   # and on individual nodes.
   node server {
+    file { ['/data_folder', '/homeexport']:
+      ensure => 'directory',
+    }
     class { '::nfs':
       server_enabled => true,
-      nfs_v4         => true,
-      nfs_v4_export_root_clients =>
-        '10.0.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)',
+      nfs_v4 => true,
+      nfs_v4_idmap_domain => 'example.com',
+      nfs_v4_export_root  => '/export',
+      nfs_v4_export_root_clients => '*(rw,fsid=0,insecure,no_subtree_check,async,no_root_squash)',
     }
     nfs::server::export { '/data_folder':
       ensure  => 'mounted',
-      clients => '10.0.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash) localhost(rw)',
+      clients => '*(rw,insecure,async,no_root_squash,no_subtree_check)',
+    }
+    nfs::server::export { '/homeexport':
+      ensure  => 'mounted',
+      clients => '*(rw,insecure,async,root_squash,no_subtree_check)',
+      mount   => '/srv/home',
     }
   }
 
@@ -474,8 +483,6 @@ This will mount /data on client in /share/data.
     class { '::nfs':
       client_enabled  => true,
       nfs_v4_client   => true,
-      nfs_v4_export_root_clients =>
-        '10.0.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)'
     }
     Nfs::Client::Mount <<| |>>
   }
