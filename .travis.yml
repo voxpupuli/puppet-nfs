@@ -25,10 +25,19 @@ matrix:
     env: PUPPET_VERSION="~> 4.4.0" STRICT_VARIABLES="yes" CHECK=test
   - rvm: 2.3.0
     env: PUPPET_VERSION="~> 4.5.0" STRICT_VARIABLES="yes" CHECK=test
-  - rvm: 2.3.0
+  - rvm: 2.3.1
     env: PUPPET_VERSION="~> 4.6.0" STRICT_VARIABLES="yes" CHECK=test
-  - rvm: 2.3.0
+  - rvm: 2.3.1
     env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=rubocop
-
+  - rvm: 2.3.1
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_set=ubuntu-14.04
+    script: bundle exec rake beaker
+    services: docker
+    sudo: required
+  - rvm: 2.3.1
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_set=ubuntu-16.04
+    script: bundle exec rake beaker
+    services: docker
+    sudo: required
 notifications:
   email: false
