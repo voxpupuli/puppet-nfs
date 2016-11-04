@@ -280,7 +280,19 @@ This Module depends on puppetlabs-stdlib >= 4.5.0 and puppetlabs-concat >= 1.1.2
 
 #####`bind`
   String. Sets the bind options setted in /etc/fstab for the bindmounts created.
-  Defaults to <tt>rbind</tt>
+  Defaults to <tt>rbind</tt>. When you have any submounts in your exported folders,
+  the rbind option will submount them in the bindmount folder. You have to set the 
+  `crossmnt` option in your nfs export to have the submounts from rbind available
+  on your client. Your export should look like this:
+  
+```puppet
+node client {
+  nfs::server::export { '/home':
+    ensure  => 'mounted',
+    clients => '*(rw,insecure,no_subtree_check,async,no_root_squash,crossmnt)',
+  }
+}
+``` 
 
 #####`ensure`
   String. If enabled the mount will be created. Defaults to <tt>mounted</tt>
