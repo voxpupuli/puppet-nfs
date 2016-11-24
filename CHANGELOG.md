@@ -1,3 +1,10 @@
+##2016-11-24 - Release 1.0.2
+###Summary
+
+####Features
+- updated documentation
+- added acceptance tests with rspec-beaker
+
 ##2016-09-19 - Release 1.0.1
 ###Summary
 
