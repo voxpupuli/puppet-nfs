@@ -7,3 +7,4 @@ vendor/
 .vendor/
 spec/fixtures/
 pkg/
+log/
