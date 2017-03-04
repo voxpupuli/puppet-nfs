@@ -40,10 +40,10 @@
 #   by the nfs server.
 #
 # [*idmapd_file*]
-#   String. It defines the location of th file with the idmapd settings.
+#   String. It defines the location of the file with the idmapd settings.
 #
 # [*defaults_file*]
-#   String. It defines the location of th file with the nfs settings.
+#   String. It defines the location of the file with the nfs settings.
 #
 # [*manage_packages*]
 #   Boolean. It defines if the packages should be managed through this module
@@ -162,113 +162,50 @@
 #
 
 class nfs(
-  $ensure                       = 'present',
-  $server_enabled               = false,
-  $client_enabled               = false,
-  $nfs_v4                       = $::nfs::params::nfs_v4,
-  $nfs_v4_client                = $::nfs::params::nfs_v4,
-  $exports_file                 = $::nfs::params::exports_file,
-  $idmapd_file                  = $::nfs::params::idmapd_file,
-  $defaults_file                = $::nfs::params::defaults_file,
-  $manage_packages              = true,
-  $server_packages              = $::nfs::params::server_packages,
-  $server_package_ensure        = 'installed',
-  $client_packages              = $::nfs::params::client_packages,
-  $client_package_ensure        = 'installed',
-  $manage_server_service        = true,
-  $manage_server_servicehelper  = true,
-  $manage_client_service        = true,
-  $server_service_name          = $::nfs::params::server_service_name,
-  $server_service_ensure        = 'running',
-  $server_service_enable        = true,
-  $server_service_hasrestart    = $::nfs::params::server_service_hasrestart,
-  $server_service_hasstatus     = $::nfs::params::server_service_hasstatus,
-  $server_service_restart_cmd   = $::nfs::params::server_service_restart_cmd,
-  $server_nfsv4_servicehelper   = $::nfs::params::server_nfsv4_servicehelper,
-  $client_services              = $::nfs::params::client_services,
-  $client_nfsv4_services        = $::nfs::params::client_nfsv4_services,
-  $client_services_hasrestart   = $::nfs::params::client_services_hasrestart,
-  $client_services_hasstatus    = $::nfs::params::client_services_hasstatus,
-  $client_idmapd_setting        = $::nfs::params::client_idmapd_setting,
-  $client_nfs_fstype            = $::nfs::params::client_nfs_fstype,
-  $client_nfs_options           = $::nfs::params::client_nfs_options,
-  $client_nfsv4_fstype          = $::nfs::params::client_nfsv4_fstype,
-  $client_nfsv4_options         = $::nfs::params::client_nfsv4_options,
-  $nfs_v4_export_root           = $::nfs::params::nfs_v4_export_root,
-  $nfs_v4_export_root_clients   = $::nfs::params::nfs_v4_export_root_clients,
-  $nfs_v4_mount_root            = $::nfs::params::nfs_v4_mount_root,
-  $nfs_v4_idmap_domain          = $::nfs::params::nfs_v4_idmap_domain,
-  $nfs_v4_root_export_ensure    = 'mounted',
-  $nfs_v4_root_export_mount     = undef,
-  $nfs_v4_root_export_remounts  = false,
-  $nfs_v4_root_export_atboot    = false,
-  $nfs_v4_root_export_options   = '_netdev',
-  $nfs_v4_root_export_bindmount = undef,
-  $nfs_v4_root_export_tag       = undef,
+  Enum['present', 'absent', 'running', 'stopped', 'disabled'] $ensure                 = 'present',
+  Boolean $server_enabled                                                             = false,
+  Boolean $client_enabled                                                             = false,
+  Boolean $nfs_v4                                                                     = $::nfs::params::nfs_v4,
+  Boolean $nfs_v4_client                                                              = $::nfs::params::nfs_v4,
+  String $exports_file                                                                = $::nfs::params::exports_file,
+  String $idmapd_file                                                                 = $::nfs::params::idmapd_file,
+  Optional[String] $defaults_file                                                     = $::nfs::params::defaults_file,
+  Boolean $manage_packages                                                            = true,
+  Array $server_packages                                                              = $::nfs::params::server_packages,
+  String $server_package_ensure                                                       = 'installed',
+  Array $client_packages                                                              = $::nfs::params::client_packages,
+  String $client_package_ensure                                                       = 'installed',
+  Boolean $manage_server_service                                                      = true,
+  Boolean $manage_server_servicehelper                                                = true,
+  Boolean $manage_client_service                                                      = true,
+  String $server_service_name                                                         = $::nfs::params::server_service_name,
+  Enum['present', 'absent', 'running', 'stopped', 'disabled'] $server_service_ensure  = 'running',
+  Boolean $server_service_enable                                                      = true,
+  Boolean $server_service_hasrestart                                                  = $::nfs::params::server_service_hasrestart,
+  Boolean $server_service_hasstatus                                                   = $::nfs::params::server_service_hasstatus,
+  Optional[String] $server_service_restart_cmd                                        = $::nfs::params::server_service_restart_cmd,
+  Optional[String] $server_nfsv4_servicehelper                                        = $::nfs::params::server_nfsv4_servicehelper,
+  $client_services                                                                    = $::nfs::params::client_services,
+  $client_nfsv4_services                                                              = $::nfs::params::client_nfsv4_services,
+  Boolean $client_services_hasrestart                                                 = $::nfs::params::client_services_hasrestart,
+  Boolean $client_services_hasstatus                                                  = $::nfs::params::client_services_hasstatus,
+  Array[String] $client_idmapd_setting                                                = $::nfs::params::client_idmapd_setting,
+  String $client_nfs_fstype                                                           = $::nfs::params::client_nfs_fstype,
+  String $client_nfs_options                                                          = $::nfs::params::client_nfs_options,
+  String $client_nfsv4_fstype                                                         = $::nfs::params::client_nfsv4_fstype,
+  String $client_nfsv4_options                                                        = $::nfs::params::client_nfsv4_options,
+  String $nfs_v4_export_root                                                          = $::nfs::params::nfs_v4_export_root,
+  String $nfs_v4_export_root_clients                                                  = $::nfs::params::nfs_v4_export_root_clients,
+  String $nfs_v4_mount_root                                                           = $::nfs::params::nfs_v4_mount_root,
+  String $nfs_v4_idmap_domain                                                         = $::nfs::params::nfs_v4_idmap_domain,
+  String $nfs_v4_root_export_ensure                                                   = 'mounted',
+  Optional[String] $nfs_v4_root_export_mount                                          = undef,
+  Boolean $nfs_v4_root_export_remounts                                                = false,
+  Boolean $nfs_v4_root_export_atboot                                                  = false,
+  String $nfs_v4_root_export_options                                                  = '_netdev',
+  Optional[String] $nfs_v4_root_export_bindmount                                      = undef,
+  Optional[String] $nfs_v4_root_export_tag                                            = undef,
 ) inherits nfs::params {
-
-  # validate all params
-
-  if ! ($ensure in [ 'present', 'absent', 'running', 'stopped', 'disabled' ]) {
-    fail("\"${$ensure}\" is not a valid ensure parameter value")
-  }
-
-  validate_bool($server_enabled)
-  validate_bool($client_enabled)
-  validate_bool($nfs_v4)
-  validate_bool($nfs_v4_client)
-  validate_string($exports_file)
-  validate_string($idmapd_file)
-  validate_string($defaults_file)
-  validate_bool($manage_packages)
-  validate_array($server_packages)
-  validate_string($server_package_ensure)
-  validate_array($client_packages)
-  validate_string($client_package_ensure)
-  validate_bool($manage_server_service)
-  validate_bool($manage_server_servicehelper)
-  validate_bool($manage_client_service)
-  validate_string($server_service_name)
-
-  if ! ($server_service_ensure in [ 'present', 'absent', 'running', 'stopped', 'disabled' ]) {
-    fail("\"${server_service_ensure}\" is not a valid ensure parameter value")
-  }
-
-  validate_bool($server_service_enable)
-  validate_bool($server_service_hasrestart)
-  validate_bool($server_service_hasstatus)
-  validate_string($server_service_restart_cmd)
-  validate_string($server_nfsv4_servicehelper)
-  validate_hash($client_services)
-  validate_hash($client_nfsv4_services)
-  validate_bool($client_services_hasrestart)
-  validate_bool($client_services_hasstatus)
-  validate_array($client_idmapd_setting)
-  validate_string($client_nfs_fstype)
-  validate_string($client_nfs_options)
-  validate_string($client_nfsv4_fstype)
-  validate_string($client_nfsv4_options)
-  validate_string($nfs_v4_export_root)
-  validate_string($nfs_v4_export_root_clients)
-  validate_string($nfs_v4_mount_root)
-  validate_string($nfs_v4_idmap_domain)
-  validate_string($nfs_v4_root_export_ensure)
-
-  if $nfs_v4_root_export_mount != undef  {
-    validate_string($nfs_v4_root_export_mount)
-  }
-
-  validate_bool($nfs_v4_root_export_remounts)
-  validate_bool($nfs_v4_root_export_atboot)
-  validate_string($nfs_v4_root_export_options)
-
-  if $nfs_v4_root_export_bindmount != undef  {
-    validate_string($nfs_v4_root_export_bindmount)
-  }
-
-  if $nfs_v4_root_export_tag != undef  {
-    validate_string($nfs_v4_root_export_tag)
-  }
 
   if $server_enabled {
 
