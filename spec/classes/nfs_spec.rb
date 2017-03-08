@@ -4,13 +4,14 @@ describe 'nfs' do
   supported_os = %w(Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 Gentoo SLES Archlinux)
   supported_os.each do |os|
     context os do
-      let(:default_facts) do {
-        concat_basedir: '/tmp',
-        clientcert: 'test.host',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-      }
+      let(:default_facts) do
+        {
+          concat_basedir: '/tmp',
+          clientcert: 'test.host',
+          is_pe: false,
+          id: 'root',
+          path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        }
       end
 
       ### vv switch case to set OS specific values vv ###
@@ -23,7 +24,7 @@ describe 'nfs' do
             operatingsystem: 'Ubuntu',
             osfamily: 'Debian',
             operatingsystemmajrelease: '14.04',
-            lsbdistcodename: 'trusty',
+            lsbdistcodename: 'trusty'
           )
         end
         server_service = 'nfs-kernel-server'
@@ -40,7 +41,7 @@ describe 'nfs' do
             operatingsystem: 'Ubuntu',
             osfamily: 'Debian',
             operatingsystemmajrelease: '16.04',
-            lsbdistcodename: 'xenial',
+            lsbdistcodename: 'xenial'
           )
         end
         server_service = 'nfs-server'
@@ -57,7 +58,7 @@ describe 'nfs' do
             operatingsystem: 'Debian',
             osfamily: 'Debian',
             operatingsystemmajrelease: '7',
-            lsbdistcodename: 'wheezy',
+            lsbdistcodename: 'wheezy'
           )
         end
         server_service = 'nfs-kernel-server'
@@ -74,7 +75,7 @@ describe 'nfs' do
             operatingsystem: 'Debian',
             osfamily: 'Debian',
             operatingsystemmajrelease: '8',
-            lsbdistcodename: 'jessie',
+            lsbdistcodename: 'jessie'
           )
         end
         server_service = 'nfs-kernel-server'
@@ -90,7 +91,7 @@ describe 'nfs' do
           default_facts.merge(
             operatingsystem: 'RedHat',
             osfamily: 'RedHat',
-            operatingsystemmajrelease: '8',
+            operatingsystemmajrelease: '8'
           )
         end
         server_service = 'nfs'
@@ -106,7 +107,7 @@ describe 'nfs' do
           default_facts.merge(
             operatingsystem: 'RedHat',
             osfamily: 'RedHat',
-            operatingsystemmajrelease: '7',
+            operatingsystemmajrelease: '7'
           )
         end
         server_service = 'nfs-server.service'
@@ -122,7 +123,7 @@ describe 'nfs' do
           default_facts.merge(
             operatingsystem: 'Gentoo',
             osfamily: 'Gentoo',
-            operatingsystemmajrelease: '1',
+            operatingsystemmajrelease: '1'
           )
         end
         server_service = 'nfs'
@@ -138,7 +139,7 @@ describe 'nfs' do
           default_facts.merge(
             operatingsystem: 'SLES',
             osfamily: 'Suse',
-            operatingsystemmajrelease: '12',
+            operatingsystemmajrelease: '12'
           )
         end
         server_service = 'nfsserver'
@@ -154,7 +155,7 @@ describe 'nfs' do
           default_facts.merge(
             operatingsystem: 'Archlinux',
             osfamily: 'Archlinux',
-            operatingsystemmajrelease: '3',
+            operatingsystemmajrelease: '3'
           )
         end
         server_service = 'nfs-server.service'
@@ -170,64 +171,67 @@ describe 'nfs' do
       it { is_expected.to compile.with_all_deps }
 
       context 'server_enabled => true, client_enabled => false' do
-        let(:params) { { server_enabled: true, client_enabled: false, } }
-        it { should contain_class('nfs::server::config') }
-        it { should contain_class('nfs::server::package') }
-        it { should contain_class('nfs::server::service') }
-        it { should contain_concat__fragment('nfs_exports_header').with('target' => '/etc/exports') }
+        let(:params) { { server_enabled: true, client_enabled: false } }
+        it { is_expected.to contain_class('nfs::server::config') }
+        it { is_expected.to contain_class('nfs::server::package') }
+        it { is_expected.to contain_class('nfs::server::service') }
+        it { is_expected.to contain_concat__fragment('nfs_exports_header').with('target' => '/etc/exports') }
 
         server_packages.each do |package|
           context os do
-            it { should contain_package(package) }
+            it { is_expected.to contain_package(package) }
           end
         end
 
         context 'nfs_v4 => true' do
           let(:params) { { nfs_v4: true, server_enabled: true, client_enabled: false, nfs_v4_idmap_domain: 'teststring' } }
-          it { should contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
-          it { should contain_file('/export').with('ensure' => 'directory') }
-          it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
+          it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
+          it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
+          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set Domain teststring}) }
           context os do
             if server_servicehelper != ''
-              it { should contain_service(server_servicehelper)
-                .with('ensure' => 'running')
-                .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
-              }
+              it do
+                is_expected.to contain_service(server_servicehelper).
+                  with('ensure' => 'running').
+                  with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
+              end
             end
           end
         end
       end
 
       context 'server_enabled => false, client_enabled => true' do
-        let(:params) { { server_enabled: false, client_enabled: true, } }
-        it { should contain_class('nfs::client::config') }
-        it { should contain_class('nfs::client::package') }
-        it { should contain_class('nfs::client::service') }
+        let(:params) { { server_enabled: false, client_enabled: true } }
+        it { is_expected.to contain_class('nfs::client::config') }
+        it { is_expected.to contain_class('nfs::client::package') }
+        it { is_expected.to contain_class('nfs::client::service') }
         context os do
           client_services.each do |service|
-            it { should contain_service(service)
-              .with('ensure' => 'running')
-              .with_subscribe([])
-            }
+            it do
+              is_expected.to contain_service(service).
+                with('ensure' => 'running').
+                with_subscribe([])
+            end
           end
         end
 
         context 'nfs_v4 => true' do
-          let(:params) { { nfs_v4_client: true, server_enabled: false, client_enabled: true, } }
-          it { should contain_augeas('/etc/idmapd.conf') }
+          let(:params) { { nfs_v4_client: true, server_enabled: false, client_enabled: true } }
+          it { is_expected.to contain_augeas('/etc/idmapd.conf') }
           client_nfs_vfour_services.each do |service|
             context os do
-              it { should contain_service(service)
-                .with('ensure' => 'running')
-                .with_subscribe(/Augeas/)
-              }
+              it do
+                is_expected.to contain_service(service).
+                  with('ensure' => 'running').
+                  with_subscribe(%r{Augeas})
+              end
             end
           end
           client_packages.each do |package|
             context os do
               client_nfs_vfour_services.each do |service|
                 service = 'Service[' + service + ']'
-                it { should contain_package(package).that_notifies(service) }
+                it { is_expected.to contain_package(package).that_notifies(service) }
               end
             end
           end
@@ -235,64 +239,65 @@ describe 'nfs' do
       end
 
       context 'server_enabled => true, client_enabled => true' do
-        let(:params) { { server_enabled: true, client_enabled: true, } }
-        it { should contain_class('nfs::server::config') }
-        it { should contain_class('nfs::server::package') }
-        it { should contain_class('nfs::server::service') }
-        it { should contain_class('nfs::client::config') }
-        it { should contain_class('nfs::client::package') }
-        it { should contain_class('nfs::client::service') }
-        it { should contain_concat__fragment('nfs_exports_header').with('target' => '/etc/exports') }
+        let(:params) { { server_enabled: true, client_enabled: true } }
+        it { is_expected.to contain_class('nfs::server::config') }
+        it { is_expected.to contain_class('nfs::server::package') }
+        it { is_expected.to contain_class('nfs::server::service') }
+        it { is_expected.to contain_class('nfs::client::config') }
+        it { is_expected.to contain_class('nfs::client::package') }
+        it { is_expected.to contain_class('nfs::client::service') }
+        it { is_expected.to contain_concat__fragment('nfs_exports_header').with('target' => '/etc/exports') }
 
         context 'nfs_v4 => true, nfs_v4_client => true' do
           let(:params) { { nfs_v4: true, nfs_v4_client: true, server_enabled: true, client_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
-          it { should contain_augeas('/etc/idmapd.conf') }
-          it { should contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
-          it { should contain_file('/export').with('ensure' => 'directory') }
-          it { should contain_augeas('/etc/idmapd.conf').with_changes(/set Domain teststring/) }
+          it { is_expected.to contain_augeas('/etc/idmapd.conf') }
+          it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
+          it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
+          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set Domain teststring}) }
           context os do
             if server_servicehelper != ''
-              it { should contain_service(server_servicehelper)
-                .with('ensure' => 'running')
-                .with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
-              }
+              it do
+                is_expected.to contain_service(server_servicehelper).
+                  with('ensure' => 'running').
+                  with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
+              end
             end
           end
           server_packages.each do |package|
             context os do
               service = 'Service[' + server_service + ']'
-              it { should contain_package(package).that_notifies(service) }
+              it { is_expected.to contain_package(package).that_notifies(service) }
             end
           end
         end
       end
 
       context ':nfs_v4_client => true, :nfs_v4 => true, :server_enabled => true, :client_enabled => true, :manage_packages => false' do
-        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false, } }
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false } }
         client_packages.each do |package|
           context os do
-            it { should_not contain_package(package) }
+            it { is_expected.not_to contain_package(package) }
           end
         end
         server_packages.each do |package|
           context os do
-            it { should_not contain_package(package) }
+            it { is_expected.not_to contain_package(package) }
           end
         end
       end
 
       context ':nfs_v4_client => true, :nfs_v4 => true, :server_enabled => true, :manage_server_service => false, manage_server_servicehelper => false, :manage_client_service => false' do
-        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false, } }
+        let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false } }
         client_nfs_vfour_services.each do |service|
           context os do
-            it { should_not contain_service(service) }
+            it { is_expected.not_to contain_service(service) }
           end
         end
         context os do
-          it { should_not contain_service(server_service) }
+          it { is_expected.not_to contain_service(server_service) }
         end
         context os do
-          it { should_not contain_service(server_servicehelper) }
+          it { is_expected.not_to contain_service(server_servicehelper) }
         end
       end
     end

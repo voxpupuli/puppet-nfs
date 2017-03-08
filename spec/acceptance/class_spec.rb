@@ -18,7 +18,7 @@ describe 'nfs class' do
   describe 'include nfs without params' do
     context 'default parameters' do
       let(:pp) { "class { 'nfs': }" }
-      it 'should apply without errors without params' do
+      it 'applies without errors without params' do
         apply_manifest('include nfs', catch_failures: true)
       end
     end
@@ -48,11 +48,11 @@ describe 'nfs class' do
         }
       EOS
 
-      it 'should work with no errors based on the example' do
-        expect(apply_manifest(server_pp).exit_code).to_not eq(1)
+      it 'works with no errors based on the example' do
+        expect(apply_manifest(server_pp).exit_code).not_to eq(1)
       end
 
-      it 'should run a second time without changes' do
+      it 'runs a second time without changes' do
         expect(apply_manifest(server_pp).exit_code).to eq(0)
       end
 
