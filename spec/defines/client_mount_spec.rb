@@ -17,11 +17,14 @@ describe 'nfs::client::mount', type: 'define' do
     end
     let(:title) { '/srv/test' }
 
-    let(:pre_condition) { 'class {"nfs": client_enabled => true,}' }
+    let(:pre_condition) { 'class { "nfs": client_enabled => true }' }
 
     let(:params) { { server: '1.2.3.4' } }
     it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
-    it { is_expected.to contain_mount('shared /srv/test by 1.2.3.4 on /srv/test') }
+    it do
+      is_expected.to contain_mount('shared /srv/test by 1.2.3.4 on /srv/test').
+        with_require(['Nfs::Functions::Mkdir[/srv/test]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]'])
+    end
   end
 
   context 'nfs_v4 => false, specified mountpoint and sharename' do
@@ -44,7 +47,10 @@ describe 'nfs::client::mount', type: 'define' do
 
     let(:params) { { share: '/export/srv', mount: '/srv', server: '1.2.3.4' } }
     it { is_expected.to contain_nfs__functions__mkdir('/srv') }
-    it { is_expected.to contain_mount('shared /export/srv by 1.2.3.4 on /srv') }
+    it do
+      is_expected.to contain_mount('shared /export/srv by 1.2.3.4 on /srv').
+        with_require(['Nfs::Functions::Mkdir[/srv]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]'])
+    end
   end
 
   context 'nfs_v4 => true, specified share' do
@@ -67,7 +73,10 @@ describe 'nfs::client::mount', type: 'define' do
 
     let(:params) { { share: 'test', server: '1.2.3.4' } }
     it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
-    it { is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test') }
+    it do
+      is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').
+        with_require(['Nfs::Functions::Mkdir[/srv/test]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]'])
+    end
   end
 
   context 'nfs_v4 => true, minimal arguments' do
@@ -91,6 +100,10 @@ describe 'nfs::client::mount', type: 'define' do
     let(:params) { { server: '1.2.3.4' } }
     it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
     it { is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test') }
+    it do
+      is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').
+        with_require(['Nfs::Functions::Mkdir[/srv/test]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]'])
+    end
   end
 
   context 'nfs_v4 => true, non-default mountpoints' do
@@ -113,6 +126,35 @@ describe 'nfs::client::mount', type: 'define' do
 
     let(:params) { { share: 'test', server: '1.2.3.4' } }
     it { is_expected.to contain_nfs__functions__mkdir('/opt/sample') }
-    it { is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample') }
+    it do
+      is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').
+        with_require(['Nfs::Functions::Mkdir[/opt/sample]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]'])
+    end
+  end
+
+  context 'nfs_v4 => true, non-default mountpoints, not managing packages' do
+    let(:facts) do
+      {
+        operatingsystem: 'Ubuntu',
+        osfamily: 'Debian',
+        operatingsystemmajrelease: '12.04',
+        lsbdistcodename: 'precise',
+        concat_basedir: '/dne',
+        clientcert: 'example.com',
+        is_pe: false,
+        id: 'root',
+        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+      }
+    end
+    let(:title) { '/opt/sample' }
+
+    let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true, manage_packages => false }' }
+
+    let(:params) { { share: 'test', server: '1.2.3.4' } }
+    it { is_expected.to contain_nfs__functions__mkdir('/opt/sample') }
+    it do
+      is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').
+        with_require(['Nfs::Functions::Mkdir[/opt/sample]'])
+    end
   end
 end
