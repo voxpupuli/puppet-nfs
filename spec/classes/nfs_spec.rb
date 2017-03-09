@@ -300,6 +300,28 @@ describe 'nfs' do
           it { is_expected.not_to contain_service(server_servicehelper) }
         end
       end
+
+      context 'nfs_v4 => true, storeconfigs_enabled => true' do
+        let(:params) { { nfs_v4: true, storeconfigs_enabled: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
+        context os do
+          it { expect(exported_resources).to contain_nfs__client__mount('/srv') }
+        end
+      end
+
+      context 'nfs_v4 => true, storeconfigs_enabled => false' do
+        let(:params) { { nfs_v4: true, storeconfigs_enabled: false, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
+        context os do
+          it { expect(exported_resources).not_to contain_nfs__client__mount('/srv') }
+        end
+      end
+
+      context 'nfs_v4 => false, storeconfigs_enabled => true' do
+        let(:params) { { nfs_v4: false, storeconfigs_enabled: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
+        context os do
+          it { expect(exported_resources).not_to contain_nfs__client__mount('/srv') }
+        end
+      end
+
     end
   end
 end

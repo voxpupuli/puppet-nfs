@@ -26,6 +26,10 @@
 #   to act as a client server, you can use the exported mount resources
 #   from configured servers.
 #
+# [*storeconfigs_enabled*]
+#   Boolean. If set to <tt>false</tt>, this module will not export any
+#   resources as storeconfigs. Defaults to <tt>true</tt>.
+#
 # [*nfs_v4*]
 #   Boolean. If set to <tt>true</tt>, this module will use nfs version 4
 #   for exporting and mounting nfs resources.
@@ -165,6 +169,7 @@ class nfs(
   Enum['present', 'absent', 'running', 'stopped', 'disabled'] $ensure                 = 'present',
   Boolean $server_enabled                                                             = false,
   Boolean $client_enabled                                                             = false,
+  Boolean $storeconfigs_enabled                                                       = true,
   Boolean $nfs_v4                                                                     = $::nfs::params::nfs_v4,
   Boolean $nfs_v4_client                                                              = $::nfs::params::nfs_v4,
   String $exports_file                                                                = $::nfs::params::exports_file,

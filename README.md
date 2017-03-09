@@ -26,7 +26,7 @@ It supports the OS Families Ubuntu, Debian, Redhat, SUSE, Gentoo and Archlinux. 
 OS specific parameters correctly it should work on your preferred OS too. Feedback, bugreports,
 and feature requests are always welcome, visit https://github.com/derdanne/puppet-nfs or send me an email.
 
-When you are using a puppet version 3.x like it is shipped with Redhat Satellite 6, please use a version 1.x.x from puppet forge  
+When you are using a puppet version 3.x like it is shipped with Redhat Satellite 6, please use a version 1.x.x from puppet forge 
 or the branch puppet3 when cloning directly from Github. (Note: https://github.com/derdanne/puppet-nfs/pull/49#issuecomment-285091678)
 
 If you want to contribute, please do a fork on github, create a branch "feature name" with your
@@ -451,6 +451,10 @@ This will mount /data on client in /share/data.
   Boolean. If set to <tt>true</tt>, this module will configure the node
   to act as a nfs client, you can use the exported mount resources
   from configured servers.
+
+#####`storeconfigs_enabled`
+  Boolean. If set to <tt>false</tt>, this module will not export any
+  resources as storeconfigs. Defaults to <tt>true</tt>.
 
 #####`nfs_v4`
   Boolean. If set to <tt>true</tt>, this module will use nfs version 4
