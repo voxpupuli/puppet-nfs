@@ -26,6 +26,9 @@ It supports the OS Families Ubuntu, Debian, Redhat, SUSE, Gentoo and Archlinux. 
 OS specific parameters correctly it should work on your preferred OS too. Feedback, bugreports,
 and feature requests are always welcome, visit https://github.com/derdanne/puppet-nfs or send me an email.
 
+When you are using a puppet version 3.x like it is shipped with Redhat Satellite 6, please use a version 1.x.x from puppet forge  
+or the branch puppet3 when cloning directly from Github. (Note: https://github.com/derdanne/puppet-nfs/pull/49#issuecomment-285091678)
+
 If you want to contribute, please do a fork on github, create a branch "feature name" with your
 features and do a pull request.
 

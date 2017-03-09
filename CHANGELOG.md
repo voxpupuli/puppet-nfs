@@ -1,3 +1,9 @@
+##2017-03-09 - Release 2.0.0
+###Summary
+- Drop puppet 3 support on master branch (note: https://github.com/derdanne/puppet-nfs/pull/49#issuecomment-285091678)
+- apply additional rubocop rules
+- replace all validate functions with datatypes
+
 ##2016-11-24 - Release 1.0.2
 ###Summary
 
