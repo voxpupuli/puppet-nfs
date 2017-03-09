@@ -86,7 +86,15 @@ define nfs::client::mount (
   $group            = undef,
   $mode             = undef,
   $mount_root       = undef,
+  $manage_packages  = $::nfs::manage_packages,
+  $client_packages  = $::nfs::effective_client_packages,
 ){
+
+  if $manage_packages and $client_packages != undef {
+    $mount_require = [ Nfs::Functions::Mkdir[$mount], Package[$client_packages] ]
+  } else {
+    $mount_require = [ Nfs::Functions::Mkdir[$mount] ]
+  }
 
   if $nfs_v4 == true {
 
@@ -112,7 +120,7 @@ define nfs::client::mount (
       options  => $options_nfsv4,
       remounts => $remounts,
       atboot   => $atboot,
-      require  => Nfs::Functions::Mkdir[$mount],
+      require  => $mount_require,
     }
 
     if $bindmount != undef {
@@ -139,7 +147,7 @@ define nfs::client::mount (
       options  => $options_nfs,
       remounts => $remounts,
       atboot   => $atboot,
-      require  => Nfs::Functions::Mkdir[$mount],
+      require  => $mount_require,
     }
   }
 
