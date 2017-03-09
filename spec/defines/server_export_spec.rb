@@ -43,8 +43,7 @@ describe 'nfs::server::export', type: 'define' do
     end
     let(:title) { '/srv/test' }
 
-    let(:pre_condition) { 'class {"nfs": server_enabled => true,}' }
-    let(:pre_condition) { 'class {"nfs": storeconfigs_enabled => false,}' }
+    let(:pre_condition) { 'class {"nfs": server_enabled => true, nfs_v4 => false, storeconfigs_enabled => false}' }
 
     let(:params) { { clients: '1.2.3.4(rw)' } }
     it do
@@ -55,8 +54,6 @@ describe 'nfs::server::export', type: 'define' do
       expect(exported_resources).not_to contain_nfs__client__mount('/srv/test')
     end
   end
-
-
 
   context 'nfs_v4 => true' do
     let(:facts) do
