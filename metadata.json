@@ -1,6 +1,6 @@
 {
   "name": "derdanne-nfs",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "source": "https://github.com/derdanne/puppet-nfs.git",
   "author": "derdanne",
   "license": "Apache-2.0",

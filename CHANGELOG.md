@@ -1,3 +1,7 @@
+##2017-03-09 - Release 2.0.1
+###Summary
+- add parameter storeconfigs_enabled to optionally disable exporting resources
+
 ##2017-03-09 - Release 2.0.0
 ###Summary
 - Drop puppet 3 support on master branch (note: https://github.com/derdanne/puppet-nfs/pull/49#issuecomment-285091678)
