@@ -79,7 +79,7 @@ describe 'nfs::server::export', type: 'define' do
       is_expected.to contain_nfs__functions__create_export('/export/test').with('ensure' => 'mounted', 'clients' => '1.2.3.4(rw)')
     end
     it do
-       expect(exported_resources).to contain_nfs__client__mount('test')
+      expect(exported_resources).to contain_nfs__client__mount('test')
     end
   end
 
@@ -110,5 +110,4 @@ describe 'nfs::server::export', type: 'define' do
       expect(exported_resources).not_to contain_nfs__client__mount('test')
     end
   end
-
 end

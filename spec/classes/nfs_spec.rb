@@ -321,7 +321,6 @@ describe 'nfs' do
           it { expect(exported_resources).not_to contain_nfs__client__mount('/srv') }
         end
       end
-
     end
   end
 end
