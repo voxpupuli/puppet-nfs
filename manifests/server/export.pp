@@ -115,17 +115,18 @@ define nfs::server::export(
       $mount_name = $v4_export_name
     }
 
-    @@nfs::client::mount { $mount_name:
-      ensure        => $ensure,
-      remounts      => $remounts,
-      atboot        => $atboot,
-      options_nfsv4 => $options_nfsv4,
-      bindmount     => $bindmount,
-      nfstag        => $nfstag,
-      share         => $v4_export_name,
-      server        => $::clientcert,
+    if $nfs::storeconfigs_enabled {
+      @@nfs::client::mount { $mount_name:
+        ensure        => $ensure,
+        remounts      => $remounts,
+        atboot        => $atboot,
+        options_nfsv4 => $options_nfsv4,
+        bindmount     => $bindmount,
+        nfstag        => $nfstag,
+        share         => $v4_export_name,
+        server        => $::clientcert,
+      }
     }
-
   } else {
 
     if $mount != undef {
@@ -142,14 +143,16 @@ define nfs::server::export(
       mode    => $mode,
     }
 
-    @@nfs::client::mount { $mount_name:
-      ensure      => $ensure,
-      remounts    => $remounts,
-      atboot      => $atboot,
-      options_nfs => $options_nfs,
-      nfstag      => $nfstag,
-      share       => $v3_export_name,
-      server      => $::clientcert,
+    if $nfs::storeconfigs_enabled {
+      @@nfs::client::mount { $mount_name:
+        ensure      => $ensure,
+        remounts    => $remounts,
+        atboot      => $atboot,
+        options_nfs => $options_nfs,
+        nfstag      => $nfstag,
+        share       => $v3_export_name,
+        server      => $::clientcert,
+      }
     }
 
   }

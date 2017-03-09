@@ -47,15 +47,16 @@ class nfs::server::config {
       changes => ["set Domain ${::nfs::server::nfs_v4_idmap_domain}"],
     }
 
-    @@nfs::client::mount { $::nfs::nfs_v4_mount_root:
-      ensure        => $::nfs::server::nfs_v4_root_export_ensure,
-      server        => $::clientcert,
-      remounts      => $::nfs::server::nfs_v4_root_export_remounts,
-      atboot        => $::nfs::server::nfs_v4_root_export_atboot,
-      options_nfsv4 => $::nfs::server::nfs_v4_root_export_options,
-      bindmount     => $::nfs::server::nfs_v4_root_export_bindmount,
-      nfstag        => $::nfs::server::nfs_v4_root_export_tag,
+    if $nfs::storeconfigs_enabled {
+      @@nfs::client::mount { $::nfs::nfs_v4_mount_root:
+        ensure        => $::nfs::server::nfs_v4_root_export_ensure,
+        server        => $::clientcert,
+        remounts      => $::nfs::server::nfs_v4_root_export_remounts,
+        atboot        => $::nfs::server::nfs_v4_root_export_atboot,
+        options_nfsv4 => $::nfs::server::nfs_v4_root_export_options,
+        bindmount     => $::nfs::server::nfs_v4_root_export_bindmount,
+        nfstag        => $::nfs::server::nfs_v4_root_export_tag,
+      }
     }
-
   }
 }
