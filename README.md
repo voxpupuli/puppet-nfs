@@ -27,7 +27,8 @@ OS specific parameters correctly it should work on your preferred OS too. Feedba
 and feature requests are always welcome, visit https://github.com/derdanne/puppet-nfs or send me an email.
 
 When you are using a puppet version 3.x like it is shipped with Redhat Satellite 6, please use a version 1.x.x from puppet forge 
-or the branch puppet3 when cloning directly from Github. (Note: https://github.com/derdanne/puppet-nfs/pull/49#issuecomment-285091678)
+or the branch puppet3 when cloning directly from Github. (Note: https://github.com/derdanne/puppet-nfs/pull/49#issuecomment-285091678). 
+I'll recommend using puppet >= 4.6.1, puppet versions up until 4.6.0 had various issues.
 
 If you want to contribute, please do a fork on github, create a branch "feature name" with your
 features and do a pull request.
