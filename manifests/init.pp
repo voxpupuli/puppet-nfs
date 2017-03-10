@@ -209,7 +209,7 @@ class nfs(
   Boolean $nfs_v4_root_export_atboot                                                  = false,
   String $nfs_v4_root_export_options                                                  = '_netdev',
   Optional[String] $nfs_v4_root_export_bindmount                                      = undef,
-  Optional[String] $nfs_v4_root_export_tag                                            = undef,
+  Optional[String] $nfs_v4_root_export_tag                                            = undef
 ) inherits nfs::params {
 
   if $server_enabled {
