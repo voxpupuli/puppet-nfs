@@ -185,7 +185,7 @@ class nfs(
   Boolean $manage_client_service                                                      = true,
   String $server_service_name                                                         = $::nfs::params::server_service_name,
   Enum['present', 'absent', 'running', 'stopped', 'disabled'] $server_service_ensure  = 'running',
-  Boolean $server_services_enable                                                     = true,
+  Boolean $server_service_enable                                                      = true,
   Boolean $server_service_hasrestart                                                  = $::nfs::params::server_service_hasrestart,
   Boolean $server_service_hasstatus                                                   = $::nfs::params::server_service_hasstatus,
   Optional[String] $server_service_restart_cmd                                        = $::nfs::params::server_service_restart_cmd,
