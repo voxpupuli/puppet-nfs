@@ -100,6 +100,7 @@ class nfs::params {
         'jessie': {
           $client_idmapd_setting      = ['set NEED_IDMAPD yes']
           $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+          $client_services_enable     = true
           $client_services            = {'rpcbind' => {}}
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
@@ -110,6 +111,7 @@ class nfs::params {
         'xenial': {
           $client_idmapd_setting      = ['set NEED_IDMAPD yes']
           $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+          $client_services_enable     = true
           $client_services            = {'rpcbind' => {}}
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
@@ -120,6 +122,7 @@ class nfs::params {
         default: {
           $client_idmapd_setting      = ['set NEED_IDMAPD yes']
           $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+          $client_services_enable     = true
           $client_services            = {'rpcbind' => {}}
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
@@ -134,6 +137,7 @@ class nfs::params {
         '7': {
           $client_idmapd_setting      = ['']
           $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_services_enable     = false
           $client_services            = {'rpcbind.service' => {}}
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
@@ -144,6 +148,7 @@ class nfs::params {
         default: {
           $client_idmapd_setting      = ['']
           $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_services_enable     = true
           $client_services            = {'rpcbind' => {}}
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
@@ -156,6 +161,7 @@ class nfs::params {
     'Gentoo': {
       $client_idmapd_setting      = ['set NFS_NEEDED_SERVICES rpc.idmapd']
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+      $client_services_enable     = true
       $client_services            = {'rpcbind' => {} }
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
@@ -166,6 +172,7 @@ class nfs::params {
     'Suse': {
       $client_idmapd_setting      = ['']
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+      $client_services_enable     = true
       $client_services            = {'rpcbind' => { before => Service['nfs'] }, 'nfs' => {}}
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
@@ -176,6 +183,7 @@ class nfs::params {
     'Archlinux': {
       $client_idmapd_setting      = ['']
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+      $client_services_enable     = true
       $client_services            = {'rpcbind' => {}}
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
@@ -191,6 +199,7 @@ class nfs::params {
       $client_nfsv4_options       = undef
       $client_nfsv4_services      = undef
       $server_nfsv4_servicehelper = undef
+      $client_services_enable     = undef
       $server_service_name        = undef
       notice("\"${module_name}\" provides no service parameters for OS family \"${::osfamily}\"")
     }

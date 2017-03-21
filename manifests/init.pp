@@ -192,6 +192,7 @@ class nfs(
   Optional[String] $server_nfsv4_servicehelper                                        = $::nfs::params::server_nfsv4_servicehelper,
   $client_services                                                                    = $::nfs::params::client_services,
   $client_nfsv4_services                                                              = $::nfs::params::client_nfsv4_services,
+  Boolean $client_services_enable                                                     = $::nfs::params::client_services_enable,
   Boolean $client_services_hasrestart                                                 = $::nfs::params::client_services_hasrestart,
   Boolean $client_services_hasstatus                                                  = $::nfs::params::client_services_hasstatus,
   Array[String] $client_idmapd_setting                                                = $::nfs::params::client_idmapd_setting,

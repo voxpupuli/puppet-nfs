@@ -40,7 +40,7 @@ class nfs::client::service {
 
   $service_defaults = {
     ensure     => running,
-    enable     => true,
+    enable     => $::nfs::client_services_enable,
     hasrestart => $::nfs::client_services_hasrestart,
     hasstatus  => $::nfs::client_services_hasstatus,
     subscribe  => $subscription,
