@@ -103,7 +103,7 @@ class nfs::params {
           $client_services            = {'rpcbind' => {}}
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-          $client_nfsv4_services      = {'rpcbind' => {}, 'idmapd' => {}}
+          $client_nfsv4_services      = {'rpcbind' => {}, 'nfs-common' => {}}
           $server_nfsv4_servicehelper = 'nfs-common'
           $server_service_name        = 'nfs-kernel-server'
         }
