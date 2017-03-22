@@ -210,7 +210,7 @@ describe 'nfs' do
             it do
               is_expected.to contain_service(service).
                 with('ensure' => 'running').
-                with_subscribe([])
+                without_subscribe
             end
           end
         end
