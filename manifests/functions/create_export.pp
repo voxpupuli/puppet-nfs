@@ -45,7 +45,7 @@ define nfs::functions::create_export (
     $line = "${name} ${clients}\n"
 
     concat::fragment { $name:
-      target  => '/etc/exports',
+      target  => $::nfs::exports_file,
       content => $line,
     }
 
