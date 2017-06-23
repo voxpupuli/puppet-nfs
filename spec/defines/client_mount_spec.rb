@@ -20,6 +20,7 @@ describe 'nfs::client::mount', type: 'define' do
     let(:pre_condition) { 'class { "nfs": client_enabled => true }' }
 
     let(:params) { { server: '1.2.3.4' } }
+
     it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
     it do
       is_expected.to contain_mount('shared /srv/test by 1.2.3.4 on /srv/test').
@@ -46,6 +47,7 @@ describe 'nfs::client::mount', type: 'define' do
     let(:pre_condition) { 'class {"nfs": client_enabled => true,}' }
 
     let(:params) { { share: '/export/srv', mount: '/srv', server: '1.2.3.4' } }
+
     it { is_expected.to contain_nfs__functions__mkdir('/srv') }
     it do
       is_expected.to contain_mount('shared /export/srv by 1.2.3.4 on /srv').
@@ -72,6 +74,7 @@ describe 'nfs::client::mount', type: 'define' do
     let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true }' }
 
     let(:params) { { share: 'test', server: '1.2.3.4' } }
+
     it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
     it do
       is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').
@@ -98,6 +101,7 @@ describe 'nfs::client::mount', type: 'define' do
     let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true }' }
 
     let(:params) { { server: '1.2.3.4' } }
+
     it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
     it { is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test') }
     it do
@@ -125,6 +129,7 @@ describe 'nfs::client::mount', type: 'define' do
     let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true }' }
 
     let(:params) { { share: 'test', server: '1.2.3.4' } }
+
     it { is_expected.to contain_nfs__functions__mkdir('/opt/sample') }
     it do
       is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').
@@ -151,6 +156,7 @@ describe 'nfs::client::mount', type: 'define' do
     let(:pre_condition) { 'class {"nfs": client_enabled => true, nfs_v4_client => true, manage_packages => false }' }
 
     let(:params) { { share: 'test', server: '1.2.3.4' } }
+
     it { is_expected.to contain_nfs__functions__mkdir('/opt/sample') }
     it do
       is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').
