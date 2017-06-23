@@ -106,6 +106,9 @@
 #   Nested Hash. It defines the servicenames need to be started when acting as a nfs client
 #   version 4.
 #
+# [*client_services_enable*]
+#   Boolean. It defines the service parameter enable for nfs client services.
+#
 # [*client_service_hasrestart*]
 #   Boolean. It defines the service parameter hasrestart for nfs client services.
 #
