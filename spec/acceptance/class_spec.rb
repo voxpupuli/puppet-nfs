@@ -5,19 +5,20 @@ describe 'nfs class' do
     if fact('lsbdistcodename') == 'trusty'
       server_service = 'nfs-kernel-server'
       server_servicehelper = 'idmapd'
-      server_packages = %w(nfs-common nfs-kernel-server nfs4-acl-tools rpcbind)
+      server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
     end
 
     if fact('lsbdistcodename') == 'xenial'
       server_service = 'nfs-server'
       server_servicehelper = 'nfs-idmapd'
-      server_packages = %w(nfs-common nfs-kernel-server nfs4-acl-tools rpcbind)
+      server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
     end
   end
 
   describe 'include nfs without params' do
     context 'default parameters' do
       let(:pp) { "class { 'nfs': }" }
+
       it 'applies without errors without params' do
         apply_manifest('include nfs', catch_failures: true)
       end

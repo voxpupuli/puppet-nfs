@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'nfs' do
-  supported_os = %w(Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 Gentoo SLES Archlinux)
+  supported_os = %w[Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 Gentoo SLES Archlinux]
   supported_os.each do |os|
     context os do
       let(:default_facts) do
@@ -27,12 +27,13 @@ describe 'nfs' do
             lsbdistcodename: 'trusty'
           )
         end
+
         server_service = 'nfs-kernel-server'
         server_servicehelper = 'idmapd'
-        server_packages = %w(nfs-common nfs-kernel-server nfs4-acl-tools rpcbind)
-        client_services = %w(rpcbind)
-        client_nfs_vfour_services = %w(rpcbind)
-        client_packages = %w(nfs-common nfs4-acl-tools)
+        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind]
+        client_packages = %w[nfs-common nfs4-acl-tools]
 
       when 'Ubuntu_16.04'
 
@@ -44,12 +45,13 @@ describe 'nfs' do
             lsbdistcodename: 'xenial'
           )
         end
+
         server_service = 'nfs-server'
         server_servicehelper = 'nfs-idmapd'
-        server_packages = %w(nfs-common nfs-kernel-server nfs4-acl-tools rpcbind)
-        client_services = %w(rpcbind)
-        client_nfs_vfour_services = %w(rpcbind)
-        client_packages = %w(nfs-common nfs4-acl-tools)
+        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind]
+        client_packages = %w[nfs-common nfs4-acl-tools]
 
       when 'Debian_default'
 
@@ -61,12 +63,13 @@ describe 'nfs' do
             lsbdistcodename: 'wheezy'
           )
         end
+
         server_service = 'nfs-kernel-server'
         server_servicehelper = 'idmapd'
-        server_packages = %w(nfs-common nfs-kernel-server nfs4-acl-tools rpcbind)
-        client_services = %w(rpcbind)
-        client_nfs_vfour_services = %w(rpcbind idmapd)
-        client_packages = %w(nfs-common nfs4-acl-tools)
+        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind idmapd]
+        client_packages = %w[nfs-common nfs4-acl-tools]
 
       when 'Debian_8'
 
@@ -78,12 +81,13 @@ describe 'nfs' do
             lsbdistcodename: 'jessie'
           )
         end
+
         server_service = 'nfs-kernel-server'
         server_servicehelper = 'nfs-common'
-        server_packages = %w(nfs-common nfs-kernel-server nfs4-acl-tools rpcbind)
-        client_services = %w(rpcbind)
-        client_nfs_vfour_services = %w(rpcbind nfs-common)
-        client_packages = %w(nfs-common nfs4-acl-tools)
+        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind nfs-common]
+        client_packages = %w[nfs-common nfs4-acl-tools]
 
       when 'RedHat_default'
 
@@ -94,12 +98,13 @@ describe 'nfs' do
             operatingsystemmajrelease: '8'
           )
         end
+
         server_service = 'nfs'
         server_servicehelper = 'rpcidmapd'
-        server_packages = %w(nfs-utils nfs4-acl-tools rpcbind)
-        client_services = %w(rpcbind)
-        client_nfs_vfour_services = %w(rpcbind rpcidmapd)
-        client_packages = %w(nfs-utils nfs4-acl-tools rpcbind)
+        server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind rpcidmapd]
+        client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
 
       when 'RedHat_7'
 
@@ -110,12 +115,13 @@ describe 'nfs' do
             operatingsystemmajrelease: '7'
           )
         end
+
         server_service = 'nfs-server.service'
         server_servicehelper = 'nfs-idmap.service'
-        server_packages = %w(nfs-utils nfs4-acl-tools rpcbind)
-        client_services = %w(rpcbind.service)
-        client_nfs_vfour_services = %w(rpcbind.service)
-        client_packages = %w(nfs-utils nfs4-acl-tools rpcbind)
+        server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind.service]
+        client_nfs_vfour_services = %w[rpcbind.service]
+        client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
 
       when 'Gentoo'
 
@@ -126,12 +132,13 @@ describe 'nfs' do
             operatingsystemmajrelease: '1'
           )
         end
+
         server_service = 'nfs'
         server_servicehelper = 'rpc.idmapd'
-        server_packages = %w(net-nds/rpcbind net-fs/nfs-utils net-libs/libnfsidmap)
-        client_services = %w(rpcbind)
-        client_nfs_vfour_services = %w(rpcbind rpc.idmapd)
-        client_packages = %w(net-nds/rpcbind net-fs/nfs-utils net-libs/libnfsidmap)
+        server_packages = %w[net-nds/rpcbind net-fs/nfs-utils net-libs/libnfsidmap]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind rpc.idmapd]
+        client_packages = %w[net-nds/rpcbind net-fs/nfs-utils net-libs/libnfsidmap]
 
       when 'SLES'
 
@@ -142,12 +149,13 @@ describe 'nfs' do
             operatingsystemmajrelease: '12'
           )
         end
+
         server_service = 'nfsserver'
         server_servicehelper = ''
-        server_packages = %w(nfs-kernel-server)
-        client_services = %w(rpcbind nfs)
-        client_nfs_vfour_services = %w(rpcbind nfs)
-        client_packages = %w(nfsidmap nfs-client rpcbind)
+        server_packages = %w[nfs-kernel-server]
+        client_services = %w[rpcbind nfs]
+        client_nfs_vfour_services = %w[rpcbind nfs]
+        client_packages = %w[nfsidmap nfs-client rpcbind]
 
       when 'Archlinux'
 
@@ -158,12 +166,13 @@ describe 'nfs' do
             operatingsystemmajrelease: '3'
           )
         end
+
         server_service = 'nfs-server.service'
         server_servicehelper = 'rpc.idmapd'
-        server_packages = %w(nfs-utils)
-        client_services = %w(rpcbind)
-        client_nfs_vfour_services = %w(rpcbind rpc.idmapd)
-        client_packages = %w(nfsidmap rpcbind)
+        server_packages = %w[nfs-utils]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind rpc.idmapd]
+        client_packages = %w[nfsidmap rpcbind]
 
       end
       ### ^^ Switch Case to set OS specific values ^^ ###
@@ -172,6 +181,7 @@ describe 'nfs' do
 
       context 'server_enabled => true, client_enabled => false' do
         let(:params) { { server_enabled: true, client_enabled: false } }
+
         it { is_expected.to contain_class('nfs::server::config') }
         it { is_expected.to contain_class('nfs::server::package') }
         it { is_expected.to contain_class('nfs::server::service') }
@@ -185,6 +195,7 @@ describe 'nfs' do
 
         context 'nfs_v4 => true' do
           let(:params) { { nfs_v4: true, server_enabled: true, client_enabled: false, nfs_v4_idmap_domain: 'teststring' } }
+
           it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
           it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
           it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set Domain teststring}) }
@@ -202,6 +213,7 @@ describe 'nfs' do
 
       context 'server_enabled => false, client_enabled => true' do
         let(:params) { { server_enabled: false, client_enabled: true } }
+
         it { is_expected.to contain_class('nfs::client::config') }
         it { is_expected.to contain_class('nfs::client::package') }
         it { is_expected.to contain_class('nfs::client::service') }
@@ -217,6 +229,7 @@ describe 'nfs' do
 
         context 'nfs_v4 => true' do
           let(:params) { { nfs_v4_client: true, server_enabled: false, client_enabled: true } }
+
           it { is_expected.to contain_augeas('/etc/idmapd.conf') }
           client_nfs_vfour_services.each do |service|
             context os do
@@ -240,6 +253,7 @@ describe 'nfs' do
 
       context 'server_enabled => true, client_enabled => true' do
         let(:params) { { server_enabled: true, client_enabled: true } }
+
         it { is_expected.to contain_class('nfs::server::config') }
         it { is_expected.to contain_class('nfs::server::package') }
         it { is_expected.to contain_class('nfs::server::service') }
@@ -250,6 +264,7 @@ describe 'nfs' do
 
         context 'nfs_v4 => true, nfs_v4_client => true' do
           let(:params) { { nfs_v4: true, nfs_v4_client: true, server_enabled: true, client_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
+
           it { is_expected.to contain_augeas('/etc/idmapd.conf') }
           it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
           it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
@@ -274,6 +289,7 @@ describe 'nfs' do
 
       context ':nfs_v4_client => true, :nfs_v4 => true, :server_enabled => true, :client_enabled => true, :manage_packages => false' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false } }
+
         client_packages.each do |package|
           context os do
             it { is_expected.not_to contain_package(package) }
@@ -288,6 +304,7 @@ describe 'nfs' do
 
       context ':nfs_v4_client => true, :nfs_v4 => true, :server_enabled => true, :manage_server_service => false, manage_server_servicehelper => false, :manage_client_service => false' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false } }
+
         client_nfs_vfour_services.each do |service|
           context os do
             it { is_expected.not_to contain_service(service) }
@@ -303,6 +320,7 @@ describe 'nfs' do
 
       context 'nfs_v4 => true, storeconfigs_enabled => true' do
         let(:params) { { nfs_v4: true, storeconfigs_enabled: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
+
         context os do
           it { expect(exported_resources).to contain_nfs__client__mount('/srv') }
         end
@@ -310,6 +328,7 @@ describe 'nfs' do
 
       context 'nfs_v4 => true, storeconfigs_enabled => false' do
         let(:params) { { nfs_v4: true, storeconfigs_enabled: false, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
+
         context os do
           it { expect(exported_resources).not_to contain_nfs__client__mount('/srv') }
         end
@@ -317,6 +336,7 @@ describe 'nfs' do
 
       context 'nfs_v4 => false, storeconfigs_enabled => true' do
         let(:params) { { nfs_v4: false, storeconfigs_enabled: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
+
         context os do
           it { expect(exported_resources).not_to contain_nfs__client__mount('/srv') }
         end
