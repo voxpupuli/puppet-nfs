@@ -108,7 +108,7 @@ class nfs::params {
           $server_nfsv4_servicehelper = 'nfs-common'
           $server_service_name        = 'nfs-kernel-server'
         }
-        'xenial', 'yakkety': {
+        'stretch', 'xenial', 'yakkety': {
           $client_idmapd_setting      = ['set NEED_IDMAPD yes']
           $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
           $client_services_enable     = true

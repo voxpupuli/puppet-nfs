@@ -89,6 +89,24 @@ describe 'nfs' do
         client_nfs_vfour_services = %w[rpcbind nfs-common]
         client_packages = %w[nfs-common nfs4-acl-tools]
 
+      when 'Debian_9'
+
+        let(:facts) do
+          default_facts.merge(
+            operatingsystem: 'Debian',
+            osfamily: 'Debian',
+            operatingsystemmajrelease: '9',
+            lsbdistcodename: 'stretch'
+          )
+        end
+
+        server_service = 'nfs-server'
+        server_servicehelper = 'nfs-idmapd'
+        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind]
+        client_packages = %w[nfs-common nfs4-acl-tools]
+
       when 'RedHat_default'
 
         let(:facts) do
