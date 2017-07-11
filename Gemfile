@@ -24,6 +24,7 @@ group :test do
   gem 'puppet-strings',                                             require: false, git: 'https://github.com/puppetlabs/puppetlabs-strings.git'
   gem 'puppet-syntax',                                              require: false
   gem 'puppetlabs_spec_helper',                                     require: false
+  gem 'semantic_puppet',                                            require: false
   gem 'rake',                                                       require: false
   gem 'rspec', '~> 3.5.0',                                          require: false
   gem 'rspec-core', '~> 3.5.0',                                     require: false

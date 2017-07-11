@@ -186,10 +186,10 @@ describe 'nfs' do
         end
 
         server_service = 'nfs-server.service'
-        server_servicehelper = 'rpc.idmapd'
+        server_servicehelper = 'nfs-idmapd'
         server_packages = %w[nfs-utils]
         client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind rpc.idmapd]
+        client_nfs_vfour_services = %w[rpcbind]
         client_packages = %w[nfsidmap rpcbind]
 
       end
