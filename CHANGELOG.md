@@ -1,3 +1,24 @@
+##2017-07-11 - Release 2.0.4
+###Summary
+
+####Bugfixes
+- fix markdown formatting of README.md
+- fix ruby formatting in spec tests
+- update puppetlabs/concat dependency
+- add install locales on ubuntu-1604 docker for acceptance tests
+- add missing documentation for client_services_enable
+- reenable client_services_enable for CentOS/Redhat 7
+- remove rpc.idmapd from $client_nfsv4_services for Archlinux 
+- rename rpc.idmapd to nfs-idmapd in $server_nfsv4_servicehelper for archlinux
+- update adn fix spec tests
+
+####Features
+- add use of $::nfs::exports_file instead of fixed filepath
+- add Ubuntu Yakkety and Zesty
+- add support of Debian 9
+- update testmatrix
+- update data type for $exports_file, $idmapd_file and $defaults_file to Stdlib::Absolutepath
+
 ##2017-03-22 - Release 2.0.3
 ###Summary
 
@@ -21,7 +42,7 @@
 ###Summary
 
 ####Features
-- Drop puppet 3 support on master branch (note: https://github.com/derdanne/puppet-nfs/pull/49#issuecomment-285091678)
+- drop puppet 3 support on master branch (note: https://github.com/derdanne/puppet-nfs/pull/49#issuecomment-285091678)
 - apply additional rubocop rules
 - replace all validate functions with datatypes
 
