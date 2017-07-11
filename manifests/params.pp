@@ -137,7 +137,7 @@ class nfs::params {
         '7': {
           $client_idmapd_setting      = ['']
           $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-          $client_services_enable     = false
+          $client_services_enable     = true
           $client_services            = {'rpcbind.service' => {}}
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
