@@ -39,7 +39,7 @@ class nfs::params {
   if $::domain != undef {
     $nfs_v4_idmap_domain = $::domain
   } else {
-    $nfs_v4_idmap_domain = 'example.com'
+    $nfs_v4_idmap_domain = 'example.org'
   }
 
   # Different path and package definitions
@@ -143,10 +143,26 @@ class nfs::params {
           $client_idmapd_setting      = ['']
           $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
           $client_services_enable     = true
-          $client_services            = {'rpcbind.service' => {}}
+          $client_services            = { 'rpcbind.service' => {
+                                            ensure => 'running',
+                                            enable => false,
+                                          },
+                                          'rpcbind.socket' => {
+                                            ensure => 'running',
+                                            enable => true,
+                                          },
+                                        }
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-          $client_nfsv4_services      = {'rpcbind.service' => {}}
+          $client_nfsv4_services      = { 'rpcbind.service' => {
+                                            ensure => 'running',
+                                            enable => false,
+                                          },
+                                          'rpcbind.socket' => {
+                                            ensure => 'running',
+                                            enable => true,
+                                          },
+                                        }
           $server_nfsv4_servicehelper = 'nfs-idmap.service'
           $server_service_name        = 'nfs-server.service'
         }

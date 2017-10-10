@@ -137,8 +137,8 @@ describe 'nfs' do
         server_service = 'nfs-server.service'
         server_servicehelper = 'nfs-idmap.service'
         server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind.service]
-        client_nfs_vfour_services = %w[rpcbind.service]
+        client_services = %w[rpcbind.service rpcbind.socket]
+        client_nfs_vfour_services = %w[rpcbind.service rpcbind.socket]
         client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
 
       when 'Gentoo'
@@ -235,14 +235,29 @@ describe 'nfs' do
         it { is_expected.to contain_class('nfs::client::config') }
         it { is_expected.to contain_class('nfs::client::package') }
         it { is_expected.to contain_class('nfs::client::service') }
+
         context os do
-          client_services.each do |service|
-            it do
-              is_expected.to contain_service(service).
-                with('ensure' => 'running').
-                without_subscribe
+          case os
+            when 'RedHat_7'
+              it do
+                is_expected.to contain_service('rpcbind.service').
+                  with('ensure' => 'running').
+                  with('enable' => false).
+                  without_subscribe
+                is_expected.to contain_service('rpcbind.socket').
+                  with('ensure' => 'running').
+                  with('enable' => true).
+                  without_subscribe
+              end
+            else
+              client_services.each do |service|
+                it do
+                  is_expected.to contain_service(service).
+                    with('ensure' => 'running').
+                    without_subscribe
+                end
+              end
             end
-          end
         end
 
         context 'nfs_v4 => true' do
