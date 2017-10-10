@@ -27,7 +27,7 @@ describe 'nfs class' do
 
   describe 'include nfs with server params' do
     context 'server params' do
-      server_pp = <<-EOS
+      server_pp = <<-PUPPETCODE
         file { ['/data_folder', '/homeexport']:
           ensure => 'directory',
         }
@@ -47,7 +47,7 @@ describe 'nfs class' do
           clients => '*(rw,insecure,async,root_squash,no_subtree_check)',
           mount   => '/srv/home',
         }
-      EOS
+      PUPPETCODE
 
       it 'works with no errors based on the example' do
         expect(apply_manifest(server_pp).exit_code).not_to eq(1)

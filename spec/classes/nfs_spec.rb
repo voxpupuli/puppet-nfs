@@ -244,6 +244,8 @@ describe 'nfs' do
                 with('ensure' => 'running').
                 with('enable' => false).
                 without_subscribe
+            end
+            it do
               is_expected.to contain_service('rpcbind.socket').
                 with('ensure' => 'running').
                 with('enable' => true).
