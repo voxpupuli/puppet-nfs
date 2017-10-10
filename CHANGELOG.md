@@ -1,3 +1,19 @@
+##2017-10-10 - Release 2.0.5
+###Summary
+
+####Bugfixes
+- set $nfs_v4_idmap_domain to 'example.org' when $::domain is undef
+- add client service rpcbind.socket for RedHat 7
+- set client service rpcbind.service for RedHat 7 to enable => false
+- fix service parameters for Debian 7 
+
+####Features
+- update rubocop rules and fix ruby code style
+- change type of server_nfsv4_servicehelper to array for allowing multiple helper services
+- add acceptance tests for CentOs 6 and 7 and Debian 7 and 8
+- add acceptance tests for nfs configured as client
+- add testing with Puppet v5
+
 ##2017-07-11 - Release 2.0.4
 ###Summary
 
