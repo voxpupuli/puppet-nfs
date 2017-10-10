@@ -2,16 +2,29 @@ require 'spec_helper_acceptance'
 
 describe 'nfs class' do
   if fact('osfamily') == 'Debian'
-    if fact('lsbdistcodename') == 'trusty'
+    if fact('lsbdistcodename') == 'jessie'
       server_service = 'nfs-kernel-server'
-      server_servicehelper = 'idmapd'
-      server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-    end
-
-    if fact('lsbdistcodename') == 'xenial'
+      server_servicehelpers = %w[nfs-common]
+    elsif fact('lsbdistcodename') == 'trusty'
+      server_service = 'nfs-kernel-server'
+      server_servicehelpers = %w[idmapd]
+    else
       server_service = 'nfs-server'
-      server_servicehelper = 'nfs-idmapd'
-      server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+      server_servicehelpers = %w[nfs-idmapd]
+    end
+    server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+  end
+
+  if fact('osfamily') == 'RedHat'
+    if fact('operatingsystemmajrelease') == '6'
+      server_service = 'nfs'
+      server_servicehelpers = %w[rpcidmapd rpcbind]
+      server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
+    end
+    if fact('operatingsystemmajrelease') == '7'
+      server_service = 'nfs-server.service'
+      server_servicehelpers = %w[nfs-idmap.service]
+      server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
     end
   end
 
@@ -34,7 +47,7 @@ describe 'nfs class' do
         class { '::nfs':
           server_enabled => true,
           nfs_v4 => true,
-          nfs_v4_idmap_domain => 'example.com',
+          nfs_v4_idmap_domain => 'example.org',
           nfs_v4_export_root  => '/export',
           nfs_v4_export_root_clients => '*(rw,fsid=0,insecure,no_subtree_check,async,no_root_squash)',
         }
@@ -63,15 +76,17 @@ describe 'nfs class' do
         end
       end
 
-      # Buggy nfs-kernel-server does not run in docker ubuntu 14.04
-      if fact('lsbdistcodename') == 'xenial'
+      # Buggy nfs-kernel-server does not run in docker ubuntu 14.04 and Centos 6
+      if fact('lsbdistcodename') != 'trusty' && (fact('osfamily') != 'RedHat' && fact('operatingsystemmajrelease') != '6')
         describe service(server_service) do
           it { is_expected.to be_running }
         end
       end
 
-      describe service(server_servicehelper) do
-        it { is_expected.to be_running }
+      server_servicehelpers.each do |server_servicehelper|
+        describe service(server_servicehelper) do
+          it { is_expected.to be_running }
+        end
       end
     end
   end

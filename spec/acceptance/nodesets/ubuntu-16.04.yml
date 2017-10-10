@@ -8,6 +8,9 @@ HOSTS:
     docker_image_commands:
       # ensure that upstart is booting correctly in the container
       - 'apt-get update && apt-get install locales && locale-gen en_US.UTF-8'
+      - 'echo "MaxAuthTries 100" >> /etc/ssh/sshd_config'
 CONFIG:
   type: foss
   trace_limit: 200
+...
+# vim: syntax=yaml

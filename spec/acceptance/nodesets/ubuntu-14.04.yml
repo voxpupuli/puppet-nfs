@@ -12,3 +12,5 @@ HOSTS:
 CONFIG:
   type: foss
   trace_limit: 200
+...
+# vim: syntax=yaml

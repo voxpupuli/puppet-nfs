@@ -110,7 +110,7 @@ class nfs::params {
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
           $client_nfsv4_services      = {'rpcbind' => {}, 'nfs-common' => {}}
-          $server_nfsv4_servicehelper = 'nfs-common'
+          $server_nfsv4_servicehelper = [ 'nfs-common' ]
           $server_service_name        = 'nfs-kernel-server'
         }
         'stretch', 'xenial', 'yakkety', 'zesty': {
@@ -121,7 +121,7 @@ class nfs::params {
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
           $client_nfsv4_services      = {'rpcbind' => {}}
-          $server_nfsv4_servicehelper = 'nfs-idmapd'
+          $server_nfsv4_servicehelper = [ 'nfs-idmapd' ]
           $server_service_name        = 'nfs-server'
         }
         default: {
@@ -132,7 +132,7 @@ class nfs::params {
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
           $client_nfsv4_services      = {'rpcbind' => {}, 'idmapd' => {}}
-          $server_nfsv4_servicehelper = 'idmapd'
+          $server_nfsv4_servicehelper = [ 'idmapd' ]
           $server_service_name        = 'nfs-kernel-server'
         }
       }
@@ -163,7 +163,7 @@ class nfs::params {
                                             enable => true,
                                           },
                                         }
-          $server_nfsv4_servicehelper = 'nfs-idmap.service'
+          $server_nfsv4_servicehelper = [ 'nfs-idmap.service' ]
           $server_service_name        = 'nfs-server.service'
         }
         default: {
@@ -174,7 +174,7 @@ class nfs::params {
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
           $client_nfsv4_services      = {'rpcbind' => {}, 'rpcidmapd' => {}}
-          $server_nfsv4_servicehelper = 'rpcidmapd'
+          $server_nfsv4_servicehelper = [ 'rpcidmapd', 'rpcbind' ]
           $server_service_name        = 'nfs'
         }
       }
@@ -187,7 +187,7 @@ class nfs::params {
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
       $client_nfsv4_services      = {'rpcbind' => {}, 'rpc.idmapd' => {}}
-      $server_nfsv4_servicehelper = 'rpc.idmapd'
+      $server_nfsv4_servicehelper = [ 'rpc.idmapd' ]
       $server_service_name        = 'nfs'
     }
     'Suse': {
@@ -209,7 +209,7 @@ class nfs::params {
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
       $client_nfsv4_services      = {'rpcbind' => {}}
-      $server_nfsv4_servicehelper = 'nfs-idmapd'
+      $server_nfsv4_servicehelper = [ 'nfs-idmapd' ]
       $server_service_name        = 'nfs-server.service'
     }
     default: {
