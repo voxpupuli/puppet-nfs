@@ -238,26 +238,26 @@ describe 'nfs' do
 
         context os do
           case os
-            when 'RedHat_7'
+          when 'RedHat_7'
+            it do
+              is_expected.to contain_service('rpcbind.service').
+                with('ensure' => 'running').
+                with('enable' => false).
+                without_subscribe
+              is_expected.to contain_service('rpcbind.socket').
+                with('ensure' => 'running').
+                with('enable' => true).
+                without_subscribe
+            end
+          else
+            client_services.each do |service|
               it do
-                is_expected.to contain_service('rpcbind.service').
+                is_expected.to contain_service(service).
                   with('ensure' => 'running').
-                  with('enable' => false).
                   without_subscribe
-                is_expected.to contain_service('rpcbind.socket').
-                  with('ensure' => 'running').
-                  with('enable' => true).
-                  without_subscribe
-              end
-            else
-              client_services.each do |service|
-                it do
-                  is_expected.to contain_service(service).
-                    with('ensure' => 'running').
-                    without_subscribe
-                end
               end
             end
+          end
         end
 
         context 'nfs_v4 => true' do
