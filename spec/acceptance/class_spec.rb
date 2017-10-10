@@ -2,17 +2,36 @@ require 'spec_helper_acceptance'
 
 describe 'nfs class' do
   if fact('osfamily') == 'Debian'
-    if fact('lsbdistcodename') == 'trusty'
+    if fact('lsbdistcodename') == 'jessie' || fact('lsbdistcodename') == 'wheezy'
       server_service = 'nfs-kernel-server'
-      server_servicehelper = 'idmapd'
-      server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-    end
-
-    if fact('lsbdistcodename') == 'xenial'
+      server_servicehelpers = %w[nfs-common]
+      client_services = %w[rpcbind nfs-common]
+    elsif fact('lsbdistcodename') == 'trusty'
+      server_service = 'nfs-kernel-server'
+      server_servicehelpers = %w[idmapd]
+      client_services = %w[rpcbind]
+    else
       server_service = 'nfs-server'
-      server_servicehelper = 'nfs-idmapd'
-      server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+      server_servicehelpers = %w[nfs-idmapd]
+      client_services = %w[rpcbind]
     end
+    server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+    client_packages = %w[nfs-common nfs4-acl-tools]
+  end
+
+  if fact('osfamily') == 'RedHat'
+    if fact('operatingsystemmajrelease') == '6'
+      server_service = 'nfs'
+      server_servicehelpers = %w[rpcidmapd rpcbind]
+      client_services = %w[rpcbind]
+    end
+    if fact('operatingsystemmajrelease') == '7'
+      server_service = 'nfs-server.service'
+      server_servicehelpers = %w[nfs-idmap.service]
+      client_services = %w[rpcbind.service rpcbind.socket]
+    end
+    server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
+    client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
   end
 
   describe 'include nfs without params' do
@@ -27,14 +46,14 @@ describe 'nfs class' do
 
   describe 'include nfs with server params' do
     context 'server params' do
-      server_pp = <<-EOS
+      server_pp = <<-PUPPETCODE
         file { ['/data_folder', '/homeexport']:
           ensure => 'directory',
         }
         class { '::nfs':
           server_enabled => true,
           nfs_v4 => true,
-          nfs_v4_idmap_domain => 'example.com',
+          nfs_v4_idmap_domain => 'example.org',
           nfs_v4_export_root  => '/export',
           nfs_v4_export_root_clients => '*(rw,fsid=0,insecure,no_subtree_check,async,no_root_squash)',
         }
@@ -47,7 +66,7 @@ describe 'nfs class' do
           clients => '*(rw,insecure,async,root_squash,no_subtree_check)',
           mount   => '/srv/home',
         }
-      EOS
+      PUPPETCODE
 
       it 'works with no errors based on the example' do
         expect(apply_manifest(server_pp).exit_code).not_to eq(1)
@@ -63,15 +82,62 @@ describe 'nfs class' do
         end
       end
 
-      # Buggy nfs-kernel-server does not run in docker ubuntu 14.04
-      if fact('lsbdistcodename') == 'xenial'
+      # Buggy nfs-kernel-server does not run in docker with Ubuntu 14.04, Debian wheezy and CentOs 6 images
+      if fact('lsbdistcodename') == 'trusty' || fact('lsbdistcodename') == 'wheezy' || (fact('osfamily') == 'RedHat' && fact('operatingsystemmajrelease') == '6')
+        puts 'Buggy nfs-kernel-server does not run in docker with Ubuntu 14.04, Debian wheezy and CentOs 6 images'
+      else
         describe service(server_service) do
           it { is_expected.to be_running }
         end
       end
 
-      describe service(server_servicehelper) do
-        it { is_expected.to be_running }
+      server_servicehelpers.each do |server_servicehelper|
+        # puppet reports wrong status for nfs-common on wheezy
+        if server_servicehelper == 'nfs-common' && fact('lsbdistcodename') == 'wheezy'
+          puts 'puppet reports wrong status for nfs-common on wheezy'
+        else
+          describe service(server_servicehelper) do
+            it { is_expected.to be_running }
+          end
+        end
+      end
+    end
+  end
+
+  describe 'include nfs with client params' do
+    context 'client params' do
+      client_pp = <<-PUPPETCODE
+        class { '::nfs':
+          server_enabled => false,
+          client_enabled => true,
+          nfs_v4_client => true,
+          nfs_v4_idmap_domain => 'example.org',
+        }
+      PUPPETCODE
+
+      it 'works with no errors based on the example' do
+        expect(apply_manifest(client_pp).exit_code).not_to eq(1)
+      end
+
+      it 'runs a second time without changes' do
+        expect(apply_manifest(client_pp).exit_code).to eq(0)
+      end
+
+      client_packages.each do |package|
+        describe package(package) do
+          it { is_expected.to be_installed }
+        end
+      end
+
+      client_services.each do |service|
+        # puppet reports wrong status for nfs-common on wheezy
+        if service == 'nfs-common' && fact('lsbdistcodename') == 'wheezy'
+          puts 'puppet reports wrong status for nfs-common on wheezy'
+        else
+          describe service(service) do
+            it { is_expected.to be_running }
+          end
+        end
       end
     end
   end

@@ -29,7 +29,7 @@ describe 'nfs' do
         end
 
         server_service = 'nfs-kernel-server'
-        server_servicehelper = 'idmapd'
+        server_servicehelpers = %w[idmapd]
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind]
@@ -47,7 +47,7 @@ describe 'nfs' do
         end
 
         server_service = 'nfs-server'
-        server_servicehelper = 'nfs-idmapd'
+        server_servicehelpers = %w[nfs-idmapd]
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind]
@@ -65,10 +65,10 @@ describe 'nfs' do
         end
 
         server_service = 'nfs-kernel-server'
-        server_servicehelper = 'idmapd'
+        server_servicehelpers = %w[nfs-common]
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind idmapd]
+        client_nfs_vfour_services = %w[rpcbind nfs-common]
         client_packages = %w[nfs-common nfs4-acl-tools]
 
       when 'Debian_8'
@@ -83,7 +83,7 @@ describe 'nfs' do
         end
 
         server_service = 'nfs-kernel-server'
-        server_servicehelper = 'nfs-common'
+        server_servicehelpers = %w[nfs-common]
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind nfs-common]
@@ -101,7 +101,7 @@ describe 'nfs' do
         end
 
         server_service = 'nfs-server'
-        server_servicehelper = 'nfs-idmapd'
+        server_servicehelpers = %w[nfs-idmapd]
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind]
@@ -118,7 +118,7 @@ describe 'nfs' do
         end
 
         server_service = 'nfs'
-        server_servicehelper = 'rpcidmapd'
+        server_servicehelpers = %w[rpcidmapd rpcbind]
         server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind rpcidmapd]
@@ -135,10 +135,10 @@ describe 'nfs' do
         end
 
         server_service = 'nfs-server.service'
-        server_servicehelper = 'nfs-idmap.service'
+        server_servicehelpers = %w[nfs-idmap.service]
         server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind.service]
-        client_nfs_vfour_services = %w[rpcbind.service]
+        client_services = %w[rpcbind.service rpcbind.socket]
+        client_nfs_vfour_services = %w[rpcbind.service rpcbind.socket]
         client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
 
       when 'Gentoo'
@@ -152,7 +152,7 @@ describe 'nfs' do
         end
 
         server_service = 'nfs'
-        server_servicehelper = 'rpc.idmapd'
+        server_servicehelpers = %w[rpc.idmapd]
         server_packages = %w[net-nds/rpcbind net-fs/nfs-utils net-libs/libnfsidmap]
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind rpc.idmapd]
@@ -169,7 +169,7 @@ describe 'nfs' do
         end
 
         server_service = 'nfsserver'
-        server_servicehelper = ''
+        server_servicehelpers = ''
         server_packages = %w[nfs-kernel-server]
         client_services = %w[rpcbind nfs]
         client_nfs_vfour_services = %w[rpcbind nfs]
@@ -186,7 +186,7 @@ describe 'nfs' do
         end
 
         server_service = 'nfs-server.service'
-        server_servicehelper = 'nfs-idmapd'
+        server_servicehelpers = %w[nfs-idmapd]
         server_packages = %w[nfs-utils]
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind]
@@ -218,11 +218,13 @@ describe 'nfs' do
           it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
           it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set Domain teststring}) }
           context os do
-            if server_servicehelper != ''
-              it do
-                is_expected.to contain_service(server_servicehelper).
-                  with('ensure' => 'running').
-                  with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
+            if server_servicehelpers != ''
+              server_servicehelpers.each do |server_servicehelper|
+                it do
+                  is_expected.to contain_service(server_servicehelper).
+                    with('ensure' => 'running').
+                    with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
+                end
               end
             end
           end
@@ -235,12 +237,29 @@ describe 'nfs' do
         it { is_expected.to contain_class('nfs::client::config') }
         it { is_expected.to contain_class('nfs::client::package') }
         it { is_expected.to contain_class('nfs::client::service') }
+
         context os do
-          client_services.each do |service|
+          case os
+          when 'RedHat_7'
             it do
-              is_expected.to contain_service(service).
+              is_expected.to contain_service('rpcbind.service').
                 with('ensure' => 'running').
+                with('enable' => false).
                 without_subscribe
+            end
+            it do
+              is_expected.to contain_service('rpcbind.socket').
+                with('ensure' => 'running').
+                with('enable' => true).
+                without_subscribe
+            end
+          else
+            client_services.each do |service|
+              it do
+                is_expected.to contain_service(service).
+                  with('ensure' => 'running').
+                  without_subscribe
+              end
             end
           end
         end
@@ -288,11 +307,13 @@ describe 'nfs' do
           it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
           it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set Domain teststring}) }
           context os do
-            if server_servicehelper != ''
-              it do
-                is_expected.to contain_service(server_servicehelper).
-                  with('ensure' => 'running').
-                  with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
+            if server_servicehelpers != ''
+              server_servicehelpers.each do |server_servicehelper|
+                it do
+                  is_expected.to contain_service(server_servicehelper).
+                    with('ensure' => 'running').
+                    with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
+                end
               end
             end
           end
@@ -332,7 +353,11 @@ describe 'nfs' do
           it { is_expected.not_to contain_service(server_service) }
         end
         context os do
-          it { is_expected.not_to contain_service(server_servicehelper) }
+          if server_servicehelpers != ''
+            server_servicehelpers.each do |server_servicehelper|
+              it { is_expected.not_to contain_service(server_servicehelper) }
+            end
+          end
         end
       end
 
