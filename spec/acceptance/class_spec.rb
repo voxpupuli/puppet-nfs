@@ -83,7 +83,7 @@ describe 'nfs class' do
       end
 
       # Buggy nfs-kernel-server does not run in docker with Ubuntu 14.04, Debian wheezy and CentOs 6 images
-      if fact('lsbdistcodename') == 'trusty' || fact('lsbdistcodename') == 'wheezy' || (fact('osfamily') != 'RedHat' && fact('operatingsystemmajrelease') != '6')
+      if fact('lsbdistcodename') == 'trusty' || fact('lsbdistcodename') == 'wheezy' || (fact('osfamily') == 'RedHat' && fact('operatingsystemmajrelease') == '6')
         puts 'Buggy nfs-kernel-server does not run in docker with Ubuntu 14.04, Debian wheezy and CentOs 6 images'
       else
         describe service(server_service) do
