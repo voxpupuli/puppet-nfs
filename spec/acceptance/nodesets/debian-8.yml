@@ -14,6 +14,7 @@ HOSTS:
       - 'apt-get update && apt-get install -y cron locales-all net-tools wget'
       - 'rm -f /usr/sbin/policy-rc.d'
       - 'systemctl mask getty@tty1.service getty-static.service'
+      # for local development
       - 'echo "MaxAuthTries 100" >> /etc/ssh/sshd_config'
 CONFIG:
   trace_limit: 200

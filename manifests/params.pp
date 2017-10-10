@@ -102,14 +102,14 @@ class nfs::params {
   case $::osfamily {
     'Debian': {
       case $::lsbdistcodename {
-        'jessie': {
+        'jessie', 'wheezy': {
           $client_idmapd_setting      = ['set NEED_IDMAPD yes']
           $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
           $client_services_enable     = true
           $client_services            = {'rpcbind' => {}}
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-          $client_nfsv4_services      = {'rpcbind' => {}, 'nfs-common' => {}}
+          $client_nfsv4_services      = {'rpcbind' => {}, 'nfs-common' => { require => Service['rpcbind'] }}
           $server_nfsv4_servicehelper = [ 'nfs-common' ]
           $server_service_name        = 'nfs-kernel-server'
         }

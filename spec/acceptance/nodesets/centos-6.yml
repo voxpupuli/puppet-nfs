@@ -13,6 +13,7 @@ HOSTS:
       - 'rm -rf /var/run/network/*'
       - 'yum install -y crontabs initscripts iproute openssl sysvinit-tools tar wget which'
       - 'rm /etc/init/tty.conf'
+      # for local development
       - 'echo "MaxAuthTries 100" >> /etc/ssh/sshd_config'
 CONFIG:
   trace_limit: 200

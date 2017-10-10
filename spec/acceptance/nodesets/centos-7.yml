@@ -12,6 +12,7 @@ HOSTS:
     docker_image_commands:
       - 'yum install -y crontabs initscripts iproute openssl sysvinit-tools tar wget which ss'
       - 'systemctl mask getty@tty1.service'
+      # for local development
       - 'echo "MaxAuthTries 100" >> /etc/ssh/sshd_config'
 CONFIG:
   trace_limit: 200

@@ -65,10 +65,10 @@ describe 'nfs' do
         end
 
         server_service = 'nfs-kernel-server'
-        server_servicehelpers = %w[idmapd]
+        server_servicehelpers = %w[nfs-common]
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind idmapd]
+        client_nfs_vfour_services = %w[rpcbind nfs-common]
         client_packages = %w[nfs-common nfs4-acl-tools]
 
       when 'Debian_8'
