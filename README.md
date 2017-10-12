@@ -523,7 +523,7 @@ This will mount /data on client in /share/data.
   String. It defines the service parameter restart for nfs server service.
 
 ##### `server_nfsv4_servicehelper`
-  String. It defines the service helper like idmapd for servers configured with
+  Array. It defines the service helper like idmapd for servers configured with
   nfs version 4.
 
 ##### `client_services`
