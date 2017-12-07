@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nfs::client::mount', type: 'define' do
-  context 'nfs_v4 => false, minimal arguments' do
+  context 'when nfs_v4 => false, minimal arguments' do
     let(:facts) do
       {
         operatingsystem: 'Ubuntu',
@@ -28,7 +30,7 @@ describe 'nfs::client::mount', type: 'define' do
     end
   end
 
-  context 'nfs_v4 => false, specified mountpoint and sharename' do
+  context 'when nfs_v4 => false, specified mountpoint and sharename' do
     let(:facts) do
       {
         operatingsystem: 'Ubuntu',
@@ -55,7 +57,7 @@ describe 'nfs::client::mount', type: 'define' do
     end
   end
 
-  context 'nfs_v4 => true, specified share' do
+  context 'when nfs_v4 => true, specified share' do
     let(:facts) do
       {
         operatingsystem: 'Ubuntu',
@@ -82,7 +84,7 @@ describe 'nfs::client::mount', type: 'define' do
     end
   end
 
-  context 'nfs_v4 => true, minimal arguments' do
+  context 'when nfs_v4 => true, minimal arguments' do
     let(:facts) do
       {
         operatingsystem: 'Ubuntu',
@@ -110,7 +112,7 @@ describe 'nfs::client::mount', type: 'define' do
     end
   end
 
-  context 'nfs_v4 => true, non-default mountpoints' do
+  context 'when nfs_v4 => true, non-default mountpoints' do
     let(:facts) do
       {
         operatingsystem: 'Ubuntu',
@@ -137,7 +139,7 @@ describe 'nfs::client::mount', type: 'define' do
     end
   end
 
-  context 'nfs_v4 => true, non-default mountpoints, not managing packages' do
+  context 'when nfs_v4 => true, non-default mountpoints, not managing packages' do
     let(:facts) do
       {
         operatingsystem: 'Ubuntu',

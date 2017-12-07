@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nfs' do
@@ -197,7 +199,7 @@ describe 'nfs' do
 
       it { is_expected.to compile.with_all_deps }
 
-      context 'server_enabled => true, client_enabled => false' do
+      context 'when server_enabled => true, client_enabled => false' do
         let(:params) { { server_enabled: true, client_enabled: false } }
 
         it { is_expected.to contain_class('nfs::server::config') }
@@ -211,7 +213,7 @@ describe 'nfs' do
           end
         end
 
-        context 'nfs_v4 => true' do
+        context 'when nfs_v4 => true' do
           let(:params) { { nfs_v4: true, server_enabled: true, client_enabled: false, nfs_v4_idmap_domain: 'teststring' } }
 
           it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
@@ -231,7 +233,7 @@ describe 'nfs' do
         end
       end
 
-      context 'server_enabled => false, client_enabled => true' do
+      context 'when server_enabled => false, client_enabled => true' do
         let(:params) { { server_enabled: false, client_enabled: true } }
 
         it { is_expected.to contain_class('nfs::client::config') }
@@ -264,7 +266,7 @@ describe 'nfs' do
           end
         end
 
-        context 'nfs_v4 => true' do
+        context 'when nfs_v4 => true' do
           let(:params) { { nfs_v4_client: true, server_enabled: false, client_enabled: true } }
 
           it { is_expected.to contain_augeas('/etc/idmapd.conf') }
@@ -288,7 +290,7 @@ describe 'nfs' do
         end
       end
 
-      context 'server_enabled => true, client_enabled => true' do
+      context 'when server_enabled => true, client_enabled => true' do
         let(:params) { { server_enabled: true, client_enabled: true } }
 
         it { is_expected.to contain_class('nfs::server::config') }
@@ -299,7 +301,7 @@ describe 'nfs' do
         it { is_expected.to contain_class('nfs::client::service') }
         it { is_expected.to contain_concat__fragment('nfs_exports_header').with('target' => '/etc/exports') }
 
-        context 'nfs_v4 => true, nfs_v4_client => true' do
+        context 'when nfs_v4 => true, nfs_v4_client => true' do
           let(:params) { { nfs_v4: true, nfs_v4_client: true, server_enabled: true, client_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
 
           it { is_expected.to contain_augeas('/etc/idmapd.conf') }
@@ -326,7 +328,7 @@ describe 'nfs' do
         end
       end
 
-      context ':nfs_v4_client => true, :nfs_v4 => true, :server_enabled => true, :client_enabled => true, :manage_packages => false' do
+      context 'when :nfs_v4_client => true, :nfs_v4 => true, :server_enabled => true, :client_enabled => true, :manage_packages => false' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_packages: false } }
 
         client_packages.each do |package|
@@ -341,7 +343,7 @@ describe 'nfs' do
         end
       end
 
-      context ':nfs_v4_client => true, :nfs_v4 => true, :server_enabled => true, :manage_server_service => false, manage_server_servicehelper => false, :manage_client_service => false' do
+      context 'when :nfs_v4_client => true, :nfs_v4 => true, :server_enabled => true, :manage_server_service => false, manage_server_servicehelper => false, :manage_client_service => false' do
         let(:params) { { nfs_v4_client: true, nfs_v4: true, client_enabled: true, server_enabled: true, manage_server_service: false, manage_server_servicehelper: false, manage_client_service: false } }
 
         client_nfs_vfour_services.each do |service|
@@ -361,7 +363,7 @@ describe 'nfs' do
         end
       end
 
-      context 'nfs_v4 => true, storeconfigs_enabled => true' do
+      context 'when nfs_v4 => true, storeconfigs_enabled => true' do
         let(:params) { { nfs_v4: true, storeconfigs_enabled: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
 
         context os do
@@ -369,7 +371,7 @@ describe 'nfs' do
         end
       end
 
-      context 'nfs_v4 => true, storeconfigs_enabled => false' do
+      context 'when nfs_v4 => true, storeconfigs_enabled => false' do
         let(:params) { { nfs_v4: true, storeconfigs_enabled: false, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
 
         context os do
@@ -377,7 +379,7 @@ describe 'nfs' do
         end
       end
 
-      context 'nfs_v4 => false, storeconfigs_enabled => true' do
+      context 'when nfs_v4 => false, storeconfigs_enabled => true' do
         let(:params) { { nfs_v4: false, storeconfigs_enabled: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
 
         context os do

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nfs::server::export', type: 'define' do
-  context 'nvs_v4 => false' do
+  context 'when nvs_v4 => false' do
     let(:facts) do
       {
         operatingsystem: 'Ubuntu',
@@ -29,7 +31,7 @@ describe 'nfs::server::export', type: 'define' do
     end
   end
 
-  context 'nvs_v4 => false, nfs::storeconfigs_enabled => false' do
+  context 'when nvs_v4 => false, nfs::storeconfigs_enabled => false' do
     let(:facts) do
       {
         operatingsystem: 'Ubuntu',
@@ -57,7 +59,7 @@ describe 'nfs::server::export', type: 'define' do
     end
   end
 
-  context 'nfs_v4 => true' do
+  context 'when nfs_v4 => true' do
     let(:facts) do
       {
         operatingsystem: 'Ubuntu',
@@ -86,7 +88,7 @@ describe 'nfs::server::export', type: 'define' do
     end
   end
 
-  context 'nfs_v4 => true, nfs::storeconfigs_enabled => false' do
+  context 'when nfs_v4 => true, nfs::storeconfigs_enabled => false' do
     let(:facts) do
       {
         operatingsystem: 'Ubuntu',

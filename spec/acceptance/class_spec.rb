@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 
 describe 'nfs class' do
@@ -35,7 +37,7 @@ describe 'nfs class' do
   end
 
   describe 'include nfs without params' do
-    context 'default parameters' do
+    context 'when default parameters' do
       let(:pp) { "class { 'nfs': }" }
 
       it 'applies without errors without params' do
@@ -45,7 +47,7 @@ describe 'nfs class' do
   end
 
   describe 'include nfs with server params' do
-    context 'server params' do
+    context 'when server params' do
       server_pp = <<-PUPPETCODE
         file { ['/data_folder', '/homeexport']:
           ensure => 'directory',
@@ -105,7 +107,7 @@ describe 'nfs class' do
   end
 
   describe 'include nfs with client params' do
-    context 'client params' do
+    context 'when client params' do
       client_pp = <<-PUPPETCODE
         class { '::nfs':
           server_enabled => false,
