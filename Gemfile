@@ -26,12 +26,12 @@ group :test do
   gem 'puppetlabs_spec_helper',                                     require: false
   gem 'semantic_puppet',                                            require: false
   gem 'rake',                                                       require: false
-  gem 'rspec', '~> 3.5.0',                                          require: false
-  gem 'rspec-core', '~> 3.5.0',                                     require: false
+  gem 'rspec',                                                      require: false
+  gem 'rspec-core',                                                 require: false
   gem 'rspec-puppet',                                               require: false, git: 'https://github.com/rodjek/rspec-puppet.git'
   gem 'rspec-puppet-facts',                                         require: false
   gem 'rspec-puppet-utils',                                         require: false
-  gem 'rubocop', '~> 0.39',                                         require: false
+  gem 'rubocop',                                                    require: false
   gem 'rubocop-rspec',                                              require: false
   gem 'voxpupuli-release',                                          require: false, git: 'https://github.com/voxpupuli/voxpupuli-release-gem.git'
 end
