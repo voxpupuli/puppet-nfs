@@ -25,13 +25,13 @@ class nfs::client::config {
       }
     }
 
-    if $::nfs::server_enabled == false {
+    if ( $::nfs::server_enabled == false ) or ( $::nfs::server_enabled == true and $::nfs::nfs_v4 == false ) {
       if $::nfs::idmapd_file != undef {
         augeas { $::nfs::idmapd_file:
-        context => "/files/${::nfs::idmapd_file}/General",
-        lens    => 'Puppet.lns',
-        incl    => $::nfs::idmapd_file,
-        changes => ["set Domain ${::nfs::nfs_v4_idmap_domain}"];
+          context => "/files/${::nfs::idmapd_file}/General",
+          lens    => 'Puppet.lns',
+          incl    => $::nfs::idmapd_file,
+          changes => ["set Domain ${::nfs::nfs_v4_idmap_domain}"];
         }
       }
     }
