@@ -110,9 +110,6 @@ Lint/UnusedMethodArgument:
 Lint/UselessAccessModifier:
   Enabled: True
 
-Lint/UselessAssignment:
-  Enabled: True
-
 Lint/Void:
   Enabled: True
 
@@ -528,6 +525,6 @@ Layout/IndentHeredoc:
 Security/YAMLLoad:
   Enabled: false
 
-# disable Style/MixinUsage 
+# disable Style/MixinUsage
 Style/MixinUsage:
   Enabled: false
