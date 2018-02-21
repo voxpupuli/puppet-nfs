@@ -394,7 +394,6 @@ describe 'nfs' do
           it { is_expected.to contain_augeas('/etc/idmapd.conf') }
         end
       end
-
     end
   end
 end
