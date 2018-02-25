@@ -386,6 +386,14 @@ describe 'nfs' do
           it { expect(exported_resources).not_to contain_nfs__client__mount('/srv') }
         end
       end
+
+      context 'when server_enabled => true, client_enabled => true, nfs_v4_client => true' do
+        let(:params) { { server_enabled: true, client_enabled: true, nfs_v4: false, nfs_v4_client: true } }
+
+        context os do
+          it { is_expected.to contain_augeas('/etc/idmapd.conf') }
+        end
+      end
     end
   end
 end

@@ -1,3 +1,9 @@
+## 2018-02-21 - Release 2.0.7
+### Summary
+
+#### Bugfixes
+- disable manage of resource $::nfs::idmapd_file for nfsv3 server
+
 ## 2017-12-14 - Release 2.0.6
 ### Summary
 
