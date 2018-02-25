@@ -709,5 +709,70 @@ module (use manage_packages => false). It is only tested to use 'present', 'inst
 Derdanne modules are open projects. So if you want to make this module even better,
 you can contribute to this module on [Github](https://github.com/derdanne/puppet-nfs).
 
+Before pushing PRs to Github i would recommend you to test your work locally. So you can ensure all test builds
+on Travis CI were passing. I have prepared an easy way to test your code locally with the help of Docker. 
+Note that the beaker tests are not implemented yet.
+
+### Default settings
+
+I have set some defaults which you can change by setting the following environment variables.
+
+#### PUPPET_VERSION
+
+Changes the puppet version which will be used for the tests. Defaults to `5.0`.
+
+#### STRICT_VARIABLES
+
+Sets strict variables on or off. Defaults to `yes`.
+
+#### RVM
+
+Sets the ruby version which will be used for the tests. Defaults to `2.4.1`
+
+### Running tests
+
+You can run the following commands to setup and run the testsuite on your local machine.
+
+#### `make build`
+
+Build a docker image with a Ruby version which is not available on Docker hub. Check out 
+`https://hub.docker.com/r/derdanne/rvm/` to see if i have already prepared a rvm build for the ruby version
+you want to test. Take a look at the Dockerfile located in `spec/local-testing` if you want to customize
+your builds.
+
+#### `make pull`
+
+Pull a prebuild rvm docker image with the Ruby version defined in the variable `RVM`.
+
+#### `make install-gems`
+
+Install all needed gems locally to `vendor/bundle`.
+
+#### `make test-metadata-lint`
+
+Run linting of metadata.
+
+#### `make test-lint`
+
+Run puppet lint tests.
+
+#### `test-syntax`
+
+Run syntax tests.
+
+#### `test-rspec`
+
+Run rspec puppet tests.
+
+#### `test-rubocop`
+
+Run rubocop tests.
+
+#### `test-all`
+
+Run the whole testsuite.
+
+## Disclaimer
+
 This module based on Harald Skoglund <haraldsk@redpill-linpro.com> from
 https://github.com/haraldsk/puppet-module-nfs/ but has been fundementally refactored

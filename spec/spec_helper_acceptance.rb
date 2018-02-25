@@ -16,7 +16,6 @@ RSpec.configure do |c|
       module_name: 'nfs'
     )
     hosts.each do |host|
-      # Needed for the consul module to download the binary per the modulefile
       on host, puppet('module', 'install', 'puppetlabs-stdlib'), acceptable_exit_codes: [0, 1]
       on host, puppet('module', 'install', 'puppetlabs-concat'), acceptable_exit_codes: [0, 1]
     end
