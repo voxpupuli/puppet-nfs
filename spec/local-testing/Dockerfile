@@ -4,7 +4,7 @@ MAINTAINER Daniel Klockenkaemper <dk@marketing-factory.de>
 
 ARG RUBY_VERSION
 
-WORKDIR /puppet
+WORKDIR /puppet/module
 
 ENV PATH /usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH
 

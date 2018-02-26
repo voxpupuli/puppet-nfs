@@ -711,7 +711,8 @@ you can contribute to this module on [Github](https://github.com/derdanne/puppet
 
 Before pushing PRs to Github i would recommend you to test your work locally. So you can ensure all test builds
 on Travis CI were passing. I have prepared an easy way to test your code locally with the help of Docker. 
-Note that the beaker tests are not implemented yet.
+
+For running the complete static code analysis, it is sufficient to run a `make test-all`. 
 
 ### Default settings
 
@@ -727,7 +728,11 @@ Sets strict variables on or off. Defaults to `yes`.
 
 #### RVM
 
-Sets the ruby version which will be used for the tests. Defaults to `2.4.1`
+Sets the ruby version which will be used for the tests. Defaults to `2.4.1`.
+
+#### BEAKER_set
+
+Sets the beaker docker target host. Defaults to `ubuntu-16.04`.
 
 ### Running tests
 
@@ -756,21 +761,23 @@ Run linting of metadata.
 
 Run puppet lint tests.
 
-#### `test-syntax`
+#### `make test-syntax`
 
 Run syntax tests.
 
-#### `test-rspec`
+#### `make test-rspec`
 
 Run rspec puppet tests.
 
-#### `test-rubocop`
+#### `make test-rubocop`
 
 Run rubocop tests.
 
-#### `test-all`
+#### `make test-all`
 
 Run the whole testsuite.
+
+#### `make test-beaker`
 
 ## Disclaimer
 
