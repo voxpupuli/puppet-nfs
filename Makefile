@@ -16,33 +16,41 @@ else
 	export RVM := 2.4.1
 endif
 
+DOCKER_CMD := docker run -it --rm -v $$(pwd):/puppet derdanne/rvm:$${RVM} /bin/bash -l -c
+PREPARE := rm -f .Gemfile.lock && $(DOCKER_CMD) "PUPPET_VERSION=$${PUPPET_VERSION} bundle install --quiet --without system_tests development --path=vendor/bundle"
+
 build:
-	cd spec/local-testing && \
-	docker build --build-arg RUBY_VERSION=$${RVM} -t derdanne/rvm:$${RVM} .
+	@cd spec/local-testing && \
+	@docker build --squash --build-arg RUBY_VERSION=$${RVM} -t derdanne/rvm:$${RVM} .
 
 pull:
-	docker pull derdanne/rvm:$${RVM}
+	@docker pull derdanne/rvm:$${RVM}
 
 install-gems:
-	docker run -it --rm -v $$(pwd):/puppet derdanne/rvm:$${RVM} /bin/bash -l -c "bundle install --without system_tests development --path=vendor/bundle"
+	@$(PREPARE)
 
 test-metadata-lint:
-	docker run -it --rm -v $$(pwd):/puppet derdanne/rvm:$${RVM} /bin/bash -l -c "bundle exec rake metadata_lint"
+	@$(PREPARE)
+	@$(DOCKER_CMD) "PUPPET_VERSION=$${PUPPET_VERSION} bundle exec rake metadata_lint"
 
 test-lint:
-	docker run -it --rm -v $$(pwd):/puppet derdanne/rvm:$${RVM} /bin/bash -l -c "bundle exec rake lint"
+	@$(PREPARE)
+	@$(DOCKER_CMD) "PUPPET_VERSION=$${PUPPET_VERSION} bundle exec rake lint"
 
 test-syntax:
-	docker run -it --rm -v $$(pwd):/puppet derdanne/rvm:$${RVM} /bin/bash -l -c "bundle exec rake syntax"
+	@$(PREPARE)
+	@$(DOCKER_CMD) "PUPPET_VERSION=$${PUPPET_VERSION} bundle exec rake syntax"
 
 test-rspec:
-	docker run -it --rm -v $$(pwd):/puppet derdanne/rvm:$${RVM} /bin/bash -l -c "PUPPET_VERSION=$${PUPPET_VERSION} bundle update puppet && PUPPET_VERSION=$${PUPPET_VERSION} STRICT_VARIABLES=$${STRICT_VARIABLES} bundle exec rake spec"
+	@$(PREPARE)
+	@$(DOCKER_CMD) "PUPPET_VERSION=$${PUPPET_VERSION} STRICT_VARIABLES=$${STRICT_VARIABLES} bundle exec rake spec"
 
 test-rubocop:
-	docker run -it --rm -v $$(pwd):/puppet derdanne/rvm:$${RVM} /bin/bash -l -c "PUPPET_VERSION=$${PUPPET_VERSION} bundle update puppet && PUPPET_VERSION=$${PUPPET_VERSION} bundle exec rake rubocop"
+	@$(PREPARE)
+	@$(DOCKER_CMD) "PUPPET_VERSION=$${PUPPET_VERSION} bundle exec rake rubocop"
 
 test-all:
-	docker run -it --rm -v $$(pwd):/puppet derdanne/rvm:$${RVM} /bin/bash -l -c "PUPPET_VERSION=$${PUPPET_VERSION} bundle update puppet && PUPPET_VERSION=$${PUPPET_VERSION} STRICT_VARIABLES=$${STRICT_VARIABLES} bundle exec rake test"
-	docker run -it --rm -v $$(pwd):/puppet derdanne/rvm:$${RVM} /bin/bash -l -c "PUPPET_VERSION=$${PUPPET_VERSION} bundle update puppet && PUPPET_VERSION=$${PUPPET_VERSION} bundle exec rake rubocop"
-
+	@$(PREPARE)
+	@$(DOCKER_CMD) "PUPPET_VERSION=$${PUPPET_VERSION} STRICT_VARIABLES=$${STRICT_VARIABLES} bundle exec rake test"
+	@$(DOCKER_CMD) "PUPPET_VERSION=$${PUPPET_VERSION} bundle exec rake rubocop"
 
