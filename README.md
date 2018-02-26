@@ -779,6 +779,8 @@ Run the whole testsuite.
 
 #### `make test-beaker`
 
+Run puppetlabs beaker rspec tests.
+
 ## Disclaimer
 
 This module based on Harald Skoglund <haraldsk@redpill-linpro.com> from
