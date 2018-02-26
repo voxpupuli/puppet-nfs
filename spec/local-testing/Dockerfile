@@ -14,7 +14,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends curl git ca-certificates 
 
 # Install rvm, default ruby version and bundler.
-COPY .gemrc /puppet/.gemrc
+COPY .gemrc /puppet/module/.gemrc
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 && \
     curl -L https://get.rvm.io | /bin/bash -s stable && \
     echo 'source /etc/profile.d/rvm.sh' >> /etc/profile && \

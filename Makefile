@@ -23,10 +23,10 @@ else
 endif
 
 DOCKER_CMD := docker run -it --rm -v $$(pwd):/puppet/module derdanne/rvm:$(rvm) /bin/bash -l -c
-PREPARE := rm -f .Gemfile.lock && $(DOCKER_CMD) "PUPPET_VERSION=$(puppet_version) bundle update --quiet puppet && PUPPET_VERSION=$(puppet_version) bundle install --quiet --without system_tests development --path=vendor/bundle"
+PREPARE := rm -f Gemfile.lock && $(DOCKER_CMD) "PUPPET_VERSION=$(puppet_version) bundle update --quiet puppet && PUPPET_VERSION=$(puppet_version) bundle install --quiet --without system_tests development --path=vendor/bundle"
 
 DOCKER_CMD_BEAKER := docker run --privileged -it --rm -v $$(pwd):/puppet/module -v /var/run/docker.sock:/var/run/docker.sock derdanne/rvm:$(rvm) /bin/bash -l -c
-PREPARE_BEAKER := rm -f .Gemfile.lock && $(DOCKER_CMD) "bundle install --quiet --without system_tests development --path=vendor/bundle"
+PREPARE_BEAKER := rm -f Gemfile.lock && $(DOCKER_CMD) "bundle install --quiet --without system_tests development --path=vendor/bundle"
 
 VARIABLES := echo "PUPPET_VERSION=$(puppet_version), STRICT_VARIABLES=$(strict_variables), RVM=$(rvm)"
 
