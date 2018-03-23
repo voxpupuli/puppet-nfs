@@ -48,6 +48,10 @@
 # [*mode*]
 #   String. Sets the permissions of the exported directory.
 #
+# [*server*]
+#   String. Sets the hostname clients will use to mount the exported resource. If undef it
+#   defaults to the trusted certname
+#
 # === Examples
 #
 # class { '::nfs':
@@ -90,6 +94,7 @@ define nfs::server::export(
   $owner          = undef,
   $group          = undef,
   $mode           = undef,
+  $server         = $::clientcert,
 ) {
 
   if $nfs::server::nfs_v4 {
@@ -124,7 +129,7 @@ define nfs::server::export(
         bindmount     => $bindmount,
         nfstag        => $nfstag,
         share         => $v4_export_name,
-        server        => $::clientcert,
+        server        => $server,
       }
     }
   } else {
@@ -151,7 +156,7 @@ define nfs::server::export(
         options_nfs => $options_nfs,
         nfstag      => $nfstag,
         share       => $v3_export_name,
-        server      => $::clientcert,
+        server      => $server,
       }
     }
 
