@@ -132,7 +132,8 @@ describe 'nfs' do
           default_facts.merge(
             operatingsystem: 'RedHat',
             osfamily: 'RedHat',
-            operatingsystemmajrelease: '7'
+            operatingsystemmajrelease: '7',
+            operatingsystemrelease: '7.5'
           )
         end
 
