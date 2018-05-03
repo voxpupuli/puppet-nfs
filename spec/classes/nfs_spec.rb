@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe 'nfs' do
-  supported_os = %w[Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 Gentoo SLES Archlinux]
+  supported_os = %w[Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 RedHat_75 Gentoo SLES Archlinux]
   supported_os.each do |os|
     context os do
       let(:default_facts) do
@@ -133,7 +133,7 @@ describe 'nfs' do
             operatingsystem: 'RedHat',
             osfamily: 'RedHat',
             operatingsystemmajrelease: '7',
-            operatingsystemrelease: '7.5'
+            operatingsystemrelease: '7.4'
           )
         end
 
@@ -142,6 +142,24 @@ describe 'nfs' do
         server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind.service rpcbind.socket]
         client_nfs_vfour_services = %w[rpcbind.service rpcbind.socket]
+        client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
+
+      when 'RedHat_75'
+
+        let(:facts) do
+          default_facts.merge(
+            operatingsystem: 'RedHat',
+            osfamily: 'RedHat',
+            operatingsystemmajrelease: '7',
+            operatingsystemrelease: '7.5'
+          )
+        end
+
+        server_service = 'nfs-server.service'
+        server_servicehelpers = %w[nfs-idmap.service]
+        server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind.service]
+        client_nfs_vfour_services = %w[rpcbind rpcidmapd]
         client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
 
       when 'Gentoo'
