@@ -159,7 +159,7 @@ describe 'nfs' do
         server_servicehelpers = %w[nfs-idmap.service]
         server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind.service]
-        client_nfs_vfour_services = %w[rpcbind rpcidmapd]
+        client_nfs_vfour_services = %w[rpcbind]
         client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
 
       when 'Gentoo'
