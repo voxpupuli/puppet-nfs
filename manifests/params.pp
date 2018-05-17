@@ -179,7 +179,7 @@ class nfs::params {
                                           }
           }
           else {
-            $client_nfsv4_services      = {'rpcbind' => {}, 'rpcidmapd' => {}}
+            $client_nfsv4_services      = {'rpcbind' => {}}
           }
           $server_nfsv4_servicehelper = [ 'nfs-idmap.service' ]
           $server_service_name        = 'nfs-server.service'
