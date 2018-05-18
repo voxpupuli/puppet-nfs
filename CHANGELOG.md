@@ -1,3 +1,14 @@
+## 2018-05-18 - Release 2.0.8
+### Summary
+
+#### Bugfixes
+- update rubocop configuration for version >= 0.53.0 of RuboCop
+- according to https://access.redhat.com/solutions/209553 do not enable rpcidmapd on RHEL 7
+
+#### Features
+- add server parameter to export define type
+- add easy local testing with beaker and docker
+
 ## 2018-02-21 - Release 2.0.7
 ### Summary
 
