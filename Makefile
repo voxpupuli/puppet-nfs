@@ -74,5 +74,5 @@ test-all:
 test-beaker:
 	@$(VARIABLES)
 	@$(PREPARE_BEAKER)
-	@$(DOCKER_CMD_BEAKER) "PUPPET_INSTALL_TYPE=agent BEAKER_set=$(beaker_set) BEAKER_destroy=onpass bundle exec rake beaker"
+	@$(DOCKER_CMD_BEAKER) "BEAKER_PUPPET_COLLECTION=puppet5 PUPPET_INSTALL_TYPE=agent BEAKER_set=$(beaker_set) BEAKER_destroy=onpass bundle exec rake beaker"
 

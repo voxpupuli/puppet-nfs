@@ -101,29 +101,31 @@ class nfs::params {
   #params with OS-specific values
   case $::osfamily {
     'Debian': {
+      $client_idmapd_setting      = ['set NEED_IDMAPD yes']
+      $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+      $client_services_enable     = true
+      $client_nfsv4_fstype        = 'nfs4'
+      $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+
       case $::lsbdistcodename {
-        'jessie', 'wheezy': {
-          $client_idmapd_setting      = ['set NEED_IDMAPD yes']
-          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
-          $client_services_enable     = true
+        'trusty': {
           $client_services            = {'rpcbind' => {}}
-          $client_nfsv4_fstype        = 'nfs4'
-          $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_nfsv4_services      = {'rpcbind' => {}, 'nfs-common' => { require => Service['rpcbind'] }}
+          $server_nfsv4_servicehelper = undef
+          $server_service_name        = 'nfs-kernel-server'
+        }
+        'jessie', 'wheezy': {
+          $client_services            = {'rpcbind' => {}}
           $client_nfsv4_services      = {'rpcbind' => {}, 'nfs-common' => { require => Service['rpcbind'] }}
           $server_nfsv4_servicehelper = [ 'nfs-common' ]
           $server_service_name        = 'nfs-kernel-server'
         }
         'stretch', 'xenial', 'yakkety', 'zesty': {
-          $client_idmapd_setting      = ['set NEED_IDMAPD yes']
-          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
-          $client_services_enable     = true
           $client_services            = { 'rpcbind' => {
                                             ensure => 'running',
                                             enable => false,
                                           },
                                         }
-          $client_nfsv4_fstype        = 'nfs4'
-          $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
           $client_nfsv4_services      = { 'rpcbind' => {
                                             ensure => 'running',
                                             enable => false,
@@ -132,16 +134,17 @@ class nfs::params {
           $server_nfsv4_servicehelper = [ 'nfs-idmapd' ]
           $server_service_name        = 'nfs-server'
         }
-        default: {
-          $client_idmapd_setting      = ['set NEED_IDMAPD yes']
-          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
-          $client_services_enable     = true
+        'bionic': {
           $client_services            = {'rpcbind' => {}}
-          $client_nfsv4_fstype        = 'nfs4'
-          $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_nfsv4_services      = {'rpcbind' => {}, 'nfs-server' => { require => Service['rpcbind'] }}
+          $server_nfsv4_servicehelper = [ 'nfs-idmapd' ]
+          $server_service_name        = 'nfs-server'
+        }
+        default: {
+          $client_services            = {'rpcbind' => {}}
           $client_nfsv4_services      = {'rpcbind' => {}, 'idmapd' => {}}
           $server_nfsv4_servicehelper = [ 'idmapd' ]
-          $server_service_name        = 'nfs-kernel-server'
+          $server_service_name        = 'nfs-server'
         }
       }
     }

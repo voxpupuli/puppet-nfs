@@ -10,7 +10,11 @@ describe 'nfs class' do
       client_services = %w[rpcbind nfs-common]
     elsif fact('lsbdistcodename') == 'trusty'
       server_service = 'nfs-kernel-server'
-      server_servicehelpers = %w[idmapd]
+      server_servicehelpers = ''
+      client_services = %w[rpcbind]
+    elsif fact('lsbdistcodename') == 'bionic'
+      server_service = 'nfs-server'
+      server_servicehelpers = %w[nfs-idmapd]
       client_services = %w[rpcbind]
     else
       server_service = 'nfs-server'
@@ -93,13 +97,15 @@ describe 'nfs class' do
         end
       end
 
-      server_servicehelpers.each do |server_servicehelper|
-        # puppet reports wrong status for nfs-common on wheezy
-        if server_servicehelper == 'nfs-common' && fact('lsbdistcodename') == 'wheezy'
-          puts 'puppet reports wrong status for nfs-common on wheezy'
-        else
-          describe service(server_servicehelper) do
-            it { is_expected.to be_running }
+      if server_servicehelpers != ''
+        server_servicehelpers.each do |server_servicehelper|
+          # puppet reports wrong status for nfs-common on wheezy
+          if server_servicehelper == 'nfs-common' && fact('lsbdistcodename') == 'wheezy'
+            puts 'puppet reports wrong status for nfs-common on wheezy'
+          else
+            describe service(server_servicehelper) do
+              it { is_expected.to be_running }
+            end
           end
         end
       end

@@ -43,6 +43,12 @@ matrix:
     services: docker
     sudo: required
   - rvm: 2.4.1
+    env: BEAKER_PUPPET_COLLECTION=puppet5 PUPPET_INSTALL_TYPE=agent BEAKER_set=ubuntu-18.04
+    bundler_args: --without development
+    script: bundle exec rake beaker
+    services: docker
+    sudo: required
+  - rvm: 2.4.1
     env: PUPPET_INSTALL_TYPE=agent BEAKER_set=centos-6
     bundler_args: --without development
     script: bundle exec rake beaker

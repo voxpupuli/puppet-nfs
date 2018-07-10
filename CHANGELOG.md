@@ -1,3 +1,13 @@
+## 2018-07-10 - Release 2.0.9-dev
+### Summary
+
+#### Features
+- add support for Ubuntu 18.04 bionic
+- add testsuite fpr ubuntu 18.04 bionic
+
+#### Bugfixes
+- fix service helpers on Ubuntu 14.04 trusty
+
 ## 2018-05-18 - Release 2.0.8
 ### Summary
 

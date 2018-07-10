@@ -1,0 +1,28 @@
+HOSTS:
+  ubuntu-1804-x64:
+    platform: ubuntu-18.04-amd64
+    hypervisor: docker
+    image: ubuntu:18.04
+    docker_preserve_image: true
+    docker_cmd: '["/sbin/init"]'
+    docker_image_commands:
+      # ensure that upstart is booting correctly in the container
+      - 'apt-get update && apt-get install locales && locale-gen en_US.UTF-8'
+      # for local development
+      - 'echo "MaxAuthTries 100" >> /etc/ssh/sshd_config'
+    # exportfs does not work on overlayfs - mounting local filesystem
+    mount_folders:
+      export:
+        host_path: .spec/fixtures/export
+        container_path: /export
+      data_folder:
+        host_path: .spec/fixtures/export/data_folder
+        container_path: /export/data_folder
+      homeexport:
+        host_path: .spec/fixtures/export/homeexport
+        container_path: /export/homeexport
+CONFIG:
+  type: foss
+  trace_limit: 200
+...
+# vim: syntax=yaml

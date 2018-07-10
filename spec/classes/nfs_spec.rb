@@ -31,7 +31,7 @@ describe 'nfs' do
         end
 
         server_service = 'nfs-kernel-server'
-        server_servicehelpers = %w[idmapd]
+        server_servicehelpers = ''
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind]
@@ -53,6 +53,24 @@ describe 'nfs' do
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind]
+        client_packages = %w[nfs-common nfs4-acl-tools]
+
+      when 'Ubuntu_18.04'
+
+        let(:facts) do
+          default_facts.merge(
+            operatingsystem: 'Ubuntu',
+            osfamily: 'Debian',
+            operatingsystemmajrelease: '18.04',
+            lsbdistcodename: 'bionic'
+          )
+        end
+
+        server_service = 'nfs-server'
+        server_servicehelpers = %w[nfs-idmapd]
+        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind nfs-server]
         client_packages = %w[nfs-common nfs4-acl-tools]
 
       when 'Debian_default'
