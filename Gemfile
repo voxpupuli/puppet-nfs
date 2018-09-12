@@ -44,7 +44,7 @@ end
 
 if RUBY_VERSION >= '2.3.0'
   group :acceptance do
-    gem 'beaker'
+    gem 'beaker', '~>3'
     gem 'beaker-puppet_install_helper'
     gem 'beaker-rspec'
   end
