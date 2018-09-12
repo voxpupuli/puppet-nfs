@@ -1,4 +1,4 @@
-## 2018-07-10 - Release 2.0.9-dev
+## 2018-07-10 - Release 2.0.9
 ### Summary
 
 #### Features
