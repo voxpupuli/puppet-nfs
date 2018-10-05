@@ -6,6 +6,7 @@ bundler_args: --without system_tests development
 before_install: rm Gemfile.lock || true
 script:
   - 'bundle exec rake $CHECK'
+env:
 matrix:
   fast_finish: true
   include:
@@ -26,6 +27,9 @@ matrix:
     bundler_args: --without system_tests development
   - rvm: 2.4.1
     env: PUPPET_VERSION="~> 5.0" STRICT_VARIABLES="yes" CHECK=test
+    bundler_args: --without system_tests development
+  - rvm: 2.4.1
+    env: PUPPET_VERSION="~> 6.0" STRICT_VARIABLES="yes" CHECK=test
     bundler_args: --without system_tests development
   - rvm: 2.4.1
     env: PUPPET_VERSION="~> 5.0" STRICT_VARIABLES="yes" CHECK=rubocop
@@ -72,5 +76,7 @@ matrix:
     script: bundle exec rake beaker
     services: docker
     sudo: required
+  allow_failures:
+    - env: PUPPET_VERSION="~> 6.0" STRICT_VARIABLES="yes" CHECK=test
 notifications:
   email: false
