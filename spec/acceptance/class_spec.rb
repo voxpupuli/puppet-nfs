@@ -13,7 +13,7 @@ describe 'nfs class' do
       server_servicehelpers = ''
       client_services = %w[rpcbind]
     elsif fact('lsbdistcodename') == 'bionic'
-      server_service = 'nfs-server'
+      server_service = 'nfs-kernel-server'
       server_servicehelpers = %w[nfs-idmapd]
       client_services = %w[rpcbind]
     else
@@ -22,7 +22,7 @@ describe 'nfs class' do
       client_services = %w[rpcbind]
     end
     server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-    client_packages = %w[nfs-common nfs4-acl-tools]
+    client_packages = %w[nfs-common nfs4-acl-tools rpcbind]
   end
 
   if fact('osfamily') == 'RedHat'
@@ -46,6 +46,56 @@ describe 'nfs class' do
 
       it 'applies without errors without params' do
         apply_manifest('include nfs', catch_failures: true)
+      end
+    end
+  end
+
+  describe 'include nfs with client params' do
+    context 'when client params' do
+      client_pp = <<-PUPPETCODE
+        class { '::nfs':
+          server_enabled => false,
+          client_enabled => true,
+          nfs_v4_client => true,
+          nfs_v4_idmap_domain => 'example.org',
+          manage_server_service => false,
+        }
+      PUPPETCODE
+
+      it 'works with no errors based on the example' do
+        expect(apply_manifest(client_pp).exit_code).not_to eq(1)
+      end
+
+      it 'runs a second time without changes' do
+        expect(apply_manifest(client_pp).exit_code).to eq(0)
+      end
+
+      client_packages.each do |package|
+        describe package(package) do
+          it { is_expected.to be_installed }
+        end
+      end
+
+      client_services.each do |service|
+        # puppet reports wrong status for nfs-common on wheezy
+        if service == 'nfs-common' && fact('lsbdistcodename') == 'wheezy'
+          puts 'puppet reports wrong status for nfs-common on wheezy'
+        else
+          describe service(service) do
+            it { is_expected.to be_running }
+          end
+        end
+      end
+
+      describe service(server_service) do
+        it { is_expected.to_not be_running }
+      end
+
+      server_packages_only = server_packages - client_packages
+      server_packages_only.each do |package|
+        describe package(package) do
+          it { is_expected.to_not be_installed }
+        end
       end
     end
   end
@@ -106,44 +156,6 @@ describe 'nfs class' do
             describe service(server_servicehelper) do
               it { is_expected.to be_running }
             end
-          end
-        end
-      end
-    end
-  end
-
-  describe 'include nfs with client params' do
-    context 'when client params' do
-      client_pp = <<-PUPPETCODE
-        class { '::nfs':
-          server_enabled => false,
-          client_enabled => true,
-          nfs_v4_client => true,
-          nfs_v4_idmap_domain => 'example.org',
-        }
-      PUPPETCODE
-
-      it 'works with no errors based on the example' do
-        expect(apply_manifest(client_pp).exit_code).not_to eq(1)
-      end
-
-      it 'runs a second time without changes' do
-        expect(apply_manifest(client_pp).exit_code).to eq(0)
-      end
-
-      client_packages.each do |package|
-        describe package(package) do
-          it { is_expected.to be_installed }
-        end
-      end
-
-      client_services.each do |service|
-        # puppet reports wrong status for nfs-common on wheezy
-        if service == 'nfs-common' && fact('lsbdistcodename') == 'wheezy'
-          puts 'puppet reports wrong status for nfs-common on wheezy'
-        else
-          describe service(service) do
-            it { is_expected.to be_running }
           end
         end
       end

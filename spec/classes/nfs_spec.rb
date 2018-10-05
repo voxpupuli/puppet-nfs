@@ -48,7 +48,7 @@ describe 'nfs' do
           )
         end
 
-        server_service = 'nfs-server'
+        server_service = 'nfs-kernel-server'
         server_servicehelpers = %w[nfs-idmapd]
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
@@ -120,7 +120,7 @@ describe 'nfs' do
           )
         end
 
-        server_service = 'nfs-server'
+        server_service = 'nfs-kernel-server'
         server_servicehelpers = %w[nfs-idmapd]
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]

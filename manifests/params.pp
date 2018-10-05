@@ -49,7 +49,7 @@ class nfs::params {
       $idmapd_file      = '/etc/idmapd.conf'
       $defaults_file    = '/etc/default/nfs-common'
       $server_packages  = [ 'nfs-common', 'nfs-kernel-server', 'nfs4-acl-tools', 'rpcbind' ]
-      $client_packages  = [ 'nfs-common', 'nfs4-acl-tools' ]
+      $client_packages  = [ 'nfs-common', 'nfs4-acl-tools', 'rpcbind' ]
     }
     'RedHat': {
       $exports_file     = '/etc/exports'
@@ -132,19 +132,19 @@ class nfs::params {
                                           },
                                         }
           $server_nfsv4_servicehelper = [ 'nfs-idmapd' ]
-          $server_service_name        = 'nfs-server'
+          $server_service_name        = 'nfs-kernel-server'
         }
         'bionic': {
           $client_services            = {'rpcbind' => {}}
-          $client_nfsv4_services      = {'rpcbind' => {}, 'nfs-server' => { require => Service['rpcbind'] }}
-          $server_nfsv4_servicehelper = [ 'nfs-idmapd' ]
-          $server_service_name        = 'nfs-server'
+          $client_nfsv4_services      = {'rpcbind' => {}}
+          $server_nfsv4_servicehelper = undef
+          $server_service_name        = 'nfs-kernel-server'
         }
         default: {
           $client_services            = {'rpcbind' => {}}
-          $client_nfsv4_services      = {'rpcbind' => {}, 'idmapd' => {}}
+          $client_nfsv4_services      = {'rpcbind' => {}}
           $server_nfsv4_servicehelper = [ 'idmapd' ]
-          $server_service_name        = 'nfs-server'
+          $server_service_name        = 'nfs-kernel-server'
         }
       }
     }
