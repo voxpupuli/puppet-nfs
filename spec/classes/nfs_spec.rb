@@ -255,7 +255,7 @@ describe 'nfs' do
 
           it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
           it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
-          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set Domain teststring}) }
+          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set General/Domain teststring}) }
           context os do
             if server_servicehelpers != ''
               server_servicehelpers.each do |server_servicehelper|
@@ -344,7 +344,7 @@ describe 'nfs' do
           it { is_expected.to contain_augeas('/etc/idmapd.conf') }
           it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
           it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
-          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set Domain teststring}) }
+          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set General/Domain teststring}) }
           context os do
             if server_servicehelpers != ''
               server_servicehelpers.each do |server_servicehelper|

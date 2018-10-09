@@ -46,13 +46,24 @@ class nfs::server::config {
       } else {
         $_localrealms = join($::nfs::nfs_v4_idmap_localrealms, ',')
       }
-      $_aug_localrealm = "set General/Local-Realms $_localrealms"
+      $_aug_localrealm = "set General/Local-Realms ${_localrealms}"
+    } else {
+      $_aug_localrealm = undef
     }
+
     if $::nfs::nfs_v4_idmap_cache != 0 {
       $_cache = "set General/Cache-Expiration ${::nfs::nfs_v4_idmap_cache}"
+    } else {
+      $_cache = undef
     }
-    $_user = "set Mapping/Nobody-User ${::nfs::nfs_v4_idmap_nobody_user}"
-    $_group = "set Mapping/Nobody-Group ${::nfs::nfs_v4_idmap_nobody_group}"
+
+    if $::nfs::manage_nfs_v4_idmap_nobody_mapping {
+      $_user = "set Mapping/Nobody-User ${::nfs::nfs_v4_idmap_nobody_user}"
+      $_group = "set Mapping/Nobody-Group ${::nfs::nfs_v4_idmap_nobody_group}"
+    } else {
+      $_user = undef
+      $_group = undef
+    }
     augeas { $::nfs::idmapd_file:
       context => "/files/${::nfs::idmapd_file}",
       lens    => 'Puppet.lns',

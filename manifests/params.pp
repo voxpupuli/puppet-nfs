@@ -121,6 +121,7 @@ class nfs::params {
         'trusty': {
           $client_services            = {'rpcbind' => {}}
           $client_nfsv4_services      = {'rpcbind' => {}, 'nfs-common' => { require => Service['rpcbind'] }}
+          $client_gssd_service_name   = undef
           $server_nfsv4_servicehelper = undef
           $server_service_name        = 'nfs-kernel-server'
           $client_gssdopt_name        = 'RPCGSSDOPTS'
@@ -128,6 +129,7 @@ class nfs::params {
         'jessie', 'wheezy': {
           $client_services            = {'rpcbind' => {}}
           $client_nfsv4_services      = {'rpcbind' => {}, 'nfs-common' => { require => Service['rpcbind'] }}
+          $client_gssd_service_name   = undef
           $server_nfsv4_servicehelper = [ 'nfs-common' ]
           $server_service_name        = 'nfs-kernel-server'
           $client_gssdopt_name        = 'RPCGSSDOPTS'
@@ -138,10 +140,10 @@ class nfs::params {
                                             enable => false,
                                           },
                                         }
-          $client_gss_service         = { 'rpc-gssd' => {
+          $client_gssd_service_name   = { 'rpc-gssd' => {
                                             ensure => 'running',
                                             enable => true,
-                                          }
+                                          },
                                         }
           $client_nfsv4_services      = { 'rpcbind' => {
                                             ensure => 'running',
@@ -154,10 +156,10 @@ class nfs::params {
         }
         'bionic': {
           $client_services            = {'rpcbind' => {}}
-          $client_gss_service         = { 'rpc-gssd' => {
+          $client_gssd_service_name   = { 'rpc-gssd' => {
                                             ensure => 'running',
                                             enable => true,
-                                          }
+                                          },
                                         }
           $client_nfsv4_services      = {'rpcbind' => {}}
           $server_nfsv4_servicehelper = undef
@@ -166,12 +168,12 @@ class nfs::params {
         }
         default: {
           $client_services            = {'rpcbind' => {}}
-          $client_gss_service         = { 'rpc-gssd' => {
+          $client_gssd_service_name   = { 'rpc-gssd' => {
                                             ensure => 'running',
                                             enable => true,
-                                          }
+                                          },
                                         }
-          $client_nfsv4_services      = {'rpcbind' => {}}         
+          $client_nfsv4_services      = {'rpcbind' => {}}
           $server_nfsv4_servicehelper = [ 'idmapd' ]
           $server_service_name        = 'nfs-kernel-server'
           $client_gssdopt_name        = 'GSSDARGS'
@@ -202,10 +204,10 @@ class nfs::params {
           else {
             $client_services            = {'rpcbind.service' => {}}
           }
-          $client_gss_service         = { 'rpc-gssd' => {
+          $client_gssd_service_name   = { 'rpc-gssd' => {
                                             ensure => 'running',
                                             enable => true,
-                                          }
+                                          },
                                         }
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
@@ -232,10 +234,10 @@ class nfs::params {
           $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
           $client_services_enable     = true
           $client_services            = {'rpcbind' => {}}
-          $client_gss_service         = { 'rpc-gssd' => {
+          $client_gssd_service_name   = { 'rpc-gssd' => {
                                             ensure => 'running',
                                             enable => true,
-                                          }
+                                          },
                                         }
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
@@ -248,11 +250,13 @@ class nfs::params {
     'Gentoo': {
       $nfs_v4_idmap_nobody_user   = 'nobody'
       $nfs_v4_idmap_nobody_group  = 'nogroup'
-      $client_gssdopt_name        = 'OPTS_RPC_GSSD'
+      $client_rpcbind_optname     = 'OPTS_RPC_NFSD'
+      $client_gssdopt_name        = 'RPCGSSDARGS'
       $client_idmapd_setting      = ['set NFS_NEEDED_SERVICES rpc.idmapd']
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
       $client_services_enable     = true
       $client_services            = {'rpcbind' => {} }
+      $client_gssd_service_name   = undef
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
       $client_nfsv4_services      = {'rpcbind' => {}, 'rpc.idmapd' => {}}
@@ -260,13 +264,15 @@ class nfs::params {
       $server_service_name        = 'nfs'
     }
     'Suse': {
-      $client_gssdopt_name        = 'GSSD_OPTIONS'
       $nfs_v4_idmap_nobody_user   = 'nobody'
       $nfs_v4_idmap_nobody_group  = 'nobody'
+      $client_rpcbind_optname     = 'RPCNFSDARGS'
+      $client_gssdopt_name        = 'GSSD_OPTIONS'
       $client_idmapd_setting      = ['']
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
       $client_services_enable     = true
       $client_services            = {'rpcbind' => { before => Service['nfs'] }, 'nfs' => {}}
+      $client_gssd_service_name   = undef
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
       $client_nfsv4_services      = {'rpcbind' => { before => Service['nfs'] }, 'nfs' => {}}
@@ -276,11 +282,13 @@ class nfs::params {
     'Archlinux': {
       $nfs_v4_idmap_nobody_user   = 'nobody'
       $nfs_v4_idmap_nobody_group  = 'nobody'
+      $client_rpcbind_optname     = 'RPCNFSDARGS'
       $client_gssdopt_name        = 'RPCGSSDARGS'
       $client_idmapd_setting      = ['']
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
       $client_services_enable     = true
       $client_services            = {'rpcbind' => {}}
+      $client_gssd_service_name   = undef
       $client_nfsv4_fstype        = 'nfs4'
       $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
       $client_nfsv4_services      = {'rpcbind' => {}}
@@ -289,11 +297,16 @@ class nfs::params {
     }
     default: {
       # need to explicitly set unknown params to undef to work with strict_variables=true
+      $nfs_v4_idmap_nobody_user   = undef
+      $nfs_v4_idmap_nobody_group  = undef
+      $client_rpcbind_optname     = undef
+      $client_gssdopt_name        = undef
       $client_idmapd_setting      = undef
       $client_nfs_options         = undef
       $client_nfsv4_fstype        = undef
       $client_nfsv4_options       = undef
       $client_nfsv4_services      = undef
+      $client_gssd_service_name   = undef
       $server_nfsv4_servicehelper = undef
       $client_services_enable     = undef
       $server_service_name        = undef

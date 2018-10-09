@@ -72,23 +72,23 @@
 
 define nfs::client::mount (
   $server,
-  $share            = undef,
-  $ensure           = 'mounted',
-  $mount            = $title,
-  $remounts         = false,
-  $atboot           = false,
-  $options_nfsv4    = $::nfs::client_nfsv4_options,
-  $options_nfs      = $::nfs::client_nfs_options,
-  $bindmount        = undef,
-  $nfstag           = undef,
-  $nfs_v4           = $::nfs::client::nfs_v4,
-  $owner            = undef,
-  $group            = undef,
-  $mode             = undef,
-  $mount_root       = undef,
-  $manage_packages  = $::nfs::manage_packages,
-  $client_packages  = $::nfs::effective_client_packages,
-){
+  $share           = undef,
+  $ensure          = 'mounted',
+  $mount           = $title,
+  $remounts        = false,
+  $atboot          = false,
+  $options_nfsv4   = $::nfs::client_nfsv4_options,
+  $options_nfs     = $::nfs::client_nfs_options,
+  $bindmount       = undef,
+  $nfstag          = undef,
+  $nfs_v4          = $::nfs::client::nfs_v4,
+  $owner           = undef,
+  $group           = undef,
+  $mode            = undef,
+  $mount_root      = undef,
+  $manage_packages = $::nfs::manage_packages,
+  $client_packages = $::nfs::effective_client_packages,
+) {
 
   if $manage_packages and $client_packages != undef {
     $mount_require = [ Nfs::Functions::Mkdir[$mount], Package[$client_packages] ]
@@ -107,11 +107,11 @@ define nfs::client::mount (
     if $share != undef {
       $sharename = "${root}/${share}"
     } else {
-      $sharename = regsubst($mount, '.*(/.*)', '\1' )
+      $sharename = regsubst($mount, '.*(/.*)', '\1')
     }
 
-    nfs::functions::mkdir { $mount: 
-      ensure   => $ensure,
+    nfs::functions::mkdir { $mount:
+      ensure => $ensure,
     }
 
     mount { "shared ${sharename} by ${server} on ${mount}":
@@ -140,8 +140,8 @@ define nfs::client::mount (
       $sharename = $mount
     }
 
-    nfs::functions::mkdir { $mount: 
-      ensure   => $ensure,
+    nfs::functions::mkdir { $mount:
+      ensure => $ensure,
     }
     mount { "shared ${sharename} by ${server} on ${mount}":
       ensure   => $ensure,
@@ -156,7 +156,7 @@ define nfs::client::mount (
   }
 
   if $owner != undef or $group != undef or $mode != undef {
-    file{$mount:
+    file { $mount:
       ensure  => directory,
       owner   => $owner,
       group   => $group,

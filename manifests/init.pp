@@ -171,6 +171,9 @@
 # [*nfs_v4_idmap_cache*]
 #   Integer. 'Cache-Expiration' option for idmapd. Defaults to <tt>0</tt> - unused.
 #
+# [*manage_nfs_v4_idmap_nobody_mapping*]
+#   Bollean. Enable setting Nobody mapping in idmapd. Defaults to <tt>false</tt>.
+#
 # [*nfs_v4_idmap_nobody_user*]
 #   String. 'Nobody-User' option for idmapd. Defaults to <tt>nobody</tt>.
 #
@@ -225,7 +228,7 @@ class nfs(
   Boolean $server_service_hasrestart                                                  = $::nfs::params::server_service_hasrestart,
   Boolean $server_service_hasstatus                                                   = $::nfs::params::server_service_hasstatus,
   Optional[String] $server_service_restart_cmd                                        = $::nfs::params::server_service_restart_cmd,
-  Optional[Array] $server_nfsv4_servicehelper                                        = $::nfs::params::server_nfsv4_servicehelper,
+  Optional[Array] $server_nfsv4_servicehelper                                         = $::nfs::params::server_nfsv4_servicehelper,
   $client_services                                                                    = $::nfs::params::client_services,
   $client_nfsv4_services                                                              = $::nfs::params::client_nfsv4_services,
   Boolean $client_services_enable                                                     = $::nfs::params::client_services_enable,
@@ -238,7 +241,8 @@ class nfs(
   String $client_nfsv4_options                                                        = $::nfs::params::client_nfsv4_options,
   Boolean $client_need_gssd                                                           = false,
   Boolean $client_gssd_service                                                        = false,
-  String $client_gssd_options                                                         = $::nfs::params::client_gssd_options, 
+  $client_gssd_service_name                                                           = $::nfs::params::client_gssd_service_name,
+  String $client_gssd_options                                                         = $::nfs::params::client_gssd_options,
   String $client_gssdopt_name                                                         = $::nfs::params::client_gssdopt_name,
   Boolean $client_d9_gssdopt_workaround                                               = false,
   String $nfs_v4_export_root                                                          = $::nfs::params::nfs_v4_export_root,
@@ -247,6 +251,7 @@ class nfs(
   String $nfs_v4_idmap_domain                                                         = $::nfs::params::nfs_v4_idmap_domain,
   Variant[String, Array] $nfs_v4_idmap_localrealms                                    = '',
   Integer $nfs_v4_idmap_cache                                                         = 0,
+  Boolean $manage_nfs_v4_idmap_nobody_mapping                                         = false,
   String $nfs_v4_idmap_nobody_user                                                    = $::nfs::params::nfs_v4_idmap_nobody_user,
   String $nfs_v4_idmap_nobody_group                                                   = $::nfs::params::nfs_v4_idmap_nobody_group,
   String $nfs_v4_root_export_ensure                                                   = 'mounted',
@@ -273,8 +278,8 @@ class nfs(
     $effective_client_packages = difference($client_packages, $server_packages)
 
   } else {
-    if $client_gssd_service and ($client_gss_service != undef) {
-      $effective_nfsv4_client_services = $client_nfsv4_services + $client_gss_service
+    if $client_gssd_service and $client_gssd_service_name != undef {
+      $effective_nfsv4_client_services = $client_nfsv4_services + $client_gssd_service_name
     } else {
       $effective_nfsv4_client_services = $client_nfsv4_services
     }
