@@ -40,11 +40,24 @@ class nfs::server::config {
       }
     }
 
+    if $::nfs::nfs_v4_idmap_localrealms != '' {
+      if $::nfs::nfs_v4_idmap_localrealms =~ String {
+        $_localrealms = $::nfs::nfs_v4_idmap_localrealms
+      } else {
+        $_localrealms = join($::nfs::nfs_v4_idmap_localrealms, ',')
+      }
+      $_aug_localrealm = "set General/Local-Realms $_localrealms"
+    }
+    if $::nfs::nfs_v4_idmap_cache != 0 {
+      $_cache = "set General/Cache-Expiration ${::nfs::nfs_v4_idmap_cache}"
+    }
+    $_user = "set Mapping/Nobody-User ${::nfs::nfs_v4_idmap_nobody_user}"
+    $_group = "set Mapping/Nobody-Group ${::nfs::nfs_v4_idmap_nobody_group}"
     augeas { $::nfs::idmapd_file:
-      context => "/files/${::nfs::idmapd_file}/General",
+      context => "/files/${::nfs::idmapd_file}",
       lens    => 'Puppet.lns',
       incl    => $::nfs::idmapd_file,
-      changes => ["set Domain ${::nfs::server::nfs_v4_idmap_domain}"],
+      changes => delete_undef_values(["set General/Domain ${::nfs::server::nfs_v4_idmap_domain}", $_aug_localrealm, $_cache, $_user, $_group]);
     }
 
     if $nfs::storeconfigs_enabled {

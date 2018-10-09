@@ -153,6 +153,39 @@
 #   to be set to the same value on a server and client node to do correct uid and gid
 #   mapping. Defaults to <tt>$::domain</tt>.
 #
+# [*client_need_gssd*]
+#   Boolean. If true, sets NEED_GSSD=yes in /etc/defauls/nfs-common, usable on Debian/Ubuntu
+#
+# [*client_gssd_service*]
+#   Boolean. If true enable rpc-gssd service.
+#
+# [*client_gssd_options*]
+#   String. Options for rpc-gssd service. Defaults to <tt>''</tt>
+#
+# [*client_d9_gssdopt_workaround*]
+#   Boolean. If enabled, workaround for passing gssd_options which is broken on Debian 9. Usable only on Debian 9
+#
+# [*nfs_v4_idmap_localrealms*]
+#   String or Array. 'Local-Realms' option for idmapd. Defaults to <tt>''</tt>
+#
+# [*nfs_v4_idmap_cache*]
+#   Integer. 'Cache-Expiration' option for idmapd. Defaults to <tt>0</tt> - unused.
+#
+# [*nfs_v4_idmap_nobody_user*]
+#   String. 'Nobody-User' option for idmapd. Defaults to <tt>nobody</tt>.
+#
+# [*nfs_v4_idmap_nobody_group*]
+#   String. 'Nobody-Group' option for idmapd. Defaults to <tt>nobody</tt> or <tt>nogroup</tt>. 
+#
+# [*client_rpcbind_config*]
+#   String. It defines the location of the file with the rpcbind config.
+#
+# [*client_rpcbind_optname*]
+#   String. It defines the name of env variable that holds the rpcbind config. E.g. OPTIONS for Debian
+#
+# [*client_rpcbind_opts*]
+#   String. Options for rpcbind service.
+#
 # === Examples
 #
 # * {Please take a look at} [https://github.com/derdanne/puppet-nfs#examples]
@@ -203,10 +236,19 @@ class nfs(
   String $client_nfs_options                                                          = $::nfs::params::client_nfs_options,
   String $client_nfsv4_fstype                                                         = $::nfs::params::client_nfsv4_fstype,
   String $client_nfsv4_options                                                        = $::nfs::params::client_nfsv4_options,
+  Boolean $client_need_gssd                                                           = false,
+  Boolean $client_gssd_service                                                        = false,
+  String $client_gssd_options                                                         = $::nfs::params::client_gssd_options, 
+  String $client_gssdopt_name                                                         = $::nfs::params::client_gssdopt_name,
+  Boolean $client_d9_gssdopt_workaround                                               = false,
   String $nfs_v4_export_root                                                          = $::nfs::params::nfs_v4_export_root,
   String $nfs_v4_export_root_clients                                                  = $::nfs::params::nfs_v4_export_root_clients,
   String $nfs_v4_mount_root                                                           = $::nfs::params::nfs_v4_mount_root,
   String $nfs_v4_idmap_domain                                                         = $::nfs::params::nfs_v4_idmap_domain,
+  Variant[String, Array] $nfs_v4_idmap_localrealms                                    = '',
+  Integer $nfs_v4_idmap_cache                                                         = 0,
+  String $nfs_v4_idmap_nobody_user                                                    = $::nfs::params::nfs_v4_idmap_nobody_user,
+  String $nfs_v4_idmap_nobody_group                                                   = $::nfs::params::nfs_v4_idmap_nobody_group,
   String $nfs_v4_root_export_ensure                                                   = 'mounted',
   Optional[String] $nfs_v4_root_export_mount                                          = undef,
   Boolean $nfs_v4_root_export_remounts                                                = false,
@@ -214,6 +256,9 @@ class nfs(
   String $nfs_v4_root_export_options                                                  = '_netdev',
   Optional[String] $nfs_v4_root_export_bindmount                                      = undef,
   Optional[String] $nfs_v4_root_export_tag                                            = undef,
+  Optional[Stdlib::Absolutepath] $client_rpcbind_config                               = $::nfs::params::client_rpcbind_config,
+  Optional[String] $client_rpcbind_optname                                            = $::nfs::params::client_rpcbind_optname,
+  Optional[String] $client_rpcbind_opts                                               = undef,
 ) inherits nfs::params {
 
   if $server_enabled {
@@ -228,8 +273,12 @@ class nfs(
     $effective_client_packages = difference($client_packages, $server_packages)
 
   } else {
+    if $client_gssd_service and ($client_gss_service != undef) {
+      $effective_nfsv4_client_services = $client_nfsv4_services + $client_gss_service
+    } else {
+      $effective_nfsv4_client_services = $client_nfsv4_services
+    }
 
-    $effective_nfsv4_client_services = $client_nfsv4_services
     $effective_client_services = $client_services
     $effective_client_packages = $client_packages
 
