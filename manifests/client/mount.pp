@@ -110,7 +110,9 @@ define nfs::client::mount (
       $sharename = regsubst($mount, '.*(/.*)', '\1' )
     }
 
-    nfs::functions::mkdir { $mount: }
+    nfs::functions::mkdir { $mount: 
+      ensure   => $ensure,
+    }
 
     mount { "shared ${sharename} by ${server} on ${mount}":
       ensure   => $ensure,
@@ -138,7 +140,9 @@ define nfs::client::mount (
       $sharename = $mount
     }
 
-    nfs::functions::mkdir { $mount: }
+    nfs::functions::mkdir { $mount: 
+      ensure   => $ensure,
+    }
     mount { "shared ${sharename} by ${server} on ${mount}":
       ensure   => $ensure,
       device   => "${server}:${sharename}",
