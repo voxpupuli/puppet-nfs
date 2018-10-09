@@ -1,12 +1,19 @@
-## 2018-09-12 - Release 2.0.10-dev
+## 2018-10-09 - Release 2.0.10
 ### Summary
+
+#### Bugfixes
+- fix service management for Ubuntu 18.04 bionic
+- moved back to use nfs-kernel-server on Debian for compatibility
+
+#### Features
+- add testing against Puppet 6
 
 ## 2018-07-10 - Release 2.0.9
 ### Summary
 
 #### Features
 - add support for Ubuntu 18.04 bionic
-- add testsuite fpr ubuntu 18.04 bionic
+- add testsuite for ubuntu 18.04 bionic
 
 #### Bugfixes
 - fix service helpers on Ubuntu 14.04 trusty
