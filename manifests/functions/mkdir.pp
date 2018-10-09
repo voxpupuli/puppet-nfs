@@ -21,10 +21,14 @@
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 #
 
-define nfs::functions::mkdir () {
-  exec { "mkdir_recurse_${name}":
-    path    => ['/bin', '/usr/bin'],
-    command => "mkdir -p ${name}",
-    unless  => "test -d ${name}",
+define nfs::functions::mkdir (
+    $ensure = 'present',
+) {
+  if $ensure != 'absent' {
+    exec { "mkdir_recurse_${name}":
+      path    => ['/bin', '/usr/bin'],
+      command => "mkdir -p ${name}",
+      unless  => "test -d ${name}",
+    }
   }
 }
