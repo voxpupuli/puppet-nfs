@@ -7,6 +7,8 @@ require 'voxpupuli/release/rake_tasks'
 require 'rubocop/rake_task'
 require 'puppet-strings/tasks'
 
+PuppetLint.configuration.send('disable_ensure_first_param')
+
 RuboCop::RakeTask.new
 
 PuppetLint::RakeTask.new :lint do |config|

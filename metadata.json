@@ -1,6 +1,6 @@
 {
   "name": "derdanne-nfs",
-  "version": "2.0.10",
+  "version": "2.0.11-dev",
   "source": "https://github.com/derdanne/puppet-nfs.git",
   "author": "derdanne",
   "license": "Apache-2.0",
@@ -8,8 +8,11 @@
   "project_page": "https://github.com/derdanne/puppet-nfs",
   "issues_url": "https://github.com/derdanne/puppet-nfs/issues",
   "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":">= 4.5.0 < 5.0.0"},
-    {"name":"puppetlabs/concat","version_requirement":">= 1.1.2 < 5.0.0"}
+    {"name":"puppetlabs/stdlib","version_requirement":">= 4.5.0 < 6.0.0"},
+    {"name":"puppetlabs/concat","version_requirement":">= 1.1.2 < 6.0.0"},
+    {"name":"puppetlabs/transition","version_requirement":">= 0.1.0 < 1.0.0"},
+    {"name":"herculesteam/augeasproviders_core","version_requirement":">= 2.1.5 < 3.0.0"},
+    {"name":"herculesteam/augeasproviders_shellvar","version_requirement":">= 1.2.0 < 2.0.0"}
   ],
   "tags": ["nfs", "nfs4", "exports", "mount", "mfc"],
   "operatingsystem_support": [
