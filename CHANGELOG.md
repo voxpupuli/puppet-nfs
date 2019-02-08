@@ -9,6 +9,7 @@
 #### Features
 - allow stdlib and concat in versions <6.0.0
 - add flag to disable bindmounts for nfs v4
+- add idmapd, rpcbind and gssd options
 
 ## 2018-10-09 - Release 2.0.10
 ### Summary
