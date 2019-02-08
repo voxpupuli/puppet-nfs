@@ -39,7 +39,7 @@ class nfs::client::config {
     }
 
     if ($::nfs::client_rpcbind_config != undef) and ($::nfs::client_rpcbind_optname != undef) and ($::nfs::client_rpcbind_opts != undef){
-      augeas { 'rpcbind':
+      augeas { $::nfs::client_rpcbind_config:
         incl    => $::nfs::client_rpcbind_config,
         lens    => 'Shellvars.lns',
         context => "/files/${::nfs::client_rpcbind_config}",

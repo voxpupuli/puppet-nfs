@@ -29,7 +29,7 @@ class nfs::client::service {
         $subscription = [
           Augeas[$::nfs::idmapd_file],
           Augeas[$::nfs::defaults_file],
-          Augeas['rpcbind']
+          Augeas[$::nfs::client_rpcbind_config]
         ]
       } else {
         $subscription = [

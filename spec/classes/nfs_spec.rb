@@ -36,6 +36,11 @@ describe 'nfs' do
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind]
         client_packages = %w[nfs-common nfs4-acl-tools]
+        client_gssdopt_name = 'RPCGSSDOPTS'
+        defaults_file = '/etc/default/nfs-common'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/default/rpcbind'
+        client_rpcbind_optname = 'OPTIONS'
 
       when 'Ubuntu_16.04'
 
@@ -54,6 +59,11 @@ describe 'nfs' do
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind]
         client_packages = %w[nfs-common nfs4-acl-tools]
+        client_gssdopt_name = 'GSSDARGS'
+        defaults_file = '/etc/default/nfs-common'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/default/rpcbind'
+        client_rpcbind_optname = 'OPTIONS'
 
       when 'Ubuntu_18.04'
 
@@ -72,6 +82,11 @@ describe 'nfs' do
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind nfs-server]
         client_packages = %w[nfs-common nfs4-acl-tools]
+        client_gssdopt_name = 'GSSDARGS'
+        defaults_file = '/etc/default/nfs-common'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/default/rpcbind'
+        client_rpcbind_optname = 'OPTIONS'
 
       when 'Debian_default'
 
@@ -90,6 +105,11 @@ describe 'nfs' do
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind nfs-common]
         client_packages = %w[nfs-common nfs4-acl-tools]
+        client_gssdopt_name = 'RPCGSSDOPTS'
+        defaults_file = '/etc/default/nfs-common'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/default/rpcbind'
+        client_rpcbind_optname = 'OPTIONS'
 
       when 'Debian_8'
 
@@ -108,6 +128,11 @@ describe 'nfs' do
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind nfs-common]
         client_packages = %w[nfs-common nfs4-acl-tools]
+        client_gssdopt_name = 'RPCGSSDOPTS'
+        defaults_file = '/etc/default/nfs-common'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/default/rpcbind'
+        client_rpcbind_optname = 'OPTIONS'
 
       when 'Debian_9'
 
@@ -126,6 +151,11 @@ describe 'nfs' do
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind]
         client_packages = %w[nfs-common nfs4-acl-tools]
+        client_gssdopt_name = 'GSSDARGS'
+        defaults_file = '/etc/default/nfs-common'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/default/rpcbind'
+        client_rpcbind_optname = 'OPTIONS'
 
       when 'RedHat_default'
 
@@ -143,6 +173,11 @@ describe 'nfs' do
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind rpcidmapd]
         client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
+        client_gssdopt_name = 'RPCGSSDARGS'
+        defaults_file = '/etc/sysconfig/nfs'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/sysconfig/rpcbind'
+        client_rpcbind_optname = 'RPCBIND_ARGS'
 
       when 'RedHat_7'
 
@@ -161,6 +196,11 @@ describe 'nfs' do
         client_services = %w[rpcbind.service rpcbind.socket]
         client_nfs_vfour_services = %w[rpcbind.service rpcbind.socket]
         client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
+        client_gssdopt_name = 'RPCGSSDARGS'
+        defaults_file = '/etc/sysconfig/nfs'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/sysconfig/rpcbind'
+        client_rpcbind_optname = 'RPCBIND_ARGS'
 
       when 'RedHat_75'
 
@@ -179,6 +219,11 @@ describe 'nfs' do
         client_services = %w[rpcbind.service]
         client_nfs_vfour_services = %w[rpcbind]
         client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
+        client_gssdopt_name = 'RPCGSSDARGS'
+        defaults_file = '/etc/sysconfig/nfs'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/sysconfig/rpcbind'
+        client_rpcbind_optname = 'RPCBIND_ARGS'
 
       when 'Gentoo'
 
@@ -196,7 +241,10 @@ describe 'nfs' do
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind rpc.idmapd]
         client_packages = %w[net-nds/rpcbind net-fs/nfs-utils net-libs/libnfsidmap]
-
+        client_gssdopt_name = 'RPCGSSDARGS'
+        defaults_file = '/etc/conf.d/nfs'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_optname  = 'OPTS_RPC_NFSD'
       when 'SLES'
 
         let(:facts) do
@@ -213,6 +261,10 @@ describe 'nfs' do
         client_services = %w[rpcbind nfs]
         client_nfs_vfour_services = %w[rpcbind nfs]
         client_packages = %w[nfsidmap nfs-client rpcbind]
+        client_gssdopt_name = 'GSSD_OPTIONS'
+        defaults_file = ''
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_optname = 'RPCNFSDARGS'
 
       when 'Archlinux'
 
@@ -230,6 +282,10 @@ describe 'nfs' do
         client_services = %w[rpcbind]
         client_nfs_vfour_services = %w[rpcbind]
         client_packages = %w[nfsidmap rpcbind]
+        client_gssdopt_name = 'RPCGSSDARGS'
+        defaults_file = ''
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_optname  = 'RPCNFSDARGS'
 
       end
       ### ^^ Switch Case to set OS specific values ^^ ###
@@ -446,8 +502,79 @@ describe 'nfs' do
           it { is_expected.to contain_augeas('/etc/idmapd.conf') }
           it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
           it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
-          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set Domain teststring}) }
+          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set General/Domain teststring}) }
         end
+      end
+
+
+      context 'when :nfs_v4_client => true, :client_enabled => true, nfs_v4 => true' do
+        let(:params) { { nfs_v4: true, nfs_v4_client: true, client_enabled: true } }
+
+        if defaults_file != ''
+          it { is_expected.not_to contain_augeas(defaults_file).with_changes(%r{.*set #{client_gssdopt_name}.*}) }
+        end
+
+        if idmapd_file != ''
+          it { is_expected.to contain_augeas(idmapd_file) }
+          it { is_expected.not_to contain_augeas(idmapd_file).with_changes(%r{.*set General/Local-Realms.*}) }
+          it { is_expected.not_to contain_augeas(idmapd_file).with_changes(%r{.*set General/Cache-Expiration.*}) }
+          it { is_expected.not_to contain_augeas(idmapd_file).with_changes(%r{.*set Mapping/Nobody-User.*}) }
+          it { is_expected.not_to contain_augeas(idmapd_file).with_changes(%r{.*set Mapping/Nobody-Group.*}) }
+        end
+
+        if client_rpcbind_config != ''
+          it { is_expected.not_to contain_augeas(client_rpcbind_config) }
+        end
+
+      end
+
+
+      context 'when :nfs_v4_client => true, :client_enabled => true, nfs_v4 => true, client_gssd_options => gssd_option_1' do
+        let(:params) { { nfs_v4: true, nfs_v4_client: true, client_enabled: true, client_gssd_options: 'gssd_option_1' } }
+
+        if defaults_file != ''
+          it { is_expected.to contain_augeas(defaults_file) }
+          it { is_expected.to contain_augeas(defaults_file).with_changes(%r{.*set #{client_gssdopt_name}.*gssd_option_1.*}) }
+        end
+      end
+
+      context 'when :nfs_v4_client => true, :client_enabled => true, nfs_v4 => true, nfs_v4_idmap_localrealms => testrealm' do
+        let(:params) { { nfs_v4: true, nfs_v4_client: true, client_enabled: true, nfs_v4_idmap_localrealms: 'testrealm' } }
+
+        if idmapd_file != ''
+          it { is_expected.to contain_augeas(idmapd_file) }
+          it { is_expected.to contain_augeas(idmapd_file).with_changes(%r{.*set General/Local-Realms testrealm}) }
+        end
+      end
+
+      context 'when :nfs_v4_client => true, :client_enabled => true, nfs_v4 => true, nfs_v4_idmap_cache => 30' do
+        let(:params) { { nfs_v4: true, nfs_v4_client: true, client_enabled: true, nfs_v4_idmap_cache: 30 } }
+
+        if idmapd_file != ''
+          it { is_expected.to contain_augeas(idmapd_file) }
+          it { is_expected.to contain_augeas(idmapd_file).with_changes(%r{.*set General/Cache-Expiration 30}) }
+        end
+      end
+
+      context 'when :nfs_v4_client => true, :client_enabled => true, nfs_v4 => true, manage_nfs_v4_idmap_nobody_mapping => true, nfs_v4_idmap_nobody_user => user, nfs_v4_idmap_nobody_group => group' do
+        let(:params) { { nfs_v4: true, nfs_v4_client: true, client_enabled: true, manage_nfs_v4_idmap_nobody_mapping: true, nfs_v4_idmap_nobody_user: 'user', nfs_v4_idmap_nobody_group: 'group' } }
+
+        if idmapd_file != ''
+          it { is_expected.to contain_augeas(idmapd_file) }
+          it { is_expected.to contain_augeas(idmapd_file).with_changes(%r{.*set Mapping/Nobody-User user}) }
+          it { is_expected.to contain_augeas(idmapd_file).with_changes(%r{.*set Mapping/Nobody-Group group}) }
+        end
+      end
+
+      if !client_rpcbind_config.is_a? String
+        client_rpcbind_config = '/etc/default/rpcbind'
+      end
+
+      context 'when :nfs_v4_client => true, :client_enabled => true, nfs_v4 => true, client_rpcbind_config => #{client_rpcbind_config}' do
+        let(:params) { { nfs_v4: true, nfs_v4_client: true, client_enabled: true, client_rpcbind_config: client_rpcbind_config, client_rpcbind_optname: client_rpcbind_optname, client_rpcbind_opts: 'rpcbind_option' } }
+
+        it { is_expected.to contain_augeas(client_rpcbind_config) }
+        it { is_expected.to contain_augeas(client_rpcbind_config).with_changes(%r{.*set #{client_rpcbind_optname}.*rpcbind_option}) }
       end
 
     end

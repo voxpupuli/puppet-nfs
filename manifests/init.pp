@@ -176,7 +176,7 @@
 #   Integer. 'Cache-Expiration' option for idmapd. Defaults to <tt>0</tt> - unused.
 #
 # [*manage_nfs_v4_idmap_nobody_mapping*]
-#   Bollean. Enable setting Nobody mapping in idmapd. Defaults to <tt>false</tt>.
+#   Boolean. Enable setting Nobody mapping in idmapd. Defaults to <tt>false</tt>.
 #
 # [*nfs_v4_idmap_nobody_user*]
 #   String. 'Nobody-User' option for idmapd. Defaults to <tt>nobody</tt>.
