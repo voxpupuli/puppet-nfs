@@ -4,5 +4,6 @@ fixtures:
     concat: "git://github.com/puppetlabs/puppetlabs-concat.git"
     augeasproviders_core: "git://github.com/hercules-team/augeasproviders_core.git"
     augeasproviders_shellvar: "git://github.com/hercules-team/augeasproviders_shellvar.git"
+    transition: "git://github.com/puppetlabs/puppetlabs-transition.git"
   symlinks:
     "nfs": "#{source_dir}"
