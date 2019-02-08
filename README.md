@@ -582,6 +582,11 @@ This will mount /data on client in /share/data.
   to be set to the same value on a server and client node to do correct uid and gid
   mapping. Defaults to <tt>$::domain</tt>.
 
+##### `nfsv4_bindmount_enable`
+  Boolean. It defines if the module should create a bindmount for the export.
+  Defaults to <tt>true</tt>.
+
+
 #### Define: `::nfs::client::mount`
 
 **The following parameters are available in the `::nfs::client::mount` define:**
