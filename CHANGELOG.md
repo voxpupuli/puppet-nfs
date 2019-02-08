@@ -1,3 +1,15 @@
+## 2019-02-08 - Release 2.1.0
+### Summary
+
+#### Bugfixes
+- do not change SELinux context in bindmounts
+- change syntax in create_exports for compatibilty
+- fix stuck on restart rpcbind-socket for RHEL
+
+#### Features
+- allow stdlib and concat in versions <6.0.0
+- add flag to disable bindmounts for nfs v4
+
 ## 2018-10-09 - Release 2.0.10
 ### Summary
 

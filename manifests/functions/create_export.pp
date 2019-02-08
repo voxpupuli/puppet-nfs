@@ -49,12 +49,13 @@ define nfs::functions::create_export (
       content => $line,
     }
 
-    if ! defined(File[$name]) {
+    unless File[$name] {
       file { $name:
-        ensure => directory,
-        owner  => $owner,
-        group  => $group,
-        mode   => $mode,
+        ensure                  => directory,
+        owner                   => $owner,
+        group                   => $group,
+        mode                    => $mode,
+        selinux_ignore_defaults => true,
       }
     }
   }

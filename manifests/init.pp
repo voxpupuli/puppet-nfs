@@ -153,6 +153,10 @@
 #   to be set to the same value on a server and client node to do correct uid and gid
 #   mapping. Defaults to <tt>$::domain</tt>.
 #
+# [*nfsv4_bindmount_enable*]
+#   Boolean. It defines if the module should create a bindmount for the export.
+#   Defaults to <tt>true</tt>.
+#
 # [*client_need_gssd*]
 #   Boolean. If true, sets NEED_GSSD=yes in /etc/defauls/nfs-common, usable on Debian/Ubuntu
 #
@@ -188,6 +192,7 @@
 #
 # [*client_rpcbind_opts*]
 #   String. Options for rpcbind service.
+#
 #
 # === Examples
 #
@@ -261,6 +266,7 @@ class nfs(
   String $nfs_v4_root_export_options                                                  = '_netdev',
   Optional[String] $nfs_v4_root_export_bindmount                                      = undef,
   Optional[String] $nfs_v4_root_export_tag                                            = undef,
+  Boolean $nfsv4_bindmount_enable                                                     = true,
   Optional[Stdlib::Absolutepath] $client_rpcbind_config                               = $::nfs::params::client_rpcbind_config,
   Optional[String] $client_rpcbind_optname                                            = $::nfs::params::client_rpcbind_optname,
   Optional[String] $client_rpcbind_opts                                               = undef,
