@@ -33,6 +33,11 @@ I'll recommend using puppet >= 4.6.1, puppet versions up until 4.6.0 had various
 If you want to contribute, please do a fork on github, create a branch "feature name" with your
 features and do a pull request.
 
+Warning: I've introduced new dependencies with version 2.1.0 which were needed to fix buggy rpcbind-socket restarting with systemd:
+- puppetlabs/transition
+- herculesteam/augeasproviders_core
+- herculesteam/augeasproviders_shellvar
+
 ## Setup
 
 ### What derdanne-nfs affects
