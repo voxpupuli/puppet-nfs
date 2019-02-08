@@ -23,7 +23,20 @@ class nfs::client::service {
     if $::nfs::server_enabled {
       $subscription = [ Concat[$::nfs::exports_file], Augeas[$::nfs::idmapd_file] ]
     } else {
-      $subscription = [ Augeas[$::nfs::idmapd_file] ]
+      if ($::nfs::client_rpcbind_config != undef)
+        and ($::nfs::client_rpcbind_optname != undef)
+        and ($::nfs::client_rpcbind_opts != undef) {
+        $subscription = [
+          Augeas[$::nfs::idmapd_file],
+          Augeas[$::nfs::defaults_file],
+          Augeas[$::nfs::client_rpcbind_config]
+        ]
+      } else {
+        $subscription = [
+          Augeas[$::nfs::idmapd_file],
+          Augeas[$::nfs::defaults_file]
+        ]
+      }
     }
 
   } else {

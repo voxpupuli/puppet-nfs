@@ -586,6 +586,42 @@ This will mount /data on client in /share/data.
   Boolean. It defines if the module should create a bindmount for the export.
   Defaults to <tt>true</tt>.
 
+##### `client_need_gssd`
+  Boolean. If true, sets NEED_GSSD=yes in /etc/defauls/nfs-common, usable on Debian/Ubuntu
+
+##### `client_gssd_service`
+  Boolean. If true enable rpc-gssd service.
+
+##### `client_gssd_options`
+  String. Options for rpc-gssd service. Defaults to <tt>''</tt>
+
+##### `client_d9_gssdopt_workaround`
+  Boolean. If enabled, workaround for passing gssd_options which is broken on Debian 9. Usable only on Debian 9
+
+##### `nfs_v4_idmap_localrealms`
+  String or Array. 'Local-Realms' option for idmapd. Defaults to <tt>''</tt>
+
+##### `nfs_v4_idmap_cache`
+  Integer. 'Cache-Expiration' option for idmapd. Defaults to <tt>0</tt> - unused.
+
+##### `manage_nfs_v4_idmap_nobody_mapping`
+  Boolean. Enable setting Nobody mapping in idmapd. Defaults to <tt>false</tt>.
+
+##### `nfs_v4_idmap_nobody_user`
+  String. 'Nobody-User' option for idmapd. Defaults to <tt>nobody</tt>.
+
+##### `nfs_v4_idmap_nobody_group`
+  String. 'Nobody-Group' option for idmapd. Defaults to <tt>nobody</tt> or <tt>nogroup</tt>. 
+
+##### `client_rpcbind_config`
+  String. It defines the location of the file with the rpcbind config.
+
+##### `client_rpcbind_optname`
+  String. It defines the name of env variable that holds the rpcbind config. E.g. OPTIONS for Debian
+
+##### `client_rpcbind_opts`
+  String. Options for rpcbind service.
+
 
 #### Define: `::nfs::client::mount`
 
