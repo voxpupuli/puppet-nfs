@@ -431,6 +431,25 @@ describe 'nfs' do
           it { is_expected.to contain_augeas('/etc/idmapd.conf') }
         end
       end
+
+      context 'when server_enabled => true, nfs_v4 => true, nfsv4_bindmount_enable => false' do
+        let(:params) { { nfs_v4: true, nfsv4_bindmount_enable: false, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
+
+        it { is_expected.to contain_class('nfs::server::config') }
+        it { is_expected.to contain_class('nfs::server::package') }
+        it { is_expected.to contain_class('nfs::server::service') }
+        it { is_expected.to contain_concat__fragment('nfs_exports_header').with('target' => '/etc/exports') }
+
+        context 'when nfs_v4 => true, nfs_v4_client => true' do
+          let(:params) { { nfs_v4: true, nfsv4_bindmount_enable: false, nfs_v4_client: true, server_enabled: true, client_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
+
+          it { is_expected.to contain_augeas('/etc/idmapd.conf') }
+          it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
+          it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
+          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set Domain teststring}) }
+        end
+      end
+
     end
   end
 end

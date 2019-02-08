@@ -31,7 +31,7 @@ class nfs::client::service {
     $create_services = $::nfs::effective_client_services
 
     if $::nfs::server_enabled {
-      $subscription  = [ Concat[$::nfs::exports_file] ]
+      $subscription = [ Concat[$::nfs::exports_file] ]
     } else {
       $subscription = undef
     }

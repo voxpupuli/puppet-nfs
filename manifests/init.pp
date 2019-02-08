@@ -153,6 +153,10 @@
 #   to be set to the same value on a server and client node to do correct uid and gid
 #   mapping. Defaults to <tt>$::domain</tt>.
 #
+# [*nfsv4_bindmount_enable*]
+#   Boolean. It defines if the module should create a bindmount for the export.
+#   Defaults to <tt>true</tt>.
+#
 # === Examples
 #
 # * {Please take a look at} [https://github.com/derdanne/puppet-nfs#examples]
@@ -214,6 +218,7 @@ class nfs(
   String $nfs_v4_root_export_options                                                  = '_netdev',
   Optional[String] $nfs_v4_root_export_bindmount                                      = undef,
   Optional[String] $nfs_v4_root_export_tag                                            = undef,
+  Boolean $nfsv4_bindmount_enable                                                     = true,
 ) inherits nfs::params {
 
   if $server_enabled {
