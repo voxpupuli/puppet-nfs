@@ -1,3 +1,9 @@
+## 2019-02-12 - Release 2.1.1
+### Summary
+
+#### Bugfixes
+- Dependencies requirements were blocking update/install from the puppet forge
+
 ## 2019-02-08 - Release 2.1.0
 ### Summary
 
