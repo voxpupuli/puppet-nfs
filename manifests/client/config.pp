@@ -86,11 +86,14 @@ class nfs::client::config {
           $_group = undef
         }
 
+        $changes = ["set General/Domain ${::nfs::nfs_v4_idmap_domain}", $_aug_localrealm, $_cache, $_user, $_group]
+        $filtered_changes = filter($changes) |$val| { $val =~ NotUndef }
+
         augeas { $::nfs::idmapd_file:
           context => "/files/${::nfs::idmapd_file}",
           lens    => 'Puppet.lns',
           incl    => $::nfs::idmapd_file,
-          changes => delete_undef_values(["set General/Domain ${::nfs::nfs_v4_idmap_domain}", $_aug_localrealm, $_cache, $_user, $_group]);
+          changes => $filtered_changes,
         }
       }
     }
