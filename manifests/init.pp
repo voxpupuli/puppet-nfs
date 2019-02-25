@@ -99,6 +99,10 @@
 #   Array. It defines the service helper like idmapd for servers configured with
 #   nfs version 4.
 #
+# [*server_nfs4_disable_idmapping*]
+#   Boolean. It defines the Augeas parameter added in modprobe.d/nfsd.conf when acting as a nfs
+#   version 4 server.
+#
 # [*client_services*]
 #   Nested Hash. It defines the servicenames need to be started when acting as a nfs client
 #
@@ -117,6 +121,10 @@
 #
 # [*client_idmapd_setting*]
 #   Array. It defines the Augeas parameter added in [*defaults_file*] when acting as a nfs
+#   version 4 client.
+#
+# [*client_nfs4_disable_idmapping*]
+#   Boolean. It defines the Augeas parameter added in modprobe.d/nfs.conf when acting as a nfs
 #   version 4 client.
 #
 # [*client_nfs_fstype*]
@@ -234,12 +242,14 @@ class nfs(
   Boolean $server_service_hasstatus                                                   = $::nfs::params::server_service_hasstatus,
   Optional[String] $server_service_restart_cmd                                        = $::nfs::params::server_service_restart_cmd,
   Optional[Array] $server_nfsv4_servicehelper                                         = $::nfs::params::server_nfsv4_servicehelper,
+  Optional[Boolean] $server_nfs4_disable_idmapping                                    = Undef,
   $client_services                                                                    = $::nfs::params::client_services,
   $client_nfsv4_services                                                              = $::nfs::params::client_nfsv4_services,
   Boolean $client_services_enable                                                     = $::nfs::params::client_services_enable,
   Boolean $client_services_hasrestart                                                 = $::nfs::params::client_services_hasrestart,
   Boolean $client_services_hasstatus                                                  = $::nfs::params::client_services_hasstatus,
   Array[String] $client_idmapd_setting                                                = $::nfs::params::client_idmapd_setting,
+  Optional[Boolean] $client_nfs4_disable_idmapping                                    = Undef,
   String $client_nfs_fstype                                                           = $::nfs::params::client_nfs_fstype,
   String $client_nfs_options                                                          = $::nfs::params::client_nfs_options,
   String $client_nfsv4_fstype                                                         = $::nfs::params::client_nfsv4_fstype,

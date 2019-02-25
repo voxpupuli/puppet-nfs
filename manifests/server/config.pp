@@ -71,6 +71,23 @@ class nfs::server::config {
       changes => delete_undef_values(["set General/Domain ${::nfs::server::nfs_v4_idmap_domain}", $_aug_localrealm, $_cache, $_user, $_group]);
     }
 
+    file {'/etc/modprobe.d/nfsd.conf':
+      ensure => 'file',
+    }
+    if $::nfs::server_nfs4_disable_idmapping{
+      $_nfs4_disable_idmapping = [
+        "set options[. = 'nfsd'] 'nfsd'",
+        "set options[. = 'nfsd']/nfs4_disable_idmapping ${server_nfs4_disable_idmapping}",
+      ]
+    }
+
+    augeas { '/etc/modprobe.d/nfsd.conf':
+      context => '/files/etc/modprobe.d/nfsd.conf',
+      lens    => 'Modprobe.lns',
+      changes => delete_undef_values([$_nfs4_disable_idmapping]);
+      require => File['/etc/modprobe.d/nfsd.conf'],
+    }
+
     if $nfs::storeconfigs_enabled {
       @@nfs::client::mount { $::nfs::nfs_v4_mount_root:
         ensure        => $::nfs::server::nfs_v4_root_export_ensure,

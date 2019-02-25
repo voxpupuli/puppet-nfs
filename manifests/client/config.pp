@@ -86,6 +86,24 @@ class nfs::client::config {
           $_group = undef
         }
 
+        file {'/etc/modprobe.d/nfs.conf':
+          ensure => 'file',
+        }
+
+        if $::nfs::client_nfs4_disable_idmapping{
+          $_nfs4_disable_idmapping = [
+            "set options[. = 'nfs'] 'nfs'",
+            "set options[. = 'nfs']/nfs4_disable_idmapping ${nfs4_disable_idmapping}",
+          ]
+        }
+        
+        augeas { '/etc/modprobe.d/nfs.conf':
+          context => '/files/etc/modprobe.d/nfs.conf',
+          lens    => 'Modprobe.lns',
+          changes => delete_undef_values([$_nfs4_disable_idmapping]);
+          require => File['/etc/modprobe.d/nfs.conf'],
+        } 
+
         augeas { $::nfs::idmapd_file:
           context => "/files/${::nfs::idmapd_file}",
           lens    => 'Puppet.lns',

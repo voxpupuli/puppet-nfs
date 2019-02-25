@@ -98,13 +98,13 @@ class nfs::params {
 
   # service parameters
   # params that are the same on all (known) OSes.
-  $client_nfs_fstype          = 'nfs'
-  $client_services_hasrestart = true
-  $client_services_hasstatus  = true
-  $client_gssd_options        = ''
-  $server_service_hasrestart  = true
-  $server_service_hasstatus   = true
-  $server_service_restart_cmd = undef
+  $client_nfs_fstype             = 'nfs'
+  $client_services_hasrestart    = true
+  $client_services_hasstatus     = true
+  $client_gssd_options           = ''
+  $server_service_hasrestart     = true
+  $server_service_hasstatus      = true
+  $server_service_restart_cmd    = undef
   #params with OS-specific values
   case $::osfamily {
     'Debian': {
