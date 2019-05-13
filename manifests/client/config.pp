@@ -55,7 +55,7 @@ class nfs::client::config {
         require => Package['nfs-common'],
       } ~> exec { 'systemctl daemon-reload':
         refreshonly => true,
-        path        => '/bin'
+        path        => '/bin',
       } ~> Service['rpc-gssd']
     }
 
