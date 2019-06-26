@@ -319,15 +319,15 @@ This will mount /data on client in /share/data.
 
     Nfs::Client::Mount <<| nfstag == 'kick-ass' |>> {
       # Directory where we want export mounted on client
-      mount     => undef,
-      remounts  => false,
-      atboot    => false,
+      mount       => undef,
+      remounts    => false,
+      atboot      => false,
       #  Don't remove that option, but feel free to add more.
-      options   => '_netdev',
+      options_nfs => '_netdev',
       # If set will mount share inside /srv (or overridden mount_root)
       # and then bindmount to another directory elsewhere in the fs -
       # for fanatics.
-      bindmount => undef,
+      bindmount   => undef,
     }
   }
 ```
