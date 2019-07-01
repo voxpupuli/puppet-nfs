@@ -1,0 +1,25 @@
+---
+# This file is managed via modulesync
+# https://github.com/voxpupuli/modulesync
+# https://github.com/voxpupuli/modulesync_config
+HOSTS:
+  debian-9-x64:
+    platform: debian-9-amd64
+    hypervisor: docker
+    image: debian:9
+    docker_preserve_image: true
+    docker_cmd: ["/sbin/init"]
+    docker_image_commands:
+      - 'apt-get update && apt-get install -y cron locales-all net-tools wget init'
+      - 'rm -f /usr/sbin/policy-rc.d'
+      - 'systemctl mask getty@tty1.service getty-static.service'
+      - 'echo "MaxAuthTries 100" >> /etc/ssh/sshd_config'
+      - 'sed "s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g" -i /etc/pam.d/sshd'
+      - 'echo "export VISIBLE=now" >> /etc/profile'
+
+CONFIG:
+  trace_limit: 200
+  masterless: true
+  log_level: verbose
+...
+# vim: syntax=yaml
