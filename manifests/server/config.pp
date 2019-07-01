@@ -28,10 +28,12 @@ class nfs::server::config {
 
   if $::nfs::nfs_v4 {
 
-    concat::fragment { 'nfs_exports_root':
-      target  => $::nfs::exports_file,
-      content => "${::nfs::server::nfs_v4_export_root} ${::nfs::server::nfs_v4_export_root_clients}\n",
-      order   => 2,
+    if $::nfs::nfsv4_bindmount_enable {
+      concat::fragment { 'nfs_exports_root':
+        target  => $::nfs::exports_file,
+        content => "${::nfs::server::nfs_v4_export_root} ${::nfs::server::nfs_v4_export_root_clients}\n",
+        order   => 2,
+      }
     }
 
     if ! defined(File[$::nfs::server::nfs_v4_export_root]) {
