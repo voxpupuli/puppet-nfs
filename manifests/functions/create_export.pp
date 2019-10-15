@@ -49,7 +49,7 @@ define nfs::functions::create_export (
       content => $line,
     }
 
-    unless File[$name] {
+    unless defined(File[$name]) {
       file { $name:
         ensure                  => directory,
         owner                   => $owner,
