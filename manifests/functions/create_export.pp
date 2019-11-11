@@ -6,7 +6,7 @@
 # === Parameters
 #
 # [*clients*]
-#   String. Sets the clients allowed to mount the export with options.
+#   String or Array. Sets the clients allowed to mount the export with options.
 #
 # [*ensure*]
 #   String. Sets if enabled or not.
@@ -42,7 +42,11 @@ define nfs::functions::create_export (
   $mode   = undef,
 ) {
   if $ensure != 'absent' {
-    $line = "${name} ${clients}\n"
+    if is_array($clients){
+      $line = "${name} ${join($clients,' ')}\n"
+    } else {
+      $line = "${name} ${clients}\n"
+    }
 
     concat::fragment { $name:
       target  => $::nfs::exports_file,
