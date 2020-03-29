@@ -296,10 +296,10 @@ class nfs(
   }
 
   if $server_enabled {
-    class { '::nfs::server': }
+    class { 'nfs::server': }
   }
 
   if $client_enabled {
-    class { '::nfs::client': }
+    class { 'nfs::client': }
   }
 }
