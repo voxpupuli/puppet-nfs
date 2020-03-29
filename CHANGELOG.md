@@ -1,3 +1,31 @@
+## 2020-03-29 - Release 2.1.3
+### Summary
+
+#### Features
+- add beaker set for debian 9
+- update beaker
+- do not allow puppet 6 rspec tests to fail
+- remove deprecated ubuntu-14.04 from acceptance test suite
+- add Debian 10 (Buster) support
+- dependencies: bump hercules-team/augeasproviders_shellvar
+- update dependencies for stdlib and concat
+- make nfs::server::export parameter "clients" work with an array or a string
+- add RHEL8 configuration, based off the previous "7.5 and above" config
+- add RedHat 8 rspec tests
+
+#### Bugfixes
+- use native filter function instead of delete_undef_values
+- fix puppet 6 spec tests
+- fix linter tests
+- fix rubocop cop names
+- fix beaker rspec for debian-7 and debian-8
+- fix options name typo in README
+- ignore export root when bindmount is disabled
+- use BEAKER_PUPPET_COLLECTION in all beaker tests
+- do not include class by absolute name
+- revert use of File without defined() 
+- update rvm to 2.4.1 for PUPPET_VERSION 4.10.0
+
 ## 2019-02-12 - Release 2.1.2
 ### Summary
 
