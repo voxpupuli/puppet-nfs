@@ -6,7 +6,7 @@
 # === Parameters
 #
 # [*clients*]
-#   String. Sets the allowed clients and options for the export in the exports file.
+#   String or Array. Sets the allowed clients and options for the export in the exports file.
 #   Defaults to <tt>localhost(ro)</tt>
 #
 # [*bind*]
