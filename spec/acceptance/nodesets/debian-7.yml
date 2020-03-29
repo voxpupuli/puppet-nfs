@@ -6,15 +6,16 @@ HOSTS:
   debian-7-x64:
     platform: debian-7-amd64
     hypervisor: docker
-    image: debian:7
+    #image: debian:7
+    dockerfile: spec/acceptance/nodesets/debian-7.Dockerfile
     docker_preserve_image: true
+    tag: debian:7-a
     docker_cmd: '["/sbin/init"]'
     docker_image_commands:
-      - 'echo deb http://ftp.debian.org/debian wheezy-backports main >> /etc/apt/sources.list'
-      - 'apt-get update && apt-get install -y cron locales-all net-tools wget'
       # for local development
       - 'echo "MaxAuthTries 100" >> /etc/ssh/sshd_config'
 CONFIG:
   trace_limit: 200
   masterless: true
+  type: foss
 ...
