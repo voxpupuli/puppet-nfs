@@ -33,13 +33,13 @@ class nfs::server (
   anchor {'nfs::server::end': }
 
   # package(s)
-  class { '::nfs::server::package': }
+  class { 'nfs::server::package': }
 
   # configuration
-  class { '::nfs::server::config': }
+  class { 'nfs::server::config': }
 
   # service(s)
-  class { '::nfs::server::service': }
+  class { 'nfs::server::service': }
 
   if $ensure == 'present' {
     # we need the software before configuring it

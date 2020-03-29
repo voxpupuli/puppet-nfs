@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe 'nfs' do
-  supported_os = %w[Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 RedHat_75 Gentoo SLES Archlinux]
+  supported_os = %w[Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES Archlinux]
   supported_os.each do |os|
     context os do
       let(:default_facts) do
@@ -163,7 +163,7 @@ describe 'nfs' do
           default_facts.merge(
             operatingsystem: 'RedHat',
             osfamily: 'RedHat',
-            operatingsystemmajrelease: '8'
+            operatingsystemmajrelease: '6'
           )
         end
 
@@ -210,6 +210,29 @@ describe 'nfs' do
             osfamily: 'RedHat',
             operatingsystemmajrelease: '7',
             operatingsystemrelease: '7.5'
+          )
+        end
+
+        server_service = 'nfs-server.service'
+        server_servicehelpers = %w[nfs-idmap.service]
+        server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind.service]
+        client_nfs_vfour_services = %w[rpcbind]
+        client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
+        client_gssdopt_name = 'RPCGSSDARGS'
+        defaults_file = '/etc/sysconfig/nfs'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/sysconfig/rpcbind'
+        client_rpcbind_optname = 'RPCBIND_ARGS'
+
+      when 'RedHat_8'
+
+        let(:facts) do
+          default_facts.merge(
+            operatingsystem: 'RedHat',
+            osfamily: 'RedHat',
+            operatingsystemmajrelease: '8',
+            operatingsystemrelease: '8'
           )
         end
 
