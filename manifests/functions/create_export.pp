@@ -42,11 +42,7 @@ define nfs::functions::create_export (
   $mode   = undef,
 ) {
   if $ensure != 'absent' {
-    if is_array($clients){
-      $line = "${name} ${join($clients,' ')}\n"
-    } else {
-      $line = "${name} ${clients}\n"
-    }
+    $line = "${name} ${join(any2array($clients),' ')}\n"
 
     concat::fragment { $name:
       target  => $::nfs::exports_file,
