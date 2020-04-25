@@ -237,7 +237,7 @@ describe 'nfs' do
         end
 
         server_service = 'nfs-server.service'
-        server_servicehelpers = %w[nfs-idmap.service]
+        server_servicehelpers = %w[nfs-idmapd.service]
         server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind.service]
         client_nfs_vfour_services = %w[rpcbind]
