@@ -267,7 +267,7 @@ describe 'nfs' do
         client_gssdopt_name = 'RPCGSSDARGS'
         defaults_file = '/etc/conf.d/nfs'
         idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_optname  = 'OPTS_RPC_NFSD'
+        client_rpcbind_optname = 'OPTS_RPC_NFSD'
       when 'SLES'
 
         let(:facts) do
@@ -308,7 +308,7 @@ describe 'nfs' do
         client_gssdopt_name = 'RPCGSSDARGS'
         defaults_file = ''
         idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_optname  = 'RPCNFSDARGS'
+        client_rpcbind_optname = 'RPCNFSDARGS'
 
       end
       ### ^^ Switch Case to set OS specific values ^^ ###
@@ -335,14 +335,11 @@ describe 'nfs' do
           it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
           it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
           it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set General/Domain teststring}) }
+
           context os do
             if server_servicehelpers != ''
               server_servicehelpers.each do |server_servicehelper|
-                it do
-                  is_expected.to contain_service(server_servicehelper).
-                    with('ensure' => 'running').
-                    with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
-                end
+                it { is_expected.to contain_service(server_servicehelper).with('ensure' => 'running').with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]']) }
               end
             end
           end
@@ -359,25 +356,11 @@ describe 'nfs' do
         context os do
           case os
           when 'RedHat_7'
-            it do
-              is_expected.to contain_service('rpcbind.service').
-                with('ensure' => 'running').
-                with('enable' => false).
-                without_subscribe
-            end
-            it do
-              is_expected.to contain_service('rpcbind.socket').
-                with('ensure' => 'running').
-                with('enable' => true).
-                without_subscribe
-            end
+            it { is_expected.to contain_service('rpcbind.service').with('ensure' => 'running').with('enable' => false).without_subscribe }
+            it { is_expected.to contain_service('rpcbind.socket').with('ensure' => 'running').with('enable' => true).without_subscribe }
           else
             client_services.each do |service|
-              it do
-                is_expected.to contain_service(service).
-                  with('ensure' => 'running').
-                  without_subscribe
-              end
+              it { is_expected.to contain_service(service).with('ensure' => 'running').without_subscribe }
             end
           end
         end
@@ -386,15 +369,13 @@ describe 'nfs' do
           let(:params) { { nfs_v4_client: true, server_enabled: false, client_enabled: true } }
 
           it { is_expected.to contain_augeas('/etc/idmapd.conf') }
+
           client_nfs_vfour_services.each do |service|
             context os do
-              it do
-                is_expected.to contain_service(service).
-                  with('ensure' => 'running').
-                  with_subscribe(%r{Augeas})
-              end
+              it { is_expected.to contain_service(service).with('ensure' => 'running').with_subscribe(%r{Augeas}) }
             end
           end
+
           client_packages.each do |package|
             context os do
               client_nfs_vfour_services.each do |service|
@@ -424,17 +405,15 @@ describe 'nfs' do
           it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
           it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
           it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set General/Domain teststring}) }
+
           context os do
             if server_servicehelpers != ''
               server_servicehelpers.each do |server_servicehelper|
-                it do
-                  is_expected.to contain_service(server_servicehelper).
-                    with('ensure' => 'running').
-                    with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]'])
-                end
+                it { is_expected.to contain_service(server_servicehelper).with('ensure' => 'running').with_subscribe(['Concat[/etc/exports]', 'Augeas[/etc/idmapd.conf]']) }
               end
             end
           end
+
           server_packages.each do |package|
             context os do
               service = 'Service[' + server_service + ']'
@@ -467,10 +446,10 @@ describe 'nfs' do
             it { is_expected.not_to contain_service(service) }
           end
         end
+
         context os do
           it { is_expected.not_to contain_service(server_service) }
-        end
-        context os do
+
           if server_servicehelpers != ''
             server_servicehelpers.each do |server_servicehelper|
               it { is_expected.not_to contain_service(server_servicehelper) }
@@ -529,13 +508,10 @@ describe 'nfs' do
         end
       end
 
-
       context 'when :nfs_v4_client => true, :client_enabled => true, nfs_v4 => true' do
         let(:params) { { nfs_v4: true, nfs_v4_client: true, client_enabled: true } }
 
-        if defaults_file != ''
-          it { is_expected.not_to contain_augeas(defaults_file).with_changes(%r{.*set #{client_gssdopt_name}.*}) }
-        end
+        it { is_expected.not_to contain_augeas(defaults_file).with_changes(%r{.*set #{client_gssdopt_name}.*}) } if defaults_file != ''
 
         if idmapd_file != ''
           it { is_expected.to contain_augeas(idmapd_file) }
@@ -545,12 +521,8 @@ describe 'nfs' do
           it { is_expected.not_to contain_augeas(idmapd_file).with_changes(%r{.*set Mapping/Nobody-Group.*}) }
         end
 
-        if client_rpcbind_config != ''
-          it { is_expected.not_to contain_augeas(client_rpcbind_config) }
-        end
-
+        it { is_expected.not_to contain_augeas(client_rpcbind_config) } if client_rpcbind_config != ''
       end
-
 
       context 'when :nfs_v4_client => true, :client_enabled => true, nfs_v4 => true, client_gssd_options => gssd_option_1' do
         let(:params) { { nfs_v4: true, nfs_v4_client: true, client_enabled: true, client_gssd_options: 'gssd_option_1' } }
@@ -589,17 +561,14 @@ describe 'nfs' do
         end
       end
 
-      if !client_rpcbind_config.is_a? String
-        client_rpcbind_config = '/etc/default/rpcbind'
-      end
+      client_rpcbind_config = '/etc/default/rpcbind' unless client_rpcbind_config.is_a? String
 
-      context 'when :nfs_v4_client => true, :client_enabled => true, nfs_v4 => true, client_rpcbind_config => #{client_rpcbind_config}' do
+      context "when :nfs_v4_client => true, :client_enabled => true, nfs_v4 => true, client_rpcbind_config => #{client_rpcbind_config}" do
         let(:params) { { nfs_v4: true, nfs_v4_client: true, client_enabled: true, client_rpcbind_config: client_rpcbind_config, client_rpcbind_optname: client_rpcbind_optname, client_rpcbind_opts: 'rpcbind_option' } }
 
         it { is_expected.to contain_augeas(client_rpcbind_config) }
         it { is_expected.to contain_augeas(client_rpcbind_config).with_changes(%r{.*set #{client_rpcbind_optname}.*rpcbind_option}) }
       end
-
     end
   end
 end

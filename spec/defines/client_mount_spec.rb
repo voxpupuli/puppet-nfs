@@ -24,10 +24,8 @@ describe 'nfs::client::mount', type: 'define' do
     let(:params) { { server: '1.2.3.4' } }
 
     it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
-    it do
-      is_expected.to contain_mount('shared /srv/test by 1.2.3.4 on /srv/test').
-        that_requires(['Nfs::Functions::Mkdir[/srv/test]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]'])
-    end
+
+    it { is_expected.to contain_mount('shared /srv/test by 1.2.3.4 on /srv/test').that_requires(['Nfs::Functions::Mkdir[/srv/test]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]']) }
   end
 
   context 'when nfs_v4 => false, specified mountpoint and sharename' do
@@ -51,10 +49,8 @@ describe 'nfs::client::mount', type: 'define' do
     let(:params) { { share: '/export/srv', mount: '/srv', server: '1.2.3.4' } }
 
     it { is_expected.to contain_nfs__functions__mkdir('/srv') }
-    it do
-      is_expected.to contain_mount('shared /export/srv by 1.2.3.4 on /srv').
-        that_requires(['Nfs::Functions::Mkdir[/srv]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]'])
-    end
+
+    it { is_expected.to contain_mount('shared /export/srv by 1.2.3.4 on /srv').that_requires(['Nfs::Functions::Mkdir[/srv]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]']) }
   end
 
   context 'when nfs_v4 => true, specified share' do
@@ -78,10 +74,8 @@ describe 'nfs::client::mount', type: 'define' do
     let(:params) { { share: 'test', server: '1.2.3.4' } }
 
     it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
-    it do
-      is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').
-        that_requires(['Nfs::Functions::Mkdir[/srv/test]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]'])
-    end
+
+    it { is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').that_requires(['Nfs::Functions::Mkdir[/srv/test]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]']) }
   end
 
   context 'when nfs_v4 => true, minimal arguments' do
@@ -106,10 +100,8 @@ describe 'nfs::client::mount', type: 'define' do
 
     it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
     it { is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test') }
-    it do
-      is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').
-        that_requires(['Nfs::Functions::Mkdir[/srv/test]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]'])
-    end
+
+    it { is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').that_requires(['Nfs::Functions::Mkdir[/srv/test]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]']) }
   end
 
   context 'when nfs_v4 => true, non-default mountpoints' do
@@ -133,10 +125,8 @@ describe 'nfs::client::mount', type: 'define' do
     let(:params) { { share: 'test', server: '1.2.3.4' } }
 
     it { is_expected.to contain_nfs__functions__mkdir('/opt/sample') }
-    it do
-      is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').
-        that_requires(['Nfs::Functions::Mkdir[/opt/sample]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]'])
-    end
+
+    it { is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').that_requires(['Nfs::Functions::Mkdir[/opt/sample]', 'Package[nfs-common]', 'Package[nfs4-acl-tools]']) }
   end
 
   context 'when nfs_v4 => true, non-default mountpoints, not managing packages' do
@@ -160,9 +150,7 @@ describe 'nfs::client::mount', type: 'define' do
     let(:params) { { share: 'test', server: '1.2.3.4' } }
 
     it { is_expected.to contain_nfs__functions__mkdir('/opt/sample') }
-    it do
-      is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').
-        that_requires(['Nfs::Functions::Mkdir[/opt/sample]'])
-    end
+
+    it { is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').that_requires(['Nfs::Functions::Mkdir[/opt/sample]']) }
   end
 end
