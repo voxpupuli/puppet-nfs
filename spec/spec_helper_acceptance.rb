@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+RSpec.configure do |c|
+  c.mock_with :rspec
+end
+
 require 'beaker-rspec/spec_helper'
 require 'beaker/puppet_install_helper'
 
