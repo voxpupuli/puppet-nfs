@@ -1,3 +1,12 @@
+## 2020-04-26 - Release 2.1.4
+### Summary
+
+#### Bugfixes
+- fix rubocop testing
+- set explicit spec_helper mock_with config to :rspec
+- set correct server_nfsv4_servicehelper for Redhat 8
+- make sure $clients will be type array
+
 ## 2020-03-29 - Release 2.1.3
 ### Summary
 
