@@ -88,13 +88,13 @@ describe 'nfs class' do
       end
 
       describe service(server_service) do
-        it { is_expected.to_not be_running }
+        it { is_expected.not_to be_running }
       end
 
       server_packages_only = server_packages - client_packages
       server_packages_only.each do |package|
         describe package(package) do
-          it { is_expected.to_not be_installed }
+          it { is_expected.not_to be_installed }
         end
       end
     end

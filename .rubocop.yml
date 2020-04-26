@@ -1,8 +1,9 @@
 require: rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.4
   Include:
-    - ./**/*.rb
+    - '**/*.rb'
   Exclude:
     - files/**/*
     - vendor/**/*
@@ -12,6 +13,7 @@ AllCops:
     - Gemfile
     - Rakefile
     - Guardfile
+  
 Layout/ConditionPosition:
   Enabled: True
 
@@ -177,7 +179,7 @@ Style/WordArray:
 Style/RedundantPercentQ:
   Enabled: True
 
-Layout/Tab:
+Layout/IndentationStyle:
   Enabled: True
 
 Layout/SpaceBeforeSemicolon:
@@ -238,6 +240,9 @@ Style/ColonMethodCall:
   Enabled: True
 
 Style/CommentAnnotation:
+  Enabled: True
+
+Layout/SpaceAroundMethodCallOperator:
   Enabled: True
 
 # 'Complexity' is very relative
@@ -472,6 +477,15 @@ Style/ModuleFunction:
 Lint/Debugger:
   Enabled: True
 
+Lint/RaiseException:
+  Enabled: True
+
+Lint/StructNewOverride:
+  Enabled: True
+
+Style/ExponentialNotation:
+  Enabled: True
+
 Style/IfWithSemicolon:
   Enabled: True
 
@@ -499,10 +513,12 @@ Layout/ClosingParenthesisIndentation:
   Enabled: True
 
 # RSpec
-
 RSpec/BeforeAfterAll:
   Exclude:
     - spec/acceptance/**/*
+
+RSpec/ImplicitSubject:
+  Enabled: True
 
 # We don't use rspec in this way
 RSpec/DescribeClass:
