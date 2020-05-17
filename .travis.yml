@@ -16,19 +16,19 @@ matrix:
   - rvm: 2.4.1
     env: PUPPET_VERSION="~> 5.0" STRICT_VARIABLES="yes" CHECK=test
     bundler_args: --without system_tests development
-  - rvm: 2.4.1
+  - rvm: 2.7.1
     env: PUPPET_VERSION="~> 6.0" STRICT_VARIABLES="yes" CHECK=test
     bundler_args: --without system_tests development
-  - rvm: 2.4.1
+  - rvm: 2.7.1
     env: PUPPET_VERSION="~> 6.1" STRICT_VARIABLES="yes" CHECK=test
     bundler_args: --without system_tests development
-  - rvm: 2.4.1
+  - rvm: 2.7.1
     env: PUPPET_VERSION="~> 6.2" STRICT_VARIABLES="yes" CHECK=test
     bundler_args: --without system_tests development
-  - rvm: 2.4.1
+  - rvm: 2.7.1
     env: PUPPET_VERSION="~> 5.0" STRICT_VARIABLES="yes" CHECK=rubocop
     bundler_args: --without system_tests development
-  - rvm: 2.4.1
+  - rvm: 2.7.1
     env: BEAKER_set=ubuntu-16.04 BEAKER_PUPPET_COLLECTION=puppet5 PUPPET_INSTALL_TYPE=agent
     bundler_args: --without development
     script: bundle exec rake beaker
@@ -36,6 +36,18 @@ matrix:
     sudo: required
   - rvm: 2.4.1
     env: BEAKER_set=ubuntu-18.04 BEAKER_PUPPET_COLLECTION=puppet5 PUPPET_INSTALL_TYPE=agent
+    bundler_args: --without development
+    script: bundle exec rake beaker
+    services: docker
+    sudo: required
+  - rvm: 2.7.1
+    env: BEAKER_set=ubuntu-18.04 BEAKER_PUPPET_COLLECTION=puppet6 PUPPET_INSTALL_TYPE=agent
+    bundler_args: --without development
+    script: bundle exec rake beaker
+    services: docker
+    sudo: required
+  - rvm: 2.7.1
+    env: BEAKER_set=ubuntu-20.04 BEAKER_PUPPET_COLLECTION=puppet6 PUPPET_INSTALL_TYPE=agent
     bundler_args: --without development
     script: bundle exec rake beaker
     services: docker

@@ -11,13 +11,13 @@ ENV PATH /usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/s
 # Install base system libraries.
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl git ca-certificates 
+    apt-get install -y --no-install-recommends curl git ca-certificates gnupg2 dirmngr
 
 # Install rvm, default ruby version and bundler.
 COPY .gemrc /puppet/module/.gemrc
 
-RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 && \
-    curl -L https://get.rvm.io | /bin/bash -s stable && \
+RUN gpg2 -v --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+RUN curl -L https://get.rvm.io | /bin/bash -s stable && \
     echo 'source /etc/profile.d/rvm.sh' >> /etc/profile && \
     /bin/bash -l -c "rvm requirements;" && \
     rvm install $RUBY_VERSION && \

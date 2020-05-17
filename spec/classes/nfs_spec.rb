@@ -88,6 +88,29 @@ describe 'nfs' do
         client_rpcbind_config = '/etc/default/rpcbind'
         client_rpcbind_optname = 'OPTIONS'
 
+      when 'Ubuntu_20.04'
+
+        let(:facts) do
+          default_facts.merge(
+            operatingsystem: 'Ubuntu',
+            osfamily: 'Debian',
+            operatingsystemmajrelease: '20.04',
+            lsbdistcodename: 'focal'
+          )
+        end
+
+        server_service = 'nfs-server'
+        server_servicehelpers = %w[nfs-idmapd]
+        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind nfs-server]
+        client_packages = %w[nfs-common nfs4-acl-tools]
+        client_gssdopt_name = 'GSSDARGS'
+        defaults_file = '/etc/default/nfs-common'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/default/rpcbind'
+        client_rpcbind_optname = 'OPTIONS'
+
       when 'Debian_default'
 
         let(:facts) do

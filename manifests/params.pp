@@ -154,7 +154,7 @@ class nfs::params {
           $server_service_name        = 'nfs-kernel-server'
           $client_gssdopt_name        = 'GSSDARGS'
         }
-        'bionic': {
+        'bionic', 'focal': {
           $client_services            = {'rpcbind' => {}}
           $client_gssd_service_name   = { 'rpc-gssd' => {
                                             ensure => 'running',

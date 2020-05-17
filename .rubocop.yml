@@ -294,6 +294,12 @@ Layout/EmptyLinesAroundAccessModifier:
 Style/EmptyLiteral:
   Enabled: True
 
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: False
+
+Style/SlicingWithRange:
+  Enabled: False
+
 # Configuration parameters: AllowURI, URISchemes.
 Layout/LineLength:
   Enabled: False
