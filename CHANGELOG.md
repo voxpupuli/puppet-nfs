@@ -1,3 +1,10 @@
+## 2020-06-08 - Release 2.1.5
+### Summary
+
+#### Features
+- add support for Ubuntu 20.04 Focal
+- update rubocop ruleset
+
 ## 2020-04-26 - Release 2.1.4
 ### Summary
 
