@@ -774,7 +774,7 @@ Sets strict variables on or off. Defaults to `yes`.
 
 #### RVM
 
-Sets the ruby version which will be used for the tests. Defaults to `2.7.1`.
+Sets the ruby version which will be used for the tests. Defaults to `2.4.1`.
 
 #### BEAKER_set
 

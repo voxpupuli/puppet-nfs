@@ -300,6 +300,18 @@ Layout/EmptyLinesAroundAttributeAccessor:
 Style/SlicingWithRange:
   Enabled: False
 
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: True
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: True
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: True
+
+Style/RedundantRegexpEscape:
+  Enabled: True
+
 # Configuration parameters: AllowURI, URISchemes.
 Layout/LineLength:
   Enabled: False
