@@ -1,7 +1,7 @@
 ifneq ($(origin PUPPET_VERSION), undefined)
 	puppet_version := ${PUPPET_VERSION}
 else
-	puppet_version := 5.0
+	puppet_version := 6.0
 endif
 
 ifneq ($(origin STRICT_VARIABLES), undefined)
@@ -19,7 +19,13 @@ endif
 ifneq ($(origin BEAKER_set), undefined)
 	beaker_set := ${BEAKER_set}
 else
-	beaker_set  := ubuntu-16.04
+	beaker_set := ubuntu-20.04
+endif
+
+ifneq ($(origin PUPPET_collection), undefined)
+	puppet_collection := ${PUPPET_collection}
+else
+	puppet_collection := puppet6
 endif
 
 DOCKER_CMD := docker run -it --rm -v $$(pwd):/puppet/module derdanne/rvm:$(rvm) /bin/bash -l -c
@@ -74,5 +80,4 @@ test-all:
 test-beaker:
 	@$(VARIABLES)
 	@$(PREPARE_BEAKER)
-	@$(DOCKER_CMD_BEAKER) "BEAKER_PUPPET_COLLECTION=puppet5 PUPPET_INSTALL_TYPE=agent BEAKER_set=$(beaker_set) BEAKER_destroy=onpass bundle exec rake beaker"
-
+	@$(DOCKER_CMD_BEAKER) "BEAKER_PUPPET_COLLECTION=$(puppet_collection) PUPPET_INSTALL_TYPE=agent BEAKER_set=$(beaker_set) BEAKER_destroy=onpass bundle exec rake beaker"

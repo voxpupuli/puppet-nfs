@@ -766,7 +766,7 @@ I have set some defaults which you can change by setting the following environme
 
 #### PUPPET_VERSION
 
-Changes the puppet version which will be used for the tests. Defaults to `5.0`.
+Changes the puppet version which will be used for the tests. Defaults to `6.0`.
 
 #### STRICT_VARIABLES
 
@@ -778,7 +778,11 @@ Sets the ruby version which will be used for the tests. Defaults to `2.4.1`.
 
 #### BEAKER_set
 
-Sets the beaker docker target host. Defaults to `ubuntu-16.04`.
+Sets the beaker docker target host. Defaults to `ubuntu-20.04`.
+
+#### PUPPET_collection
+
+Sets the puppet version for acceptance tests. Defaults to `puppet6`.
 
 ### Running tests
 

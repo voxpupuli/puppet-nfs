@@ -1,6 +1,6 @@
 {
   "name": "derdanne-nfs",
-  "version": "2.1.4",
+  "version": "2.1.5-dev",
   "source": "https://github.com/derdanne/puppet-nfs.git",
   "author": "derdanne",
   "license": "Apache-2.0",
@@ -21,7 +21,8 @@
       "operatingsystemrelease": [
         "14.04",
         "16.04",
-        "18.04"
+        "18.04",
+        "20.04"
       ]
     },
     {

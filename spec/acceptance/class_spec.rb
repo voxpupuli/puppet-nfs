@@ -16,6 +16,10 @@ describe 'nfs class' do
       server_service = 'nfs-kernel-server'
       server_servicehelpers = %w[nfs-idmapd]
       client_services = %w[rpcbind]
+    elsif fact('lsbdistcodename') == 'focal'
+      server_service = 'nfs-kernel-server'
+      server_servicehelpers = %w[nfs-idmapd]
+      client_services = %w[rpcbind]
     else
       server_service = 'nfs-server'
       server_servicehelpers = %w[nfs-idmapd]
