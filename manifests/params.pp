@@ -80,7 +80,7 @@ class nfs::params {
       $exports_file          = '/etc/exports'
       $idmapd_file           = '/etc/idmapd.conf'
       $server_packages       = [ 'nfs-utils' ]
-      $client_packages       = [ 'nfsidmap', 'rpcbind' ]
+      $client_packages       = [ 'nfs-utils', 'nfsidmap', 'rpcbind' ]
       $defaults_file         = undef
       $client_rpcbind_config = undef
     }
