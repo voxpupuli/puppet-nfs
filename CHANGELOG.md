@@ -1,3 +1,13 @@
+## 2020-09-26 - Release 2.1.6
+### Summary
+
+#### Features
+- update rubocop ruleset
+
+#### Bugfixes
+- fix packaging
+- fix rubocop testing
+
 ## 2020-06-08 - Release 2.1.5
 ### Summary
 
