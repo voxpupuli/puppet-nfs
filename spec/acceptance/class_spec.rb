@@ -3,20 +3,23 @@
 require 'spec_helper_acceptance'
 
 describe 'nfs class' do
-  if fact('osfamily') == 'Debian'
-    if fact('lsbdistcodename') == 'jessie' || fact('lsbdistcodename') == 'wheezy'
+  case fact('osfamily')
+
+  when 'Debian'
+    case fact('lsbdistcodename')
+    when 'jessie' || 'wheezy'
       server_service = 'nfs-kernel-server'
       server_servicehelpers = %w[nfs-common]
       client_services = %w[rpcbind nfs-common]
-    elsif fact('lsbdistcodename') == 'trusty'
+    when 'trusty'
       server_service = 'nfs-kernel-server'
       server_servicehelpers = ''
       client_services = %w[rpcbind]
-    elsif fact('lsbdistcodename') == 'bionic'
+    when 'bionic'
       server_service = 'nfs-kernel-server'
       server_servicehelpers = %w[nfs-idmapd]
       client_services = %w[rpcbind]
-    elsif fact('lsbdistcodename') == 'focal'
+    when 'focal'
       server_service = 'nfs-kernel-server'
       server_servicehelpers = %w[nfs-idmapd]
       client_services = %w[rpcbind]
@@ -27,15 +30,14 @@ describe 'nfs class' do
     end
     server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
     client_packages = %w[nfs-common nfs4-acl-tools rpcbind]
-  end
 
-  if fact('osfamily') == 'RedHat'
-    if fact('operatingsystemmajrelease') == '6'
+  when 'RedHat'
+    case fact('operatingsystemmajrelease')
+    when '6'
       server_service = 'nfs'
       server_servicehelpers = %w[rpcidmapd rpcbind]
       client_services = %w[rpcbind]
-    end
-    if fact('operatingsystemmajrelease') == '7'
+    when '7'
       server_service = 'nfs-server.service'
       server_servicehelpers = %w[nfs-idmap.service]
       client_services = %w[rpcbind.service rpcbind.socket]
