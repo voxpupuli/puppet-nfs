@@ -7,7 +7,11 @@ describe 'nfs class' do
 
   when 'Debian'
     case fact('lsbdistcodename')
-    when 'jessie' || 'wheezy'
+    when 'jessie'
+      server_service = 'nfs-kernel-server'
+      server_servicehelpers = %w[nfs-common]
+      client_services = %w[rpcbind nfs-common]
+    when 'wheezy'
       server_service = 'nfs-kernel-server'
       server_servicehelpers = %w[nfs-common]
       client_services = %w[rpcbind nfs-common]
