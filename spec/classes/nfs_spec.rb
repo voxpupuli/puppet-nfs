@@ -402,7 +402,7 @@ describe 'nfs' do
           client_packages.each do |package|
             context os do
               client_nfs_vfour_services.each do |service|
-                service = 'Service[' + service + ']'
+                service = "Service[#{service}]"
                 it { is_expected.to contain_package(package).that_notifies(service) }
               end
             end
@@ -439,7 +439,7 @@ describe 'nfs' do
 
           server_packages.each do |package|
             context os do
-              service = 'Service[' + server_service + ']'
+              service = "Service[#{server_service}]"
               it { is_expected.to contain_package(package).that_notifies(service) }
             end
           end

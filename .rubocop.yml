@@ -1,6 +1,7 @@
 require: rubocop-rspec
 
 AllCops:
+  NewCops: enable
   TargetRubyVersion: 2.4
   Include:
     - '**/*.rb'
@@ -23,7 +24,7 @@ Lint/ElseLayout:
 Lint/UnreachableCode:
   Enabled: True
 
-Lint/UselessComparison:
+Lint/BinaryOperatorWithIdenticalOperands:
   Enabled: True
 
 Lint/EnsureReturn:
@@ -567,4 +568,7 @@ Security/YAMLLoad:
 
 # disable Style/MixinUsage
 Style/MixinUsage:
+  Enabled: false
+
+EmptyExampleGroup:
   Enabled: false
