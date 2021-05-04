@@ -53,12 +53,6 @@ matrix:
     services: docker
     sudo: required
   - rvm: 2.4.1
-    env: BEAKER_set=centos-6 BEAKER_PUPPET_COLLECTION=puppet5 PUPPET_INSTALL_TYPE=agent
-    bundler_args: --without development
-    script: bundle exec rake beaker
-    services: docker
-    sudo: required
-  - rvm: 2.4.1
     env: BEAKER_set=centos-7 BEAKER_PUPPET_COLLECTION=puppet5 PUPPET_INSTALL_TYPE=agent
     bundler_args: --without development
     script: bundle exec rake beaker
