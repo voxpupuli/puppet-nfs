@@ -1,7 +1,7 @@
 ifneq ($(origin PUPPET_VERSION), undefined)
 	puppet_version := ${PUPPET_VERSION}
 else
-	puppet_version := 6.0
+	puppet_version := 7.0
 endif
 
 ifneq ($(origin STRICT_VARIABLES), undefined)
@@ -13,7 +13,7 @@ endif
 ifneq ($(origin RVM), undefined)
 	rvm := ${RVM}
 else
-	rvm := 2.4.1
+	rvm := 2.5.0
 endif
 
 ifneq ($(origin BEAKER_set), undefined)
@@ -25,7 +25,7 @@ endif
 ifneq ($(origin PUPPET_collection), undefined)
 	puppet_collection := ${PUPPET_collection}
 else
-	puppet_collection := puppet6
+	puppet_collection := puppet7
 endif
 
 DOCKER_CMD := docker run -it --rm -v $$(pwd):/puppet/module derdanne/rvm:$(rvm) /bin/bash -l -c
