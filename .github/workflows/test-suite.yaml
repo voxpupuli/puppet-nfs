@@ -8,6 +8,10 @@ on:
 
 jobs:
   test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        ruby: [2.4.10, 2.5.9, 2.6.9]      
     name: Test suite
     runs-on: ubuntu-latest
     permissions:
@@ -19,8 +23,10 @@ jobs:
     - name: Set up Ruby 2.5
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.5.0
+        ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
+      env:
+        PUPPET_VERSION: 7.0
 
     - name: Metadata lint
       run: |
