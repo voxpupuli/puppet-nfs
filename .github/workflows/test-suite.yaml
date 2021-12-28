@@ -1,0 +1,46 @@
+name: Test suite
+
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    name: Test suite
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Ruby 2.5
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.5.x
+
+    - name: Install bundle
+      run: |
+        PUPPET_VERSION=7.0 bundle install --quiet --without system_tests development --path=vendor/bundle
+
+    - name: Metadata lint
+      run: |
+        PUPPET_VERSION=7.0 bundle exec rake metadata_lint
+
+    - name: Puppet lint
+      run: |
+        PUPPET_VERSION=7.0 bundle exec rake lint
+
+    - name: Puppet syntax
+      run: |
+        PUPPET_VERSION=7.0 bundle exec rake syntax
+
+    - name: Puppet spec
+      run: |
+        PUPPET_VERSION=7.0 STRICT_VARIABLES=yes bundle exec rake spec
+
+    - name: Rubocop
+      run: |
+        PUPPET_VERSION=7.0 bundle exec rake rubocop
