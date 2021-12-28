@@ -19,7 +19,7 @@ jobs:
     - name: Set up Ruby 2.5
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.5.x
+        ruby-version: 2.5.0
         bundler-cache: true
 
     - name: Metadata lint
