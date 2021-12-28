@@ -33,17 +33,17 @@ class nfs::params {
 
   $nfs_v4                     = false
   $nfs_v4_export_root         = '/export'
-  $nfs_v4_export_root_clients = "*.${::domain}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)"
+  $nfs_v4_export_root_clients = "*.${facts['networking']['domain']}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)"
   $nfs_v4_mount_root          = '/srv'
 
-  if $::domain != undef {
-    $nfs_v4_idmap_domain = $::domain
+  if $facts['networking']['domain'] != undef {
+    $nfs_v4_idmap_domain = $facts['networking']['domain']
   } else {
     $nfs_v4_idmap_domain = 'example.org'
   }
 
   # Different path and package definitions
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Debian': {
       $exports_file          = '/etc/exports'
       $idmapd_file           = '/etc/idmapd.conf'
@@ -91,7 +91,7 @@ class nfs::params {
       $server_packages       = undef
       $client_packages       = undef
       $client_rpcbind_config = undef
-      notice("\"${module_name}\" provides no config directory and package default values for OS family \"${::osfamily}\"")
+      notice("\"${module_name}\" provides no config directory and package default values for OS family \"${facts['os']['family']}\"")
     }
   }
 
@@ -106,7 +106,7 @@ class nfs::params {
   $server_service_hasstatus   = true
   $server_service_restart_cmd = undef
   #params with OS-specific values
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Debian': {
       $client_idmapd_setting      = ['set NEED_IDMAPD yes']
       $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
@@ -117,7 +117,7 @@ class nfs::params {
       $nfs_v4_idmap_nobody_group  = 'nogroup'
       $client_rpcbind_optname     = 'OPTIONS'
 
-      case $::lsbdistcodename {
+      case $facts['os']['distro']['codename'] {
         'trusty': {
           $client_services            = {'rpcbind' => {}}
           $client_nfsv4_services      = {'rpcbind' => {}, 'nfs-common' => { require => Service['rpcbind'] }}
@@ -184,13 +184,13 @@ class nfs::params {
       $nfs_v4_idmap_nobody_user   = 'nobody'
       $nfs_v4_idmap_nobody_group  = 'nobody'
       $client_rpcbind_optname     = 'RPCBIND_ARGS'
-      case $::operatingsystemmajrelease {
+      case $facts['os']['release']['major'] {
         '7': {
           $client_idmapd_setting      = ['']
           $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
           $client_services_enable     = true
           $client_gssdopt_name        = 'RPCGSSDARGS'
-          if versioncmp($::operatingsystemrelease, '7.5') < 0 {
+          if versioncmp($facts['os']['release']['full'], '7.5') < 0 {
             $client_services            = { 'rpcbind.service' => {
                                               ensure => 'running',
                                               enable => false,
@@ -211,7 +211,7 @@ class nfs::params {
                                         }
           $client_nfsv4_fstype        = 'nfs4'
           $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-          if versioncmp($::operatingsystemrelease, '7.5') < 0 {
+          if versioncmp($facts['os']['release']['full'], '7.5') < 0 {
             $client_nfsv4_services      = { 'rpcbind.service' => {
                                               ensure => 'running',
                                               enable => false,
@@ -327,7 +327,7 @@ class nfs::params {
       $server_nfsv4_servicehelper = undef
       $client_services_enable     = undef
       $server_service_name        = undef
-      notice("\"${module_name}\" provides no service parameters for OS family \"${::osfamily}\"")
+      notice("\"${module_name}\" provides no service parameters for OS family \"${facts['os']['family']}\"")
     }
   }
 }

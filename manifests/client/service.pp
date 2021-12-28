@@ -65,7 +65,7 @@ class nfs::client::service {
 
   # Redhat ~7.5 workaround (See issue https://github.com/derdanne/puppet-nfs/issues/82)
 
-  if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '7' and versioncmp($::operatingsystemrelease, '7.5') < 0 {
+  if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '7' and versioncmp($facts['os']['release']['full'], '7.5') < 0 {
     transition {'stop-rpcbind.service-service':
       resource   => Service['rpcbind.service'],
       prior_to   => Service['rpcbind.socket'],
