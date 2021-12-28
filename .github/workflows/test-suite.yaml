@@ -87,7 +87,7 @@ jobs:
 
     - name: Run puppet-beaker tests
       run: |
-        BEAKER_destroy=yes bundle exec rake beaker
+        BEAKER_destroy=yes bundle exec rake acceptance
       env:
         BEAKER_set: ${{ matrix.beakerset }}
         BEAKER_PUPPET_COLLECTION: ${{ matrix.puppet }}
