@@ -13,7 +13,7 @@
 
 ## Module Description
 
-Github Master: [![Build Status](https://secure.travis-ci.org/derdanne/puppet-nfs.png?branch=master)](https://travis-ci.org/derdanne/puppet-nfs)
+Github Master: [![Test Suite](https://github.com/derdanne/puppet-nfs/actions/workflows/test-suite.yaml/badge.svg?branch=master)](https://github.com/derdanne/puppet-nfs/actions/workflows/test-suite.yaml)
 
 This module installs, configures and manages everything on NFS clients and servers.
 
