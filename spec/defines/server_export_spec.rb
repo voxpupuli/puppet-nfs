@@ -6,14 +6,26 @@ describe 'nfs::server::export', type: 'define' do
   context 'when nvs_v4 => false' do
     let(:facts) do
       {
-        operatingsystem: 'Ubuntu',
-        osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
-        lsbdistcodename: 'precise',
-        concat_basedir: '/dne',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        'networking' => {
+          'domain' => 'example.com'
+        },
+        'operatingsystem' => 'Ubuntu',
+        'os' => {
+          'family' => 'Debian',
+          'distro' => {
+            'codename' => 'xenial'
+          },
+          'release' => {
+            'major' => '16',
+            'minor' => '04',
+            'full' => '16.04'
+          }
+        },
+        'concat_basedir' => '/tmp',
+
+        'is_pe' => false,
+        'id' => 'root',
+        'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
       }
     end
     let(:title) { '/srv/test' }
@@ -32,14 +44,26 @@ describe 'nfs::server::export', type: 'define' do
   context 'when nvs_v4 => false, nfs::storeconfigs_enabled => false' do
     let(:facts) do
       {
-        operatingsystem: 'Ubuntu',
-        osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
-        lsbdistcodename: 'precise',
-        concat_basedir: '/dne',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        'networking' => {
+          'domain' => 'example.com'
+        },
+        'operatingsystem' => 'Ubuntu',
+        'os' => {
+          'family' => 'Debian',
+          'distro' => {
+            'codename' => 'xenial'
+          },
+          'release' => {
+            'major' => '16',
+            'minor' => '04',
+            'full' => '16.04'
+          }
+        },
+        'concat_basedir' => '/tmp',
+
+        'is_pe' => false,
+        'id' => 'root',
+        'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
       }
     end
     let(:title) { '/srv/test' }
@@ -56,14 +80,26 @@ describe 'nfs::server::export', type: 'define' do
   context 'when nfs_v4 => true' do
     let(:facts) do
       {
-        operatingsystem: 'Ubuntu',
-        osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
-        lsbdistcodename: 'precise',
-        concat_basedir: '/dne',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        'networking' => {
+          'domain' => 'example.com'
+        },
+        'operatingsystem' => 'Ubuntu',
+        'os' => {
+          'family' => 'Debian',
+          'distro' => {
+            'codename' => 'xenial'
+          },
+          'release' => {
+            'major' => '16',
+            'minor' => '04',
+            'full' => '16.04'
+          }
+        },
+        'concat_basedir' => '/tmp',
+
+        'is_pe' => false,
+        'id' => 'root',
+        'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
       }
     end
     let(:title) { '/srv/test' }
@@ -81,14 +117,26 @@ describe 'nfs::server::export', type: 'define' do
   context 'when nfs_v4 => true, nfs::storeconfigs_enabled => false' do
     let(:facts) do
       {
-        operatingsystem: 'Ubuntu',
-        osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
-        lsbdistcodename: 'precise',
-        concat_basedir: '/dne',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        'networking' => {
+          'domain' => 'example.com'
+        },
+        'operatingsystem' => 'Ubuntu',
+        'os' => {
+          'family' => 'Debian',
+          'distro' => {
+            'codename' => 'xenial'
+          },
+          'release' => {
+            'major' => '16',
+            'minor' => '04',
+            'full' => '16.04'
+          }
+        },
+        'concat_basedir' => '/tmp',
+
+        'is_pe' => false,
+        'id' => 'root',
+        'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
       }
     end
     let(:title) { '/srv/test' }
@@ -105,14 +153,26 @@ describe 'nfs::server::export', type: 'define' do
   context 'when nfs_v4 => true, nfs::nfsv4_bindmount_enable => true' do
     let(:facts) do
       {
-        operatingsystem: 'Ubuntu',
-        osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
-        lsbdistcodename: 'precise',
-        concat_basedir: '/dne',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        'networking' => {
+          'domain' => 'example.com'
+        },
+        'operatingsystem' => 'Ubuntu',
+        'os' => {
+          'family' => 'Debian',
+          'distro' => {
+            'codename' => 'xenial'
+          },
+          'release' => {
+            'major' => '16',
+            'minor' => '04',
+            'full' => '16.04'
+          }
+        },
+        'concat_basedir' => '/tmp',
+
+        'is_pe' => false,
+        'id' => 'root',
+        'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
       }
     end
     let(:title) { '/srv/test' }
@@ -129,14 +189,26 @@ describe 'nfs::server::export', type: 'define' do
   context 'when nfs_v4 => true, nfs::nfsv4_bindmount_enable => false' do
     let(:facts) do
       {
-        operatingsystem: 'Ubuntu',
-        osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
-        lsbdistcodename: 'precise',
-        concat_basedir: '/dne',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        'networking' => {
+          'domain' => 'example.com'
+        },
+        'operatingsystem' => 'Ubuntu',
+        'os' => {
+          'family' => 'Debian',
+          'distro' => {
+            'codename' => 'xenial'
+          },
+          'release' => {
+            'major' => '16',
+            'minor' => '04',
+            'full' => '16.04'
+          }
+        },
+        'concat_basedir' => '/tmp',
+
+        'is_pe' => false,
+        'id' => 'root',
+        'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
       }
     end
     let(:title) { '/srv/test' }

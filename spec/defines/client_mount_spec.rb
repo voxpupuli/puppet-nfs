@@ -6,15 +6,26 @@ describe 'nfs::client::mount', type: 'define' do
   context 'when nfs_v4 => false, minimal arguments' do
     let(:facts) do
       {
-        operatingsystem: 'Ubuntu',
-        osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
-        lsbdistcodename: 'precise',
-        concat_basedir: '/dne',
-        clientcert: 'example.com',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        'networking' => {
+          'domain' => 'example.com'
+        },
+        'operatingsystem' => 'Ubuntu',
+        'os' => {
+          'family' => 'Debian',
+          'distro' => {
+            'codename' => 'xenial'
+          },
+          'release' => {
+            'major' => '16',
+            'minor' => '04',
+            'full' => '16.04'
+          }
+        },
+        'concat_basedir' => '/tmp',
+
+        'is_pe' => false,
+        'id' => 'root',
+        'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
       }
     end
     let(:title) { '/srv/test' }
@@ -31,15 +42,26 @@ describe 'nfs::client::mount', type: 'define' do
   context 'when nfs_v4 => false, specified mountpoint and sharename' do
     let(:facts) do
       {
-        operatingsystem: 'Ubuntu',
-        osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
-        lsbdistcodename: 'precise',
-        concat_basedir: '/dne',
-        clientcert: 'example.com',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        'networking' => {
+          'domain' => 'example.com'
+        },
+        'operatingsystem' => 'Ubuntu',
+        'os' => {
+          'family' => 'Debian',
+          'distro' => {
+            'codename' => 'xenial'
+          },
+          'release' => {
+            'major' => '16',
+            'minor' => '04',
+            'full' => '16.04'
+          }
+        },
+        'concat_basedir' => '/tmp',
+
+        'is_pe' => false,
+        'id' => 'root',
+        'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
       }
     end
     let(:title) { 'Import /srv' }
@@ -56,15 +78,26 @@ describe 'nfs::client::mount', type: 'define' do
   context 'when nfs_v4 => true, specified share' do
     let(:facts) do
       {
-        operatingsystem: 'Ubuntu',
-        osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
-        lsbdistcodename: 'precise',
-        concat_basedir: '/dne',
-        clientcert: 'example.com',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        'networking' => {
+          'domain' => 'example.com'
+        },
+        'operatingsystem' => 'Ubuntu',
+        'os' => {
+          'family' => 'Debian',
+          'distro' => {
+            'codename' => 'xenial'
+          },
+          'release' => {
+            'major' => '16',
+            'minor' => '04',
+            'full' => '16.04'
+          }
+        },
+        'concat_basedir' => '/tmp',
+
+        'is_pe' => false,
+        'id' => 'root',
+        'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
       }
     end
     let(:title) { '/srv/test' }
@@ -81,15 +114,26 @@ describe 'nfs::client::mount', type: 'define' do
   context 'when nfs_v4 => true, minimal arguments' do
     let(:facts) do
       {
-        operatingsystem: 'Ubuntu',
-        osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
-        lsbdistcodename: 'precise',
-        concat_basedir: '/dne',
-        clientcert: 'example.com',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        'networking' => {
+          'domain' => 'example.com'
+        },
+        'operatingsystem' => 'Ubuntu',
+        'os' => {
+          'family' => 'Debian',
+          'distro' => {
+            'codename' => 'xenial'
+          },
+          'release' => {
+            'major' => '16',
+            'minor' => '04',
+            'full' => '16.04'
+          }
+        },
+        'concat_basedir' => '/tmp',
+
+        'is_pe' => false,
+        'id' => 'root',
+        'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
       }
     end
     let(:title) { '/srv/test' }
@@ -107,15 +151,26 @@ describe 'nfs::client::mount', type: 'define' do
   context 'when nfs_v4 => true, non-default mountpoints' do
     let(:facts) do
       {
-        operatingsystem: 'Ubuntu',
-        osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
-        lsbdistcodename: 'precise',
-        concat_basedir: '/dne',
-        clientcert: 'example.com',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        'networking' => {
+          'domain' => 'example.com'
+        },
+        'operatingsystem' => 'Ubuntu',
+        'os' => {
+          'family' => 'Debian',
+          'distro' => {
+            'codename' => 'xenial'
+          },
+          'release' => {
+            'major' => '16',
+            'minor' => '04',
+            'full' => '16.04'
+          }
+        },
+        'concat_basedir' => '/tmp',
+
+        'is_pe' => false,
+        'id' => 'root',
+        'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
       }
     end
     let(:title) { '/opt/sample' }
@@ -132,15 +187,25 @@ describe 'nfs::client::mount', type: 'define' do
   context 'when nfs_v4 => true, non-default mountpoints, not managing packages' do
     let(:facts) do
       {
-        operatingsystem: 'Ubuntu',
-        osfamily: 'Debian',
-        operatingsystemmajrelease: '12.04',
-        lsbdistcodename: 'precise',
-        concat_basedir: '/dne',
-        clientcert: 'example.com',
-        is_pe: false,
-        id: 'root',
-        path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        'networking' => {
+          'domain' => 'example.com'
+        },
+        'operatingsystem' => 'Ubuntu',
+        'os' => {
+          'family' => 'Debian',
+          'distro' => {
+            'codename' => 'xenial'
+          },
+          'release' => {
+            'major' => '16',
+            'minor' => '04',
+            'full' => '16.04'
+          }
+        },
+        'concat_basedir' => '/tmp',
+        'is_pe' => false,
+        'id' => 'root',
+        'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
       }
     end
     let(:title) { '/opt/sample' }

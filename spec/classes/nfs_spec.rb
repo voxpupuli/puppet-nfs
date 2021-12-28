@@ -3,16 +3,17 @@
 require 'spec_helper'
 
 describe 'nfs' do
-  supported_os = %w[Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES Archlinux]
+  # supported_os = %w[Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES Archlinux]
+  supported_os = %w[Ubuntu_16.04 Ubuntu_18.04 Ubuntu_20.04 Debian_8 Debian_9 Debian_10 Debian_11 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES]
   supported_os.each do |os|
     context os do
       let(:default_facts) do
         {
-          concat_basedir: '/tmp',
-          clientcert: 'test.host',
-          is_pe: false,
-          id: 'root',
-          path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+          'concat_basedir' => '/tmp',
+          'clientcert' => 'test.host',
+          'is_pe' => false,
+          'id' => 'root',
+          'path' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
         }
       end
 
@@ -23,10 +24,18 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'Ubuntu',
-            osfamily: 'Debian',
-            operatingsystemmajrelease: '14.04',
-            lsbdistcodename: 'trusty'
+            'operatingsystem' => 'Ubuntu',
+            'os' => {
+              'family' => 'Debian',
+              'distro' => {
+                'codename' => 'trusty'
+              },
+              'release' => {
+                'major' => '14',
+                'minor' => '04',
+                'full' => '14.04'
+              }
+            }
           )
         end
 
@@ -46,10 +55,18 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'Ubuntu',
-            osfamily: 'Debian',
-            operatingsystemmajrelease: '16.04',
-            lsbdistcodename: 'xenial'
+            'operatingsystem' => 'Ubuntu',
+            'os' => {
+              'family' => 'Debian',
+              'distro' => {
+                'codename' => 'xenial'
+              },
+              'release' => {
+                'major' => '16',
+                'minor' => '04',
+                'full' => '16.04'
+              }
+            }
           )
         end
 
@@ -69,18 +86,26 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'Ubuntu',
-            osfamily: 'Debian',
-            operatingsystemmajrelease: '18.04',
-            lsbdistcodename: 'bionic'
+            'operatingsystem' => 'Ubuntu',
+            'os' => {
+              'family' => 'Debian',
+              'distro' => {
+                'codename' => 'bionic'
+              },
+              'release' => {
+                'major' => '18',
+                'minor' => '04',
+                'full' => '18.04'
+              }
+            }
           )
         end
 
-        server_service = 'nfs-server'
-        server_servicehelpers = %w[nfs-idmapd]
+        server_service = 'nfs-kernel-server'
+        server_servicehelpers = ''
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind nfs-server]
+        client_nfs_vfour_services = %w[rpcbind]
         client_packages = %w[nfs-common nfs4-acl-tools]
         client_gssdopt_name = 'GSSDARGS'
         defaults_file = '/etc/default/nfs-common'
@@ -92,18 +117,26 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'Ubuntu',
-            osfamily: 'Debian',
-            operatingsystemmajrelease: '20.04',
-            lsbdistcodename: 'focal'
+            'operatingsystem' => 'Ubuntu',
+            'os' => {
+              'family' => 'Debian',
+              'distro' => {
+                'codename' => 'focal'
+              },
+              'release' => {
+                'major' => '20',
+                'minor' => '04',
+                'full' => '20.04'
+              }
+            }
           )
         end
 
-        server_service = 'nfs-server'
-        server_servicehelpers = %w[nfs-idmapd]
+        server_service = 'nfs-kernel-server'
+        server_servicehelpers = ''
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind nfs-server]
+        client_nfs_vfour_services = %w[rpcbind]
         client_packages = %w[nfs-common nfs4-acl-tools]
         client_gssdopt_name = 'GSSDARGS'
         defaults_file = '/etc/default/nfs-common'
@@ -115,10 +148,17 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'Debian',
-            osfamily: 'Debian',
-            operatingsystemmajrelease: '7',
-            lsbdistcodename: 'wheezy'
+            'operatingsystem' => 'Debian',
+            'os' => {
+              'family' => 'Debian',
+              'distro' => {
+                'codename' => 'wheezy'
+              },
+              'release' => {
+                'major' => '7',
+                'full' => '7'
+              }
+            }
           )
         end
 
@@ -138,10 +178,17 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'Debian',
-            osfamily: 'Debian',
-            operatingsystemmajrelease: '8',
-            lsbdistcodename: 'jessie'
+            'operatingsystem' => 'Debian',
+            'os' => {
+              'family' => 'Debian',
+              'distro' => {
+                'codename' => 'jessie'
+              },
+              'release' => {
+                'major' => '8',
+                'full' => '8'
+              }
+            }
           )
         end
 
@@ -161,10 +208,77 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'Debian',
-            osfamily: 'Debian',
-            operatingsystemmajrelease: '9',
-            lsbdistcodename: 'stretch'
+            'operatingsystem' => 'Debian',
+            'os' => {
+              'family' => 'Debian',
+              'distro' => {
+                'codename' => 'stretch'
+              },
+              'release' => {
+                'major' => '9',
+                'full' => '9'
+              }
+            }
+          )
+        end
+
+        server_service = 'nfs-kernel-server'
+        server_servicehelpers = %w[nfs-idmapd]
+        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind]
+        client_packages = %w[nfs-common nfs4-acl-tools]
+        client_gssdopt_name = 'GSSDARGS'
+        defaults_file = '/etc/default/nfs-common'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/default/rpcbind'
+        client_rpcbind_optname = 'OPTIONS'
+
+      when 'Debian_10'
+
+        let(:facts) do
+          default_facts.merge(
+            'operatingsystem' => 'Debian',
+            'os' => {
+              'family' => 'Debian',
+              'distro' => {
+                'codename' => 'buster'
+              },
+              'release' => {
+                'major' => '10',
+                'full' => '10'
+              }
+            }
+          )
+        end
+
+        server_service = 'nfs-kernel-server'
+        server_servicehelpers = %w[nfs-idmapd]
+        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind]
+        client_packages = %w[nfs-common nfs4-acl-tools]
+        client_gssdopt_name = 'GSSDARGS'
+        defaults_file = '/etc/default/nfs-common'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/default/rpcbind'
+        client_rpcbind_optname = 'OPTIONS'
+
+      when 'Debian_11'
+
+        let(:facts) do
+          default_facts.merge(
+            'operatingsystem' => 'Debian',
+            'os' => {
+              'family' => 'Debian',
+              'distro' => {
+                'codename' => 'bullseye'
+              },
+              'release' => {
+                'major' => '11',
+                'full' => '11'
+              }
+            }
           )
         end
 
@@ -184,9 +298,17 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'RedHat',
-            osfamily: 'RedHat',
-            operatingsystemmajrelease: '6'
+            'operatingsystem' => 'RedHat',
+            'os' => {
+              'family' => 'RedHat',
+              'distro' => {
+                'codename' => 'RedHat 6'
+              },
+              'release' => {
+                'major' => '6',
+                'full' => '6'
+              }
+            }
           )
         end
 
@@ -206,10 +328,18 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'RedHat',
-            osfamily: 'RedHat',
-            operatingsystemmajrelease: '7',
-            operatingsystemrelease: '7.4'
+            'operatingsystem' => 'RedHat',
+            'os' => {
+              'family' => 'RedHat',
+              'distro' => {
+                'codename' => 'RedHat 7.4'
+              },
+              'release' => {
+                'major' => '7',
+                'minor' => '4',
+                'full' => '7.4'
+              }
+            }
           )
         end
 
@@ -229,10 +359,18 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'RedHat',
-            osfamily: 'RedHat',
-            operatingsystemmajrelease: '7',
-            operatingsystemrelease: '7.5'
+            'operatingsystem' => 'RedHat',
+            'os' => {
+              'family' => 'RedHat',
+              'distro' => {
+                'codename' => 'RedHat 7.5'
+              },
+              'release' => {
+                'major' => '7',
+                'minor' => '5',
+                'full' => '7.5'
+              }
+            }
           )
         end
 
@@ -252,10 +390,18 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'RedHat',
-            osfamily: 'RedHat',
-            operatingsystemmajrelease: '8',
-            operatingsystemrelease: '8'
+            'operatingsystem' => 'RedHat',
+            'os' => {
+              'family' => 'RedHat',
+              'distro' => {
+                'codename' => 'RedHat 8'
+              },
+              'release' => {
+                'major' => '8',
+                'minor' => '0',
+                'full' => '8.0'
+              }
+            }
           )
         end
 
@@ -275,9 +421,18 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'Gentoo',
-            osfamily: 'Gentoo',
-            operatingsystemmajrelease: '1'
+            'operatingsystem' => 'Gentoo',
+            'os' => {
+              'family' => 'Gentoo',
+              'distro' => {
+                'codename' => 'Gentoo'
+              },
+              'release' => {
+                'major' => '1',
+                'minor' => '0',
+                'full' => '1.0'
+              }
+            }
           )
         end
 
@@ -295,9 +450,17 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'SLES',
-            osfamily: 'Suse',
-            operatingsystemmajrelease: '12'
+            'operatingsystem' => 'SLES',
+            'os' => {
+              'family' => 'Suse',
+              'distro' => {
+                'codename' => 'SLES'
+              },
+              'release' => {
+                'major' => '12',
+                'full' => '12'
+              }
+            }
           )
         end
 
@@ -316,9 +479,17 @@ describe 'nfs' do
 
         let(:facts) do
           default_facts.merge(
-            operatingsystem: 'Archlinux',
-            osfamily: 'Archlinux',
-            operatingsystemmajrelease: '3'
+            'operatingsystem' => 'Archlinux',
+            'os' => {
+              'family' => 'Archlinux',
+              'distro' => {
+                'codename' => 'Archlinux'
+              },
+              'release' => {
+                'major' => '3',
+                'full' => '3'
+              }
+            }
           )
         end
 
