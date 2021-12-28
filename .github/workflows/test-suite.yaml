@@ -55,7 +55,7 @@ jobs:
       fail-fast: false
       matrix:
         puppet: [puppet6, puppet7]
-        beakerset: [ubuntu-18.04, ubuntu-20.04, centos-7, debian-7, debian-8]
+        beakerset: [ubuntu-18.04, ubuntu-20.04, centos-7, debian-10, debian-11]
 
     name: Integration tests
     runs-on: ubuntu-latest
@@ -70,14 +70,6 @@ jobs:
       with:
         ruby-version: 2.5.9
         bundler-cache: true
-      env:
-        BEAKER_set: ${{ matrix.beakerset }}
-        BEAKER_PUPPET_COLLECTION: ${{ matrix.puppet }}
-        PUPPET_INSTALL_TYPE: agent
-
-    - name: List tasks
-      run: |
-        BEAKER_destroy=yes bundle exec rake --tasks
       env:
         BEAKER_set: ${{ matrix.beakerset }}
         BEAKER_PUPPET_COLLECTION: ${{ matrix.puppet }}
