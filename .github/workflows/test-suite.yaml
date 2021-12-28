@@ -9,8 +9,8 @@ on:
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
-        fail-fast: false
         puppet: [6.0, 7.0]
         ruby: [2.5.9, 2.6.9]
 
