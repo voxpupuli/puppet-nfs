@@ -134,7 +134,7 @@ class nfs::params {
           $server_service_name        = 'nfs-kernel-server'
           $client_gssdopt_name        = 'RPCGSSDOPTS'
         }
-        'buster', 'stretch', 'xenial', 'yakkety', 'zesty': {
+        'bullseye', 'buster', 'stretch', 'xenial', 'yakkety', 'zesty': {
           $client_services            = { 'rpcbind' => {
                                             ensure => 'running',
                                             enable => false,
