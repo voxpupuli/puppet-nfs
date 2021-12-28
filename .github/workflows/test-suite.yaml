@@ -10,8 +10,10 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        ruby: [2.4.10, 2.5.9, 2.6.9]      
+        fail-fast: false
+        puppet: [6.0, 7.0]
+        ruby: [2.5.9, 2.6.9]
+
     name: Test suite
     runs-on: ubuntu-latest
     permissions:
@@ -26,24 +28,24 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
       env:
-        PUPPET_VERSION: 7.0
+        PUPPET_VERSION: ${{ matrix.puppet }}
 
     - name: Metadata lint
       run: |
-        PUPPET_VERSION=7.0 bundle exec rake metadata_lint
+        PUPPET_VERSION=${{ matrix.puppet }} bundle exec rake metadata_lint
 
     - name: Puppet lint
       run: |
-        PUPPET_VERSION=7.0 bundle exec rake lint
+        PUPPET_VERSION=${{ matrix.puppet }} bundle exec rake lint
 
     - name: Puppet syntax
       run: |
-        PUPPET_VERSION=7.0 bundle exec rake syntax
+        PUPPET_VERSION=${{ matrix.puppet }} bundle exec rake syntax
 
     - name: Puppet spec
       run: |
-        PUPPET_VERSION=7.0 STRICT_VARIABLES=yes bundle exec rake spec
+        PUPPET_VERSION=${{ matrix.puppet }} STRICT_VARIABLES=yes bundle exec rake spec
 
     - name: Rubocop
       run: |
-        PUPPET_VERSION=7.0 bundle exec rake rubocop
+        PUPPET_VERSION=${{ matrix.puppet }} bundle exec rake rubocop
