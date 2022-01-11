@@ -341,11 +341,11 @@ This will mount /data on client in /share/data.
     - nfs
 
   nfs::server_enabled: true
-  nfs::client_enabled :  false
-  nfs::nfs_v4:  true
-  nfs::nfs_v4_idmap_domain:  %{::domain}
-  nfs::nfs_v4_export_root:  '/share'
-  nfs::nfs_v4_export_root_clients:  '192.168.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)'
+  nfs::client_enabled: false
+  nfs::nfs_v4: true
+  nfs::nfs_v4_idmap_domain: %{::domain}
+  nfs::nfs_v4_export_root: '/share'
+  nfs::nfs_v4_export_root_clients: '192.168.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)'
 
 
   nfs::nfs_exports_global:
