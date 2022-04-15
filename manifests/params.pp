@@ -187,7 +187,7 @@ class nfs::params {
       case $facts['os']['release']['major'] {
         '7': {
           $client_idmapd_setting      = ['']
-          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
           $client_services_enable     = true
           $client_gssdopt_name        = 'RPCGSSDARGS'
           if versioncmp($facts['os']['release']['full'], '7.5') < 0 {
