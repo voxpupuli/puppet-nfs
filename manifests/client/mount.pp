@@ -155,7 +155,7 @@ define nfs::client::mount (
     }
   }
 
-  if $owner != undef or $group != undef or $mode != undef {
+  if $owner != undef or $group != undef or $mode != undef or $ensure != absent {
     file { $mount:
       ensure  => directory,
       owner   => $owner,
