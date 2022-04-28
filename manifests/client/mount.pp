@@ -161,6 +161,7 @@ define nfs::client::mount (
       owner   => $owner,
       group   => $group,
       mode    => $mode,
+      force   => true,
       require => Mount["shared ${sharename} by ${server} on ${mount}"],
     }
   }
