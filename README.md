@@ -75,7 +75,7 @@ On a client the following code is sufficient:
 
 ### Simple NFSv3 server and client example
 
-This will export /data/folder on the server and automagically mount it on client.
+This will export /data_folder on the server and automagically mount it on client.
 
 ```puppet
   node server {

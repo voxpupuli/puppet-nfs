@@ -157,10 +157,11 @@ define nfs::client::mount (
 
   if $owner != undef or $group != undef or $mode != undef {
     file { $mount:
-      ensure  => directory,
+      ensure  => $ensure == absent ? { true => 'absent', default => 'directory' },
       owner   => $owner,
       group   => $group,
       mode    => $mode,
+      force   => true,
       require => Mount["shared ${sharename} by ${server} on ${mount}"],
     }
   }

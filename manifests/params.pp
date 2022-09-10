@@ -187,7 +187,7 @@ class nfs::params {
       case $facts['os']['release']['major'] {
         '7': {
           $client_idmapd_setting      = ['']
-          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
           $client_services_enable     = true
           $client_gssdopt_name        = 'RPCGSSDARGS'
           if versioncmp($facts['os']['release']['full'], '7.5') < 0 {
@@ -229,6 +229,23 @@ class nfs::params {
           $server_service_name        = 'nfs-server.service'
         }
         '8': {
+          $client_idmapd_setting      = ['']
+          $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_services_enable     = true
+          $client_gssdopt_name        = 'RPCGSSDARGS'
+          $client_services            = {'rpcbind.service' => {}}
+          $client_gssd_service_name   = { 'rpc-gssd' => {
+                                            ensure => 'running',
+                                            enable => true,
+                                          },
+                                        }
+          $client_nfsv4_fstype        = 'nfs4'
+          $client_nfsv4_options       = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+          $client_nfsv4_services      = {'rpcbind' => {}}
+          $server_nfsv4_servicehelper = [ 'nfs-idmapd.service' ]
+          $server_service_name        = 'nfs-server.service'
+        }
+        '9': {
           $client_idmapd_setting      = ['']
           $client_nfs_options         = 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
           $client_services_enable     = true
