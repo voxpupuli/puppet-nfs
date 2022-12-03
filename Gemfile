@@ -21,7 +21,7 @@ group :test do
   gem 'puppet-lint-unquoted_string-check',                          require: false
   gem 'puppet-lint-variable_contains_upcase',                       require: false
   gem 'puppet-lint-version_comparison-check',                       require: false
-  gem 'puppet-strings',                                             require: false, git: 'https://github.com/puppetlabs/puppetlabs-strings.git', branch: 'main'
+  gem 'puppet-strings',                                             require: false
   gem 'puppet-syntax',                                              require: false
   gem 'puppetlabs_spec_helper',                                     require: false
   gem 'semantic_puppet',                                            require: false
