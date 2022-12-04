@@ -13,13 +13,13 @@ endif
 ifneq ($(origin RVM), undefined)
 	rvm := ${RVM}
 else
-	rvm := 2.5.0
+	rvm := 2.6.9
 endif
 
 ifneq ($(origin BEAKER_set), undefined)
 	beaker_set := ${BEAKER_set}
 else
-	beaker_set := ubuntu-20.04
+	beaker_set := centos-7
 endif
 
 ifneq ($(origin PUPPET_collection), undefined)
@@ -29,10 +29,10 @@ else
 endif
 
 DOCKER_CMD := docker run -it --rm -v $$(pwd):/puppet/module derdanne/rvm:$(rvm) /bin/bash -l -c
-PREPARE := rm -f Gemfile.lock && $(DOCKER_CMD) "PUPPET_VERSION=$(puppet_version) bundle install --quiet --without system_tests development --path=vendor/bundle"
+PREPARE := $(DOCKER_CMD) "PUPPET_VERSION=$(puppet_version)" bundle config set --local without 'system_tests development' path 'vendor/bundle' && rm -f Gemfile.lock && $(DOCKER_CMD) "PUPPET_VERSION=$(puppet_version) bundle install --quiet"
 
 DOCKER_CMD_BEAKER := docker run --net host --privileged -it --rm -v $$(pwd):/puppet/module -v /var/run/docker.sock:/var/run/docker.sock derdanne/rvm:$(rvm) /bin/bash -l -c
-PREPARE_BEAKER := rm -f Gemfile.lock && $(DOCKER_CMD) "bundle install --quiet --without system_tests development --path=vendor/bundle"
+PREPARE_BEAKER := rm -f Gemfile.lock && $(DOCKER_CMD) "bundle config set --local without 'system_tests development path 'vendor/bundle'' && bundle install --quiet"
 
 VARIABLES := echo "PUPPET_VERSION=$(puppet_version), STRICT_VARIABLES=$(strict_variables), RVM=$(rvm)"
 

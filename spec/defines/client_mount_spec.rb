@@ -13,12 +13,12 @@ describe 'nfs::client::mount', type: 'define' do
         'os' => {
           'family' => 'Debian',
           'distro' => {
-            'codename' => 'xenial'
+            'codename' => 'focal'
           },
           'release' => {
-            'major' => '16',
+            'major' => '20',
             'minor' => '04',
-            'full' => '16.04'
+            'full' => '20.04'
           }
         },
         'concat_basedir' => '/tmp',
@@ -49,12 +49,12 @@ describe 'nfs::client::mount', type: 'define' do
         'os' => {
           'family' => 'Debian',
           'distro' => {
-            'codename' => 'xenial'
+            'codename' => 'focal'
           },
           'release' => {
-            'major' => '16',
+            'major' => '20',
             'minor' => '04',
-            'full' => '16.04'
+            'full' => '20.04'
           }
         },
         'concat_basedir' => '/tmp',
@@ -85,12 +85,12 @@ describe 'nfs::client::mount', type: 'define' do
         'os' => {
           'family' => 'Debian',
           'distro' => {
-            'codename' => 'xenial'
+            'codename' => 'focal'
           },
           'release' => {
-            'major' => '16',
+            'major' => '20',
             'minor' => '04',
-            'full' => '16.04'
+            'full' => '20.04'
           }
         },
         'concat_basedir' => '/tmp',
@@ -121,12 +121,12 @@ describe 'nfs::client::mount', type: 'define' do
         'os' => {
           'family' => 'Debian',
           'distro' => {
-            'codename' => 'xenial'
+            'codename' => 'focal'
           },
           'release' => {
-            'major' => '16',
+            'major' => '20',
             'minor' => '04',
-            'full' => '16.04'
+            'full' => '20.04'
           }
         },
         'concat_basedir' => '/tmp',
@@ -158,12 +158,12 @@ describe 'nfs::client::mount', type: 'define' do
         'os' => {
           'family' => 'Debian',
           'distro' => {
-            'codename' => 'xenial'
+            'codename' => 'focal'
           },
           'release' => {
-            'major' => '16',
+            'major' => '20',
             'minor' => '04',
-            'full' => '16.04'
+            'full' => '20.04'
           }
         },
         'concat_basedir' => '/tmp',
@@ -194,12 +194,12 @@ describe 'nfs::client::mount', type: 'define' do
         'os' => {
           'family' => 'Debian',
           'distro' => {
-            'codename' => 'xenial'
+            'codename' => 'focal'
           },
           'release' => {
-            'major' => '16',
+            'major' => '20',
             'minor' => '04',
-            'full' => '16.04'
+            'full' => '20.04'
           }
         },
         'concat_basedir' => '/tmp',
