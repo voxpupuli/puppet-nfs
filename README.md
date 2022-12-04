@@ -464,12 +464,12 @@ This will mount /data on client in /share/data.
 
 ##### `nfs_v4`
   Boolean. If set to <tt>true</tt>, this module will use nfs version 4
-  for exporting and mounting nfs resources.
+  for exporting and mounting nfs resources. It defaults to <tt>true</tt>.
 
 ##### `nfs_v4_client`
   Boolean. If set to <tt>true</tt>, this module will use nfs version 4
   for mounting nfs resources. If set to <tt>false</tt> it will use nfs
-  version 3 to mount nfs resources. It defaults to the setting of `nfs_v4`
+  version 3 to mount nfs resources. It defaults to <tt>true</tt>.
 
 ##### `exports_file`
   String. It defines the location of the file with the nfs export resources used
