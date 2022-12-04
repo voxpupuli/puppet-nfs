@@ -19,7 +19,7 @@ endif
 ifneq ($(origin BEAKER_set), undefined)
 	beaker_set := ${BEAKER_set}
 else
-	beaker_set := ubuntu-22.04
+	beaker_set := centos-7
 endif
 
 ifneq ($(origin PUPPET_collection), undefined)

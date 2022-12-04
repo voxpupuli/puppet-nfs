@@ -15,7 +15,7 @@ jobs:
         ruby: [2.5.9, 2.6.9]
 
     name: Static code analysis
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     permissions:
       contents: read
 
@@ -58,7 +58,7 @@ jobs:
         beakerset: [ubuntu-18.04, ubuntu-20.04, ubuntu-22.04, centos-7, debian-10, debian-11]
 
     name: Integration tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     permissions:
       contents: read
 
