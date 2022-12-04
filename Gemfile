@@ -28,7 +28,7 @@ group :test do
   gem 'rake',                                                       require: false
   gem 'rspec',                                                      require: false
   gem 'rspec-core',                                                 require: false
-  gem 'rspec-puppet',                                               require: false, git: 'https://github.com/rodjek/rspec-puppet.git'
+  gem 'rspec-puppet',                                               require: false, git: 'https://github.com/puppetlabs/rspec-puppet.git'
   gem 'rspec-puppet-facts',                                         require: false
   gem 'rspec-puppet-utils',                                         require: false
   gem 'rubocop',                                                    require: false
@@ -38,8 +38,6 @@ end
 
 group :development do
   gem 'guard-rake',   require: false
-  gem 'travis',       require: false
-  gem 'travis-lint',  require: false
 end
 
 if RUBY_VERSION >= '2.3.0'
