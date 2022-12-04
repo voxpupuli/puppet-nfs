@@ -16,7 +16,7 @@ else
 	rvm := 3.1.3
 endif
 
-export rvm_beaker := 2.7.7
+export rvm_beaker := 2.6.9
 
 ifneq ($(origin BEAKER_set), undefined)
 	beaker_set := ${BEAKER_set}
