@@ -81,7 +81,10 @@
 #   String. It defines the servicename of the nfs server service
 #
 # [*server_service_ensure*]
-#   Boolean. It defines the service parameter ensure for nfs server services.
+#   Enum. It defines the service parameter ensure for nfs server services.
+#
+# [*manage_server_service_ensure*]
+#   Boolean. It defines if the nfs server service ensure state should be managed.
 #
 # [*server_service_enable*]
 #   Boolean. It defines the service parameter enable for nfs server service.
@@ -228,6 +231,7 @@ class nfs(
   Boolean $manage_server_servicehelper                                                = true,
   Boolean $manage_client_service                                                      = true,
   String $server_service_name                                                         = $::nfs::params::server_service_name,
+  Boolean $manage_server_service_ensure                                               = true,
   Enum['present', 'absent', 'running', 'stopped', 'disabled'] $server_service_ensure  = 'running',
   Boolean $server_service_enable                                                      = true,
   Boolean $server_service_hasrestart                                                  = $::nfs::params::server_service_hasrestart,
