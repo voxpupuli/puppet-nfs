@@ -28,7 +28,7 @@ class nfs::server::service {
       $server_service_require = Service[$::nfs::server_nfsv4_servicehelper]
       $::nfs::server_nfsv4_servicehelper.each |$service_name| {
         service { $service_name:
-          ensure     => $::nfs::server_service_ensure,
+          ensure     => $::nfs::server_service_ensure_real,
           enable     => $::nfs::server_service_enable,
           hasrestart => $::nfs::server_service_hasrestart,
           hasstatus  => $::nfs::server_service_hasstatus,
