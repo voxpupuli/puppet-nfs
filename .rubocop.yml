@@ -669,3 +669,5 @@ RSpec/ImplicitSubject:
 # new configurations since rubocop 1.50.0
 RSpec/NoExpectationExample:
   Enabled: false
+inherit_gem:
+  voxpupuli-test: rubocop.yml
