@@ -1,19 +1,13 @@
-# == Class: nfs::client::package
+# Class: nfs::client::package
 #
+# @summary
 # This Function exists to
 #  1. install needed packages for nfs clients
 #
-#
-# === Links
-#
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-#
-#
-# === Authors
-#
+# @authors
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <tuxmea@gmail.com>
 #
-
 class nfs::client::package {
   if $nfs::manage_packages {
     if $nfs::client::nfs_v4 {

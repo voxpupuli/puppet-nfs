@@ -1,28 +1,17 @@
-# == Function: nfs::functions::mkdir
+# Function: nfs::functions::mkdir
 #
+# @summary
 # This Function exists to
 #  1. manage dir creation
 #
-# === Parameters
+# @param ensure
 #
-# None
-#
-# === Examples
-#
-# This Function should not be called directly.
-#
-# === Links
-#
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-#
-#
-# === Authors
-#
+# @authors
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <tuxmea@gmail.com>
 #
-
 define nfs::functions::mkdir (
-  $ensure = 'present',
+  String[1] $ensure = 'present',
 ) {
   if $ensure != 'absent' {
     exec { "mkdir_recurse_${name}":

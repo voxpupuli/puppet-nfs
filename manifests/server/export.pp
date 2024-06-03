@@ -1,58 +1,63 @@
-# == Function: nfs::server::export
+# Function: nfs::server::export
 #
+# @summary
 # This Function exists to
 #  1. manage all exported resources on a nfs server
 #
-# === Parameters
+# Parameters
 #
-# [*clients*]
+# @param clients
 #   String or Array. Sets the allowed clients and options for the export in the exports file.
 #   Defaults to <tt>localhost(ro)</tt>
 #
-# [*bind*]
+# @param bind
 #   String. Sets the bind options setted in /etc/fstab for the bindmounts created.
 #   Defaults to <tt>rbind</tt>
 #
-# [*ensure*]
+# @param ensure
 #   String. If enabled the mount will be created. Defaults to <tt>mounted</tt>
 #
-# [*remounts*]
+# @param remounts
 #   String. Sets the remounts parameter of the mount.
 #
-# [*atboot*]
+# @param atboot
 #   String. Sets the atboot parameter of the mount.
 #
-# [*options_nfsv4*]
+# @param options_nfsv4
 #   String. Sets the mount options for a nfs version 4 exported resource mount.
 #
-# [*options_nfs*]
+# @param options_nfs
 #   String. Sets the mount options for a nfs exported resource mount.
 #
-# [*bindmount*]
+# @param bindmount
 #   String. When not undef it will create a bindmount on the node
 #   for the nfs mount.
 #
-# [*nfstag*]
+# @param nfstag
 #   String. Sets the nfstag parameter of the mount.
 #
-# [*mount*]
+# @param mount
 #   String. Sets the mountpoint the client will mount the exported resource mount on. If undef
 #   it defaults to the same path as on the server
 #
-# [*owner*]
+# @param owner
 #   String. Sets the owner of the exported directory
 #
-# [*group*]
+# @param group
 #   String. Sets the group of the exported directory
 #
-# [*mode*]
+# @param mode
 #   String. Sets the permissions of the exported directory.
 #
-# [*server*]
+# @param server
 #   String. Sets the hostname clients will use to mount the exported resource. If undef it
 #   defaults to the trusted certname
 #
-# === Examples
+# @param v3_export_name
+# @param v4_export_name
+# @param nfsv4_bindmount_enable
+#
+# @examples
 #
 # class { '::nfs':
 #   server_enabled             => true,
@@ -66,36 +71,36 @@
 #   share => 'share_name_on_nfs_server',
 # }
 #
-# === Links
+# Links
 #
 # * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
 #
 #
-# === Authors
+# @authors
 #
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <mailto:tuxmea@gmail.com>
 #
-
 define nfs::server::export (
-  $v3_export_name         = $name,
-  $v4_export_name         = regsubst($name, '.*/(.*)', '\1' ),
-  $clients                = 'localhost(ro)',
-  $bind                   = 'rbind',
+  String[1]           $v3_export_name         = $name,
+  String[1]           $v4_export_name         = regsubst($name, '.*/(.*)', '\1' ),
+  String[1]           $clients                = 'localhost(ro)',
+  String[1]           $bind                   = 'rbind',
   # globals for this share
   # propogated to storeconfigs
-  $ensure                 = 'mounted',
-  $mount                  = undef,
-  $remounts               = false,
-  $atboot                 = false,
-  $options_nfsv4          = $nfs::client_nfsv4_options,
-  $options_nfs            = $nfs::client_nfs_options,
-  $bindmount              = undef,
-  $nfstag                 = undef,
-  $owner                  = undef,
-  $group                  = undef,
-  $mode                   = undef,
-  $server                 = $facts['clientcert'],
-  $nfsv4_bindmount_enable = $nfs::nfsv4_bindmount_enable,
+  String[1]           $ensure                 = 'mounted',
+  Optional[String[1]] $mount                  = undef,
+  Boolean             $remounts               = false,
+  Boolean             $atboot                 = false,
+  String[1]           $options_nfsv4          = $nfs::client_nfsv4_options,
+  String[1]           $options_nfs            = $nfs::client_nfs_options,
+  Optional[String[1]] $bindmount              = undef,
+  Optional[String[1]] $nfstag                 = undef,
+  Optional[String[1]] $owner                  = undef,
+  Optional[String[1]] $group                  = undef,
+  Optional[String[1]] $mode                   = undef,
+  String[1]           $server                 = $facts['clientcert'],
+  Boolean             $nfsv4_bindmount_enable = $nfs::nfsv4_bindmount_enable,
 ) {
   if $nfs::server::nfs_v4 {
     if $nfsv4_bindmount_enable {

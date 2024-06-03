@@ -1,19 +1,12 @@
-# == Class: nfs::client::config
-#
+# Class: nfs::client::config
+# @summary
 # This Function exists to
 #  1. configure nfs as a client
 #
-#
-# === Links
-#
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-#
-#
-# === Authors
-#
+# @authors
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <tuxmea@betadots.de>
 #
-
 class nfs::client::config {
   if $nfs::client::nfs_v4 {
     if $nfs::defaults_file != undef {
@@ -46,14 +39,18 @@ class nfs::client::config {
 
     if $nfs::client_d9_gssdopt_workaround and $nfs::client_gssd_service {
       file_line { 'rpc-gssd.service':
-        path    => '/lib/systemd/system/rpc-gssd.service',
-        match   => 'EnvironmentFile',
-        line    => 'EnvironmentFile=-/etc/default/nfs-common',
-        require => Package['nfs-common'],
-      } ~> exec { 'systemctl daemon-reload':
+        path  => '/lib/systemd/system/rpc-gssd.service',
+        match => 'EnvironmentFile',
+        line  => 'EnvironmentFile=-/etc/default/nfs-common',
+      }
+      exec { 'systemctl daemon-reload':
         refreshonly => true,
         path        => '/bin',
-      } ~> Service['rpc-gssd']
+      }
+      Package['nfs-common']
+      -> File_line['rpc-gssd.service']
+      ~> Exec['systemctl daemon-reload']
+      ~> Service['rpc-gssd']
     }
 
     if ( $nfs::server_enabled == false ) or ( $nfs::server_enabled == true and $nfs::nfs_v4 == false ) {

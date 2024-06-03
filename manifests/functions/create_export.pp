@@ -1,45 +1,34 @@
-# == Function: nfs::functions::create_export
+# Function: nfs::functions::create_export
 #
+# @summary
 # This Function exists to
 #  1. manage export creation
 #
-# === Parameters
-#
-# [*clients*]
+# @param clients
 #   String or Array. Sets the clients allowed to mount the export with options.
 #
-# [*ensure*]
+# @param ensure
 #   String. Sets if enabled or not.
 #
-# [*owner*]
+# @param owner
 #   String. Sets the owner of the exported directory.
 #
-# [*group*]
+# @param group
 #   String. Sets the group of the exported directory.
 #
-# [*mode*]
+# @param mode
 #   String. Sets the permissions of the exported directory.
 #
-# === Examples
-#
-# This Function should not be called directly.
-#
-# === Links
-#
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-#
-#
-# === Authors
-#
+# @authors
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <tuxmea@gmail.com>
 #
-
 define nfs::functions::create_export (
-  $clients,
-  $ensure = 'present',
-  $owner  = undef,
-  $group  = undef,
-  $mode   = undef,
+  Variant[String[1], Array[String[1]]] $clients,
+  String[1]                            $ensure = 'present',
+  Optional[String[1]]                  $owner  = undef,
+  Optional[String[1]]                  $group  = undef,
+  Optional[String[1]]                  $mode   = undef,
 ) {
   if $ensure != 'absent' {
     $line = "${name} ${join(any2array($clients),' ')}\n"

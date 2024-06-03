@@ -1,29 +1,32 @@
-# == Class: nfs::client
+# Class: nfs::client
 #
+# @summary
 # This class exists to
 #  1. order the loading of classes
 #  2. including all needed classes for nfs as a client
 #
-#
-# === Links
-#
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-#
-#
-# === Authors
-#
+# @param ensure
+#   The ensure parameter is used to determine if the nfs client should be configured
+#   and running or not. Valid values are 'present' and 'absent'. Default is 'present'.
+# @param nfs_v4
+#   The nfs_v4 parameter is used to determine if the nfs client should use nfs version 4.
+#   Valid values are 'true' and 'false'. Default is 'false'.
+# @param nfs_v4_mount_root
+#   The nfs_v4_mount_root parameter is used to determine the root directory for nfs version 4 mounts.
+#   Default is '/mnt'.
+# @param nfs_v4_idmap_domain
+#   The nfs_v4_idmap_domain parameter is used to determine the domain for nfs version 4 id mapping.
+#   Default is 'localdomain'.
+# @authors
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <tuxmea@gmail.com>
 #
-
 class nfs::client (
-  $ensure                     = $nfs::ensure,
-  $nfs_v4                     = $nfs::nfs_v4_client,
-  $nfs_v4_mount_root          = $nfs::nfs_v4_mount_root,
-  $nfs_v4_idmap_domain        = $nfs::nfs_v4_idmap_domain,
+  String $ensure                     = $nfs::ensure,
+  String $nfs_v4                     = $nfs::nfs_v4_client,
+  String $nfs_v4_mount_root          = $nfs::nfs_v4_mount_root,
+  String $nfs_v4_idmap_domain        = $nfs::nfs_v4_idmap_domain,
 ) {
-  anchor { 'nfs::client::begin': }
-  anchor { 'nfs::client::end': }
-
   # package(s)
   class { 'nfs::client::package': }
 
@@ -35,18 +38,12 @@ class nfs::client (
 
   if $ensure == 'present' {
     # we need the software before configuring it
-    Anchor['nfs::client::begin']
-    -> Class['nfs::client::package']
+    Class['nfs::client::package']
     -> Class['nfs::client::config']
-    # we need the software and a working configuration before running a service
-    Class['nfs::client::package'] -> Class['nfs::client::service']
-    Class['nfs::client::config']  -> Class['nfs::client::service']
-    Class['nfs::client::service'] -> Anchor['nfs::client::end']
+    -> Class['nfs::client::service']
   } else {
     # make sure all services are getting stopped before software removal
-    Anchor['nfs::client::begin']
-    -> Class['nfs::client::service']
+    Class['nfs::client::service']
     -> Class['nfs::client::package']
-    -> Anchor['nfs::client::end']
   }
 }

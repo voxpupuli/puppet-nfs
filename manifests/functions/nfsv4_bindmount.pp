@@ -1,27 +1,17 @@
-# == Function: nfs::functions::nfsv4_bindmount
+# Function: nfs::functions::nfsv4_bindmount
 #
+# @summary
 # This Function exists to
 #  1. manage bindmounts for nfs4
 #
-# === Parameters
-#
-# [*v4_export_name*]
+# @param v4_export_name
 #   String. Sets the target directory for the bindmount
 #
-# [*bind*]
+# @param bind
 #   String. Sets the bindmount options.
 #
-# [*ensure*]
+# @param ensure
 #   String. Sets if mounted or not.
-#
-# === Examples
-#
-# This Function should not be called directly.
-#
-# === Links
-#
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-#
 #
 # === Authors
 #
@@ -29,9 +19,9 @@
 #
 
 define nfs::functions::nfsv4_bindmount (
-  $v4_export_name,
-  $bind,
-  $ensure = 'mounted',
+  String[1] $v4_export_name,
+  String[1] $bind,
+  String[1] $ensure = 'mounted',
 ) {
   $normalize_export_root = regsubst($nfs::server::nfs_v4_export_root, '/$', '')
   $expdir = "${normalize_export_root}/${v4_export_name}"

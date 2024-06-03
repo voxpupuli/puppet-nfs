@@ -1,19 +1,13 @@
-# == Class: nfs::client::service
+# Class: nfs::client::service
 #
+# @summary
 # This Function exists to
 #  1. manage the needed services for nfs clients
 #
-#
-# === Links
-#
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-#
-#
-# === Authors
-#
+# @authors
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <tuxmea@gmail.com>
 #
-
 class nfs::client::service {
   if $nfs::client::nfs_v4 {
     $create_services = $nfs::effective_nfsv4_client_services
