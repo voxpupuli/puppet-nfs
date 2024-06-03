@@ -19,9 +19,18 @@ describe 'nfs' do
       end
 
       ### vv switch case to set OS specific values vv ###
+      ## debian-12-x86_64
+      ## ubuntu-20.04-x86_64
+      ## redhat-9-x86_64
+      ## redhat-8-x86_64
+      ## sles-12-x86_64
+      ## sles-15-x86_64
+      ## debian-11-x86_64
+      ## ubuntu-22.04-x86_64
+      ## redhat-7-x86_64
       case os
 
-      when 'Ubuntu_default'
+      when 'ubuntu-22.04-x86_64', 'ubuntu-20.04-x86_64'
 
         let(:facts) do
           default_facts.merge(facts)
@@ -39,79 +48,7 @@ describe 'nfs' do
         client_rpcbind_config = '/etc/default/rpcbind'
         client_rpcbind_optname = 'OPTIONS'
 
-      when 'Ubuntu_16.04'
-
-        let(:facts) do
-          default_facts.merge(facts)
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = %w[nfs-idmapd]
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'GSSDARGS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
-      when 'Ubuntu_18.04'
-
-        let(:facts) do
-          default_facts.merge(facts)
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = ''
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'GSSDARGS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
-      when 'Ubuntu_20.04'
-
-        let(:facts) do
-          default_facts.merge(facts)
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = ''
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'GSSDARGS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
-      when 'Ubuntu_22.04'
-
-        let(:facts) do
-          default_facts.merge(facts)
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = ''
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'GSSDARGS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
-      when 'Debian_default'
+      when 'debian-11-x86_64', 'debian-12-x86_64'
 
         let(:facts) do
           default_facts.merge(facts)
@@ -129,79 +66,8 @@ describe 'nfs' do
         client_rpcbind_config = '/etc/default/rpcbind'
         client_rpcbind_optname = 'OPTIONS'
 
-      when 'Debian_8'
 
-        let(:facts) do
-          default_facts.merge(facts)
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = %w[nfs-common]
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind nfs-common]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'RPCGSSDOPTS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
-      when 'Debian_9'
-
-        let(:facts) do
-          default_facts.merge(facts)
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = %w[nfs-idmapd]
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'GSSDARGS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
-      when 'Debian_10'
-
-        let(:facts) do
-          default_facts.merge(facts)
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = %w[nfs-idmapd]
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'GSSDARGS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
-      when 'Debian_11'
-
-        let(:facts) do
-          default_facts.merge(facts)
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = %w[nfs-idmapd]
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'GSSDARGS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
-      when 'RedHat_default'
+      when 'redhat-9-x86_64'
 
         let(:facts) do
           default_facts.merge(facts)
@@ -219,7 +85,7 @@ describe 'nfs' do
         client_rpcbind_config = '/etc/sysconfig/rpcbind'
         client_rpcbind_optname = 'RPCBIND_ARGS'
 
-      when 'RedHat_7'
+      when 'redhat-7-x86_64'
 
         let(:facts) do
           default_facts.merge(facts)
@@ -237,25 +103,7 @@ describe 'nfs' do
         client_rpcbind_config = '/etc/sysconfig/rpcbind'
         client_rpcbind_optname = 'RPCBIND_ARGS'
 
-      when 'RedHat_75'
-
-        let(:facts) do
-          default_facts.merge(facts)
-        end
-
-        server_service = 'nfs-server.service'
-        server_servicehelpers = %w[nfs-idmap.service]
-        server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind.service]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfs-utils nfs4-acl-tools rpcbind]
-        client_gssdopt_name = 'RPCGSSDARGS'
-        defaults_file = '/etc/sysconfig/nfs'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/sysconfig/rpcbind'
-        client_rpcbind_optname = 'RPCBIND_ARGS'
-
-      when 'RedHat_8'
+      when 'redhat-8-x86_64'
 
         let(:facts) do
           default_facts.merge(facts)
@@ -273,23 +121,7 @@ describe 'nfs' do
         client_rpcbind_config = '/etc/sysconfig/rpcbind'
         client_rpcbind_optname = 'RPCBIND_ARGS'
 
-      when 'Gentoo'
-
-        let(:facts) do
-          default_facts.merge(facts)
-        end
-
-        server_service = 'nfs'
-        server_servicehelpers = %w[rpc.idmapd]
-        server_packages = %w[net-nds/rpcbind net-fs/nfs-utils net-libs/libnfsidmap]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind rpc.idmapd]
-        client_packages = %w[net-nds/rpcbind net-fs/nfs-utils net-libs/libnfsidmap]
-        client_gssdopt_name = 'RPCGSSDARGS'
-        defaults_file = '/etc/conf.d/nfs'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_optname = 'OPTS_RPC_NFSD'
-      when 'SLES'
+      when 'sles-12-x86_64', 'sles-15-x86_64'
 
         let(:facts) do
           default_facts.merge(facts)
@@ -302,23 +134,6 @@ describe 'nfs' do
         client_nfs_vfour_services = %w[rpcbind nfs]
         client_packages = %w[nfsidmap nfs-client rpcbind]
         client_gssdopt_name = 'GSSD_OPTIONS'
-        defaults_file = ''
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_optname = 'RPCNFSDARGS'
-
-      when 'Archlinux'
-
-        let(:facts) do
-          default_facts.merge(facts)
-        end
-
-        server_service = 'nfs-server.service'
-        server_servicehelpers = %w[nfs-idmapd]
-        server_packages = %w[nfs-utils]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfsidmap rpcbind]
-        client_gssdopt_name = 'RPCGSSDARGS'
         defaults_file = ''
         idmapd_file = '/etc/idmapd.conf'
         client_rpcbind_optname = 'RPCNFSDARGS'
