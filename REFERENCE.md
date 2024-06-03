@@ -650,7 +650,7 @@ Default value: `$nfs::ensure`
 
 ##### <a name="-nfs--client--nfs_v4"></a>`nfs_v4`
 
-Data type: `String`
+Data type: `Boolean`
 
 The nfs_v4 parameter is used to determine if the nfs client should use nfs version 4.
 Valid values are 'true' and 'false'. Default is 'false'.
