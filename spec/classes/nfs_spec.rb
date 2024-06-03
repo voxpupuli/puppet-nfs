@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'nfs' do
   on_supported_os.each do |os, facts|
-    context "on #{os}" do
+    context "with default settings on #{os}" do
       let(:facts) do
         facts
       end
@@ -65,7 +65,6 @@ describe 'nfs' do
         idmapd_file = '/etc/idmapd.conf'
         client_rpcbind_config = '/etc/default/rpcbind'
         client_rpcbind_optname = 'OPTIONS'
-
 
       when 'redhat-9-x86_64'
 
