@@ -4,7 +4,7 @@
 # This Function exists to
 #  1. install needed packages for nfs clients
 #
-# @authors
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 # * Martin Alfke <tuxmea@gmail.com>
 #

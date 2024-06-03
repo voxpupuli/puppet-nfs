@@ -17,7 +17,7 @@
 # @param nfs_v4_idmap_domain
 #   The nfs_v4_idmap_domain parameter is used to determine the domain for nfs version 4 id mapping.
 #   Default is 'localdomain'.
-# @authors
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 # * Martin Alfke <tuxmea@gmail.com>
 #

@@ -1,19 +1,13 @@
-# == Class: nfs::server::config
+# Class: nfs::server::config
 #
+# @summary
 # This class exists to
 #  1. configure nfs as a server
 #
-#
-# === Links
-#
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-#
-#
-# === Authors
-#
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <tuxmea@gmail.com>
 #
-
 class nfs::server::config {
   concat { $nfs::exports_file:
     ensure  => present,

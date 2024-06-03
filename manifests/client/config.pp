@@ -3,7 +3,7 @@
 # This Function exists to
 #  1. configure nfs as a client
 #
-# @authors
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 # * Martin Alfke <tuxmea@betadots.de>
 #

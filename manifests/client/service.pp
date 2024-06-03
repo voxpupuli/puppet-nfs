@@ -4,7 +4,7 @@
 # This Function exists to
 #  1. manage the needed services for nfs clients
 #
-# @authors
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 # * Martin Alfke <tuxmea@gmail.com>
 #

@@ -8,7 +8,7 @@
 # Therefore, many operating system dependent differences (names, paths, ...)
 # are addressed in here.
 #
-# @authors
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 # * Martin Alfke <tuxmea@gmail.com>
 #

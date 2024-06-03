@@ -1,12 +1,7 @@
 # @summary Class: nfs::server
-#
 # This class exists to
 #  1. order the loading of classes
 #  2. including all needed classes for nfs as a server
-#
-# Links
-#
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
 #
 # @param ensure
 # @param nfs_v4
@@ -21,7 +16,7 @@
 # @param nfs_v4_root_export_bindmount
 # @param nfs_v4_root_export_tag
 #
-# @authors
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 # * Martin Alfke <mailto:tuxmea@gmail.com>
 #

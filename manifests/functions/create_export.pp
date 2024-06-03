@@ -19,7 +19,7 @@
 # @param mode
 #   String. Sets the permissions of the exported directory.
 #
-# @authors
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 # * Martin Alfke <tuxmea@gmail.com>
 #

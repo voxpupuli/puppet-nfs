@@ -76,7 +76,7 @@
 # * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
 #
 #
-# @authors
+# @author
 #
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 # * Martin Alfke <mailto:tuxmea@gmail.com>

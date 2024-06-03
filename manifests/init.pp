@@ -157,10 +157,10 @@
 #   Boolean. It defines the service parameter hasstatus for nfs client services.
 # @param client_gssdopt_name
 #   String. It defines the name of the gssd option in /etc/default/nfs-common.
-# @examples
+# @example
 # * {Please take a look at} [https://github.com/voxpupuli/puppet-nfs#examples]
 #
-# @authors
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 # * Martin Alfke <tuxmea@gmail.com>
 #

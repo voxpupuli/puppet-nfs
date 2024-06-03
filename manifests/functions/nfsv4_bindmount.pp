@@ -13,11 +13,10 @@
 # @param ensure
 #   String. Sets if mounted or not.
 #
-# === Authors
-#
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <tuxmea@gmail.com>
 #
-
 define nfs::functions::nfsv4_bindmount (
   String[1] $v4_export_name,
   String[1] $bind,

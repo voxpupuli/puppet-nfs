@@ -54,7 +54,7 @@
 # @param client_packages
 # @param nfs_v4
 #
-# @examples
+# @example
 #
 # class { '::nfs':
 #   client_enabled => true,
@@ -69,7 +69,7 @@
 #   options_nfsv4 => 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
 # }
 #
-# @authors
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 # * Martin Alfke <tuxmea@gmail.com>
 #

@@ -10,7 +10,7 @@
 # @param ensure
 #   String. Sets if enabled or not.
 #
-# @authors
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
 # * Martin Alfke <tuxmea@gmail.com>
 #

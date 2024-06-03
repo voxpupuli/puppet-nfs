@@ -8,3 +8,4 @@ vendor/
 spec/fixtures/
 pkg/
 log/
+.yardoc
