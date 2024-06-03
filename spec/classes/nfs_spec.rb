@@ -3,10 +3,11 @@
 require 'spec_helper'
 
 describe 'nfs' do
-  # supported_os = %w[Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES Archlinux]
-  supported_os = %w[Ubuntu_16.04 Ubuntu_18.04 Ubuntu_20.04 Ubuntu_22.04 Debian_8 Debian_9 Debian_10 Debian_11 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES]
-  supported_os.each do |os|
-    context os do
+  on_supported_os.each do |os, facts|
+    context "on #{os}" do
+      let(:facts) do
+        facts
+      end
       let(:default_facts) do
         {
           'concat_basedir' => '/tmp',
@@ -23,20 +24,7 @@ describe 'nfs' do
       when 'Ubuntu_default'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Ubuntu',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'trusty'
-              },
-              'release' => {
-                'major' => '14',
-                'minor' => '04',
-                'full' => '14.04'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-kernel-server'
@@ -54,20 +42,7 @@ describe 'nfs' do
       when 'Ubuntu_16.04'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Ubuntu',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'xenial'
-              },
-              'release' => {
-                'major' => '16',
-                'minor' => '04',
-                'full' => '16.04'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-kernel-server'
@@ -85,20 +60,7 @@ describe 'nfs' do
       when 'Ubuntu_18.04'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Ubuntu',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'bionic'
-              },
-              'release' => {
-                'major' => '18',
-                'minor' => '04',
-                'full' => '18.04'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-kernel-server'
@@ -116,20 +78,7 @@ describe 'nfs' do
       when 'Ubuntu_20.04'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Ubuntu',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'focal'
-              },
-              'release' => {
-                'major' => '20',
-                'minor' => '04',
-                'full' => '20.04'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-kernel-server'
@@ -147,20 +96,7 @@ describe 'nfs' do
       when 'Ubuntu_22.04'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Ubuntu',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'focal'
-              },
-              'release' => {
-                'major' => '20',
-                'minor' => '04',
-                'full' => '20.04'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-kernel-server'
@@ -178,19 +114,7 @@ describe 'nfs' do
       when 'Debian_default'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Debian',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'wheezy'
-              },
-              'release' => {
-                'major' => '7',
-                'full' => '7'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-kernel-server'
@@ -208,19 +132,7 @@ describe 'nfs' do
       when 'Debian_8'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Debian',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'jessie'
-              },
-              'release' => {
-                'major' => '8',
-                'full' => '8'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-kernel-server'
@@ -238,19 +150,7 @@ describe 'nfs' do
       when 'Debian_9'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Debian',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'stretch'
-              },
-              'release' => {
-                'major' => '9',
-                'full' => '9'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-kernel-server'
@@ -268,19 +168,7 @@ describe 'nfs' do
       when 'Debian_10'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Debian',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'buster'
-              },
-              'release' => {
-                'major' => '10',
-                'full' => '10'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-kernel-server'
@@ -298,19 +186,7 @@ describe 'nfs' do
       when 'Debian_11'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Debian',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'bullseye'
-              },
-              'release' => {
-                'major' => '11',
-                'full' => '11'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-kernel-server'
@@ -328,19 +204,7 @@ describe 'nfs' do
       when 'RedHat_default'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'RedHat',
-            'os' => {
-              'family' => 'RedHat',
-              'distro' => {
-                'codename' => 'RedHat 6'
-              },
-              'release' => {
-                'major' => '6',
-                'full' => '6'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs'
@@ -358,20 +222,7 @@ describe 'nfs' do
       when 'RedHat_7'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'RedHat',
-            'os' => {
-              'family' => 'RedHat',
-              'distro' => {
-                'codename' => 'RedHat 7.4'
-              },
-              'release' => {
-                'major' => '7',
-                'minor' => '4',
-                'full' => '7.4'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-server.service'
@@ -389,20 +240,7 @@ describe 'nfs' do
       when 'RedHat_75'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'RedHat',
-            'os' => {
-              'family' => 'RedHat',
-              'distro' => {
-                'codename' => 'RedHat 7.5'
-              },
-              'release' => {
-                'major' => '7',
-                'minor' => '5',
-                'full' => '7.5'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-server.service'
@@ -420,20 +258,7 @@ describe 'nfs' do
       when 'RedHat_8'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'RedHat',
-            'os' => {
-              'family' => 'RedHat',
-              'distro' => {
-                'codename' => 'RedHat 8'
-              },
-              'release' => {
-                'major' => '8',
-                'minor' => '0',
-                'full' => '8.0'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-server.service'
@@ -451,20 +276,7 @@ describe 'nfs' do
       when 'Gentoo'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Gentoo',
-            'os' => {
-              'family' => 'Gentoo',
-              'distro' => {
-                'codename' => 'Gentoo'
-              },
-              'release' => {
-                'major' => '1',
-                'minor' => '0',
-                'full' => '1.0'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs'
@@ -480,19 +292,7 @@ describe 'nfs' do
       when 'SLES'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'SLES',
-            'os' => {
-              'family' => 'Suse',
-              'distro' => {
-                'codename' => 'SLES'
-              },
-              'release' => {
-                'major' => '12',
-                'full' => '12'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfsserver'
@@ -509,19 +309,7 @@ describe 'nfs' do
       when 'Archlinux'
 
         let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Archlinux',
-            'os' => {
-              'family' => 'Archlinux',
-              'distro' => {
-                'codename' => 'Archlinux'
-              },
-              'release' => {
-                'major' => '3',
-                'full' => '3'
-              }
-            }
-          )
+          default_facts.merge(facts)
         end
 
         server_service = 'nfs-server.service'
