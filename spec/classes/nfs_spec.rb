@@ -152,12 +152,12 @@ describe 'nfs' do
             'os' => {
               'family' => 'Debian',
               'distro' => {
-                'codename' => 'focal'
+                'codename' => 'jammy'
               },
               'release' => {
-                'major' => '20',
+                'major' => '22',
                 'minor' => '04',
-                'full' => '20.04'
+                'full' => '22.04'
               }
             }
           )
