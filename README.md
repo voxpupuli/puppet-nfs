@@ -1,5 +1,14 @@
 # nfs
 
+[![Build Status](https://github.com/voxpupuli/puppet-nfs/workflows/CI/badge.svg)](https://github.com/voxpupuli/puppet-nfs/actions?query=workflow%3ACI)
+[![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-nfs/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-nfs)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/nfs.svg)](https://forge.puppetlabs.com/puppet/nfs)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/nfs.svg)](https://forge.puppetlabs.com/puppet/nfs)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/nfs.svg)](https://forge.puppetlabs.com/puppet/nfs)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/nfs.svg)](https://forge.puppetlabs.com/puppet/nfs)
+
+This module was migrated from Daniel Klockenkaemper <dk@marketing-factory.de> to Vox Pupuli.
+
 #### Table of Contents
 1. [Module Description - What the module does and why it is useful](#module-description)
 2. [Setup - The basics of getting started with puppet-nfs](#setup)

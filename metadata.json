@@ -2,7 +2,7 @@
   "name": "puppet-nfs",
   "version": "2.1.11",
   "source": "https://github.com/voxpupuli/puppet-nfs.git",
-  "author": "derdanne",
+  "author": "Voxpupuli Community",
   "license": "Apache-2.0",
   "summary": "Installs and configures NFS server and clients",
   "project_page": "https://github.com/voxpupuli/puppet-nfs",
@@ -19,9 +19,6 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "14.04",
-        "16.04",
-        "18.04",
         "20.04",
         "22.04"
       ]
@@ -29,10 +26,6 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "6",
-        "7",
-        "8",
-        "9",
         "10",
         "11"
       ]
