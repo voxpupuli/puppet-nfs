@@ -30,3 +30,5 @@ require 'voxpupuli/acceptance/spec_helper_acceptance'
 #   on host, puppet('module', 'install', 'puppetlabs-stdlib'), acceptable_exit_codes: [0, 1]
 #   on host, puppet('module', 'install', 'puppetlabs-concat'), acceptable_exit_codes: [0, 1]
 # end
+configure_beaker
+
