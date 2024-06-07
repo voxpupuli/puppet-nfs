@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.configure do |c|
-  c.mock_with :rspec
-end
+# RSpec.configure do |c|
+#   c.mock_with :rspec
+# end
 require 'voxpupuli/acceptance/spec_helper_acceptance'
 # require 'beaker-rspec/spec_helper'
 # require 'beaker/puppet_install_helper'
@@ -26,7 +26,7 @@ require 'voxpupuli/acceptance/spec_helper_acceptance'
 #   end
 # end
 
-configure_beaker do |host|
-  on host, puppet('module', 'install', 'puppetlabs-stdlib'), acceptable_exit_codes: [0, 1]
-  on host, puppet('module', 'install', 'puppetlabs-concat'), acceptable_exit_codes: [0, 1]
-end
+# configure_beaker do |host|
+#   on host, puppet('module', 'install', 'puppetlabs-stdlib'), acceptable_exit_codes: [0, 1]
+#   on host, puppet('module', 'install', 'puppetlabs-concat'), acceptable_exit_codes: [0, 1]
+# end
