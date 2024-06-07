@@ -118,11 +118,13 @@ describe 'nfs class' do
         nfs::server::export { '/data_folder':
           ensure  => 'mounted',
           clients => '*(rw,insecure,async,no_root_squash,no_subtree_check)',
+          before => Class['nfs::server::service'],
         }
         nfs::server::export { '/homeexport':
           ensure  => 'mounted',
           clients => '*(rw,insecure,async,root_squash,no_subtree_check)',
           mount   => '/srv/home',
+          before => Class['nfs::server::service'],
         }
       PUPPETCODE
 
