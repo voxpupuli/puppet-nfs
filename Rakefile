@@ -27,7 +27,7 @@ rescue LoadError
   # voxpupuli-release not present
 else
   GCGConfig.user = 'voxpupuli'
-  GCGConfig.project = 'puppet-gitlab'
+  GCGConfig.project = 'puppet-nfs'
 end
 
 desc "Run main 'test' task and report merged results to coveralls"

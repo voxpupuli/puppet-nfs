@@ -1,17 +1,20 @@
 # frozen_string_literal: true
 
-RSpec.configure do |c|
-  c.mock_with :rspec
-end
+# Managed by modulesync - DO NOT EDIT
+# https://voxpupuli.org/docs/updating-files-managed-with-modulesync/
 
-require 'puppetlabs_spec_helper/module_spec_helper'
-require 'rspec-puppet-facts'
-include RspecPuppetFacts
+# puppetlabs_spec_helper will set up coverage if the env variable is set.
+# We want to do this if lib exists and it hasn't been explicitly set.
+ENV['COVERAGE'] ||= 'yes' if Dir.exist?(File.expand_path('../lib', __dir__))
 
-RSpec.configure do |c|
-  default_facts = {
-    puppetversion: Puppet.version,
-    facterversion: Facter.version
-  }
-  c.default_facts = default_facts
+require 'voxpupuli/test/spec_helper'
+
+add_mocked_facts!
+
+if File.exist?(File.join(__dir__, 'default_module_facts.yml'))
+  facts = YAML.safe_load(File.read(File.join(__dir__, 'default_module_facts.yml')))
+  facts&.each do |name, value|
+    add_custom_fact name.to_sym, value
+  end
 end
+Dir['./spec/support/spec/**/*.rb'].sort.each { |f| require f }

@@ -3,10 +3,10 @@
 require 'spec_helper_acceptance'
 
 describe 'nfs class' do
-  case fact('osfamily')
+  case fact('os.family')
 
   when 'Debian'
-    case fact('lsbdistcodename')
+    case fact('os.distro.codename')
     when 'jessie', 'wheezy'
       server_service = 'nfs-kernel-server'
       server_servicehelpers = %w[nfs-common]
@@ -28,7 +28,7 @@ describe 'nfs class' do
     client_packages = %w[nfs-common nfs4-acl-tools rpcbind]
 
   when 'RedHat'
-    case fact('operatingsystemmajrelease')
+    case fact('os.release.major')
     when '6'
       server_service = 'nfs'
       server_servicehelpers = %w[rpcidmapd rpcbind]
@@ -80,7 +80,7 @@ describe 'nfs class' do
 
       client_services.each do |service|
         # puppet reports wrong status for nfs-common on wheezy
-        if service == 'nfs-common' && fact('lsbdistcodename') == 'wheezy'
+        if service == 'nfs-common' && fact('os.distro.codename') == 'wheezy'
           puts 'puppet reports wrong status for nfs-common on wheezy'
         else
           describe service(service) do
@@ -141,7 +141,7 @@ describe 'nfs class' do
       end
 
       # Buggy nfs-kernel-server does not run in docker with Ubuntu 14.04, Debian wheezy and CentOs 6 images
-      if fact('lsbdistcodename') == 'trusty' || fact('lsbdistcodename') == 'wheezy' || (fact('osfamily') == 'RedHat' && fact('operatingsystemmajrelease') == '6')
+      if fact('os.distro.codename') == 'trusty' || fact('os.distro.codename') == 'wheezy' || (fact('os.family') == 'RedHat' && fact('os.release.major') == '6')
         puts 'Buggy nfs-kernel-server does not run in docker with Ubuntu 14.04, Debian wheezy and CentOs 6 images'
       else
         describe service(server_service) do
@@ -152,7 +152,7 @@ describe 'nfs class' do
       if server_servicehelpers != ''
         server_servicehelpers.each do |server_servicehelper|
           # puppet reports wrong status for nfs-common on wheezy
-          if server_servicehelper == 'nfs-common' && fact('lsbdistcodename') == 'wheezy'
+          if server_servicehelper == 'nfs-common' && fact('os.distro.codename') == 'wheezy'
             puts 'puppet reports wrong status for nfs-common on wheezy'
           else
             describe service(server_servicehelper) do
