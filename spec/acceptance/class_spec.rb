@@ -105,7 +105,7 @@ describe 'nfs class' do
   describe 'include nfs with server params' do
     context 'when server params' do
       server_pp = <<-PUPPETCODE
-        file { ['/export', '/export/data_folder', '/export/homeexport', '/data_folder', '/homeexport']:
+        file { ['/export', '/data_folder', '/homeexport']:
           ensure => 'directory',
         }
         class { '::nfs':
