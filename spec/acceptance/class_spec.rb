@@ -8,19 +8,19 @@ describe 'nfs class' do
   when 'Debian'
     case fact('os.distro.codename')
     when 'jessie', 'wheezy'
-      server_service = 'nfs-kernel-server'
+      # server_service = 'nfs-kernel-server'
       server_servicehelpers = %w[nfs-common]
       client_services = %w[rpcbind nfs-common]
     when 'trusty'
-      server_service = 'nfs-kernel-server'
+      # server_service = 'nfs-kernel-server'
       server_servicehelpers = ''
       client_services = %w[rpcbind]
-    when 'bionic', 'focal'
-      server_service = 'nfs-kernel-server'
-      server_servicehelpers = %w[nfs-idmapd]
-      client_services = %w[rpcbind]
+    # when 'bionic', 'focal'
+    #   server_service = 'nfs-kernel-server'
+    #   server_servicehelpers = %w[nfs-idmapd]
+    #   client_services = %w[rpcbind]
     else
-      server_service = 'nfs-server'
+      # server_service = 'nfs-server'
       server_servicehelpers = %w[nfs-idmapd]
       client_services = %w[rpcbind]
     end
@@ -30,11 +30,11 @@ describe 'nfs class' do
   when 'RedHat'
     case fact('os.release.major')
     when '6'
-      server_service = 'nfs'
+      # server_service = 'nfs'
       server_servicehelpers = %w[rpcidmapd rpcbind]
       client_services = %w[rpcbind]
     when '7'
-      server_service = 'nfs-server.service'
+      # server_service = 'nfs-server.service'
       server_servicehelpers = %w[nfs-idmap.service]
       client_services = %w[rpcbind.service rpcbind.socket]
     end
