@@ -22,10 +22,10 @@
 # * Martin Alfke <tuxmea@gmail.com>
 #
 class nfs::client (
-  String $ensure                     = $nfs::ensure,
-  Boolean $nfs_v4                     = $nfs::nfs_v4_client,
-  String $nfs_v4_mount_root          = $nfs::nfs_v4_mount_root,
-  String $nfs_v4_idmap_domain        = $nfs::nfs_v4_idmap_domain,
+  String  $ensure              = $nfs::ensure,
+  Boolean $nfs_v4              = $nfs::nfs_v4_client,
+  String  $nfs_v4_mount_root   = $nfs::nfs_v4_mount_root,
+  String  $nfs_v4_idmap_domain = $nfs::nfs_v4_idmap_domain,
 ) {
   # package(s)
   class { 'nfs::client::package': }
