@@ -1,55 +1,60 @@
-# == Function: nfs::client::mount
+# Function: nfs::client::mount
 #
+# @summary
 # This Function exists to
 #  1. manage all mounts on a nfs client
 #
-# === Parameters
+# Parameters
 #
-# [*server*]
+# @param server
 #   String. Sets the ip address of the server with the nfs export
 #
-# [*share*]
+# @param share
 #   String. Sets the name of the nfs share on the server
 #
-# [*ensure*]
+# @param ensure
 #   String. Sets the ensure parameter of the mount.
 #
-# [*remounts*]
+# @param remounts
 #   String. Sets the remounts parameter of the mount.
 #
-# [*atboot*]
+# @param atboot
 #   String. Sets the atboot parameter of the mount.
 #
-# [*options_nfsv4*]
+# @param options_nfsv4
 #   String. Sets the mount options for a nfs version 4 mount.
 #
-# [*options_nfs*]
+# @param options_nfs
 #   String. Sets the mount options for a nfs mount.
 #
-# [*bindmount*]
+# @param bindmount
 #   String. When not undef it will create a bindmount on the node
 #   for the nfs mount.
 #
-# [*nfstag*]
+# @param nfstag
 #   String. Sets the nfstag parameter of the mount.
 #
-# [*nfs_v4*]
+# param nfs_v4
 #   Boolean. When set to true, it uses nfs version 4 to mount a share.
 #
-# [*owner*]
+# @param owner
 #   String. Set owner of mount dir
 #
-# [*group*]
+# @param group
 #   String. Set group of mount dir
 #
-# [*mode*]
+# @param mode
 #   String. Set mode of mount dir
 #
-# [*mount_root*]
+# @param mount_root
 #   String. Overwrite mount root if differs from server config
 #
-
-# === Examples
+# @param mount
+# @param manage_packages
+# @param client_packages
+# @param nfs_v4
+#
+# @example
 #
 # class { '::nfs':
 #   client_enabled => true,
@@ -64,29 +69,28 @@
 #   options_nfsv4 => 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
 # }
 #
-# === Authors
-#
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <tuxmea@gmail.com>
 #
-
 define nfs::client::mount (
-  $server,
-  $share           = undef,
-  $ensure          = 'mounted',
-  $mount           = $title,
-  $remounts        = false,
-  $atboot          = false,
-  $options_nfsv4   = $nfs::client_nfsv4_options,
-  $options_nfs     = $nfs::client_nfs_options,
-  $bindmount       = undef,
-  $nfstag          = undef,
-  $nfs_v4          = $nfs::client::nfs_v4,
-  $owner           = undef,
-  $group           = undef,
-  $mode            = undef,
-  $mount_root      = undef,
-  $manage_packages = $nfs::manage_packages,
-  $client_packages = $nfs::effective_client_packages,
+  String[1]                                      $server,
+  Optional[String[1]]                            $share           = undef,
+  String[1]                                      $ensure          = 'mounted',
+  String[1]                                      $mount           = $title,
+  Boolean                                        $remounts        = false,
+  Boolean                                        $atboot          = false,
+  String[1]                                      $options_nfsv4   = $nfs::client_nfsv4_options,
+  String[1]                                      $options_nfs     = $nfs::client_nfs_options,
+  Optional[String[1]]                            $bindmount       = undef,
+  Optional[String[1]]                            $nfstag          = undef,
+  Boolean                                        $nfs_v4          = $nfs::client::nfs_v4,
+  Optional[String[1]]                            $owner           = undef,
+  Optional[String[1]]                            $group           = undef,
+  Optional[String[1]]                            $mode            = undef,
+  Optional[String[1]]                            $mount_root      = undef,
+  Boolean                                        $manage_packages = $nfs::manage_packages,
+  Optional[Variant[String[1], Array[String[1]]]] $client_packages = $nfs::effective_client_packages,
 ) {
   if $manage_packages and $client_packages != undef {
     $mount_require = [Nfs::Functions::Mkdir[$mount], Package[$client_packages]]

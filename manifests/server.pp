@@ -1,36 +1,39 @@
-# == Class: nfs::server
-#
+# @summary Class: nfs::server
 # This class exists to
 #  1. order the loading of classes
 #  2. including all needed classes for nfs as a server
 #
-# === Links
+# @param ensure
+# @param nfs_v4
+# @param nfs_v4_export_root
+# @param nfs_v4_export_root_clients
+# @param nfs_v4_idmap_domain
+# @param nfs_v4_root_export_ensure
+# @param nfs_v4_root_export_mount
+# @param nfs_v4_root_export_remounts
+# @param nfs_v4_root_export_atboot
+# @param nfs_v4_root_export_options
+# @param nfs_v4_root_export_bindmount
+# @param nfs_v4_root_export_tag
 #
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-#
-#
-# === Authors
-#
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <mailto:tuxmea@gmail.com>
 #
-
 class nfs::server (
-  $ensure                       = $nfs::ensure,
-  $nfs_v4                       = $nfs::nfs_v4,
-  $nfs_v4_export_root           = $nfs::nfs_v4_export_root,
-  $nfs_v4_export_root_clients   = $nfs::nfs_v4_export_root_clients,
-  $nfs_v4_idmap_domain          = $nfs::nfs_v4_idmap_domain,
-  $nfs_v4_root_export_ensure    = $nfs::nfs_v4_root_export_ensure,
-  $nfs_v4_root_export_mount     = $nfs::nfs_v4_root_export_mount,
-  $nfs_v4_root_export_remounts  = $nfs::nfs_v4_root_export_remounts,
-  $nfs_v4_root_export_atboot    = $nfs::nfs_v4_root_export_atboot ,
-  $nfs_v4_root_export_options   = $nfs::nfs_v4_root_export_options,
-  $nfs_v4_root_export_bindmount = $nfs::nfs_v4_root_export_bindmount,
-  $nfs_v4_root_export_tag       = $nfs::nfs_v4_root_export_tag,
+  Enum['present', 'absent', 'running', 'stopped', 'disabled'] $ensure                       = $nfs::ensure,
+  Boolean                                                     $nfs_v4                       = $nfs::nfs_v4,
+  String                                                      $nfs_v4_export_root           = $nfs::nfs_v4_export_root,
+  String                                                      $nfs_v4_export_root_clients   = $nfs::nfs_v4_export_root_clients,
+  String                                                      $nfs_v4_idmap_domain          = $nfs::nfs_v4_idmap_domain,
+  String                                                      $nfs_v4_root_export_ensure    = $nfs::nfs_v4_root_export_ensure,
+  Optional[String]                                            $nfs_v4_root_export_mount     = $nfs::nfs_v4_root_export_mount,
+  Boolean                                                     $nfs_v4_root_export_remounts  = $nfs::nfs_v4_root_export_remounts,
+  Boolean                                                     $nfs_v4_root_export_atboot    = $nfs::nfs_v4_root_export_atboot ,
+  String                                                      $nfs_v4_root_export_options   = $nfs::nfs_v4_root_export_options,
+  Optional[String]                                            $nfs_v4_root_export_bindmount = $nfs::nfs_v4_root_export_bindmount,
+  Optional[String]                                            $nfs_v4_root_export_tag       = $nfs::nfs_v4_root_export_tag,
 ) {
-  anchor { 'nfs::server::begin': }
-  anchor { 'nfs::server::end': }
-
   # package(s)
   class { 'nfs::server::package': }
 
@@ -42,18 +45,12 @@ class nfs::server (
 
   if $ensure == 'present' {
     # we need the software before configuring it
-    Anchor['nfs::server::begin']
-    -> Class['nfs::server::package']
+    Class['nfs::server::package']
     -> Class['nfs::server::config']
-    # we need the software and a working configuration before running a service
-    Class['nfs::server::package'] -> Class['nfs::server::service']
-    Class['nfs::server::config']  -> Class['nfs::server::service']
-    Class['nfs::server::service'] -> Anchor['nfs::server::end']
+    -> Class['nfs::server::service']
   } else {
     # make sure all services are getting stopped before software removal
-    Anchor['nfs::server::begin']
-    -> Class['nfs::server::service']
+    Class['nfs::server::service']
     -> Class['nfs::server::package']
-    -> Anchor['nfs::server::end']
   }
 }

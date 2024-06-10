@@ -1,11 +1,20 @@
 # nfs
 
+[![Build Status](https://github.com/voxpupuli/puppet-nfs/workflows/CI/badge.svg)](https://github.com/voxpupuli/puppet-nfs/actions?query=workflow%3ACI)
+[![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-nfs/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-nfs)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/nfs.svg)](https://forge.puppetlabs.com/puppet/nfs)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/nfs.svg)](https://forge.puppetlabs.com/puppet/nfs)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/nfs.svg)](https://forge.puppetlabs.com/puppet/nfs)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/nfs.svg)](https://forge.puppetlabs.com/puppet/nfs)
+
+This module was migrated from Daniel Klockenkaemper <dk@marketing-factory.de> to Vox Pupuli.
+
 #### Table of Contents
 1. [Module Description - What the module does and why it is useful](#module-description)
-2. [Setup - The basics of getting started with derdanne-nfs](#setup)
-    * [What derdanne-nfs affects](#what-derdanne-nfs-affects)
+2. [Setup - The basics of getting started with puppet-nfs](#setup)
+    * [What puppet-nfs affects](#what-puppet-nfs-affects)
     * [Setup requirements](#setup-requirements)
-    * [Beginning with derdanne-nfs](#beginning-with-derdanne-nfs)
+    * [Beginning with puppet-nfs](#beginning-with-puppet-nfs)
 3. [Usage - Configuration options and additional functionality](#usage)
 4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
@@ -24,10 +33,10 @@ and 'client_enabled'. It also has some dependencies on newer stdlib functions li
 
 It supports the OS Families Ubuntu, Debian, Redhat, SUSE, Gentoo and Archlinux. It supports also Strict Variables, so if you pass all
 OS specific parameters correctly it should work on your preferred OS too. Feedback, bugreports,
-and feature requests are always welcome, visit https://github.com/derdanne/puppet-nfs or send me an email.
+and feature requests are always welcome, visit https://github.com/voxpupuli/puppet-nfs or send me an email.
 
-When you are using a puppet version 3.x like it is shipped with Redhat Satellite 6, please use a version 1.x.x from puppet forge 
-or the branch puppet3 when cloning directly from Github. (Note: https://github.com/derdanne/puppet-nfs/pull/49#issuecomment-285091678). 
+When you are using a puppet version 3.x like it is shipped with Redhat Satellite 6, please use a version 1.x.x from puppet forge
+or the branch puppet3 when cloning directly from Github. (Note: https://github.com/voxpupuli/puppet-nfs/pull/49#issuecomment-285091678).
 I'll recommend using puppet >= 4.6.1, puppet versions up until 4.6.0 had various issues.
 
 If you want to contribute, please do a fork on github, create a branch "feature name" with your
@@ -40,18 +49,18 @@ Warning: I've introduced new dependencies with version 2.1.0 which were needed t
 
 ## Setup
 
-### What derdanne-nfs affects
+### What puppet-nfs affects
 
-This module can be used to configure your nfs client and/or server, it could export 
-nfs mount resources via storeconfigs or simply mount nfs shares on a client. You can 
+This module can be used to configure your nfs client and/or server, it could export
+nfs mount resources via storeconfigs or simply mount nfs shares on a client. You can
 also easily use the create_resources function when you store your exports i.e. via hiera.
 
 ### Setup requirements
 
 This Module depends on puppetlabs-stdlib >= 4.5.0 and puppetlabs-concat >= 1.1.2, you need to
-have these modules installed to use derdanne-nfs module.
+have these modules installed to use puppet-nfs module.
 
-### Beginning with derdanne-nfs
+### Beginning with puppet-nfs
 
 On a nfs server the following code is sufficient to get all packages installed and services
 running to use nfs:
@@ -110,7 +119,7 @@ This will mount /data on client in /share/data.
       nfs_v4_client => true,
       nfs_v4_idmap_domain => $::domain,
     }
-  
+
     nfs::client::mount { '/share/data':
         server => '192.168.0.1',
         share => 'data',
@@ -368,26 +377,26 @@ This will mount /data on client in /share/data.
 **Puppet:**
 
 ```puppet
-  
+
   node server {
     hiera_include('classes')
     $nfs_exports_global = hiera_hash('nfs::nfs_exports_global', false)
-  
+
     $defaults_nfs_exports = {
       ensure  => 'mounted',
       clients => '192.168.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)',
       nfstag     => $::fqdn,
     }
-  
+
     if $nfs_exports_global {
       create_resources('::nfs::server::export', $nfs_exports_global, $defaults_nfs_exports)
     }
   }
-  
+
   node client {
     hiera_include('classes')
     $nfs_server = hiera('nfs::nfs_server', false)
-    
+
     if $nfs_server {
       Nfs::Client::Mount <<| nfstag == $nfs_server |>>
     }
@@ -611,7 +620,7 @@ This will mount /data on client in /share/data.
   String. 'Nobody-User' option for idmapd. Defaults to <tt>nobody</tt>.
 
 ##### `nfs_v4_idmap_nobody_group`
-  String. 'Nobody-Group' option for idmapd. Defaults to <tt>nobody</tt> or <tt>nogroup</tt>. 
+  String. 'Nobody-Group' option for idmapd. Defaults to <tt>nobody</tt> or <tt>nogroup</tt>.
 
 ##### `client_rpcbind_config`
   String. It defines the location of the file with the rpcbind config.
@@ -681,10 +690,10 @@ This will mount /data on client in /share/data.
 ##### `bind`
   String. Sets the bind options setted in /etc/fstab for the bindmounts created.
   Defaults to <tt>rbind</tt>. When you have any submounts in your exported folders,
-  the rbind option will submount them in the bindmount folder. You have to set the 
+  the rbind option will submount them in the bindmount folder. You have to set the
   `crossmnt` option in your nfs export to have the submounts from rbind available
   on your client. Your export should look like this:
-  
+
 ```puppet
 node client {
   nfs::server::export { '/home':
@@ -692,7 +701,7 @@ node client {
     clients => '*(rw,insecure,no_subtree_check,async,no_root_squash,crossmnt)',
   }
 }
-``` 
+```
 
 ##### `ensure`
   String. If enabled the mount will be created. Defaults to <tt>mounted</tt>
@@ -746,19 +755,19 @@ puppet > 3.2.0
 augeas
 
 ## Limitations
-If you want to have specific package versions installed you may manage the needed packages outside of this 
+If you want to have specific package versions installed you may manage the needed packages outside of this
 module (use manage_packages => false). It is only tested to use 'present', 'installed', 'absent',
 'purged', 'held' and 'latest' as argument for the parameters server_package_ensure and client_package_ensure.
 
 ## Development
 
 Derdanne modules are open projects. So if you want to make this module even better,
-you can contribute to this module on [Github](https://github.com/derdanne/puppet-nfs).
+you can contribute to this module on [Github](https://github.com/voxpupuli/puppet-nfs).
 
 Before pushing PRs to Github i would recommend you to test your work locally. So you can ensure all test builds
-on Travis CI were passing. I have prepared an easy way to test your code locally with the help of Docker. 
+on Travis CI were passing. I have prepared an easy way to test your code locally with the help of Docker.
 
-For running the complete static code analysis, it is sufficient to run a `make test-all`. 
+For running the complete static code analysis, it is sufficient to run a `make test-all`.
 
 ### Default settings
 
@@ -790,7 +799,7 @@ You can run the following commands to setup and run the testsuite on your local 
 
 #### `make build`
 
-Build a docker image with a Ruby version which is not available on Docker hub. Check out 
+Build a docker image with a Ruby version which is not available on Docker hub. Check out
 `https://hub.docker.com/r/derdanne/rvm/` to see if i have already prepared a rvm build for the ruby version
 you want to test. Take a look at the Dockerfile located in `spec/local-testing` if you want to customize
 your builds.

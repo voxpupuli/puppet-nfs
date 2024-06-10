@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'nfs' do
   # supported_os = %w[Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES Archlinux]
-  supported_os = %w[Ubuntu_16.04 Ubuntu_18.04 Ubuntu_20.04 Ubuntu_22.04 Debian_8 Debian_9 Debian_10 Debian_11 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES]
+  supported_os = %w[Ubuntu_20.04 Ubuntu_22.04 Debian_10 Debian_11 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES]
   supported_os.each do |os|
     context os do
       let(:default_facts) do
@@ -152,12 +152,12 @@ describe 'nfs' do
             'os' => {
               'family' => 'Debian',
               'distro' => {
-                'codename' => 'focal'
+                'codename' => 'jammy'
               },
               'release' => {
-                'major' => '20',
+                'major' => '22',
                 'minor' => '04',
-                'full' => '20.04'
+                'full' => '22.04'
               }
             }
           )

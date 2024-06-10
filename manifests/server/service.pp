@@ -1,19 +1,13 @@
-# == Class: nfs::server::service
+# Class: nfs::server::service
 #
+# @summary
 # This Function exists to
 #  1. manage the needed services for nfs server
 #
-#
-# === Links
-#
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-#
-#
-# === Authors
-#
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <tuxmea@gmail.com>
 #
-
 class nfs::server::service {
   if $nfs::nfs_v4 == true {
     if $nfs::server_nfsv4_servicehelper != undef and $nfs::manage_server_servicehelper {

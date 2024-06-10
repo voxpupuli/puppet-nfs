@@ -1,33 +1,22 @@
-# == Function: nfs::functions::bindmount
+# Function: nfs::functions::bindmount
 #
+# @summary
 # This Function exists to
 #  1. manage bindmounts
 #
-# === Parameters
-#
-# [*mount_name*]
+# @param mount_name
 #   String. Sets the target directory for the bindmount
 #
-# [*ensure*]
+# @param ensure
 #   String. Sets if enabled or not.
 #
-# === Examples
-#
-# This Function should not be called directly.
-#
-# === Links
-#
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-#
-#
-# === Authors
-#
+# @author
 # * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
+# * Martin Alfke <tuxmea@gmail.com>
 #
-
 define nfs::functions::bindmount (
-  $mount_name = undef,
-  $ensure     = 'present',
+  Optional[String[1]] $mount_name = undef,
+  String[1]           $ensure     = 'present',
 ) {
   nfs::functions::mkdir { $mount_name:
     ensure => $ensure,
