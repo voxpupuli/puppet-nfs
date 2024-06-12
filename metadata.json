@@ -12,6 +12,7 @@
     {"name":"puppetlabs/concat","version_requirement":">= 1.1.2 < 10.0.0"},
     {"name":"puppetlabs/transition","version_requirement":">= 0.1.0 < 3.0.0"},
     {"name":"puppet/augeasproviders_core","version_requirement":">= 2.1.5 < 5.0.0"},
+    {"name":"edgej-filepath","version_requirement":">= 1.0.0"},
     {"name":"puppet/augeasproviders_shellvar","version_requirement":">= 1.2.0 <= 7.0.0"},
     {"name":"puppetlabs/augeas_core","version_requirement":">= 1.2.0 <= 2.0.0"},
     {"name":"puppetlabs/mount_core","version_requirement":">= 1.2.0 <= 2.0.0"}
