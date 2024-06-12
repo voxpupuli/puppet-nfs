@@ -13,12 +13,6 @@
 class nfs::params {
   #### Default values for the parameters of the main module class, init.pp
 
-  if $facts['networking']['domain'] != undef {
-    $nfs_v4_idmap_domain = $facts['networking']['domain']
-  } else {
-    $nfs_v4_idmap_domain = 'example.org'
-  }
-
   # Different path and package definitions
   case $facts['os']['family'] {
     'Debian': {

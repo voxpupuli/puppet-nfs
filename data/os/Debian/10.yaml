@@ -1,0 +1,18 @@
+---
+nfs::client_services:
+  'rpcbind':
+    ensure: 'running'
+    enable: false
+nfs::client_gssd_service_name:
+  'rpc-gssd':
+    ensure: 'running'
+    enable: true
+nfs::client_nfsv4_services:
+  'rpcbind':
+    ensure: 'running'
+    enable: false,
+nfs::server_nfsv4_servicehelper:
+  - 'nfs-idmapd'
+nfs::server_service_name: 'nfs-kernel-server'
+nfs::client_gssdopt_name: 'GSSDARGS'
+
