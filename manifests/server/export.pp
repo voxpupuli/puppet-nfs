@@ -57,7 +57,7 @@
 # @param v4_export_name
 # @param nfsv4_bindmount_enable
 #
-# @examples
+# @example
 #
 # class { '::nfs':
 #   server_enabled             => true,
