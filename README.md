@@ -1,13 +1,14 @@
-# nfs
+# puppet-nfs
 
 [![Build Status](https://github.com/voxpupuli/puppet-nfs/workflows/CI/badge.svg)](https://github.com/voxpupuli/puppet-nfs/actions?query=workflow%3ACI)
-[![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-nfs/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-nfs)
+[![Release](https://github.com/voxpupuli/puppet-nfs/actions/workflows/release.yml/badge.svg)](https://github.com/voxpupuli/puppet-nfs/actions/workflows/release.yml)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/nfs.svg)](https://forge.puppetlabs.com/puppet/nfs)
 [![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/nfs.svg)](https://forge.puppetlabs.com/puppet/nfs)
 [![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/nfs.svg)](https://forge.puppetlabs.com/puppet/nfs)
 [![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/nfs.svg)](https://forge.puppetlabs.com/puppet/nfs)
-
-This module was migrated from Daniel Klockenkaemper <dk@marketing-factory.de> to Vox Pupuli.
+[![puppetmodule.info docs](https://www.puppetmodule.info/images/badge.svg)](https://www.puppetmodule.info/m/puppet-nfs)
+[![Apache-2.0 License](https://img.shields.io/github/license/voxpupuli/puppet-nfs.svg)](LICENSE)
+[![Donated by Daniel Klockenkaemper](https://img.shields.io/badge/donated%20by-Daniel%20Klockenkaemper-fb7047.svg)](#transfer-notice)
 
 #### Table of Contents
 1. [Module Description - What the module does and why it is useful](#module-description)
@@ -844,3 +845,11 @@ Run puppetlabs beaker rspec tests.
 
 This module based on Harald Skoglund <haraldsk@redpill-linpro.com> from
 https://github.com/haraldsk/puppet-module-nfs/ but has been fundementally refactored
+
+## Transfer Notice
+
+This plugin was originally authored by Daniel Klockenkaemper <dk@marketing-factory.de>.
+The maintainer preferred that Vox Pupuli take ownership of the module for future improvement and maintenance.
+Existing pull requests and issues were transferred over, please fork and continue to contribute here instead of Camptocamp.
+
+Previously: https://github.com/derdanne/puppet-nfs
