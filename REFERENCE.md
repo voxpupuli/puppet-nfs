@@ -1109,6 +1109,7 @@ The following parameters are available in the `nfs::functions::create_export` de
 * [`owner`](#-nfs--functions--create_export--owner)
 * [`group`](#-nfs--functions--create_export--group)
 * [`mode`](#-nfs--functions--create_export--mode)
+* [`create_dir`](#-nfs--functions--create_export--create_dir)
 
 ##### <a name="-nfs--functions--create_export--clients"></a>`clients`
 
@@ -1147,6 +1148,15 @@ Data type: `Optional[String[1]]`
 String. Sets the permissions of the exported directory.
 
 Default value: `undef`
+
+##### <a name="-nfs--functions--create_export--create_dir"></a>`create_dir`
+
+Data type: `Boolean`
+
+Boolean.  Create the directory to be exported.
+Defaults to true.
+
+Default value: `true`
 
 ### <a name="nfs--functions--mkdir"></a>`nfs::functions::mkdir`
 
@@ -1260,6 +1270,7 @@ The following parameters are available in the `nfs::server::export` defined type
 * [`v3_export_name`](#-nfs--server--export--v3_export_name)
 * [`v4_export_name`](#-nfs--server--export--v4_export_name)
 * [`nfsv4_bindmount_enable`](#-nfs--server--export--nfsv4_bindmount_enable)
+* [`create_dir`](#-nfs--server--export--create_dir)
 
 ##### <a name="-nfs--server--export--clients"></a>`clients`
 
@@ -1401,4 +1412,13 @@ Data type: `Boolean`
 
 
 Default value: `$nfs::nfsv4_bindmount_enable`
+
+##### <a name="-nfs--server--export--create_dir"></a>`create_dir`
+
+Data type: `Boolean`
+
+Boolean.  Create the directory to be exported.
+Defaults to true.
+
+Default value: `true`
 

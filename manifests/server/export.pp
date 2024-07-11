@@ -57,7 +57,11 @@
 # @param v4_export_name
 # @param nfsv4_bindmount_enable
 #
-# @examples
+# @param create_dir
+#   Boolean.  Create the directory to be exported.
+#   Defaults to true.
+#
+# @example
 #
 # class { '::nfs':
 #   server_enabled             => true,
@@ -101,6 +105,7 @@ define nfs::server::export (
   Optional[String[1]] $mode                   = undef,
   String[1]           $server                 = $facts['clientcert'],
   Boolean             $nfsv4_bindmount_enable = $nfs::nfsv4_bindmount_enable,
+  Boolean             $create_dir             = true,
 ) {
   if $nfs::server::nfs_v4 {
     if $nfsv4_bindmount_enable {
@@ -120,12 +125,13 @@ define nfs::server::export (
     }
 
     nfs::functions::create_export { $export_title:
-      ensure  => $ensure,
-      clients => $clients,
-      owner   => $owner,
-      group   => $group,
-      mode    => $mode,
-      require => $create_export_require,
+      ensure     => $ensure,
+      clients    => $clients,
+      create_dir => $create_dir,
+      owner      => $owner,
+      group      => $group,
+      mode       => $mode,
+      require    => $create_export_require,
     }
 
     if $mount != undef {
@@ -154,11 +160,12 @@ define nfs::server::export (
     }
 
     nfs::functions::create_export { $v3_export_name:
-      ensure  => $ensure,
-      clients => $clients,
-      owner   => $owner,
-      group   => $group,
-      mode    => $mode,
+      ensure     => $ensure,
+      clients    => $clients,
+      create_dir => $create_dir,
+      owner      => $owner,
+      group      => $group,
+      mode       => $mode,
     }
 
     if $nfs::storeconfigs_enabled {
