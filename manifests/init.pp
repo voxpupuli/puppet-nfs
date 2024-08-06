@@ -128,7 +128,7 @@
 # @param nfs_v4_idmap_nobody_user
 #   String. 'Nobody-User' option for idmapd. Defaults to <tt>nobody</tt>.
 # @param nfs_v4_idmap_nobody_group
-#   String. 'Nobody-Group' option for idmapd. Defaults to <tt>nobody</tt> or <tt>nogroup</tt>. 
+#   String. 'Nobody-Group' option for idmapd. Defaults to <tt>nobody</tt> or <tt>nogroup</tt>.
 # @param client_rpcbind_config
 #   String. It defines the location of the file with the rpcbind config.
 # @param client_rpcbind_optname
@@ -169,8 +169,8 @@ class nfs (
   Boolean                                                     $server_enabled                     = false,
   Boolean                                                     $client_enabled                     = false,
   Boolean                                                     $storeconfigs_enabled               = true,
-  Boolean                                                     $nfs_v4                             = $nfs::params::nfs_v4,
-  Boolean                                                     $nfs_v4_client                      = $nfs::params::nfs_v4,
+  Boolean                                                     $nfs_v4                             = false,
+  Boolean                                                     $nfs_v4_client                      = false,
   Stdlib::Absolutepath                                        $exports_file                       = $nfs::params::exports_file,
   Stdlib::Absolutepath                                        $idmapd_file                        = $nfs::params::idmapd_file,
   Optional[Stdlib::Absolutepath]                              $defaults_file                      = $nfs::params::defaults_file,
@@ -205,9 +205,9 @@ class nfs (
   String                                                      $client_gssd_options                = $nfs::params::client_gssd_options,
   String                                                      $client_gssdopt_name                = $nfs::params::client_gssdopt_name,
   Boolean                                                     $client_d9_gssdopt_workaround       = false,
-  String                                                      $nfs_v4_export_root                 = $nfs::params::nfs_v4_export_root,
-  String                                                      $nfs_v4_export_root_clients         = $nfs::params::nfs_v4_export_root_clients,
-  String                                                      $nfs_v4_mount_root                  = $nfs::params::nfs_v4_mount_root,
+  String                                                      $nfs_v4_export_root                 = '/export',
+  String                                                      $nfs_v4_export_root_clients         = "*.${facts['networking']['domain']}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)",
+  String                                                      $nfs_v4_mount_root                  = '/srv',
   String                                                      $nfs_v4_idmap_domain                = $nfs::params::nfs_v4_idmap_domain,
   Variant[String, Array]                                      $nfs_v4_idmap_localrealms           = '', # lint:ignore:params_empty_string_assignment
   Integer                                                     $nfs_v4_idmap_cache                 = 0,

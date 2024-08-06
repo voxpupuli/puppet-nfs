@@ -156,7 +156,7 @@ Data type: `Boolean`
 Boolean. If set to <tt>true</tt>, this module will use nfs version 4
 for exporting and mounting nfs resources.
 
-Default value: `$nfs::params::nfs_v4`
+Default value: `false`
 
 ##### <a name="-nfs--nfs_v4_client"></a>`nfs_v4_client`
 
@@ -166,7 +166,7 @@ Boolean. If set to <tt>true</tt>, this module will use nfs version 4
 for mounting nfs resources. If set to <tt>false</tt> it will use nfs
 version 3 to mount nfs resources. It defaults to the setting of @param nfs_v4
 
-Default value: `$nfs::params::nfs_v4`
+Default value: `false`
 
 ##### <a name="-nfs--exports_file"></a>`exports_file`
 
@@ -395,7 +395,7 @@ Data type: `String`
 String. It defines the location where nfs version 4 exports should be bindmounted to
 on a server node. Defaults to <tt>/export</tt>.
 
-Default value: `$nfs::params::nfs_v4_export_root`
+Default value: `'/export'`
 
 ##### <a name="-nfs--nfs_v4_export_root_clients"></a>`nfs_v4_export_root_clients`
 
@@ -405,7 +405,7 @@ String. It defines the clients that are allowed to mount nfs version 4 exports a
 includes the option string. Defaults to
 <tt>*.${::domain}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)</tt>.
 
-Default value: `$nfs::params::nfs_v4_export_root_clients`
+Default value: `"*.${facts['networking']['domain']}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)"`
 
 ##### <a name="-nfs--nfs_v4_mount_root"></a>`nfs_v4_mount_root`
 
@@ -414,7 +414,7 @@ Data type: `String`
 String. It defines the location where nfs version 4 clients find the mount root
 on a server node. Defaults to <tt>/srv</tt>.
 
-Default value: `$nfs::params::nfs_v4_mount_root`
+Default value: `'/srv'`
 
 ##### <a name="-nfs--nfs_v4_idmap_domain"></a>`nfs_v4_idmap_domain`
 
