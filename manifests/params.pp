@@ -96,23 +96,7 @@ class nfs::params {
       $client_rpcbind_optname     = 'OPTIONS'
 
       case $facts['os']['distro']['codename'] {
-        'trusty': {
-          $client_services            = { 'rpcbind' => {} }
-          $client_nfsv4_services      = { 'rpcbind' => {}, 'nfs-common' => { require => Service['rpcbind'] } }
-          $client_gssd_service_name   = undef
-          $server_nfsv4_servicehelper = undef
-          $server_service_name        = 'nfs-kernel-server'
-          $client_gssdopt_name        = 'RPCGSSDOPTS'
-        }
-        'jessie', 'wheezy': {
-          $client_services            = { 'rpcbind' => {} }
-          $client_nfsv4_services      = { 'rpcbind' => {}, 'nfs-common' => { require => Service['rpcbind'] } }
-          $client_gssd_service_name   = undef
-          $server_nfsv4_servicehelper = ['nfs-common']
-          $server_service_name        = 'nfs-kernel-server'
-          $client_gssdopt_name        = 'RPCGSSDOPTS'
-        }
-        'bullseye', 'stretch', 'xenial', 'yakkety', 'zesty': {
+        'bullseye': {
           $client_services            = { 'rpcbind' => {
               ensure => 'running',
               enable => false,
@@ -132,7 +116,7 @@ class nfs::params {
           $server_service_name        = 'nfs-kernel-server'
           $client_gssdopt_name        = 'GSSDARGS'
         }
-        'bionic', 'focal', 'jammy', 'kinetic': {
+        'focal', 'jammy': {
           $client_services            = { 'rpcbind' => {} }
           $client_gssd_service_name   = { 'rpc-gssd' => {
               ensure => 'running',
