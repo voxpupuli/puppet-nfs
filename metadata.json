@@ -1,6 +1,6 @@
 {
   "name": "puppet-nfs",
-  "version": "2.1.11",
+  "version": "3.0.0",
   "source": "https://github.com/voxpupuli/puppet-nfs.git",
   "author": "Voxpupuli Community",
   "license": "Apache-2.0",
