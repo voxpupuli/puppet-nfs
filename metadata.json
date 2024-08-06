@@ -1,6 +1,6 @@
 {
   "name": "puppet-nfs",
-  "version": "3.0.0",
+  "version": "3.0.1-rc0",
   "source": "https://github.com/voxpupuli/puppet-nfs.git",
   "author": "Voxpupuli Community",
   "license": "Apache-2.0",
@@ -8,15 +8,42 @@
   "project_page": "https://github.com/voxpupuli/puppet-nfs",
   "issues_url": "https://github.com/voxpupuli/puppet-nfs/issues",
   "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":">= 4.5.0 < 10.0.0"},
-    {"name":"puppetlabs/concat","version_requirement":">= 1.1.2 < 10.0.0"},
-    {"name":"puppetlabs/transition","version_requirement":">= 0.1.0 < 3.0.0"},
-    {"name":"puppet/augeasproviders_core","version_requirement":">= 2.1.5 < 5.0.0"},
-    {"name":"puppet/augeasproviders_shellvar","version_requirement":">= 1.2.0 <= 7.0.0"},
-    {"name":"puppetlabs/augeas_core","version_requirement":">= 1.2.0 <= 2.0.0"},
-    {"name":"puppetlabs/mount_core","version_requirement":">= 1.2.0 <= 2.0.0"}
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.5.0 < 10.0.0"
+    },
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">= 1.1.2 < 10.0.0"
+    },
+    {
+      "name": "puppetlabs/transition",
+      "version_requirement": ">= 0.1.0 < 3.0.0"
+    },
+    {
+      "name": "puppet/augeasproviders_core",
+      "version_requirement": ">= 2.1.5 < 5.0.0"
+    },
+    {
+      "name": "puppet/augeasproviders_shellvar",
+      "version_requirement": ">= 1.2.0 <= 7.0.0"
+    },
+    {
+      "name": "puppetlabs/augeas_core",
+      "version_requirement": ">= 1.2.0 <= 2.0.0"
+    },
+    {
+      "name": "puppetlabs/mount_core",
+      "version_requirement": ">= 1.2.0 <= 2.0.0"
+    }
   ],
-  "tags": ["nfs", "nfs4", "exports", "mount", "mfc"],
+  "tags": [
+    "nfs",
+    "nfs4",
+    "exports",
+    "mount",
+    "mfc"
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "Ubuntu",
