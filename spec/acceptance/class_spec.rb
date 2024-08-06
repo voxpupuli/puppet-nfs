@@ -28,14 +28,17 @@ describe 'nfs class' do
     client_packages = %w[nfs-common nfs4-acl-tools rpcbind]
 
   when 'RedHat'
-    case fact('os.release.major')
-    when '6'
+    case fact('os.release.major').to_i
+    when 6
       # server_service = 'nfs'
       server_servicehelpers = %w[rpcidmapd rpcbind]
       client_services = %w[rpcbind]
-    when '7'
+    when 7
       # server_service = 'nfs-server.service'
       server_servicehelpers = %w[nfs-idmap.service]
+      client_services = %w[rpcbind.service rpcbind.socket]
+    else
+      server_servicehelpers = %w[nfs-idmapd.service]
       client_services = %w[rpcbind.service rpcbind.socket]
     end
     server_packages = %w[nfs-utils nfs4-acl-tools rpcbind]

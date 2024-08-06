@@ -40,6 +40,13 @@
       ]
     },
     {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "8",
+        "9"
+      ]
+    },
+    {
       "operatingsystem": "Gentoo",
       "operatingsystemrelease": [
         "1.0"
