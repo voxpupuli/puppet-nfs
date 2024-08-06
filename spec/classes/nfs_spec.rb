@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'nfs' do
   # supported_os = %w[Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES Archlinux]
-  supported_os = %w[Ubuntu_20.04 Ubuntu_22.04 Debian_10 Debian_11 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES]
+  supported_os = %w[Ubuntu_20.04 Ubuntu_22.04 Debian_11 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES]
   supported_os.each do |os|
     context os do
       let(:default_facts) do
@@ -248,36 +248,6 @@ describe 'nfs' do
               'release' => {
                 'major' => '9',
                 'full' => '9'
-              }
-            }
-          )
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = %w[nfs-idmapd]
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'GSSDARGS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
-      when 'Debian_10'
-
-        let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Debian',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'buster'
-              },
-              'release' => {
-                'major' => '10',
-                'full' => '10'
               }
             }
           )
