@@ -51,68 +51,6 @@ describe 'nfs' do
         client_rpcbind_config = '/etc/default/rpcbind'
         client_rpcbind_optname = 'OPTIONS'
 
-      when 'Ubuntu_16.04'
-
-        let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Ubuntu',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'xenial'
-              },
-              'release' => {
-                'major' => '16',
-                'minor' => '04',
-                'full' => '16.04'
-              }
-            }
-          )
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = %w[nfs-idmapd]
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'GSSDARGS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
-      when 'Ubuntu_18.04'
-
-        let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Ubuntu',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'bionic'
-              },
-              'release' => {
-                'major' => '18',
-                'minor' => '04',
-                'full' => '18.04'
-              }
-            }
-          )
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = ''
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'GSSDARGS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
       when 'Ubuntu_20.04'
 
         let(:facts) do
@@ -200,66 +138,6 @@ describe 'nfs' do
         client_nfs_vfour_services = %w[rpcbind nfs-common]
         client_packages = %w[nfs-common nfs4-acl-tools]
         client_gssdopt_name = 'RPCGSSDOPTS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
-      when 'Debian_8'
-
-        let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Debian',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'jessie'
-              },
-              'release' => {
-                'major' => '8',
-                'full' => '8'
-              }
-            }
-          )
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = %w[nfs-common]
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind nfs-common]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'RPCGSSDOPTS'
-        defaults_file = '/etc/default/nfs-common'
-        idmapd_file = '/etc/idmapd.conf'
-        client_rpcbind_config = '/etc/default/rpcbind'
-        client_rpcbind_optname = 'OPTIONS'
-
-      when 'Debian_9'
-
-        let(:facts) do
-          default_facts.merge(
-            'operatingsystem' => 'Debian',
-            'os' => {
-              'family' => 'Debian',
-              'distro' => {
-                'codename' => 'stretch'
-              },
-              'release' => {
-                'major' => '9',
-                'full' => '9'
-              }
-            }
-          )
-        end
-
-        server_service = 'nfs-kernel-server'
-        server_servicehelpers = %w[nfs-idmapd]
-        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
-        client_services = %w[rpcbind]
-        client_nfs_vfour_services = %w[rpcbind]
-        client_packages = %w[nfs-common nfs4-acl-tools]
-        client_gssdopt_name = 'GSSDARGS'
         defaults_file = '/etc/default/nfs-common'
         idmapd_file = '/etc/idmapd.conf'
         client_rpcbind_config = '/etc/default/rpcbind'
