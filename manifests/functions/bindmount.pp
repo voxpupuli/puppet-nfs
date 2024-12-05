@@ -1,18 +1,14 @@
-# Function: nfs::functions::bindmount
-#
-# @summary
-# This Function exists to
-#  1. manage bindmounts
+# @summary Manage bindmounts.
 #
 # @param mount_name
-#   String. Sets the target directory for the bindmount
+#   Sets the target directory for the bindmount.
 #
 # @param ensure
-#   String. Sets if enabled or not.
+#   Sets if enabled or not.
 #
 # @author
-# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-# * Martin Alfke <tuxmea@gmail.com>
+#   * Daniel Klockenkaemper <dk@marketing-factory.de>
+#   * Martin Alfke <tuxmea@gmail.com>
 #
 define nfs::functions::bindmount (
   Optional[String[1]] $mount_name = undef,

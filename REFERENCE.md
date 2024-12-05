@@ -6,36 +6,35 @@
 
 ### Classes
 
-* [`nfs`](#nfs): Class: nfs::init  * {Please take a look at} [https://github.com/voxpupuli/puppet-nfs#examples]  * Daniel Klockenkaemper <mailto:dk@marketing-
-* [`nfs::client`](#nfs--client): Class: nfs::client  This class exists to  1. order the loading of classes  2. including all needed classes for nfs as a client  * Daniel Kloc
-* [`nfs::client::config`](#nfs--client--config): Class: nfs::client::config This Function exists to  1. configure nfs as a client  * Daniel Klockenkaemper <mailto:dk@marketing-factory.de> * 
-* [`nfs::client::package`](#nfs--client--package): Class: nfs::client::package  This Function exists to  1. install needed packages for nfs clients  * Daniel Klockenkaemper <mailto:dk@marketin
-* [`nfs::client::service`](#nfs--client--service): Class: nfs::client::service  This Function exists to  1. manage the needed services for nfs clients  * Daniel Klockenkaemper <mailto:dk@marke
-* [`nfs::params`](#nfs--params): Class: nfs::params  This class exists to 1. Declutter the default value assignment for class parameters. 2. Manage internally used module var
-* [`nfs::server`](#nfs--server): Class: nfs::server
-* [`nfs::server::config`](#nfs--server--config): Class: nfs::server::config  This class exists to  1. configure nfs as a server  * Daniel Klockenkaemper <mailto:dk@marketing-factory.de> * Ma
-* [`nfs::server::package`](#nfs--server--package): Class: nfs::server::package  This Function exists to  1. install needed packages for nfs server  * Daniel Klockenkaemper <mailto:dk@marketing
-* [`nfs::server::service`](#nfs--server--service): Class: nfs::server::service  This Function exists to  1. manage the needed services for nfs server  * Daniel Klockenkaemper <mailto:dk@market
+* [`nfs`](#nfs)
+* [`nfs::client`](#nfs--client): Manage the NFS client
+* [`nfs::client::config`](#nfs--client--config): Configure NFS as a client.
+* [`nfs::client::package`](#nfs--client--package): Install needed packages for NFS clients.
+* [`nfs::client::service`](#nfs--client--service): Manage the needed services for NFS clients.
+* [`nfs::params`](#nfs--params): Manages defaults values for this module.
+* [`nfs::server`](#nfs--server): Manage the NFS server.
+* [`nfs::server::config`](#nfs--server--config): Configure NFS as a server.
+* [`nfs::server::package`](#nfs--server--package): Install needed packages for NFS server.
+* [`nfs::server::service`](#nfs--server--service): Manage the needed services for NFS server.
 
 ### Defined types
 
-* [`nfs::client::mount`](#nfs--client--mount): Function: nfs::client::mount  This Function exists to  1. manage all mounts on a nfs client  Parameters  param nfs_v4   Boolean. When set to 
-* [`nfs::functions::bindmount`](#nfs--functions--bindmount): Function: nfs::functions::bindmount  This Function exists to  1. manage bindmounts  * Daniel Klockenkaemper <mailto:dk@marketing-factory.de> 
-* [`nfs::functions::create_export`](#nfs--functions--create_export): Function: nfs::functions::create_export  This Function exists to  1. manage export creation  * Daniel Klockenkaemper <mailto:dk@marketing-fac
-* [`nfs::functions::mkdir`](#nfs--functions--mkdir): Function: nfs::functions::mkdir  This Function exists to  1. manage dir creation  * Daniel Klockenkaemper <mailto:dk@marketing-factory.de> * 
-* [`nfs::functions::nfsv4_bindmount`](#nfs--functions--nfsv4_bindmount): Function: nfs::functions::nfsv4_bindmount  This Function exists to  1. manage bindmounts for nfs4  * Daniel Klockenkaemper <mailto:dk@marketi
-* [`nfs::server::export`](#nfs--server--export): Function: nfs::server::export  This Function exists to  1. manage all exported resources on a nfs server  Parameters  class { '::nfs':   serv
+* [`nfs::client::mount`](#nfs--client--mount): Manage all mounts on a NFS client.
+* [`nfs::functions::bindmount`](#nfs--functions--bindmount): Manage bindmounts.
+* [`nfs::functions::create_export`](#nfs--functions--create_export): Manage export creation.
+* [`nfs::functions::mkdir`](#nfs--functions--mkdir): Manage directory creation.
+* [`nfs::functions::nfsv4_bindmount`](#nfs--functions--nfsv4_bindmount): Manage bindmounts for NFS v4.
+* [`nfs::server::export`](#nfs--server--export): Manage all exported resources on a NFS server.
 
 ## Classes
 
 ### <a name="nfs"></a>`nfs`
 
-Class: nfs::init
+The nfs class.
 
-* {Please take a look at} [https://github.com/voxpupuli/puppet-nfs#examples]
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+* **See also**
+  * https://github.com/voxpupuli/puppet-nfs#examples
+    * Exemples
 
 #### Parameters
 
@@ -106,18 +105,15 @@ The following parameters are available in the `nfs` class:
 
 Data type: `Enum['present', 'absent', 'running', 'stopped', 'disabled']`
 
-String. Controls if the managed resources shall be <tt>present</tt> or
-<tt>absent</tt>. If set to <tt>absent</tt>:
+Controls if the managed resources shall be `present` or `absent`.
+
+If set to `absent`:
 * The managed software packages are being uninstalled.
-* Any traces of the packages will be purged as good as possible. This may
-  include existing configuration files. The exact behavior is provider
-  dependent. Q.v.:
-  * Puppet type reference: {package, "purgeable"}[http://j.mp/xbxmNP]
-  * {Puppet's package provider source code}[http://j.mp/wtVCaL]
-* System modifications (if any) will be reverted as good as possible
-  (e.g. removal of created users, services, changed log settings, ...).
+* Any traces of the packages will be purged as good as possible. This may include existing configuration files.
+  The exact behavior is provider dependent.
+* System modifications (if any) will be reverted as good as possible (e.g. removal of created users, services,
+  changed log settings, ...).
 * This is thus destructive and should be used with care.
-Defaults to <tt>present</tt>.
 
 Default value: `'present'`
 
@@ -125,8 +121,7 @@ Default value: `'present'`
 
 Data type: `Boolean`
 
-Boolean. If set to <tt>true</tt>, this module will configure the node
-to act as a nfs server.
+If set to `true`, this module will configure the node to act as a NFS server.
 
 Default value: `false`
 
@@ -134,9 +129,8 @@ Default value: `false`
 
 Data type: `Boolean`
 
-Boolean. If set to <tt>true</tt>, this module will configure the node
-to act as a client server, you can use the exported mount resources
-from configured servers.
+If set to `true`, this module will configure the node to act as a client server, you can use the exported mount
+resources from configured servers.
 
 Default value: `false`
 
@@ -144,8 +138,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-Boolean. If set to <tt>false</tt>, this module will not export any
-resources as storeconfigs. Defaults to <tt>true</tt>.
+If set to `false`, this module will not export any resources as storeconfigs.
 
 Default value: `true`
 
@@ -153,8 +146,7 @@ Default value: `true`
 
 Data type: `Boolean`
 
-Boolean. If set to <tt>true</tt>, this module will use nfs version 4
-for exporting and mounting nfs resources.
+If set to `true`, this module will use NFS version 4 for exporting and mounting NFS resources.
 
 Default value: `false`
 
@@ -162,9 +154,8 @@ Default value: `false`
 
 Data type: `Boolean`
 
-Boolean. If set to <tt>true</tt>, this module will use nfs version 4
-for mounting nfs resources. If set to <tt>false</tt> it will use nfs
-version 3 to mount nfs resources. It defaults to the setting of @param nfs_v4
+If set to `true`, this module will use NFS version 4 for mounting NFS resources.
+If set to `false` it will use NFS version 3 to mount NFS resources.
 
 Default value: `false`
 
@@ -172,8 +163,7 @@ Default value: `false`
 
 Data type: `Stdlib::Absolutepath`
 
-String. It defines the location of file with the nfs export resources used
-by the nfs server.
+It defines the location of file with the NFS export resources used by the NFS server.
 
 Default value: `$nfs::params::exports_file`
 
@@ -181,7 +171,7 @@ Default value: `$nfs::params::exports_file`
 
 Data type: `Stdlib::Absolutepath`
 
-String. It defines the location of the file with the idmapd settings.
+It defines the location of the file with the idmapd settings.
 
 Default value: `$nfs::params::idmapd_file`
 
@@ -189,7 +179,7 @@ Default value: `$nfs::params::idmapd_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-String. It defines the location of the file with the nfs settings.
+It defines the location of the file with the NFS settings.
 
 Default value: `$nfs::params::defaults_file`
 
@@ -197,7 +187,7 @@ Default value: `$nfs::params::defaults_file`
 
 Data type: `Boolean`
 
-Boolean. It defines if the packages should be managed through this module
+It defines if the packages should be managed through this module.
 
 Default value: `true`
 
@@ -205,8 +195,7 @@ Default value: `true`
 
 Data type: `Array`
 
-Array. It defines the packages needed to be installed for acting as
-a nfs server
+It defines the packages needed to be installed for acting as a NFS server.
 
 Default value: `$nfs::params::server_packages`
 
@@ -214,8 +203,7 @@ Default value: `$nfs::params::server_packages`
 
 Data type: `String`
 
-String. It defines the packages state - any of present, installed,
-absent, purged, held, latest
+It defines the packages state - any of `present`, `installed`, `absent`, `purged`, `held`, `latest`.
 
 Default value: `'installed'`
 
@@ -223,8 +211,7 @@ Default value: `'installed'`
 
 Data type: `Array`
 
-Array. It defines the packages needed to be installed for acting as
-a nfs client
+It defines the packages needed to be installed for acting as a NFS client
 
 Default value: `$nfs::params::client_packages`
 
@@ -232,8 +219,7 @@ Default value: `$nfs::params::client_packages`
 
 Data type: `String`
 
-String. It defines the packages state - any of present, installed,
-absent, purged, held, latest
+It defines the packages state - any of `present`, `installed`, `absent`, `purged`, `held`, `latest`.
 
 Default value: `'installed'`
 
@@ -241,7 +227,7 @@ Default value: `'installed'`
 
 Data type: `Boolean`
 
-Boolean. Defines if module should manage server_service
+Defines if module should manage server_service.
 
 Default value: `true`
 
@@ -249,7 +235,7 @@ Default value: `true`
 
 Data type: `Boolean`
 
-Boolean. Defines if module should manage server_servicehelper
+Defines if module should manage server_servicehelper.
 
 Default value: `true`
 
@@ -257,7 +243,7 @@ Default value: `true`
 
 Data type: `Boolean`
 
-Boolean. Defines if module should manage client_service
+Defines if module should manage client_service.
 
 Default value: `true`
 
@@ -265,7 +251,7 @@ Default value: `true`
 
 Data type: `String`
 
-String. It defines the servicename of the nfs server service
+It defines the servicename of the NFS server service.
 
 Default value: `$nfs::params::server_service_name`
 
@@ -273,7 +259,7 @@ Default value: `$nfs::params::server_service_name`
 
 Data type: `Enum['present', 'absent', 'running', 'stopped', 'disabled']`
 
-Boolean. It defines the service parameter ensure for nfs server services.
+It defines the service parameter ensure for NFS server services.
 
 Default value: `'running'`
 
@@ -281,7 +267,7 @@ Default value: `'running'`
 
 Data type: `Boolean`
 
-Boolean. It defines the service parameter enable for nfs server service.
+It defines the service parameter enable for NFS server service.
 
 Default value: `true`
 
@@ -289,7 +275,7 @@ Default value: `true`
 
 Data type: `Boolean`
 
-Boolean. It defines the service parameter hasrestart for nfs server service.
+It defines the service parameter hasrestart for NFS server service.
 
 Default value: `$nfs::params::server_service_hasrestart`
 
@@ -297,7 +283,7 @@ Default value: `$nfs::params::server_service_hasrestart`
 
 Data type: `Boolean`
 
-Boolean. It defines the service parameter hasstatus for nfs server service.
+It defines the service parameter hasstatus for NFS server service.
 
 Default value: `$nfs::params::server_service_hasstatus`
 
@@ -305,7 +291,7 @@ Default value: `$nfs::params::server_service_hasstatus`
 
 Data type: `Optional[String]`
 
-String. It defines the service parameter restart for nfs server service.
+It defines the service parameter restart for NFS server service.
 
 Default value: `$nfs::params::server_service_restart_cmd`
 
@@ -313,8 +299,7 @@ Default value: `$nfs::params::server_service_restart_cmd`
 
 Data type: `Optional[Array]`
 
-Array. It defines the service helper like idmapd for servers configured with
-nfs version 4.
+It defines the service helper like idmapd for servers configured with NFS version 4.
 
 Default value: `$nfs::params::server_nfsv4_servicehelper`
 
@@ -322,7 +307,7 @@ Default value: `$nfs::params::server_nfsv4_servicehelper`
 
 Data type: `Hash`
 
-Nested Hash. It defines the servicenames need to be started when acting as a nfs client
+It defines the servicenames need to be started when acting as a NFS client.
 
 Default value: `$nfs::params::client_services`
 
@@ -330,8 +315,7 @@ Default value: `$nfs::params::client_services`
 
 Data type: `Hash`
 
-Nested Hash. It defines the servicenames need to be started when acting as a nfs client
-version 4.
+It defines the servicenames need to be started when acting as a NFS client version 4.
 
 Default value: `$nfs::params::client_nfsv4_services`
 
@@ -339,7 +323,7 @@ Default value: `$nfs::params::client_nfsv4_services`
 
 Data type: `Boolean`
 
-Boolean. It defines the service parameter enable for nfs client services.
+It defines the service parameter enable for NFS client services.
 
 Default value: `$nfs::params::client_services_enable`
 
@@ -347,8 +331,7 @@ Default value: `$nfs::params::client_services_enable`
 
 Data type: `Array[String]`
 
-Array. It defines the Augeas parameter added in @param defaults_file when acting as a nfs
-version 4 client.
+It defines the Augeas parameter added in @param defaults_file when acting as a NFS version 4 client.
 
 Default value: `$nfs::params::client_idmapd_setting`
 
@@ -356,8 +339,7 @@ Default value: `$nfs::params::client_idmapd_setting`
 
 Data type: `String`
 
-String. It defines the name of the nfs filesystem, when adding entries to /etc/fstab
-on a client node.
+It defines the name of the NFS filesystem, when adding entries to `/etc/fstab` on a client node.
 
 Default value: `$nfs::params::client_nfs_fstype`
 
@@ -365,8 +347,7 @@ Default value: `$nfs::params::client_nfs_fstype`
 
 Data type: `String`
 
-String. It defines the options for the nfs filesystem, when adding entries to /etc/fstab
-on a client node.
+It defines the options for the NFS filesystem, when adding entries to `/etc/fstab` on a client node.
 
 Default value: `$nfs::params::client_nfs_options`
 
@@ -374,8 +355,7 @@ Default value: `$nfs::params::client_nfs_options`
 
 Data type: `String`
 
-String. It defines the name of the nfs version 4 filesystem, when adding entries
-to /etc/fstab on a client node.
+It defines the name of the NFS version 4 filesystem, when adding entries to `/etc/fstab` on a client node.
 
 Default value: `$nfs::params::client_nfsv4_fstype`
 
@@ -383,8 +363,7 @@ Default value: `$nfs::params::client_nfsv4_fstype`
 
 Data type: `String`
 
-String. It defines the options for the nfs version 4filesystem, when adding entries
-to /etc/fstab on a client node.
+It defines the options for the NFS version 4 filesystem, when adding entries to `/etc/fstab` on a client node.
 
 Default value: `$nfs::params::client_nfsv4_options`
 
@@ -392,8 +371,7 @@ Default value: `$nfs::params::client_nfsv4_options`
 
 Data type: `String`
 
-String. It defines the location where nfs version 4 exports should be bindmounted to
-on a server node. Defaults to <tt>/export</tt>.
+It defines the location where NFS version 4 exports should be bindmounted to on a server node.
 
 Default value: `'/export'`
 
@@ -401,9 +379,7 @@ Default value: `'/export'`
 
 Data type: `String`
 
-String. It defines the clients that are allowed to mount nfs version 4 exports and
-includes the option string. Defaults to
-<tt>*.${::domain}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)</tt>.
+It defines the clients that are allowed to mount NFS version 4 exports and includes the option string.
 
 Default value: `"*.${facts['networking']['domain']}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)"`
 
@@ -411,8 +387,7 @@ Default value: `"*.${facts['networking']['domain']}(ro,fsid=root,insecure,no_sub
 
 Data type: `String`
 
-String. It defines the location where nfs version 4 clients find the mount root
-on a server node. Defaults to <tt>/srv</tt>.
+It defines the location where NFS version 4 clients find the mount root on a server node.
 
 Default value: `'/srv'`
 
@@ -420,9 +395,8 @@ Default value: `'/srv'`
 
 Data type: `String`
 
-String. It defines the name of the idmapd domain setting in @param idmapd_file needed
-to be set to the same value on a server and client node to do correct uid and gid
-mapping. Defaults to <tt>$::domain</tt>.
+It defines the name of the idmapd domain setting in @param idmapd_file needed to be set to the same value on a
+server and client node to do correct uid and gid mapping.
 
 Default value: `$nfs::params::nfs_v4_idmap_domain`
 
@@ -430,8 +404,7 @@ Default value: `$nfs::params::nfs_v4_idmap_domain`
 
 Data type: `Boolean`
 
-Boolean. It defines if the module should create a bindmount for the export.
-Defaults to <tt>true</tt>.
+It defines if the module should create a bindmount for the export.
 
 Default value: `true`
 
@@ -439,7 +412,7 @@ Default value: `true`
 
 Data type: `Boolean`
 
-Boolean. If true, sets NEED_GSSD=yes in /etc/defauls/nfs-common, usable on Debian/Ubuntu
+If `true`, sets `NEED_GSSD=yes` in `/etc/defauls/nfs-common`, usable on Debian/Ubuntu.
 
 Default value: `false`
 
@@ -447,7 +420,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-Boolean. If true enable rpc-gssd service.
+If `true` enable rpc-gssd service.
 
 Default value: `false`
 
@@ -455,7 +428,7 @@ Default value: `false`
 
 Data type: `String`
 
-String. Options for rpc-gssd service. Defaults to <tt>''</tt>
+Options for rpc-gssd service.
 
 Default value: `$nfs::params::client_gssd_options`
 
@@ -463,7 +436,7 @@ Default value: `$nfs::params::client_gssd_options`
 
 Data type: `Boolean`
 
-Boolean. If enabled, workaround for passing gssd_options which is broken on Debian 9. Usable only on Debian 9
+If enabled, workaround for passing gssd_options which is broken on Debian 9. Usable only on Debian 9.
 
 Default value: `false`
 
@@ -471,7 +444,7 @@ Default value: `false`
 
 Data type: `Variant[String, Array]`
 
-String or Array. 'Local-Realms' option for idmapd. Defaults to <tt>''</tt>
+`Local-Realms` option for idmapd.
 
 Default value: `''`
 
@@ -479,7 +452,7 @@ Default value: `''`
 
 Data type: `Integer`
 
-Integer. 'Cache-Expiration' option for idmapd. Defaults to <tt>0</tt> - unused.
+`Cache-Expiration` option for idmapd. If `0` cache is unused.
 
 Default value: `0`
 
@@ -487,7 +460,7 @@ Default value: `0`
 
 Data type: `Boolean`
 
-Boolean. Enable setting Nobody mapping in idmapd. Defaults to <tt>false</tt>.
+Enable setting Nobody mapping in idmapd.
 
 Default value: `false`
 
@@ -495,7 +468,7 @@ Default value: `false`
 
 Data type: `String`
 
-String. 'Nobody-User' option for idmapd. Defaults to <tt>nobody</tt>.
+`Nobody-User` option for idmapd.
 
 Default value: `$nfs::params::nfs_v4_idmap_nobody_user`
 
@@ -503,7 +476,7 @@ Default value: `$nfs::params::nfs_v4_idmap_nobody_user`
 
 Data type: `String`
 
-String. 'Nobody-Group' option for idmapd. Defaults to <tt>nobody</tt> or <tt>nogroup</tt>.
+`Nobody-Group` option for idmapd.
 
 Default value: `$nfs::params::nfs_v4_idmap_nobody_group`
 
@@ -511,7 +484,7 @@ Default value: `$nfs::params::nfs_v4_idmap_nobody_group`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-String. It defines the location of the file with the rpcbind config.
+It defines the location of the file with the rpcbind config.
 
 Default value: `$nfs::params::client_rpcbind_config`
 
@@ -519,7 +492,7 @@ Default value: `$nfs::params::client_rpcbind_config`
 
 Data type: `Optional[String]`
 
-String. It defines the name of env variable that holds the rpcbind config. E.g. OPTIONS for Debian
+It defines the name of environment variable that holds the rpcbind config. E.g. OPTIONS for Debian.
 
 Default value: `$nfs::params::client_rpcbind_optname`
 
@@ -527,7 +500,7 @@ Default value: `$nfs::params::client_rpcbind_optname`
 
 Data type: `Optional[String]`
 
-String. Options for rpcbind service.
+Options for rpcbind service.
 
 Default value: `undef`
 
@@ -535,7 +508,7 @@ Default value: `undef`
 
 Data type: `String`
 
-String. It defines the state of the nfs version 4 root export. Defaults to <tt>mounted</tt>.
+It defines the state of the NFS version 4 root export.
 
 Default value: `'mounted'`
 
@@ -543,7 +516,7 @@ Default value: `'mounted'`
 
 Data type: `Optional[String]`
 
-String. It defines the mountpoint of the nfs version 4 root export. Defaults to <tt>undef</tt>.
+It defines the mountpoint of the NFS version 4 root export.
 
 Default value: `undef`
 
@@ -551,7 +524,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-Boolean. It defines if the nfs version 4 root export should be remounted. Defaults to <tt>false</tt>.
+It defines if the NFS version 4 root export should be remounted.
 
 Default value: `false`
 
@@ -559,7 +532,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-Boolean. It defines if the nfs version 4 root export should be mounted at boot. Defaults to <tt>false</tt>.
+It defines if the NFS version 4 root export should be mounted at boot.
 
 Default value: `false`
 
@@ -567,7 +540,7 @@ Default value: `false`
 
 Data type: `String`
 
-String. It defines the options for the nfs version 4 root export. Defaults to <tt>_netdev</tt>.
+It defines the options for the NFS version 4 root export.
 
 Default value: `'_netdev'`
 
@@ -575,7 +548,7 @@ Default value: `'_netdev'`
 
 Data type: `Optional[String]`
 
-String. It defines the bindmount of the nfs version 4 root export. Defaults to <tt>undef</tt>.
+It defines the bindmount of the NFS version 4 root export.
 
 Default value: `undef`
 
@@ -583,7 +556,7 @@ Default value: `undef`
 
 Data type: `Optional[String]`
 
-String. It defines the tag of the nfs version 4 root export. Defaults to <tt>undef</tt>.
+It defines the tag of the NFS version 4 root export.
 
 Default value: `undef`
 
@@ -591,7 +564,7 @@ Default value: `undef`
 
 Data type: `Optional[Hash]`
 
-Hash. It defines the servicename of the rpc-gssd service.
+It defines the servicename of the rpc-gssd service.
 
 Default value: `$nfs::params::client_gssd_service_name`
 
@@ -599,7 +572,7 @@ Default value: `$nfs::params::client_gssd_service_name`
 
 Data type: `Boolean`
 
-Boolean. It defines the service parameter hasrestart for nfs client services.
+It defines the service parameter hasrestart for NFS client services.
 
 Default value: `$nfs::params::client_services_hasrestart`
 
@@ -607,7 +580,7 @@ Default value: `$nfs::params::client_services_hasrestart`
 
 Data type: `Boolean`
 
-Boolean. It defines the service parameter hasstatus for nfs client services.
+It defines the service parameter hasstatus for NFS client services.
 
 Default value: `$nfs::params::client_services_hasstatus`
 
@@ -615,20 +588,15 @@ Default value: `$nfs::params::client_services_hasstatus`
 
 Data type: `String`
 
-String. It defines the name of the gssd option in /etc/default/nfs-common.
+It defines the name of the gssd option in `/etc/default/nfs-common`.
 
 Default value: `$nfs::params::client_gssdopt_name`
 
 ### <a name="nfs--client"></a>`nfs::client`
 
-Class: nfs::client
-
-This class exists to
- 1. order the loading of classes
- 2. including all needed classes for nfs as a client
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+This class exists to:
+1. Order the loading of classes,
+2. Including all needed classes for NFS as a client.
 
 #### Parameters
 
@@ -643,8 +611,7 @@ The following parameters are available in the `nfs::client` class:
 
 Data type: `String`
 
-The ensure parameter is used to determine if the nfs client should be configured
-and running or not. Valid values are 'present' and 'absent'. Default is 'present'.
+The ensure parameter is used to determine if the NFS client should be configured and running or not.
 
 Default value: `$nfs::ensure`
 
@@ -652,8 +619,7 @@ Default value: `$nfs::ensure`
 
 Data type: `Boolean`
 
-The nfs_v4 parameter is used to determine if the nfs client should use nfs version 4.
-Valid values are 'true' and 'false'. Default is 'false'.
+The nfs_v4 parameter is used to determine if the NFS client should use NFS version 4.
 
 Default value: `$nfs::nfs_v4_client`
 
@@ -661,8 +627,7 @@ Default value: `$nfs::nfs_v4_client`
 
 Data type: `String`
 
-The nfs_v4_mount_root parameter is used to determine the root directory for nfs version 4 mounts.
-Default is '/mnt'.
+The nfs_v4_mount_root parameter is used to determine the root directory for NFS version 4 mounts.
 
 Default value: `$nfs::nfs_v4_mount_root`
 
@@ -670,62 +635,35 @@ Default value: `$nfs::nfs_v4_mount_root`
 
 Data type: `String`
 
-The nfs_v4_idmap_domain parameter is used to determine the domain for nfs version 4 id mapping.
-Default is 'localdomain'.
+The nfs_v4_idmap_domain parameter is used to determine the domain for NFS version 4 id mapping.
 
 Default value: `$nfs::nfs_v4_idmap_domain`
 
 ### <a name="nfs--client--config"></a>`nfs::client::config`
 
-Class: nfs::client::config
-This Function exists to
- 1. configure nfs as a client
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@betadots.de>
+Configure NFS as a client.
 
 ### <a name="nfs--client--package"></a>`nfs::client::package`
 
-Class: nfs::client::package
-
-This Function exists to
- 1. install needed packages for nfs clients
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+Install needed packages for NFS clients.
 
 ### <a name="nfs--client--service"></a>`nfs::client::service`
 
-Class: nfs::client::service
-
-This Function exists to
- 1. manage the needed services for nfs clients
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+Manage the needed services for NFS clients.
 
 ### <a name="nfs--params"></a>`nfs::params`
 
-Class: nfs::params
-
 This class exists to
-1. Declutter the default value assignment for class parameters.
+1. Declutter the default value assignment for class parameters,
 2. Manage internally used module variables in a central place.
 
-Therefore, many operating system dependent differences (names, paths, ...)
-are addressed in here.
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+Therefore, many operating system dependent differences (names, paths, ...) are addressed in here.
 
 ### <a name="nfs--server"></a>`nfs::server`
 
-This class exists to
- 1. order the loading of classes
- 2. including all needed classes for nfs as a server
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <mailto:tuxmea@gmail.com>
+This class exists to:
+1. Order the loading of classes,
+2. Including all needed classes for NFS as a server.
 
 #### Parameters
 
@@ -842,48 +780,28 @@ Default value: `$nfs::nfs_v4_root_export_tag`
 
 ### <a name="nfs--server--config"></a>`nfs::server::config`
 
-Class: nfs::server::config
-
-This class exists to
- 1. configure nfs as a server
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+Configure NFS as a server.
 
 ### <a name="nfs--server--package"></a>`nfs::server::package`
 
-Class: nfs::server::package
-
-This Function exists to
- 1. install needed packages for nfs server
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+Install needed packages for NFS server.
 
 ### <a name="nfs--server--service"></a>`nfs::server::service`
 
-Class: nfs::server::service
-
-This Function exists to
- 1. manage the needed services for nfs server
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+Manage the needed services for NFS server.
 
 ## Defined types
 
 ### <a name="nfs--client--mount"></a>`nfs::client::mount`
 
-Function: nfs::client::mount
-
-This Function exists to
- 1. manage all mounts on a nfs client
-
-Parameters
-
 param nfs_v4
-  Boolean. When set to true, it uses nfs version 4 to mount a share.
+  When set to true, it uses NFS version 4 to mount a share.
 
+#### Examples
+
+##### 
+
+```puppet
 class { '::nfs':
   client_enabled => true,
   nfs_v4_client  => true
@@ -896,9 +814,7 @@ nfs::client::mount { '/target/directory':
   atboot        => true,
   options_nfsv4 => 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
 }
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+```
 
 #### Parameters
 
@@ -926,13 +842,13 @@ The following parameters are available in the `nfs::client::mount` defined type:
 
 Data type: `String[1]`
 
-String. Sets the ip address of the server with the nfs export
+Sets the ip address of the server with the NFS export.
 
 ##### <a name="-nfs--client--mount--share"></a>`share`
 
 Data type: `Optional[String[1]]`
 
-String. Sets the name of the nfs share on the server
+Sets the name of the NFS share on the server.
 
 Default value: `undef`
 
@@ -940,7 +856,7 @@ Default value: `undef`
 
 Data type: `String[1]`
 
-String. Sets the ensure parameter of the mount.
+Sets the ensure parameter of the mount.
 
 Default value: `'mounted'`
 
@@ -948,7 +864,7 @@ Default value: `'mounted'`
 
 Data type: `Boolean`
 
-String. Sets the remounts parameter of the mount.
+Sets the remounts parameter of the mount.
 
 Default value: `false`
 
@@ -956,7 +872,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-String. Sets the atboot parameter of the mount.
+Sets the atboot parameter of the mount.
 
 Default value: `false`
 
@@ -964,7 +880,7 @@ Default value: `false`
 
 Data type: `String[1]`
 
-String. Sets the mount options for a nfs version 4 mount.
+Sets the mount options for a NFS version 4 mount.
 
 Default value: `$nfs::client_nfsv4_options`
 
@@ -972,7 +888,7 @@ Default value: `$nfs::client_nfsv4_options`
 
 Data type: `String[1]`
 
-String. Sets the mount options for a nfs mount.
+Sets the mount options for a NFS mount.
 
 Default value: `$nfs::client_nfs_options`
 
@@ -980,8 +896,7 @@ Default value: `$nfs::client_nfs_options`
 
 Data type: `Optional[String[1]]`
 
-String. When not undef it will create a bindmount on the node
-for the nfs mount.
+When not undef it will create a bindmount on the node for the NFS mount.
 
 Default value: `undef`
 
@@ -989,7 +904,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-String. Sets the nfstag parameter of the mount.
+Sets the nfstag parameter of the mount.
 
 Default value: `undef`
 
@@ -997,7 +912,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-String. Set owner of mount dir
+Set owner of mount directory.
 
 Default value: `undef`
 
@@ -1005,7 +920,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-String. Set group of mount dir
+Set group of mount directory.
 
 Default value: `undef`
 
@@ -1013,7 +928,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-String. Set mode of mount dir
+Set mode of mount directory.
 
 Default value: `undef`
 
@@ -1021,7 +936,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-String. Overwrite mount root if differs from server config
+Overwrite mount root if differs from server configuration.
 
 Default value: `undef`
 
@@ -1059,13 +974,7 @@ Default value: `$nfs::client::nfs_v4`
 
 ### <a name="nfs--functions--bindmount"></a>`nfs::functions::bindmount`
 
-Function: nfs::functions::bindmount
-
-This Function exists to
- 1. manage bindmounts
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+Manage bindmounts.
 
 #### Parameters
 
@@ -1078,7 +987,7 @@ The following parameters are available in the `nfs::functions::bindmount` define
 
 Data type: `Optional[String[1]]`
 
-String. Sets the target directory for the bindmount
+Sets the target directory for the bindmount.
 
 Default value: `undef`
 
@@ -1086,19 +995,13 @@ Default value: `undef`
 
 Data type: `String[1]`
 
-String. Sets if enabled or not.
+Sets if enabled or not.
 
 Default value: `'present'`
 
 ### <a name="nfs--functions--create_export"></a>`nfs::functions::create_export`
 
-Function: nfs::functions::create_export
-
-This Function exists to
- 1. manage export creation
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+Manage export creation.
 
 #### Parameters
 
@@ -1114,13 +1017,13 @@ The following parameters are available in the `nfs::functions::create_export` de
 
 Data type: `Variant[String[1], Array[String[1]]]`
 
-String or Array. Sets the clients allowed to mount the export with options.
+Sets the clients allowed to mount the export with options.
 
 ##### <a name="-nfs--functions--create_export--ensure"></a>`ensure`
 
 Data type: `String[1]`
 
-String. Sets if enabled or not.
+Sets if enabled or not.
 
 Default value: `'present'`
 
@@ -1128,7 +1031,7 @@ Default value: `'present'`
 
 Data type: `Optional[String[1]]`
 
-String. Sets the owner of the exported directory.
+Sets the owner of the exported directory.
 
 Default value: `undef`
 
@@ -1136,7 +1039,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-String. Sets the group of the exported directory.
+Sets the group of the exported directory.
 
 Default value: `undef`
 
@@ -1144,19 +1047,13 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-String. Sets the permissions of the exported directory.
+Sets the permissions of the exported directory.
 
 Default value: `undef`
 
 ### <a name="nfs--functions--mkdir"></a>`nfs::functions::mkdir`
 
-Function: nfs::functions::mkdir
-
-This Function exists to
- 1. manage dir creation
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+Manage directory creation.
 
 #### Parameters
 
@@ -1174,13 +1071,7 @@ Default value: `'present'`
 
 ### <a name="nfs--functions--nfsv4_bindmount"></a>`nfs::functions::nfsv4_bindmount`
 
-Function: nfs::functions::nfsv4_bindmount
-
-This Function exists to
- 1. manage bindmounts for nfs4
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <tuxmea@gmail.com>
+Manage bindmounts for NFS v4.
 
 #### Parameters
 
@@ -1194,31 +1085,31 @@ The following parameters are available in the `nfs::functions::nfsv4_bindmount` 
 
 Data type: `String[1]`
 
-String. Sets the target directory for the bindmount
+Sets the target directory for the bindmount.
 
 ##### <a name="-nfs--functions--nfsv4_bindmount--bind"></a>`bind`
 
 Data type: `String[1]`
 
-String. Sets the bindmount options.
+Sets the bindmount options.
 
 ##### <a name="-nfs--functions--nfsv4_bindmount--ensure"></a>`ensure`
 
 Data type: `String[1]`
 
-String. Sets if mounted or not.
+Sets if mounted or not.
 
 Default value: `'mounted'`
 
 ### <a name="nfs--server--export"></a>`nfs::server::export`
 
-Function: nfs::server::export
+Manage all exported resources on a NFS server.
 
-This Function exists to
- 1. manage all exported resources on a nfs server
+#### Examples
 
-Parameters
+##### 
 
+```puppet
 class { '::nfs':
   server_enabled             => true,
   nfs_v4                     => true,
@@ -1230,14 +1121,7 @@ nfs::server::export { '/srv/nfs_exported/directory':
   clients => '1.2.3.4/24(rw,insecure,no_subtree_check,async,no_root_squash) 5.6.7.8/24(ro)',
   share => 'share_name_on_nfs_server',
 }
-
-Links
-
-* {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-
-
-* Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-* Martin Alfke <mailto:tuxmea@gmail.com>
+```
 
 #### Parameters
 
@@ -1265,8 +1149,7 @@ The following parameters are available in the `nfs::server::export` defined type
 
 Data type: `String[1]`
 
-String or Array. Sets the allowed clients and options for the export in the exports file.
-Defaults to <tt>localhost(ro)</tt>
+Sets the allowed clients and options for the export in the exports file.
 
 Default value: `'localhost(ro)'`
 
@@ -1274,8 +1157,7 @@ Default value: `'localhost(ro)'`
 
 Data type: `String[1]`
 
-String. Sets the bind options setted in /etc/fstab for the bindmounts created.
-Defaults to <tt>rbind</tt>
+Sets the bind options setted in `/etc/fstab` for the bindmounts created.
 
 Default value: `'rbind'`
 
@@ -1283,7 +1165,7 @@ Default value: `'rbind'`
 
 Data type: `String[1]`
 
-String. If enabled the mount will be created. Defaults to <tt>mounted</tt>
+If enabled the mount will be created.
 
 Default value: `'mounted'`
 
@@ -1291,7 +1173,7 @@ Default value: `'mounted'`
 
 Data type: `Boolean`
 
-String. Sets the remounts parameter of the mount.
+Sets the remounts parameter of the mount.
 
 Default value: `false`
 
@@ -1299,7 +1181,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-String. Sets the atboot parameter of the mount.
+Sets the atboot parameter of the mount.
 
 Default value: `false`
 
@@ -1307,7 +1189,7 @@ Default value: `false`
 
 Data type: `String[1]`
 
-String. Sets the mount options for a nfs version 4 exported resource mount.
+Sets the mount options for a NFS version 4 exported resource mount.
 
 Default value: `$nfs::client_nfsv4_options`
 
@@ -1315,7 +1197,7 @@ Default value: `$nfs::client_nfsv4_options`
 
 Data type: `String[1]`
 
-String. Sets the mount options for a nfs exported resource mount.
+Sets the mount options for a NFS exported resource mount.
 
 Default value: `$nfs::client_nfs_options`
 
@@ -1323,8 +1205,7 @@ Default value: `$nfs::client_nfs_options`
 
 Data type: `Optional[String[1]]`
 
-String. When not undef it will create a bindmount on the node
-for the nfs mount.
+When not undef it will create a bindmount on the node for the NFS mount.
 
 Default value: `undef`
 
@@ -1332,7 +1213,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-String. Sets the nfstag parameter of the mount.
+Sets the nfstag parameter of the mount.
 
 Default value: `undef`
 
@@ -1340,8 +1221,8 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-String. Sets the mountpoint the client will mount the exported resource mount on. If undef
-it defaults to the same path as on the server
+Sets the mountpoint the client will mount the exported resource mount on. If undef it defaults to the same path as
+on the server.
 
 Default value: `undef`
 
@@ -1349,7 +1230,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-String. Sets the owner of the exported directory
+Sets the owner of the exported directory.
 
 Default value: `undef`
 
@@ -1357,7 +1238,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-String. Sets the group of the exported directory
+Sets the group of the exported directory.
 
 Default value: `undef`
 
@@ -1365,7 +1246,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-String. Sets the permissions of the exported directory.
+Sets the permissions of the exported directory.
 
 Default value: `undef`
 
@@ -1373,8 +1254,7 @@ Default value: `undef`
 
 Data type: `String[1]`
 
-String. Sets the hostname clients will use to mount the exported resource. If undef it
-defaults to the trusted certname
+Sets the hostname clients will use to mount the exported resource. If undef it defaults to the trusted certname.
 
 Default value: `$facts['clientcert']`
 

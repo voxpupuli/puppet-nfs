@@ -1,11 +1,8 @@
-# Class: nfs::client::config
-# @summary
-# This Function exists to
-#  1. configure nfs as a client
+# @summary Configure NFS as a client.
 #
 # @author
-# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-# * Martin Alfke <tuxmea@betadots.de>
+#   * Daniel Klockenkaemper <dk@marketing-factory.de>
+#   * Martin Alfke <tuxmea@betadots.de>
 #
 class nfs::client::config {
   if $nfs::client::nfs_v4 {

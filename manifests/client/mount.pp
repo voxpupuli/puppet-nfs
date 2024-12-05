@@ -1,53 +1,46 @@
-# Function: nfs::client::mount
-#
-# @summary
-# This Function exists to
-#  1. manage all mounts on a nfs client
-#
-# Parameters
+# @summary Manage all mounts on a NFS client.
 #
 # @param server
-#   String. Sets the ip address of the server with the nfs export
+#   Sets the ip address of the server with the NFS export.
 #
 # @param share
-#   String. Sets the name of the nfs share on the server
+#   Sets the name of the NFS share on the server.
 #
 # @param ensure
-#   String. Sets the ensure parameter of the mount.
+#   Sets the ensure parameter of the mount.
 #
 # @param remounts
-#   String. Sets the remounts parameter of the mount.
+#   Sets the remounts parameter of the mount.
 #
 # @param atboot
-#   String. Sets the atboot parameter of the mount.
+#   Sets the atboot parameter of the mount.
 #
 # @param options_nfsv4
-#   String. Sets the mount options for a nfs version 4 mount.
+#   Sets the mount options for a NFS version 4 mount.
 #
 # @param options_nfs
-#   String. Sets the mount options for a nfs mount.
+#   Sets the mount options for a NFS mount.
 #
 # @param bindmount
-#   String. When not undef it will create a bindmount on the node
-#   for the nfs mount.
+#   When not undef it will create a bindmount on the node for the NFS mount.
 #
 # @param nfstag
-#   String. Sets the nfstag parameter of the mount.
+#   Sets the nfstag parameter of the mount.
 #
 # param nfs_v4
-#   Boolean. When set to true, it uses nfs version 4 to mount a share.
+#   When set to true, it uses NFS version 4 to mount a share.
 #
 # @param owner
-#   String. Set owner of mount dir
+#   Set owner of mount directory.
 #
 # @param group
-#   String. Set group of mount dir
+#   Set group of mount directory.
 #
 # @param mode
-#   String. Set mode of mount dir
+#   Set mode of mount directory.
 #
 # @param mount_root
-#   String. Overwrite mount root if differs from server config
+#   Overwrite mount root if differs from server configuration.
 #
 # @param mount
 # @param manage_packages
@@ -55,23 +48,22 @@
 # @param nfs_v4
 #
 # @example
+#   class { '::nfs':
+#     client_enabled => true,
+#     nfs_v4_client  => true
+#   }
 #
-# class { '::nfs':
-#   client_enabled => true,
-#   nfs_v4_client  => true
-# }
-#
-# nfs::client::mount { '/target/directory':
-#   server        => '1.2.3.4',
-#   share         => 'share_name_on_nfs_server',
-#   remounts      => true,
-#   atboot        => true,
-#   options_nfsv4 => 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
-# }
+#   nfs::client::mount { '/target/directory':
+#     server        => '1.2.3.4',
+#     share         => 'share_name_on_nfs_server',
+#     remounts      => true,
+#     atboot        => true,
+#     options_nfsv4 => 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
+#   }
 #
 # @author
-# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-# * Martin Alfke <tuxmea@gmail.com>
+#   * Daniel Klockenkaemper <dk@marketing-factory.de>
+#   * Martin Alfke <tuxmea@gmail.com>
 #
 define nfs::client::mount (
   String[1]                                      $server,
