@@ -1,12 +1,8 @@
-# Class: nfs::server::config
-#
-# @summary
-# This class exists to
-#  1. configure nfs as a server
+# @summary Configure NFS as a server.
 #
 # @author
-# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-# * Martin Alfke <tuxmea@gmail.com>
+#   * Daniel Klockenkaemper <dk@marketing-factory.de>
+#   * Martin Alfke <tuxmea@gmail.com>
 #
 class nfs::server::config {
   concat { $nfs::exports_file:

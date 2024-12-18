@@ -1,12 +1,8 @@
-# Class: nfs::server::package
-#
-# @summary
-# This Function exists to
-#  1. install needed packages for nfs server
+# @summary Install needed packages for NFS server.
 #
 # @author
-# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-# * Martin Alfke <tuxmea@gmail.com>
+#   * Daniel Klockenkaemper <dk@marketing-factory.de>
+#   * Martin Alfke <tuxmea@gmail.com>
 #
 class nfs::server::package {
   if $nfs::manage_packages {

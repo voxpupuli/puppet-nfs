@@ -1,7 +1,8 @@
-# @summary Class: nfs::server
-# This class exists to
-#  1. order the loading of classes
-#  2. including all needed classes for nfs as a server
+# @summary Manage the NFS server.
+#
+# This class exists to:
+# 1. Order the loading of classes,
+# 2. Including all needed classes for NFS as a server.
 #
 # @param ensure
 # @param nfs_v4
@@ -17,8 +18,8 @@
 # @param nfs_v4_root_export_tag
 #
 # @author
-# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-# * Martin Alfke <mailto:tuxmea@gmail.com>
+#   * Daniel Klockenkaemper <dk@marketing-factory.de>
+#   * Martin Alfke <mailto:tuxmea@gmail.com>
 #
 class nfs::server (
   Enum['present', 'absent', 'running', 'stopped', 'disabled'] $ensure                       = $nfs::ensure,

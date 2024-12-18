@@ -1,14 +1,10 @@
-# Function: nfs::functions::mkdir
-#
-# @summary
-# This Function exists to
-#  1. manage dir creation
+# @summary Manage directory creation.
 #
 # @param ensure
 #
 # @author
-# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-# * Martin Alfke <tuxmea@gmail.com>
+#   * Daniel Klockenkaemper <dk@marketing-factory.de>
+#   * Martin Alfke <tuxmea@gmail.com>
 #
 define nfs::functions::mkdir (
   String[1] $ensure = 'present',

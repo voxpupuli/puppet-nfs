@@ -1,12 +1,8 @@
-# Class: nfs::client::service
-#
-# @summary
-# This Function exists to
-#  1. manage the needed services for nfs clients
+# @summary Manage the needed services for NFS clients.
 #
 # @author
-# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-# * Martin Alfke <tuxmea@gmail.com>
+#   * Daniel Klockenkaemper <dk@marketing-factory.de>
+#   * Martin Alfke <tuxmea@gmail.com>
 #
 class nfs::client::service {
   if $nfs::client::nfs_v4 {

@@ -1,27 +1,23 @@
-# Function: nfs::functions::create_export
-#
-# @summary
-# This Function exists to
-#  1. manage export creation
+# @summary Manage export creation.
 #
 # @param clients
-#   String or Array. Sets the clients allowed to mount the export with options.
+#   Sets the clients allowed to mount the export with options.
 #
 # @param ensure
-#   String. Sets if enabled or not.
+#   Sets if enabled or not.
 #
 # @param owner
-#   String. Sets the owner of the exported directory.
+#   Sets the owner of the exported directory.
 #
 # @param group
-#   String. Sets the group of the exported directory.
+#   Sets the group of the exported directory.
 #
 # @param mode
-#   String. Sets the permissions of the exported directory.
+#   Sets the permissions of the exported directory.
 #
 # @author
-# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-# * Martin Alfke <tuxmea@gmail.com>
+#   * Daniel Klockenkaemper <dk@marketing-factory.de>
+#   * Martin Alfke <tuxmea@gmail.com>
 #
 define nfs::functions::create_export (
   Variant[String[1], Array[String[1]]] $clients,

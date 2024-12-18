@@ -1,16 +1,14 @@
-# Class: nfs::params
+# @summary Manages defaults values for this module.
 #
-# @summary
 # This class exists to
-# 1. Declutter the default value assignment for class parameters.
+# 1. Declutter the default value assignment for class parameters,
 # 2. Manage internally used module variables in a central place.
 #
-# Therefore, many operating system dependent differences (names, paths, ...)
-# are addressed in here.
+# Therefore, many operating system dependent differences (names, paths, ...) are addressed in here.
 #
 # @author
-# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-# * Martin Alfke <tuxmea@gmail.com>
+#   * Daniel Klockenkaemper <dk@marketing-factory.de>
+#   * Martin Alfke <tuxmea@gmail.com>
 #
 class nfs::params {
   #### Default values for the parameters of the main module class, init.pp

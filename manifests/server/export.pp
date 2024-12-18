@@ -1,85 +1,68 @@
-# Function: nfs::server::export
-#
-# @summary
-# This Function exists to
-#  1. manage all exported resources on a nfs server
-#
-# Parameters
+# @summary Manage all exported resources on a NFS server.
 #
 # @param clients
-#   String or Array. Sets the allowed clients and options for the export in the exports file.
-#   Defaults to <tt>localhost(ro)</tt>
+#   Sets the allowed clients and options for the export in the exports file.
 #
 # @param bind
-#   String. Sets the bind options setted in /etc/fstab for the bindmounts created.
-#   Defaults to <tt>rbind</tt>
+#   Sets the bind options setted in `/etc/fstab` for the bindmounts created.
 #
 # @param ensure
-#   String. If enabled the mount will be created. Defaults to <tt>mounted</tt>
+#   If enabled the mount will be created.
 #
 # @param remounts
-#   String. Sets the remounts parameter of the mount.
+#   Sets the remounts parameter of the mount.
 #
 # @param atboot
-#   String. Sets the atboot parameter of the mount.
+#   Sets the atboot parameter of the mount.
 #
 # @param options_nfsv4
-#   String. Sets the mount options for a nfs version 4 exported resource mount.
+#   Sets the mount options for a NFS version 4 exported resource mount.
 #
 # @param options_nfs
-#   String. Sets the mount options for a nfs exported resource mount.
+#   Sets the mount options for a NFS exported resource mount.
 #
 # @param bindmount
-#   String. When not undef it will create a bindmount on the node
-#   for the nfs mount.
+#   When not undef it will create a bindmount on the node for the NFS mount.
 #
 # @param nfstag
-#   String. Sets the nfstag parameter of the mount.
+#   Sets the nfstag parameter of the mount.
 #
 # @param mount
-#   String. Sets the mountpoint the client will mount the exported resource mount on. If undef
-#   it defaults to the same path as on the server
+#   Sets the mountpoint the client will mount the exported resource mount on. If undef it defaults to the same path as
+#   on the server.
 #
 # @param owner
-#   String. Sets the owner of the exported directory
+#   Sets the owner of the exported directory.
 #
 # @param group
-#   String. Sets the group of the exported directory
+#   Sets the group of the exported directory.
 #
 # @param mode
-#   String. Sets the permissions of the exported directory.
+#   Sets the permissions of the exported directory.
 #
 # @param server
-#   String. Sets the hostname clients will use to mount the exported resource. If undef it
-#   defaults to the trusted certname
+#   Sets the hostname clients will use to mount the exported resource. If undef it defaults to the trusted certname.
 #
 # @param v3_export_name
 # @param v4_export_name
 # @param nfsv4_bindmount_enable
 #
-# @examples
+# @example
+#   class { '::nfs':
+#     server_enabled             => true,
+#     nfs_v4                     => true,
+#     nfs_v4_export_root         => '/share',
+#     nfs_v4_export_root_clients => '1.2.3.4/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)',
+#   }
 #
-# class { '::nfs':
-#   server_enabled             => true,
-#   nfs_v4                     => true,
-#   nfs_v4_export_root         => '/share',
-#   nfs_v4_export_root_clients => '1.2.3.4/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)',
-# }
-#
-# nfs::server::export { '/srv/nfs_exported/directory':
-#   clients => '1.2.3.4/24(rw,insecure,no_subtree_check,async,no_root_squash) 5.6.7.8/24(ro)',
-#   share => 'share_name_on_nfs_server',
-# }
-#
-# Links
-#
-# * {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
-#
+#   nfs::server::export { '/srv/nfs_exported/directory':
+#     clients => '1.2.3.4/24(rw,insecure,no_subtree_check,async,no_root_squash) 5.6.7.8/24(ro)',
+#     share => 'share_name_on_nfs_server',
+#   }
 #
 # @author
-#
-# * Daniel Klockenkaemper <mailto:dk@marketing-factory.de>
-# * Martin Alfke <mailto:tuxmea@gmail.com>
+#   * Daniel Klockenkaemper <dk@marketing-factory.de>
+#   * Martin Alfke <mailto:tuxmea@gmail.com>
 #
 define nfs::server::export (
   String[1]           $v3_export_name         = $name,
