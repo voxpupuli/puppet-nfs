@@ -67,7 +67,7 @@
 define nfs::server::export (
   String[1]           $v3_export_name         = $name,
   String[1]           $v4_export_name         = regsubst($name, '.*/(.*)', '\1' ),
-  String[1]           $clients                = 'localhost(ro)',
+  Variant[String[1],Array[String[1]]] $clients = 'localhost(ro)',
   String[1]           $bind                   = 'rbind',
   # globals for this share
   # propogated to storeconfigs

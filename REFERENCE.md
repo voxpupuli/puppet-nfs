@@ -1147,7 +1147,7 @@ The following parameters are available in the `nfs::server::export` defined type
 
 ##### <a name="-nfs--server--export--clients"></a>`clients`
 
-Data type: `String[1]`
+Data type: `Variant[String[1],Array[String[1]]]`
 
 Sets the allowed clients and options for the export in the exports file.
 
