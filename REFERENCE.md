@@ -377,7 +377,7 @@ Default value: `'/export'`
 
 ##### <a name="-nfs--nfs_v4_export_root_clients"></a>`nfs_v4_export_root_clients`
 
-Data type: `String`
+Data type: `Variant[String, Array[String]]`
 
 It defines the clients that are allowed to mount NFS version 4 exports and includes the option string.
 
@@ -708,7 +708,7 @@ Default value: `$nfs::nfs_v4_export_root`
 
 ##### <a name="-nfs--server--nfs_v4_export_root_clients"></a>`nfs_v4_export_root_clients`
 
-Data type: `String`
+Data type: `Variant[String, Array[String]]`
 
 
 
