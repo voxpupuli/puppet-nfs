@@ -6,7 +6,7 @@
 #
 class nfs::server::config {
   concat { $nfs::exports_file:
-    ensure  => present,
+    ensure => present,
   }
 
   concat::fragment { 'nfs_exports_header':
