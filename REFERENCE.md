@@ -1012,6 +1012,7 @@ The following parameters are available in the `nfs::functions::create_export` de
 * [`owner`](#-nfs--functions--create_export--owner)
 * [`group`](#-nfs--functions--create_export--group)
 * [`mode`](#-nfs--functions--create_export--mode)
+* [`manage_directory`](#-nfs--functions--create_export--manage_directory)
 
 ##### <a name="-nfs--functions--create_export--clients"></a>`clients`
 
@@ -1050,6 +1051,14 @@ Data type: `Optional[String[1]]`
 Sets the permissions of the exported directory.
 
 Default value: `undef`
+
+##### <a name="-nfs--functions--create_export--manage_directory"></a>`manage_directory`
+
+Data type: `Boolean`
+
+Whether or not to manage the directory to be exported.
+
+Default value: `true`
 
 ### <a name="nfs--functions--mkdir"></a>`nfs::functions::mkdir`
 
@@ -1103,7 +1112,19 @@ Default value: `'mounted'`
 
 ### <a name="nfs--server--export"></a>`nfs::server::export`
 
-Manage all exported resources on a NFS server.
+nfs::server::export { '/srv/nfs_exported/directory':
+  clients => '1.2.3.4/24(rw,insecure,no_subtree_check,async,no_root_squash) 5.6.7.8/24(ro)',
+  share => 'share_name_on_nfs_server',
+}
+
+Links
+
+* {Puppet Docs: Using Parameterized Classes}[http://j.mp/nVpyWY]
+
+  nfs::server::export { '/srv/nfs_exported/directory':
+    clients => '1.2.3.4/24(rw,insecure,no_subtree_check,async,no_root_squash) 5.6.7.8/24(ro)',
+    share => 'share_name_on_nfs_server',
+  }
 
 #### Examples
 
@@ -1115,11 +1136,6 @@ class { '::nfs':
   nfs_v4                     => true,
   nfs_v4_export_root         => '/share',
   nfs_v4_export_root_clients => '1.2.3.4/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)',
-}
-
-nfs::server::export { '/srv/nfs_exported/directory':
-  clients => '1.2.3.4/24(rw,insecure,no_subtree_check,async,no_root_squash) 5.6.7.8/24(ro)',
-  share => 'share_name_on_nfs_server',
 }
 ```
 
@@ -1144,6 +1160,7 @@ The following parameters are available in the `nfs::server::export` defined type
 * [`v3_export_name`](#-nfs--server--export--v3_export_name)
 * [`v4_export_name`](#-nfs--server--export--v4_export_name)
 * [`nfsv4_bindmount_enable`](#-nfs--server--export--nfsv4_bindmount_enable)
+* [`manage_directory`](#-nfs--server--export--manage_directory)
 
 ##### <a name="-nfs--server--export--clients"></a>`clients`
 
@@ -1281,4 +1298,12 @@ Data type: `Boolean`
 
 
 Default value: `$nfs::nfsv4_bindmount_enable`
+
+##### <a name="-nfs--server--export--manage_directory"></a>`manage_directory`
+
+Data type: `Boolean`
+
+Whether or not to manage the directory to be exported.
+
+Default value: `true`
 
