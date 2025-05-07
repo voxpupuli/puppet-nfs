@@ -25,7 +25,7 @@ class nfs::server (
   Enum['present', 'absent', 'running', 'stopped', 'disabled'] $ensure                       = $nfs::ensure,
   Boolean                                                     $nfs_v4                       = $nfs::nfs_v4,
   String                                                      $nfs_v4_export_root           = $nfs::nfs_v4_export_root,
-  Variant[String, Array[String]]                              $nfs_v4_export_root_clients   = $nfs::nfs_v4_export_root_clients,
+  Variant[String[1], Array[String[1]]]                        $nfs_v4_export_root_clients   = $nfs::nfs_v4_export_root_clients,
   String                                                      $nfs_v4_idmap_domain          = $nfs::nfs_v4_idmap_domain,
   String                                                      $nfs_v4_root_export_ensure    = $nfs::nfs_v4_root_export_ensure,
   Optional[String]                                            $nfs_v4_root_export_mount     = $nfs::nfs_v4_root_export_mount,
