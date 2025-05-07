@@ -17,9 +17,10 @@ class nfs::server::config {
 
   if $nfs::nfs_v4 {
     if $nfs::nfsv4_bindmount_enable {
+      $nfs_v4_clients = Array($nfs::server::nfs_v4_export_root_clients, true).join(' ')
       concat::fragment { 'nfs_exports_root':
         target  => $nfs::exports_file,
-        content => "${nfs::server::nfs_v4_export_root} ${nfs::server::nfs_v4_export_root_clients}\n",
+        content => "${nfs::server::nfs_v4_export_root} ${nfs_v4_clients}\n",
         order   => 2,
       }
     }

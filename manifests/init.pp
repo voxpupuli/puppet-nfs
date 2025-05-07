@@ -237,7 +237,7 @@ class nfs (
   String                                                      $client_gssdopt_name                = $nfs::params::client_gssdopt_name,
   Boolean                                                     $client_d9_gssdopt_workaround       = false,
   String                                                      $nfs_v4_export_root                 = '/export',
-  String                                                      $nfs_v4_export_root_clients         = "*.${facts['networking']['domain']}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)",
+  Variant[String[1], Array[String[1]]]                        $nfs_v4_export_root_clients         = "*.${facts['networking']['domain']}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)",
   String                                                      $nfs_v4_mount_root                  = '/srv',
   String                                                      $nfs_v4_idmap_domain                = $nfs::params::nfs_v4_idmap_domain,
   Variant[String, Array]                                      $nfs_v4_idmap_localrealms           = '', # lint:ignore:params_empty_string_assignment
