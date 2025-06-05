@@ -82,13 +82,13 @@
     {
       "operatingsystem": "SLES",
       "operatingsystemrelease": [
-        "12"
+        "15"
       ]
     },
     {
       "operatingsystem": "openSUSE",
       "operatingsystemrelease": [
-        "13"
+        "15"
       ]
     }
   ],
