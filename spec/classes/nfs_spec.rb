@@ -402,10 +402,26 @@ describe 'nfs' do
           end
         end
 
+        context 'when nfs_v4_export_root_clients is an array' do
+          let(:params) { { nfs_v4: true, server_enabled: true, nfs_v4_export_root_clients: ['192.0.2.1', '192.0.2.2'] } }
+
+          it do
+            is_expected.to contain_concat__fragment('nfs_exports_root').
+              with_target('/etc/exports').
+              with_content(%r{/export 192\.0\.2\.1 192\.0\.2\.2})
+          end
+        end
+
         context 'when nfs_v4 => true' do
           let(:params) { { nfs_v4: true, server_enabled: true, client_enabled: false, nfs_v4_idmap_domain: 'teststring' } }
+          let(:node) { 'test.local' }
 
-          it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
+          it do
+            is_expected.to contain_concat__fragment('nfs_exports_root').
+              with_target('/etc/exports').
+              with_content(%r{/export \*\.local\(ro,fsid=root,insecure,no_subtree_check,async,root_squash\)})
+          end
+
           it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
           it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set General/Domain teststring}) }
 
