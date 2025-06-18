@@ -1,11 +1,10 @@
+---
 fixtures:
   repositories:
-    stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
-    concat: "https://github.com/puppetlabs/puppetlabs-concat.git"
-    augeasproviders_core: "https://github.com/voxpupuli/puppet-augeasproviders_core.git"
-    augeasproviders_shellvar: "https://github.com/voxpupuli/puppet-augeasproviders_shellvar.git"
-    augeas_core: "https://github.com/puppetlabs/puppetlabs-augeas_core.git"
-    mount_core: "https://github.com/puppetlabs/puppetlabs-mount_core.git"
-    transition: "https://github.com/puppetlabs/puppetlabs-transition.git"
-  symlinks:
-    "nfs": "#{source_dir}"
+    augeas_core: https://github.com/puppetlabs/puppetlabs-augeas_core.git
+    augeasproviders_core: https://github.com/voxpupuli/puppet-augeasproviders_core.git
+    augeasproviders_shellvar: https://github.com/voxpupuli/puppet-augeasproviders_shellvar.git
+    concat: https://github.com/puppetlabs/puppetlabs-concat.git
+    mount_core: https://github.com/puppetlabs/puppetlabs-mount_core.git
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
+    transition: https://github.com/puppetlabs/puppetlabs-transition.git
