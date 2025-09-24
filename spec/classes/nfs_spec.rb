@@ -3,8 +3,7 @@
 require 'spec_helper'
 
 describe 'nfs' do
-  # supported_os = %w[Ubuntu_default Ubuntu_16.04 Debian_default Debian_8 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES Archlinux]
-  supported_os = %w[Ubuntu_20.04 Ubuntu_22.04 Debian_11 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES]
+  supported_os = %w[Ubuntu_20.04 Ubuntu_22.04 Ubuntu_24.04 Debian_11 Debian_12 RedHat_default RedHat_7 RedHat_75 RedHat_8 Gentoo SLES]
   supported_os.each do |os|
     context os do
       let(:default_facts) do
@@ -27,12 +26,12 @@ describe 'nfs' do
             'operatingsystem' => 'Ubuntu',
             'os' => {
               'family' => 'Debian',
+              'name' => 'Ubuntu',
               'distro' => {
                 'codename' => 'trusty'
               },
               'release' => {
-                'major' => '14',
-                'minor' => '04',
+                'major' => '14.04',
                 'full' => '14.04'
               }
             }
@@ -58,12 +57,12 @@ describe 'nfs' do
             'operatingsystem' => 'Ubuntu',
             'os' => {
               'family' => 'Debian',
+              'name' => 'Ubuntu',
               'distro' => {
                 'codename' => 'focal'
               },
               'release' => {
-                'major' => '20',
-                'minor' => '04',
+                'major' => '20.04',
                 'full' => '20.04'
               }
             }
@@ -89,13 +88,44 @@ describe 'nfs' do
             'operatingsystem' => 'Ubuntu',
             'os' => {
               'family' => 'Debian',
+              'name' => 'Ubuntu',
               'distro' => {
                 'codename' => 'jammy'
               },
               'release' => {
-                'major' => '22',
-                'minor' => '04',
+                'major' => '22.04',
                 'full' => '22.04'
+              }
+            }
+          )
+        end
+
+        server_service = 'nfs-kernel-server'
+        server_servicehelpers = ''
+        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind]
+        client_packages = %w[nfs-common nfs4-acl-tools]
+        client_gssdopt_name = 'GSSDARGS'
+        defaults_file = '/etc/default/nfs-common'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/default/rpcbind'
+        client_rpcbind_optname = 'OPTIONS'
+
+      when 'Ubuntu_24.04'
+
+        let(:facts) do
+          default_facts.merge(
+            'operatingsystem' => 'Ubuntu',
+            'os' => {
+              'family' => 'Debian',
+              'name' => 'Ubuntu',
+              'distro' => {
+                'codename' => 'noble'
+              },
+              'release' => {
+                'major' => '24.04',
+                'full' => '24.04'
               }
             }
           )
@@ -120,6 +150,7 @@ describe 'nfs' do
             'operatingsystem' => 'Debian',
             'os' => {
               'family' => 'Debian',
+              'name' => 'Debian',
               'distro' => {
                 'codename' => 'wheezy'
               },
@@ -150,12 +181,44 @@ describe 'nfs' do
             'operatingsystem' => 'Debian',
             'os' => {
               'family' => 'Debian',
+              'name' => 'Debian',
               'distro' => {
                 'codename' => 'bullseye'
               },
               'release' => {
                 'major' => '11',
                 'full' => '11'
+              }
+            }
+          )
+        end
+
+        server_service = 'nfs-kernel-server'
+        server_servicehelpers = %w[nfs-idmapd]
+        server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
+        client_services = %w[rpcbind]
+        client_nfs_vfour_services = %w[rpcbind]
+        client_packages = %w[nfs-common nfs4-acl-tools]
+        client_gssdopt_name = 'GSSDARGS'
+        defaults_file = '/etc/default/nfs-common'
+        idmapd_file = '/etc/idmapd.conf'
+        client_rpcbind_config = '/etc/default/rpcbind'
+        client_rpcbind_optname = 'OPTIONS'
+
+      when 'Debian_12'
+
+        let(:facts) do
+          default_facts.merge(
+            'operatingsystem' => 'Debian',
+            'os' => {
+              'family' => 'Debian',
+              'name' => 'Debian',
+              'distro' => {
+                'codename' => 'bookworm'
+              },
+              'release' => {
+                'major' => '12',
+                'full' => '12'
               }
             }
           )
