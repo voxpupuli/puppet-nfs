@@ -153,10 +153,12 @@ This will mount /data on client in /share/data.
     }
     # ensure is passed to mount, which will make the client not mount it
     # the directory automatically, just add it to fstab
+    # The directory on the NFS server is not created automatically.
     nfs::server::export { '/media_library':
-      ensure  => 'present',
+      ensure     => 'present',
       nfstag     => 'media',
-      clients => '10.0.0.0/24(rw,insecure,async,no_root_squash) localhost(rw)',
+      clients    => '10.0.0.0/24(rw,insecure,async,no_root_squash) localhost(rw)',
+      manage_dir => false,
     }
   }
 

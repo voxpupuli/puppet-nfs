@@ -34,6 +34,14 @@ describe 'nfs::server::export', type: 'define' do
 
     let(:params) { { clients: '1.2.3.4(rw)' } }
 
+    it do
+      is_expected.to contain_nfs__functions__create_export('/srv/test').with(
+        'ensure'           => 'mounted',
+        'clients'          => '1.2.3.4(rw)',
+        'manage_directory' => true
+      )
+    end
+
     it { is_expected.to contain_nfs__functions__create_export('/srv/test').with('ensure' => 'mounted', 'clients' => '1.2.3.4(rw)') }
 
     it do
@@ -70,7 +78,9 @@ describe 'nfs::server::export', type: 'define' do
 
     let(:pre_condition) { 'class {"nfs": server_enabled => true, nfs_v4 => false, storeconfigs_enabled => false}' }
 
-    let(:params) { { clients: '1.2.3.4(rw)' } }
+    let(:params) { { clients: '1.2.3.4(rw)', manage_directory: false } }
+
+    it { is_expected.not_to contain_file('/srv/test') }
 
     it { is_expected.to contain_nfs__functions__create_export('/srv/test').with('ensure' => 'mounted', 'clients' => '1.2.3.4(rw)') }
 
