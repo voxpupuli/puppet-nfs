@@ -31,7 +31,7 @@ describe 'nfs class' do
   describe 'include nfs with client params' do
     context 'when client params' do
       client_pp = <<-PUPPETCODE
-        class { '::nfs':
+        class { 'nfs':
           server_enabled => false,
           client_enabled => true,
           nfs_v4_client => true,
@@ -85,7 +85,7 @@ describe 'nfs class' do
         file { ['/export', '/data_folder', '/homeexport']:
           ensure => 'directory',
         }
-        class { '::nfs':
+        class { 'nfs':
           server_enabled => true,
           nfs_v4 => true,
           nfs_v4_idmap_domain => 'example.org',

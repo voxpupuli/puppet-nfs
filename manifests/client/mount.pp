@@ -48,7 +48,7 @@
 # @param nfs_v4
 #
 # @example
-#   class { '::nfs':
+#   class { 'nfs':
 #     client_enabled => true,
 #     nfs_v4_client  => true
 #   }

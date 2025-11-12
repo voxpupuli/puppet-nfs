@@ -50,7 +50,7 @@ running to use nfs:
 
 ```puppet
 node server {
-  class { '::nfs':
+  class { 'nfs':
     server_enabled => true,
   }
 }
@@ -60,7 +60,7 @@ On a client the following code is sufficient:
 
 ```puppet
 node server {
-  class { '::nfs':
+  class { 'nfs':
     client_enabled => true,
   }
 }
@@ -74,7 +74,7 @@ This will export /data_folder on the server and automagically mount it on client
 
 ```puppet
 node server {
-  class { '::nfs':
+  class { 'nfs':
     server_enabled => true
   }
   nfs::server::export{ '/data_folder':
@@ -86,7 +86,7 @@ node server {
 # By default, mounts are mounted in the same folder on the clients as
 # they were exported from on the server
 node client {
-  class { '::nfs':
+  class { 'nfs':
     client_enabled => true,
   }
   Nfs::Client::Mount <<| |>>
@@ -99,7 +99,7 @@ This will mount /data on client in /share/data.
 
 ```puppet
 node client {
-  class { '::nfs':
+  class { 'nfs':
     server_enabled => false,
     client_enabled => true,
     nfs_v4_client => true,
@@ -117,7 +117,7 @@ node client {
 
 ```puppet
 node server1 {
-  class { '::nfs':
+  class { 'nfs':
     server_enabled => true,
   }
   nfs::server::export { '/data_folder':
@@ -132,7 +132,7 @@ node server1 {
 }
 
 node server2 {
-  class { '::nfs':
+  class { 'nfs':
     server_enabled => true,
   }
   # ensure is passed to mount, which will make the client not mount it
@@ -147,7 +147,7 @@ node server2 {
 }
 
 node client {
-  class { '::nfs':
+  class { 'nfs':
     client_enabled => true,
   }
   Nfs::Client::Mount <<| |>>
@@ -156,7 +156,7 @@ node client {
 # Using a storeconfig override, to change ensure option, so we mount
 # all shares
 node greedy_client {
-  class { '::nfs':
+  class { 'nfs':
     client_enabled => true,
   }
   Nfs::Client::Mount <<| |>> {
@@ -168,7 +168,7 @@ node greedy_client {
 # only the mount tagged as media
 # also override mount point
 node media_client {
-  class { '::nfs':
+  class { 'nfs':
     client_enabled => true,
   }
   Nfs::Client::Mount <<| nfstag == 'media' |>> {
@@ -183,7 +183,7 @@ node media_client {
 # Check out the doc on exported resources for more info:
 # http://docs.puppetlabs.com/guides/exported_resources.html
 node single_server_client {
-  class { '::nfs':
+  class { 'nfs':
     client_enabled => true,
   }
   Nfs::Client::Mount <<| server == 'server1' |>> {
@@ -209,7 +209,7 @@ node server {
   file { ['/data_folder', '/homeexport']:
     ensure => 'directory',
   }
-  class { '::nfs':
+  class { 'nfs':
     server_enabled => true,
     nfs_v4 => true,
     nfs_v4_idmap_domain => 'example.com',
@@ -231,7 +231,7 @@ node server {
 # they were exported from on the server
 
 node client {
-  class { '::nfs':
+  class { 'nfs':
     client_enabled  => true,
     nfs_v4_client   => true,
   }
@@ -244,7 +244,7 @@ node client {
 
 node client2 {
   $server = 'server'
-  class { '::nfs':
+  class { 'nfs':
     client_enabled => true,
     nfs_v4_client  => true,
   }
@@ -259,7 +259,7 @@ node client2 {
 ```puppet
 # and on individual nodes.
 node server {
-  class { '::nfs':
+  class { 'nfs':
     server_enabled      => true,
     nfs_v4              => true,
     # Below are defaults
@@ -299,7 +299,7 @@ node server {
 }
 
 node client {
-  class { '::nfs':
+  class { 'nfs':
     client_enabled      => true,
     nfs_v4_client       => true,
     nfs_v4_idmap_domain => $::domain,
