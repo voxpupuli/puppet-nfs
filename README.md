@@ -41,7 +41,7 @@ features and do a pull request.
 
 This module can be used to configure your nfs client and/or server, it could export
 nfs mount resources via storeconfigs or simply mount nfs shares on a client. You can
-also easily use the create_resources function when you store your exports i.e. via hiera.
+also easily use the `each` function when you store your exports i.e. via hiera.
 
 ### Beginning with puppet-nfs
 
@@ -75,9 +75,9 @@ This will export /data_folder on the server and automagically mount it on client
 ```puppet
 node server {
   class { 'nfs':
-    server_enabled => true
+    server_enabled => true,
   }
-  nfs::server::export{ '/data_folder':
+  nfs::server::export { '/data_folder':
     ensure  => 'mounted',
     clients => '10.0.0.0/24(rw,insecure,async,no_root_squash) localhost(rw)'
   }
@@ -102,13 +102,13 @@ node client {
   class { 'nfs':
     server_enabled => false,
     client_enabled => true,
-    nfs_v4_client => true,
-    nfs_v4_idmap_domain => $::domain,
+    nfs_v4_client  => true,
+    nfs_v4_idmap_domain => $facts['networking']['domain'],
   }
 
   nfs::client::mount { '/share/data':
-      server => '192.168.0.1',
-      share => 'data',
+    server => '192.168.0.1',
+    share  => 'data',
   }
 }
 ```
@@ -164,7 +164,6 @@ node greedy_client {
   }
 }
 
-
 # only the mount tagged as media
 # also override mount point
 node media_client {
@@ -181,7 +180,7 @@ node media_client {
 # Also all parameters can be overridden (not that it's smart to do
 # so).
 # Check out the doc on exported resources for more info:
-# http://docs.puppetlabs.com/guides/exported_resources.html
+# https://help.puppet.com/core/8/Content/PuppetCore/lang_exported.htm
 node single_server_client {
   class { 'nfs':
     client_enabled => true,
@@ -195,7 +194,7 @@ node single_server_client {
 ### NFSv4 Simple example
 
 ```puppet
-# We use the $::domain fact for the Domain setting in
+# We use the $facts['networking']['domain'] fact for the Domain setting in
 # /etc/idmapd.conf.
 # For NFSv4 to work this has to be equal on servers and clients
 # set it manually if unsure.
@@ -203,15 +202,14 @@ node single_server_client {
 # All nfsv4 exports are bind mounted into /export/$mount_name
 # and mounted on /srv/$mount_name on the client.
 # Both values can be overridden through parameters both globally
-
 # and on individual nodes.
 node server {
   file { ['/data_folder', '/homeexport']:
     ensure => 'directory',
   }
   class { 'nfs':
-    server_enabled => true,
-    nfs_v4 => true,
+    server_enabled      => true,
+    nfs_v4              => true,
     nfs_v4_idmap_domain => 'example.com',
     nfs_v4_export_root  => '/export',
     nfs_v4_export_root_clients => '*(rw,fsid=0,insecure,no_subtree_check,async,no_root_squash)',
@@ -232,8 +230,8 @@ node server {
 
 node client {
   class { 'nfs':
-    client_enabled  => true,
-    nfs_v4_client   => true,
+    client_enabled => true,
+    nfs_v4_client  => true,
   }
   Nfs::Client::Mount <<| |>>
 }
@@ -263,38 +261,36 @@ node server {
     server_enabled      => true,
     nfs_v4              => true,
     # Below are defaults
-    nfs_v4_idmap_domain => $::domain,
+    nfs_v4_idmap_domain => $facts['networking']['domain'],
     nfs_v4_export_root  => '/export',
     # Default access settings of /export root
-    nfs_v4_export_root_clients =>
-      "*.${::domain}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)",
-
-
+    nfs_v4_export_root_clients => "*.${facts['networking']['domain']}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)",
   }
+
   nfs::server::export { '/data_folder':
     # These are the defaults
-    ensure  => 'mounted',
+    ensure      => 'mounted',
     # rbind or bind mounting of folders bindmounted into /export
     # google it
-    bind    => 'rbind',
-    # everything below here is propogated by to storeconfigs
+    bind        => 'rbind',
+    # everything below here is propagated by to storeconfigs
     # to clients
     #
     # Directory where we want export mounted on client
-    mount     => undef,
-    remounts  => false,
-    atboot    => false,
-    #  Don't remove that option, but feel free to add more.
-    options_nfs   => '_netdev',
+    mount       => undef,
+    remounts    => false,
+    atboot      => false,
+    # Don't remove that option, but feel free to add more.
+    options_nfs => '_netdev',
     # If set will mount share inside /srv (or overridden mount_root)
     # and then bindmount to another directory elsewhere in the fs -
     # for fanatics.
-    bindmount => undef,
-    # Used to identify a catalog item for filtering by by
+    bindmount   => undef,
+    # Used to identify a catalog item for filtering by
     # storeconfigs, kick ass.
-    nfstag     => 'kick-ass',
+    nfstag      => 'kick-ass',
     # copied directly into /etc/exports as a string, for simplicity
-    clients => '10.0.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)',
+    clients     => '10.0.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)',
   }
 }
 
@@ -302,7 +298,7 @@ node client {
   class { 'nfs':
     client_enabled      => true,
     nfs_v4_client       => true,
-    nfs_v4_idmap_domain => $::domain,
+    nfs_v4_idmap_domain => $facts['networking']['domain'],
     nfs_v4_mount_root   => '/srv',
   }
 
@@ -316,7 +312,7 @@ node client {
     mount       => undef,
     remounts    => false,
     atboot      => false,
-    #  Don't remove that option, but feel free to add more.
+    # Don't remove that option, but feel free to add more.
     options_nfs => '_netdev',
     # If set will mount share inside /srv (or overridden mount_root)
     # and then bindmount to another directory elsewhere in the fs -
@@ -337,7 +333,7 @@ classes:
 nfs::server_enabled: true
 nfs::client_enabled: false
 nfs::nfs_v4: true
-nfs::nfs_v4_idmap_domain: %{::domain}
+nfs::nfs_v4_idmap_domain: '%{facts.networking.domain}'
 nfs::nfs_v4_export_root: '/share'
 nfs::nfs_v4_export_root_clients: '192.168.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)'
 
@@ -354,7 +350,7 @@ classes:
 
 nfs::client_enabled: true
 nfs::nfs_v4_client: true
-nfs::nfs_v4_idmap_domain: %{::domain}
+nfs::nfs_v4_idmap_domain: %{facts.networking.domain}
 nfs::nfs_v4_mount_root: '/share'
 nfs::nfs_server: 'nfs-server-fqdn'
 ```
@@ -363,23 +359,25 @@ nfs::nfs_server: 'nfs-server-fqdn'
 
 ```puppet
 node server {
-  hiera_include('classes')
-  $nfs_exports_global = hiera_hash('nfs::nfs_exports_global', false)
+  lookup('classes', Array[String], 'unique', []).include
+  $nfs_exports_global = lookup('nfs::nfs_exports_global', Hash, 'hash', {})
 
   $defaults_nfs_exports = {
     ensure  => 'mounted',
     clients => '192.168.0.0/24(rw,insecure,no_subtree_check,async,no_root_squash)',
-    nfstag     => $::fqdn,
+    nfstag  => $facts['networking']['fqdn'],
   }
 
-  if $nfs_exports_global {
-    create_resources('::nfs::server::export', $nfs_exports_global, $defaults_nfs_exports)
+  $nfs_exports_global.each |$k, $v| {
+    nfs::server::export { $k:
+      * => $defaults_nfs_exports,
+    }
   }
 }
 
 node client {
-  hiera_include('classes')
-  $nfs_server = hiera('nfs::nfs_server', false)
+  lookup('classes', Array[String], 'unique', []).include
+  $nfs_server = lookup('nfs::nfs_server', String, 'first', undef)
 
   if $nfs_server {
     Nfs::Client::Mount <<| nfstag == $nfs_server |>>
@@ -390,13 +388,13 @@ node client {
 ## Limitations
 
 If you want to have specific package versions installed you may manage the needed packages outside of this
-module (use manage_packages => false). It is only tested to use 'present', 'installed', 'absent',
-'purged', 'held' and 'latest' as argument for the parameters server_package_ensure and client_package_ensure.
+module (use `manage_packages => false`). It is only tested to use 'present', 'installed', 'absent',
+'purged', 'held', and 'latest' as argument for the parameters `server_package_ensure` and `client_package_ensure`.
 
 ## Disclaimer
 
 This module based on Harald Skoglund <haraldsk@redpill-linpro.com> from
-https://github.com/haraldsk/puppet-module-nfs/ but has been fundementally refactored
+<https://github.com/haraldsk/puppet-module-nfs/> but has been fundamentally refactored
 
 ## Transfer Notice
 
@@ -404,4 +402,4 @@ This plugin was originally authored by Daniel Klockenkaemper <dk@marketing-facto
 The maintainer preferred that Vox Pupuli take ownership of the module for future improvement and maintenance.
 Existing pull requests and issues were transferred over, please fork and continue to contribute here instead of Camptocamp.
 
-Previously: https://github.com/derdanne/puppet-nfs
+Previously: <https://github.com/derdanne/puppet-nfs>
