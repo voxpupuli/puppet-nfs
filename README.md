@@ -19,7 +19,6 @@
 3. [Usage - Configuration options and additional functionality](#usage)
 4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
 
 ## Module Description
 
@@ -761,87 +760,6 @@ augeas
 If you want to have specific package versions installed you may manage the needed packages outside of this
 module (use manage_packages => false). It is only tested to use 'present', 'installed', 'absent',
 'purged', 'held' and 'latest' as argument for the parameters server_package_ensure and client_package_ensure.
-
-## Development
-
-Derdanne modules are open projects. So if you want to make this module even better,
-you can contribute to this module on [Github](https://github.com/voxpupuli/puppet-nfs).
-
-Before pushing PRs to Github i would recommend you to test your work locally. So you can ensure all test builds
-on Travis CI were passing. I have prepared an easy way to test your code locally with the help of Docker.
-
-For running the complete static code analysis, it is sufficient to run a `make test-all`.
-
-### Default settings
-
-I have set some defaults which you can change by setting the following environment variables.
-
-#### PUPPET_VERSION
-
-Changes the puppet version which will be used for the tests. Defaults to `6.0`.
-
-#### STRICT_VARIABLES
-
-Sets strict variables on or off. Defaults to `yes`.
-
-#### RVM
-
-Sets the ruby version which will be used for the tests. Defaults to `2.4.1`.
-
-#### BEAKER_set
-
-Sets the beaker docker target host. Defaults to `ubuntu-20.04`.
-
-#### PUPPET_collection
-
-Sets the puppet version for acceptance tests. Defaults to `puppet6`.
-
-### Running tests
-
-You can run the following commands to setup and run the testsuite on your local machine.
-
-#### `make build`
-
-Build a docker image with a Ruby version which is not available on Docker hub. Check out
-`https://hub.docker.com/r/derdanne/rvm/` to see if i have already prepared a rvm build for the ruby version
-you want to test. Take a look at the Dockerfile located in `spec/local-testing` if you want to customize
-your builds.
-
-#### `make pull`
-
-Pull a prebuild rvm docker image with the Ruby version defined in the variable `RVM`.
-
-#### `make install-gems`
-
-Install all needed gems locally to `vendor/bundle`.
-
-#### `make test-metadata-lint`
-
-Run linting of metadata.
-
-#### `make test-lint`
-
-Run puppet lint tests.
-
-#### `make test-syntax`
-
-Run syntax tests.
-
-#### `make test-rspec`
-
-Run rspec puppet tests.
-
-#### `make test-rubocop`
-
-Run rubocop tests.
-
-#### `make test-all`
-
-Run the whole testsuite.
-
-#### `make test-beaker`
-
-Run puppetlabs beaker rspec tests.
 
 ## Disclaimer
 
