@@ -6,4 +6,3 @@ nfs::client_gssd_options: ''
 nfs::server_service_hasrestart: true
 nfs::server_service_hasstatus: true
 nfs::server_service_restart_cmd: ~
-
