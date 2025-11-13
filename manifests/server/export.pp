@@ -51,7 +51,7 @@
 #   Whether or not to manage the directory to be exported.
 #
 # @example
-#   class { '::nfs':
+#   class { 'nfs':
 #     server_enabled             => true,
 #     nfs_v4                     => true,
 #     nfs_v4_export_root         => '/share',

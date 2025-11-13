@@ -802,7 +802,7 @@ param nfs_v4
 ##### 
 
 ```puppet
-class { '::nfs':
+class { 'nfs':
   client_enabled => true,
   nfs_v4_client  => true
 }
@@ -1119,7 +1119,7 @@ Manage all exported resources on a NFS server.
 ##### 
 
 ```puppet
-class { '::nfs':
+class { 'nfs':
   server_enabled             => true,
   nfs_v4                     => true,
   nfs_v4_export_root         => '/share',
