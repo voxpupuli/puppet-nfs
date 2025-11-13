@@ -30,7 +30,7 @@ This module installs, configures and manages everything on NFS clients and serve
 This module is a complete refactor of the module haraldsk/nfs, because Harald Skoglund sadly is not
 maintaining his module actively anymore. It is stripped down to use only the class 'nfs'
 and parametrized to act as a server, client or both with the parameters 'server_enabled'
-and 'client_enabled'. It also has some dependencies on newer stdlib functions like 'difference'.
+and 'client_enabled'.
 
 It supports the OS Families Ubuntu, Debian, Redhat, SUSE, Gentoo and Archlinux. It supports also Strict Variables, so if you pass all
 OS specific parameters correctly it should work on your preferred OS too. Feedback, bugreports,

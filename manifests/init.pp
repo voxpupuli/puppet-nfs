@@ -259,13 +259,13 @@ class nfs (
 ) inherits nfs::params {
   if $server_enabled {
     if $server_nfsv4_servicehelper != undef {
-      $effective_nfsv4_client_services = delete($client_nfsv4_services, $server_nfsv4_servicehelper)
+      $effective_nfsv4_client_services = $client_nfsv4_services - $server_nfsv4_servicehelper
     } else {
       $effective_nfsv4_client_services = $client_nfsv4_services
     }
 
     $effective_client_services = $client_services
-    $effective_client_packages = difference($client_packages, $server_packages)
+    $effective_client_packages = $client_packages - $server_packages
   } else {
     if $client_gssd_service and $client_gssd_service_name != undef {
       $effective_nfsv4_client_services = $client_nfsv4_services + $client_gssd_service_name
