@@ -266,11 +266,15 @@ Data type: `Boolean`
 
 It defines the service parameter hasrestart for NFS server service.
 
+Default value: `true`
+
 ##### <a name="-nfs--server_service_hasstatus"></a>`server_service_hasstatus`
 
 Data type: `Boolean`
 
 It defines the service parameter hasstatus for NFS server service.
+
+Default value: `true`
 
 ##### <a name="-nfs--server_service_restart_cmd"></a>`server_service_restart_cmd`
 
@@ -316,9 +320,11 @@ Default value: `[]`
 
 ##### <a name="-nfs--client_nfs_fstype"></a>`client_nfs_fstype`
 
-Data type: `String`
+Data type: `String[1]`
 
 It defines the name of the NFS filesystem, when adding entries to `/etc/fstab` on a client node.
+
+Default value: `'nfs'`
 
 ##### <a name="-nfs--client_nfs_options"></a>`client_nfs_options`
 
@@ -397,9 +403,11 @@ Default value: `false`
 
 ##### <a name="-nfs--client_gssd_options"></a>`client_gssd_options`
 
-Data type: `String`
+Data type: `Optional[String[1]]`
 
 Options for rpc-gssd service.
+
+Default value: `undef`
 
 ##### <a name="-nfs--client_d9_gssdopt_workaround"></a>`client_d9_gssdopt_workaround`
 
@@ -539,11 +547,15 @@ Data type: `Boolean`
 
 It defines the service parameter hasrestart for NFS client services.
 
+Default value: `true`
+
 ##### <a name="-nfs--client_services_hasstatus"></a>`client_services_hasstatus`
 
 Data type: `Boolean`
 
 It defines the service parameter hasstatus for NFS client services.
+
+Default value: `true`
 
 ##### <a name="-nfs--client_gssdopt_name"></a>`client_gssdopt_name`
 
