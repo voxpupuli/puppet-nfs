@@ -7,4 +7,3 @@ fixtures:
     concat: https://github.com/puppetlabs/puppetlabs-concat.git
     mount_core: https://github.com/puppetlabs/puppetlabs-mount_core.git
     stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
-    transition: https://github.com/puppetlabs/puppetlabs-transition.git
