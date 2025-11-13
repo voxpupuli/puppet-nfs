@@ -11,7 +11,6 @@
 * [`nfs::client::config`](#nfs--client--config): Configure NFS as a client.
 * [`nfs::client::package`](#nfs--client--package): Install needed packages for NFS clients.
 * [`nfs::client::service`](#nfs--client--service): Manage the needed services for NFS clients.
-* [`nfs::params`](#nfs--params): Manages defaults values for this module.
 * [`nfs::server`](#nfs--server): Manage the NFS server.
 * [`nfs::server::config`](#nfs--server--config): Configure NFS as a server.
 * [`nfs::server::package`](#nfs--server--package): Install needed packages for NFS server.
@@ -650,14 +649,6 @@ Install needed packages for NFS clients.
 ### <a name="nfs--client--service"></a>`nfs::client::service`
 
 Manage the needed services for NFS clients.
-
-### <a name="nfs--params"></a>`nfs::params`
-
-This class exists to
-1. Declutter the default value assignment for class parameters,
-2. Manage internally used module variables in a central place.
-
-Therefore, many operating system dependent differences (names, paths, ...) are addressed in here.
 
 ### <a name="nfs--server"></a>`nfs::server`
 
