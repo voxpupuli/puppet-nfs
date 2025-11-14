@@ -11,7 +11,6 @@
 * [`nfs::client::config`](#nfs--client--config): Configure NFS as a client.
 * [`nfs::client::package`](#nfs--client--package): Install needed packages for NFS clients.
 * [`nfs::client::service`](#nfs--client--service): Manage the needed services for NFS clients.
-* [`nfs::params`](#nfs--params): Manages defaults values for this module.
 * [`nfs::server`](#nfs--server): Manage the NFS server.
 * [`nfs::server::config`](#nfs--server--config): Configure NFS as a server.
 * [`nfs::server::package`](#nfs--server--package): Install needed packages for NFS server.
@@ -165,15 +164,11 @@ Data type: `Stdlib::Absolutepath`
 
 It defines the location of file with the NFS export resources used by the NFS server.
 
-Default value: `$nfs::params::exports_file`
-
 ##### <a name="-nfs--idmapd_file"></a>`idmapd_file`
 
 Data type: `Stdlib::Absolutepath`
 
 It defines the location of the file with the idmapd settings.
-
-Default value: `$nfs::params::idmapd_file`
 
 ##### <a name="-nfs--defaults_file"></a>`defaults_file`
 
@@ -181,7 +176,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 It defines the location of the file with the NFS settings.
 
-Default value: `$nfs::params::defaults_file`
+Default value: `undef`
 
 ##### <a name="-nfs--manage_packages"></a>`manage_packages`
 
@@ -197,8 +192,6 @@ Data type: `Array`
 
 It defines the packages needed to be installed for acting as a NFS server.
 
-Default value: `$nfs::params::server_packages`
-
 ##### <a name="-nfs--server_package_ensure"></a>`server_package_ensure`
 
 Data type: `String`
@@ -212,8 +205,6 @@ Default value: `'installed'`
 Data type: `Array`
 
 It defines the packages needed to be installed for acting as a NFS client
-
-Default value: `$nfs::params::client_packages`
 
 ##### <a name="-nfs--client_package_ensure"></a>`client_package_ensure`
 
@@ -253,8 +244,6 @@ Data type: `String`
 
 It defines the servicename of the NFS server service.
 
-Default value: `$nfs::params::server_service_name`
-
 ##### <a name="-nfs--server_service_ensure"></a>`server_service_ensure`
 
 Data type: `Enum['present', 'absent', 'running', 'stopped', 'disabled']`
@@ -277,7 +266,7 @@ Data type: `Boolean`
 
 It defines the service parameter hasrestart for NFS server service.
 
-Default value: `$nfs::params::server_service_hasrestart`
+Default value: `true`
 
 ##### <a name="-nfs--server_service_hasstatus"></a>`server_service_hasstatus`
 
@@ -285,23 +274,23 @@ Data type: `Boolean`
 
 It defines the service parameter hasstatus for NFS server service.
 
-Default value: `$nfs::params::server_service_hasstatus`
+Default value: `true`
 
 ##### <a name="-nfs--server_service_restart_cmd"></a>`server_service_restart_cmd`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 It defines the service parameter restart for NFS server service.
 
-Default value: `$nfs::params::server_service_restart_cmd`
+Default value: `undef`
 
 ##### <a name="-nfs--server_nfsv4_servicehelper"></a>`server_nfsv4_servicehelper`
 
-Data type: `Optional[Array]`
+Data type: `Optional[Array[String[1]]]`
 
 It defines the service helper like idmapd for servers configured with NFS version 4.
 
-Default value: `$nfs::params::server_nfsv4_servicehelper`
+Default value: `undef`
 
 ##### <a name="-nfs--client_services"></a>`client_services`
 
@@ -309,15 +298,11 @@ Data type: `Hash`
 
 It defines the servicenames need to be started when acting as a NFS client.
 
-Default value: `$nfs::params::client_services`
-
 ##### <a name="-nfs--client_nfsv4_services"></a>`client_nfsv4_services`
 
 Data type: `Hash`
 
 It defines the servicenames need to be started when acting as a NFS client version 4.
-
-Default value: `$nfs::params::client_nfsv4_services`
 
 ##### <a name="-nfs--client_services_enable"></a>`client_services_enable`
 
@@ -325,23 +310,21 @@ Data type: `Boolean`
 
 It defines the service parameter enable for NFS client services.
 
-Default value: `$nfs::params::client_services_enable`
-
 ##### <a name="-nfs--client_idmapd_setting"></a>`client_idmapd_setting`
 
 Data type: `Array[String]`
 
 It defines the Augeas parameter added in @param defaults_file when acting as a NFS version 4 client.
 
-Default value: `$nfs::params::client_idmapd_setting`
+Default value: `[]`
 
 ##### <a name="-nfs--client_nfs_fstype"></a>`client_nfs_fstype`
 
-Data type: `String`
+Data type: `String[1]`
 
 It defines the name of the NFS filesystem, when adding entries to `/etc/fstab` on a client node.
 
-Default value: `$nfs::params::client_nfs_fstype`
+Default value: `'nfs'`
 
 ##### <a name="-nfs--client_nfs_options"></a>`client_nfs_options`
 
@@ -349,23 +332,17 @@ Data type: `String`
 
 It defines the options for the NFS filesystem, when adding entries to `/etc/fstab` on a client node.
 
-Default value: `$nfs::params::client_nfs_options`
-
 ##### <a name="-nfs--client_nfsv4_fstype"></a>`client_nfsv4_fstype`
 
 Data type: `String`
 
 It defines the name of the NFS version 4 filesystem, when adding entries to `/etc/fstab` on a client node.
 
-Default value: `$nfs::params::client_nfsv4_fstype`
-
 ##### <a name="-nfs--client_nfsv4_options"></a>`client_nfsv4_options`
 
 Data type: `String`
 
 It defines the options for the NFS version 4 filesystem, when adding entries to `/etc/fstab` on a client node.
-
-Default value: `$nfs::params::client_nfsv4_options`
 
 ##### <a name="-nfs--nfs_v4_export_root"></a>`nfs_v4_export_root`
 
@@ -398,7 +375,7 @@ Data type: `String`
 It defines the name of the idmapd domain setting in @param idmapd_file needed to be set to the same value on a
 server and client node to do correct uid and gid mapping.
 
-Default value: `$nfs::params::nfs_v4_idmap_domain`
+Default value: `pick($facts['networking']['domain'], 'example.org')`
 
 ##### <a name="-nfs--nfsv4_bindmount_enable"></a>`nfsv4_bindmount_enable`
 
@@ -426,11 +403,11 @@ Default value: `false`
 
 ##### <a name="-nfs--client_gssd_options"></a>`client_gssd_options`
 
-Data type: `String`
+Data type: `Optional[String[1]]`
 
 Options for rpc-gssd service.
 
-Default value: `$nfs::params::client_gssd_options`
+Default value: `undef`
 
 ##### <a name="-nfs--client_d9_gssdopt_workaround"></a>`client_d9_gssdopt_workaround`
 
@@ -470,15 +447,11 @@ Data type: `String`
 
 `Nobody-User` option for idmapd.
 
-Default value: `$nfs::params::nfs_v4_idmap_nobody_user`
-
 ##### <a name="-nfs--nfs_v4_idmap_nobody_group"></a>`nfs_v4_idmap_nobody_group`
 
 Data type: `String`
 
 `Nobody-Group` option for idmapd.
-
-Default value: `$nfs::params::nfs_v4_idmap_nobody_group`
 
 ##### <a name="-nfs--client_rpcbind_config"></a>`client_rpcbind_config`
 
@@ -486,7 +459,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 It defines the location of the file with the rpcbind config.
 
-Default value: `$nfs::params::client_rpcbind_config`
+Default value: `undef`
 
 ##### <a name="-nfs--client_rpcbind_optname"></a>`client_rpcbind_optname`
 
@@ -494,7 +467,7 @@ Data type: `Optional[String]`
 
 It defines the name of environment variable that holds the rpcbind config. E.g. OPTIONS for Debian.
 
-Default value: `$nfs::params::client_rpcbind_optname`
+Default value: `undef`
 
 ##### <a name="-nfs--client_rpcbind_opts"></a>`client_rpcbind_opts`
 
@@ -566,7 +539,7 @@ Data type: `Optional[Hash]`
 
 It defines the servicename of the rpc-gssd service.
 
-Default value: `$nfs::params::client_gssd_service_name`
+Default value: `undef`
 
 ##### <a name="-nfs--client_services_hasrestart"></a>`client_services_hasrestart`
 
@@ -574,7 +547,7 @@ Data type: `Boolean`
 
 It defines the service parameter hasrestart for NFS client services.
 
-Default value: `$nfs::params::client_services_hasrestart`
+Default value: `true`
 
 ##### <a name="-nfs--client_services_hasstatus"></a>`client_services_hasstatus`
 
@@ -582,15 +555,13 @@ Data type: `Boolean`
 
 It defines the service parameter hasstatus for NFS client services.
 
-Default value: `$nfs::params::client_services_hasstatus`
+Default value: `true`
 
 ##### <a name="-nfs--client_gssdopt_name"></a>`client_gssdopt_name`
 
 Data type: `String`
 
 It defines the name of the gssd option in `/etc/default/nfs-common`.
-
-Default value: `$nfs::params::client_gssdopt_name`
 
 ### <a name="nfs--client"></a>`nfs::client`
 
@@ -650,14 +621,6 @@ Install needed packages for NFS clients.
 ### <a name="nfs--client--service"></a>`nfs::client::service`
 
 Manage the needed services for NFS clients.
-
-### <a name="nfs--params"></a>`nfs::params`
-
-This class exists to
-1. Declutter the default value assignment for class parameters,
-2. Manage internally used module variables in a central place.
-
-Therefore, many operating system dependent differences (names, paths, ...) are addressed in here.
 
 ### <a name="nfs--server"></a>`nfs::server`
 

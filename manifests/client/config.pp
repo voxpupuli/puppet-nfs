@@ -7,7 +7,7 @@
 class nfs::client::config {
   if $nfs::client::nfs_v4 {
     if $nfs::defaults_file != undef {
-      if $nfs::client_gssd_options != '' {
+      if $nfs::client_gssd_options {
         $_gssd1_aug = ["set ${nfs::client_gssdopt_name} \"'${nfs::client_gssd_options}'\""]
       } else {
         $_gssd1_aug = undef

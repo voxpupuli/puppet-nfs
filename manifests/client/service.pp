@@ -47,16 +47,4 @@ class nfs::client::service {
   if $create_services != undef and $nfs::manage_client_service {
     create_resources('service', $create_services, $service_defaults )
   }
-
-  # Redhat ~7.5 workaround (See issue https://github.com/derdanne/puppet-nfs/issues/82)
-
-  if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '7' and versioncmp($facts['os']['release']['full'], '7.5') < 0 {
-    transition { 'stop-rpcbind.service-service':
-      resource   => Service['rpcbind.service'],
-      prior_to   => Service['rpcbind.socket'],
-      attributes => {
-        ensure => stopped,
-      },
-    }
-  }
 }

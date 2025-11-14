@@ -1,0 +1,33 @@
+---
+nfs::exports_file: '/etc/exports'
+nfs::idmapd_file: '/etc/idmapd.conf'
+nfs::defaults_file: '/etc/conf.d/nfs'
+nfs::server_packages:
+  - 'net-nds/rpcbind'
+  - 'net-fs/nfs-utils'
+  - 'net-libs/libnfsidmap'
+nfs::client_packages:
+  - 'net-nds/rpcbind'
+  - 'net-fs/nfs-utils'
+  - 'net-libs/libnfsidmap'
+nfs::client_rpcbind_config: ~
+
+nfs::nfs_v4_idmap_nobody_user: 'nobody'
+nfs::nfs_v4_idmap_nobody_group: 'nogroup'
+nfs::client_rpcbind_optname: 'OPTS_RPC_NFSD'
+nfs::client_gssdopt_name: 'RPCGSSDARGS'
+nfs::client_idmapd_setting:
+  - 'set NFS_NEEDED_SERVICES rpc.idmapd'
+nfs::client_nfs_options: 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
+nfs::client_services_enable: true
+nfs::client_services:
+  'rpcbind': {}
+nfs::client_gssd_service_name: ~
+nfs::client_nfsv4_fstype: 'nfs4'
+nfs::client_nfsv4_options: 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=4,actimeo=3'
+nfs::client_nfsv4_services:
+  'rpcbind': {}
+  'rpc.idmapd': {}
+nfs::server_nfsv4_servicehelper:
+  - 'rpc.idmapd'
+nfs::server_service_name: 'nfs'

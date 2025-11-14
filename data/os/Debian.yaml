@@ -1,0 +1,37 @@
+---
+nfs::exports_file: '/etc/exports'
+nfs::idmapd_file: '/etc/idmapd.conf'
+nfs::defaults_file: '/etc/default/nfs-common'
+nfs::server_packages:
+  - 'nfs-common'
+  - 'nfs-kernel-server'
+  - 'nfs4-acl-tools'
+  - 'rpcbind'
+nfs::client_packages:
+  - 'nfs-common'
+  - 'nfs4-acl-tools'
+  - 'rpcbind'
+nfs::client_rpcbind_config: '/etc/default/rpcbind'
+
+nfs::client_idmapd_setting:
+  - 'set NEED_IDMAPD yes'
+nfs::client_nfs_options: 'tcp,nolock,rsize:32768,wsize:32768,intr,noatime,nfsvers:3,actimeo:3'
+nfs::client_services_enable: true
+nfs::client_nfsv4_fstype: 'nfs4'
+nfs::client_nfsv4_options: 'tcp,nolock,rsize:32768,wsize:32768,intr,noatime,actimeo:3'
+nfs::nfs_v4_idmap_nobody_user: 'nobody'
+nfs::nfs_v4_idmap_nobody_group: 'nogroup'
+nfs::client_rpcbind_optname: 'OPTIONS'
+
+nfs::client_services:
+  'rpcbind': {}
+nfs::client_gssd_service_name:
+  'rpc-gssd':
+    ensure: 'running'
+    enable: true
+nfs::client_nfsv4_services:
+  'rpcbind': {}
+nfs::server_nfsv4_servicehelper:
+  - 'nfs-idmapd'
+nfs::server_service_name: 'nfs-kernel-server'
+nfs::client_gssdopt_name: 'GSSDARGS'

@@ -1,0 +1,11 @@
+---
+nfs::exports_file: '/etc/exports'
+nfs::idmapd_file: '/etc/idmapd.conf'
+nfs::defaults_file: ~
+nfs::server_packages:
+  - 'nfs-utils'
+nfs::client_packages:
+  - 'nfs-utils'
+  - 'nfsidmap'
+  - 'rpcbind'
+nfs::client_rpcbind_config: ~
