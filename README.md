@@ -370,7 +370,7 @@ node server {
 
   $nfs_exports_global.each |$k, $v| {
     nfs::server::export { $k:
-      * => $defaults_nfs_exports,
+      * => $defaults_nfs_exports + $v,
     }
   }
 }
