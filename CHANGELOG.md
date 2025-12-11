@@ -4,6 +4,46 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.0](https://github.com/voxpupuli/puppet-nfs/tree/v4.0.0) (2025-12-11)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nfs/compare/v3.0.0...v4.0.0)
+
+**Breaking changes:**
+
+- Drop EOL Ubuntu 20.04, RedHat 7, CentOS 8 [\#230](https://github.com/voxpupuli/puppet-nfs/pull/230) ([kenyon](https://github.com/kenyon))
+- Drop puppet, update openvox minimum version to 8.19 [\#221](https://github.com/voxpupuli/puppet-nfs/pull/221) ([TheMeier](https://github.com/TheMeier))
+- 🔥 remove EOL SLES/OpenSUSE version and ✨ add currrent SLES/OpenSUSE version [\#219](https://github.com/voxpupuli/puppet-nfs/pull/219) ([thomas-merz](https://github.com/thomas-merz))
+
+**Implemented enhancements:**
+
+- Add Debian 13 & AlmaLinux & Rocky & OracleLinux support [\#227](https://github.com/voxpupuli/puppet-nfs/pull/227) ([bastelfreak](https://github.com/bastelfreak))
+- Add RHEL/CentOS 10 support [\#225](https://github.com/voxpupuli/puppet-nfs/pull/225) ([cmd-ntrf](https://github.com/cmd-ntrf))
+- Add support for Debian 12 [\#223](https://github.com/voxpupuli/puppet-nfs/pull/223) ([smortex](https://github.com/smortex))
+- metadata.json: Add OpenVox [\#217](https://github.com/voxpupuli/puppet-nfs/pull/217) ([jstraw](https://github.com/jstraw))
+- Allow export clients to be Array [\#213](https://github.com/voxpupuli/puppet-nfs/pull/213) ([moritz-makandra](https://github.com/moritz-makandra))
+- Add Ubuntu 24.04 support [\#204](https://github.com/voxpupuli/puppet-nfs/pull/204) ([bastelfreak](https://github.com/bastelfreak))
+- Option for create nfs exported directory [\#186](https://github.com/voxpupuli/puppet-nfs/pull/186) ([bschonec](https://github.com/bschonec))
+
+**Closed issues:**
+
+- Refactor `params.pp` to move case OS family-code into hiera files [\#211](https://github.com/voxpupuli/puppet-nfs/issues/211)
+- Missing condition for server\_nfsv4\_servicehelper for ubuntu 24 \(noble\) distribution [\#208](https://github.com/voxpupuli/puppet-nfs/issues/208)
+- Allow creating the export without having to create the directory. [\#184](https://github.com/voxpupuli/puppet-nfs/issues/184)
+- add support for puppet-augeasproviders\_core 4.X and puppet-augeasproviders\_shellvar \> 6.x [\#176](https://github.com/voxpupuli/puppet-nfs/issues/176)
+- Support Puppet Stdlib 9.x [\#168](https://github.com/voxpupuli/puppet-nfs/issues/168)
+
+**Merged pull requests:**
+
+- README: fix resource creation example [\#236](https://github.com/voxpupuli/puppet-nfs/pull/236) ([kenyon](https://github.com/kenyon))
+- Replace stdlib `delete` and `difference` functions with built-in operator [\#235](https://github.com/voxpupuli/puppet-nfs/pull/235) ([kenyon](https://github.com/kenyon))
+- `metadata.json`: remove `augeas_core` and `mount_core` [\#234](https://github.com/voxpupuli/puppet-nfs/pull/234) ([kenyon](https://github.com/kenyon))
+- docs, tests: update obsolete syntax [\#233](https://github.com/voxpupuli/puppet-nfs/pull/233) ([kenyon](https://github.com/kenyon))
+- README cleanup [\#232](https://github.com/voxpupuli/puppet-nfs/pull/232) ([kenyon](https://github.com/kenyon))
+- Remove unused/obsolete `spec/local-testing` files and docs [\#231](https://github.com/voxpupuli/puppet-nfs/pull/231) ([kenyon](https://github.com/kenyon))
+- Unit test refactor: use `on_supported_os` from rspec-puppet-facts [\#229](https://github.com/voxpupuli/puppet-nfs/pull/229) ([kenyon](https://github.com/kenyon))
+- Rework documentation into Puppet Strings format [\#212](https://github.com/voxpupuli/puppet-nfs/pull/212) ([Safranil](https://github.com/Safranil))
+- Migrate from `params.pp` to hiera data [\#194](https://github.com/voxpupuli/puppet-nfs/pull/194) ([tuxmea](https://github.com/tuxmea))
+
 ## [v3.0.0](https://github.com/voxpupuli/puppet-nfs/tree/v3.0.0) (2024-08-06)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nfs/compare/v2.1.11...v3.0.0)
