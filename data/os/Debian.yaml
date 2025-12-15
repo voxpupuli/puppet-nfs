@@ -15,10 +15,10 @@ nfs::client_rpcbind_config: '/etc/default/rpcbind'
 
 nfs::client_idmapd_setting:
   - 'set NEED_IDMAPD yes'
-nfs::client_nfs_options: 'tcp,nolock,rsize:32768,wsize:32768,intr,noatime,nfsvers:3,actimeo:3'
+nfs::client_nfs_options: 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,actimeo=3'
 nfs::client_services_enable: true
 nfs::client_nfsv4_fstype: 'nfs4'
-nfs::client_nfsv4_options: 'tcp,nolock,rsize:32768,wsize:32768,intr,noatime,actimeo:3'
+nfs::client_nfsv4_options: 'tcp,nolock,rsize=32768,wsize=32768,intr,noatime,actimeo=3'
 nfs::nfs_v4_idmap_nobody_user: 'nobody'
 nfs::nfs_v4_idmap_nobody_group: 'nogroup'
 nfs::client_rpcbind_optname: 'OPTIONS'
