@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.1](https://github.com/voxpupuli/puppet-nfs/tree/v4.0.1) (2025-12-15)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nfs/compare/v4.0.0...v4.0.1)
+
+**Fixed bugs:**
+
+- Migrated data from params.pp to hiera data incorrect for Debian [\#241](https://github.com/voxpupuli/puppet-nfs/issues/241)
+
+**Merged pull requests:**
+
+- Fix NFS client options for Debian [\#242](https://github.com/voxpupuli/puppet-nfs/pull/242) ([wolfaba](https://github.com/wolfaba))
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-nfs/tree/v4.0.0) (2025-12-11)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nfs/compare/v3.0.0...v4.0.0)
