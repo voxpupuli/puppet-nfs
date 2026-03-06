@@ -36,7 +36,7 @@ describe 'nfs::client::mount', type: 'define' do
           is_expected.to contain_mount('shared /srv/test by 1.2.3.4 on /srv/test').that_requires(
             [
               'Nfs::Functions::Mkdir[/srv/test]',
-            ] + client_packages
+            ] + client_packages,
           )
         end
       end
@@ -54,7 +54,7 @@ describe 'nfs::client::mount', type: 'define' do
           is_expected.to contain_mount('shared /export/srv by 1.2.3.4 on /srv').that_requires(
             [
               'Nfs::Functions::Mkdir[/srv]',
-            ] + client_packages
+            ] + client_packages,
           )
         end
       end
@@ -72,7 +72,7 @@ describe 'nfs::client::mount', type: 'define' do
           is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').that_requires(
             [
               'Nfs::Functions::Mkdir[/srv/test]',
-            ] + client_packages
+            ] + client_packages,
           )
         end
       end
@@ -91,7 +91,7 @@ describe 'nfs::client::mount', type: 'define' do
           is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').that_requires(
             [
               'Nfs::Functions::Mkdir[/srv/test]',
-            ] + client_packages
+            ] + client_packages,
           )
         end
       end
@@ -109,7 +109,7 @@ describe 'nfs::client::mount', type: 'define' do
           is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').that_requires(
             [
               'Nfs::Functions::Mkdir[/opt/sample]',
-            ] + client_packages
+            ] + client_packages,
           )
         end
       end
@@ -127,7 +127,7 @@ describe 'nfs::client::mount', type: 'define' do
           is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').that_requires(
             [
               'Nfs::Functions::Mkdir[/opt/sample]',
-            ]
+            ],
           )
         end
       end
