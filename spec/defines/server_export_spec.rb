@@ -20,7 +20,7 @@ describe 'nfs::server::export', type: 'define' do
           is_expected.to contain_nfs__functions__create_export('/srv/test').with(
             'ensure'           => 'mounted',
             'clients'          => '1.2.3.4(rw)',
-            'manage_directory' => true
+            'manage_directory' => true,
           )
         end
 
