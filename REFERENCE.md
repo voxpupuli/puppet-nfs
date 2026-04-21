@@ -796,6 +796,7 @@ The following parameters are available in the `nfs::client::mount` defined type:
 * [`group`](#-nfs--client--mount--group)
 * [`mode`](#-nfs--client--mount--mode)
 * [`mount_root`](#-nfs--client--mount--mount_root)
+* [`umask`](#-nfs--client--mount--umask)
 * [`mount`](#-nfs--client--mount--mount)
 * [`manage_packages`](#-nfs--client--mount--manage_packages)
 * [`client_packages`](#-nfs--client--mount--client_packages)
@@ -903,6 +904,14 @@ Overwrite mount root if differs from server configuration.
 
 Default value: `undef`
 
+##### <a name="-nfs--client--mount--umask"></a>`umask`
+
+Data type: `Optional[Stdlib::Filemode]`
+
+Set umask for mount directory creation.
+
+Default value: `undef`
+
 ##### <a name="-nfs--client--mount--mount"></a>`mount`
 
 Data type: `String[1]`
@@ -945,6 +954,7 @@ The following parameters are available in the `nfs::functions::bindmount` define
 
 * [`mount_name`](#-nfs--functions--bindmount--mount_name)
 * [`ensure`](#-nfs--functions--bindmount--ensure)
+* [`umask`](#-nfs--functions--bindmount--umask)
 
 ##### <a name="-nfs--functions--bindmount--mount_name"></a>`mount_name`
 
@@ -961,6 +971,14 @@ Data type: `String[1]`
 Sets if enabled or not.
 
 Default value: `'present'`
+
+##### <a name="-nfs--functions--bindmount--umask"></a>`umask`
+
+Data type: `Optional[Stdlib::Filemode]`
+
+Set umask for mount directory creation.
+
+Default value: `undef`
 
 ### <a name="nfs--functions--create_export"></a>`nfs::functions::create_export`
 
@@ -1032,6 +1050,7 @@ Manage directory creation.
 The following parameters are available in the `nfs::functions::mkdir` defined type:
 
 * [`ensure`](#-nfs--functions--mkdir--ensure)
+* [`umask`](#-nfs--functions--mkdir--umask)
 
 ##### <a name="-nfs--functions--mkdir--ensure"></a>`ensure`
 
@@ -1040,6 +1059,14 @@ Data type: `String[1]`
 
 
 Default value: `'present'`
+
+##### <a name="-nfs--functions--mkdir--umask"></a>`umask`
+
+Data type: `Optional[Stdlib::Filemode]`
+
+
+
+Default value: `undef`
 
 ### <a name="nfs--functions--nfsv4_bindmount"></a>`nfs::functions::nfsv4_bindmount`
 
@@ -1052,6 +1079,7 @@ The following parameters are available in the `nfs::functions::nfsv4_bindmount` 
 * [`v4_export_name`](#-nfs--functions--nfsv4_bindmount--v4_export_name)
 * [`bind`](#-nfs--functions--nfsv4_bindmount--bind)
 * [`ensure`](#-nfs--functions--nfsv4_bindmount--ensure)
+* [`umask`](#-nfs--functions--nfsv4_bindmount--umask)
 
 ##### <a name="-nfs--functions--nfsv4_bindmount--v4_export_name"></a>`v4_export_name`
 
@@ -1072,6 +1100,14 @@ Data type: `String[1]`
 Sets if mounted or not.
 
 Default value: `'mounted'`
+
+##### <a name="-nfs--functions--nfsv4_bindmount--umask"></a>`umask`
+
+Data type: `Optional[Stdlib::Filemode]`
+
+Set umask for mount directory creation.
+
+Default value: `undef`
 
 ### <a name="nfs--server--export"></a>`nfs::server::export`
 

@@ -32,6 +32,8 @@ describe 'nfs::client::mount', type: 'define' do
 
         it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
 
+        it { is_expected.to contain_exec('mkdir_recurse_/srv/test').with(command: 'mkdir -p /srv/test') }
+
         it do
           is_expected.to contain_mount('shared /srv/test by 1.2.3.4 on /srv/test').that_requires(
             [
@@ -128,6 +130,26 @@ describe 'nfs::client::mount', type: 'define' do
             [
               'Nfs::Functions::Mkdir[/opt/sample]',
             ],
+          )
+        end
+      end
+
+      context 'when nfs_v4 => false, non-default umask' do
+        let(:title) { '/srv/test' }
+
+        let(:pre_condition) { 'class { "nfs": client_enabled => true }' }
+
+        let(:params) { { server: '1.2.3.4', umask: '0022' } }
+
+        it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
+
+        it { is_expected.to contain_exec('mkdir_recurse_/srv/test').with(command: "bash -c 'umask 0022 && mkdir -p /srv/test'") }
+
+        it do
+          is_expected.to contain_mount('shared /srv/test by 1.2.3.4 on /srv/test').that_requires(
+            [
+              'Nfs::Functions::Mkdir[/srv/test]',
+            ] + client_packages,
           )
         end
       end
