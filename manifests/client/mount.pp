@@ -42,6 +42,9 @@
 # @param mount_root
 #   Overwrite mount root if differs from server configuration.
 #
+# @param umask
+#   Set umask for mount directory creation.
+#
 # @param mount
 # @param manage_packages
 # @param client_packages
@@ -83,6 +86,7 @@ define nfs::client::mount (
   Optional[String[1]]                            $mount_root      = undef,
   Boolean                                        $manage_packages = $nfs::manage_packages,
   Optional[Variant[String[1], Array[String[1]]]] $client_packages = $nfs::effective_client_packages,
+  Optional[Stdlib::Filemode]                     $umask           = undef,
 ) {
   if $manage_packages and $client_packages != undef {
     $mount_require = [Nfs::Functions::Mkdir[$mount], Package[$client_packages]]
@@ -105,6 +109,7 @@ define nfs::client::mount (
 
     nfs::functions::mkdir { $mount:
       ensure => $ensure,
+      umask  => $umask,
     }
 
     mount { "shared ${sharename} by ${server} on ${mount}":
@@ -133,6 +138,7 @@ define nfs::client::mount (
 
     nfs::functions::mkdir { $mount:
       ensure => $ensure,
+      umask  => $umask,
     }
     mount { "shared ${sharename} by ${server} on ${mount}":
       ensure   => $ensure,
