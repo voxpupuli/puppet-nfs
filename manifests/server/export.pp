@@ -130,7 +130,7 @@ define nfs::server::export (
         options_nfsv4 => $options_nfsv4,
         bindmount     => $bindmount,
         nfstag        => $nfstag,
-        share         => $export_name,
+        share         => $export_title,
         server        => $server,
       }
     }
