@@ -798,6 +798,7 @@ The following parameters are available in the `nfs::client::mount` defined type:
 * [`mount_root`](#-nfs--client--mount--mount_root)
 * [`umask`](#-nfs--client--mount--umask)
 * [`mount`](#-nfs--client--mount--mount)
+* [`fstype`](#-nfs--client--mount--fstype)
 * [`manage_packages`](#-nfs--client--mount--manage_packages)
 * [`client_packages`](#-nfs--client--mount--client_packages)
 * [`nfs_v4`](#-nfs--client--mount--nfs_v4)
@@ -919,6 +920,14 @@ Data type: `String[1]`
 
 
 Default value: `$title`
+
+##### <a name="-nfs--client--mount--fstype"></a>`fstype`
+
+Data type: `String[1]`
+
+Set 'fstype' for the mount
+
+Default value: `$nfs::client_nfsv4_fstype`
 
 ##### <a name="-nfs--client--mount--manage_packages"></a>`manage_packages`
 
