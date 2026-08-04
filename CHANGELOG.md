@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.0](https://github.com/voxpupuli/puppet-nfs/tree/v4.1.0) (2026-08-04)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nfs/compare/v4.0.1...v4.1.0)
+
+**Implemented enhancements:**
+
+- Add umask parameter to mkdir function [\#250](https://github.com/voxpupuli/puppet-nfs/pull/250) ([Joris29](https://github.com/Joris29))
+
+**Fixed bugs:**
+
+- Fix missing `nfs_v4_export_root` in share path for NFSv4 exports [\#246](https://github.com/voxpupuli/puppet-nfs/pull/246) ([jsfrerot](https://github.com/jsfrerot))
+
 ## [v4.0.1](https://github.com/voxpupuli/puppet-nfs/tree/v4.0.1) (2025-12-15)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nfs/compare/v4.0.0...v4.0.1)
@@ -11,9 +23,6 @@ These should not affect the functionality of the module.
 **Fixed bugs:**
 
 - Migrated data from params.pp to hiera data incorrect for Debian [\#241](https://github.com/voxpupuli/puppet-nfs/issues/241)
-
-**Merged pull requests:**
-
 - Fix NFS client options for Debian [\#242](https://github.com/voxpupuli/puppet-nfs/pull/242) ([wolfaba](https://github.com/wolfaba))
 
 ## [v4.0.0](https://github.com/voxpupuli/puppet-nfs/tree/v4.0.0) (2025-12-11)
@@ -28,6 +37,7 @@ These should not affect the functionality of the module.
 
 **Implemented enhancements:**
 
+- Replace stdlib `delete` and `difference` functions with built-in operator [\#235](https://github.com/voxpupuli/puppet-nfs/pull/235) ([kenyon](https://github.com/kenyon))
 - Add Debian 13 & AlmaLinux & Rocky & OracleLinux support [\#227](https://github.com/voxpupuli/puppet-nfs/pull/227) ([bastelfreak](https://github.com/bastelfreak))
 - Add RHEL/CentOS 10 support [\#225](https://github.com/voxpupuli/puppet-nfs/pull/225) ([cmd-ntrf](https://github.com/cmd-ntrf))
 - Add support for Debian 12 [\#223](https://github.com/voxpupuli/puppet-nfs/pull/223) ([smortex](https://github.com/smortex))
@@ -35,6 +45,10 @@ These should not affect the functionality of the module.
 - Allow export clients to be Array [\#213](https://github.com/voxpupuli/puppet-nfs/pull/213) ([moritz-makandra](https://github.com/moritz-makandra))
 - Add Ubuntu 24.04 support [\#204](https://github.com/voxpupuli/puppet-nfs/pull/204) ([bastelfreak](https://github.com/bastelfreak))
 - Option for create nfs exported directory [\#186](https://github.com/voxpupuli/puppet-nfs/pull/186) ([bschonec](https://github.com/bschonec))
+
+**Fixed bugs:**
+
+- `metadata.json`: remove `augeas_core` and `mount_core` [\#234](https://github.com/voxpupuli/puppet-nfs/pull/234) ([kenyon](https://github.com/kenyon))
 
 **Closed issues:**
 
@@ -47,12 +61,8 @@ These should not affect the functionality of the module.
 **Merged pull requests:**
 
 - README: fix resource creation example [\#236](https://github.com/voxpupuli/puppet-nfs/pull/236) ([kenyon](https://github.com/kenyon))
-- Replace stdlib `delete` and `difference` functions with built-in operator [\#235](https://github.com/voxpupuli/puppet-nfs/pull/235) ([kenyon](https://github.com/kenyon))
-- `metadata.json`: remove `augeas_core` and `mount_core` [\#234](https://github.com/voxpupuli/puppet-nfs/pull/234) ([kenyon](https://github.com/kenyon))
 - docs, tests: update obsolete syntax [\#233](https://github.com/voxpupuli/puppet-nfs/pull/233) ([kenyon](https://github.com/kenyon))
 - README cleanup [\#232](https://github.com/voxpupuli/puppet-nfs/pull/232) ([kenyon](https://github.com/kenyon))
-- Remove unused/obsolete `spec/local-testing` files and docs [\#231](https://github.com/voxpupuli/puppet-nfs/pull/231) ([kenyon](https://github.com/kenyon))
-- Unit test refactor: use `on_supported_os` from rspec-puppet-facts [\#229](https://github.com/voxpupuli/puppet-nfs/pull/229) ([kenyon](https://github.com/kenyon))
 - Rework documentation into Puppet Strings format [\#212](https://github.com/voxpupuli/puppet-nfs/pull/212) ([Safranil](https://github.com/Safranil))
 - Migrate from `params.pp` to hiera data [\#194](https://github.com/voxpupuli/puppet-nfs/pull/194) ([tuxmea](https://github.com/tuxmea))
 
