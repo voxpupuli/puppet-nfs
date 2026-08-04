@@ -71,7 +71,7 @@ describe 'nfs::client::mount', type: 'define' do
         it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
 
         it do
-          is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').with(fstype: 'nfs4').that_requires(
+          is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').that_requires(
             [
               'Nfs::Functions::Mkdir[/srv/test]',
             ] + client_packages,
@@ -90,7 +90,7 @@ describe 'nfs::client::mount', type: 'define' do
         it { is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test') }
 
         it do
-          is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').with(fstype: 'nfs4').that_requires(
+          is_expected.to contain_mount('shared /test by 1.2.3.4 on /srv/test').that_requires(
             [
               'Nfs::Functions::Mkdir[/srv/test]',
             ] + client_packages,
@@ -108,7 +108,7 @@ describe 'nfs::client::mount', type: 'define' do
         it { is_expected.to contain_nfs__functions__mkdir('/opt/sample') }
 
         it do
-          is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').with(fstype: 'nfs4').that_requires(
+          is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').that_requires(
             [
               'Nfs::Functions::Mkdir[/opt/sample]',
             ] + client_packages,
@@ -126,7 +126,7 @@ describe 'nfs::client::mount', type: 'define' do
         it { is_expected.to contain_nfs__functions__mkdir('/opt/sample') }
 
         it do
-          is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').with(fstype: 'nfs4').that_requires(
+          is_expected.to contain_mount('shared /test by 1.2.3.4 on /opt/sample').that_requires(
             [
               'Nfs::Functions::Mkdir[/opt/sample]',
             ],
@@ -147,26 +147,6 @@ describe 'nfs::client::mount', type: 'define' do
 
         it do
           is_expected.to contain_mount('shared /srv/test by 1.2.3.4 on /srv/test').that_requires(
-            [
-              'Nfs::Functions::Mkdir[/srv/test]',
-            ] + client_packages,
-          )
-        end
-      end
-
-      context 'when nfs_v4 => false, fstype set' do
-        let(:title) { '/srv/test' }
-
-        let(:pre_condition) { 'class { "nfs": client_enabled => true }' }
-
-        let(:params) { { server: '1.2.3.4', fstype: 'nfs' } }
-
-        it { is_expected.to contain_nfs__functions__mkdir('/srv/test') }
-
-        it { is_expected.to contain_exec('mkdir_recurse_/srv/test').with(command: 'mkdir -p /srv/test') }
-
-        it do
-          is_expected.to contain_mount('shared /srv/test by 1.2.3.4 on /srv/test').with(fstype: 'nfs').that_requires(
             [
               'Nfs::Functions::Mkdir[/srv/test]',
             ] + client_packages,
