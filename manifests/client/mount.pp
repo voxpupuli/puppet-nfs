@@ -46,6 +46,8 @@
 #   Set umask for mount directory creation.
 #
 # @param mount
+# @param fstype
+#   Set 'fstype' for the mount
 # @param manage_packages
 # @param client_packages
 # @param nfs_v4
@@ -72,6 +74,7 @@ define nfs::client::mount (
   String[1]                                      $server,
   Optional[String[1]]                            $share           = undef,
   String[1]                                      $ensure          = 'mounted',
+  String[1]                                      $fstype          = $nfs::client_nfsv4_fstype,
   String[1]                                      $mount           = $title,
   Boolean                                        $remounts        = false,
   Boolean                                        $atboot          = false,
@@ -115,7 +118,7 @@ define nfs::client::mount (
     mount { "shared ${sharename} by ${server} on ${mount}":
       ensure   => $ensure,
       device   => "${server}:${sharename}",
-      fstype   => $nfs::client_nfsv4_fstype,
+      fstype   => $fstype,
       name     => $mount,
       options  => $options_nfsv4,
       remounts => $remounts,
@@ -143,7 +146,7 @@ define nfs::client::mount (
     mount { "shared ${sharename} by ${server} on ${mount}":
       ensure   => $ensure,
       device   => "${server}:${sharename}",
-      fstype   => $nfs::client_nfs_fstype,
+      fstype   => $fstype,
       name     => $mount,
       options  => $options_nfs,
       remounts => $remounts,
