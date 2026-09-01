@@ -18,7 +18,7 @@
     },
     {
       "name": "puppet/augeasproviders_core",
-      "version_requirement": ">= 2.1.5 < 5.0.0"
+      "version_requirement": ">= 2.1.5 < 6.0.0"
     },
     {
       "name": "puppet/augeasproviders_shellvar",
