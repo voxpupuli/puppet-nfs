@@ -4,7 +4,17 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v4.1.0](https://github.com/voxpupuli/puppet-nfs/tree/v4.1.0) (2026-08-04)
+## [v4.2.0](https://github.com/voxpupuli/puppet-nfs/tree/v4.2.0) (2026-09-01)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nfs/compare/v4.1.0...v4.2.0)
+
+**Implemented enhancements:**
+
+- puppetlabs/stdlib: Allow 10.x [\#256](https://github.com/voxpupuli/puppet-nfs/pull/256) ([bastelfreak](https://github.com/bastelfreak))
+- puppetlabs/concat: Allow 10.x [\#255](https://github.com/voxpupuli/puppet-nfs/pull/255) ([bastelfreak](https://github.com/bastelfreak))
+- puppet/augeasproviders\_core: Allow 5.x [\#254](https://github.com/voxpupuli/puppet-nfs/pull/254) ([bastelfreak](https://github.com/bastelfreak))
+
+## [v4.1.0](https://github.com/voxpupuli/puppet-nfs/tree/v4.1.0) (2026-08-10)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nfs/compare/v4.0.1...v4.1.0)
 
