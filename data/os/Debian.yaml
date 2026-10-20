@@ -33,5 +33,5 @@ nfs::client_nfsv4_services:
   'rpcbind': {}
 nfs::server_nfsv4_servicehelper:
   - 'nfs-idmapd'
-nfs::server_service_name: 'nfs-kernel-server'
+nfs::server_service_name: 'nfs-server'
 nfs::client_gssdopt_name: 'GSSDARGS'

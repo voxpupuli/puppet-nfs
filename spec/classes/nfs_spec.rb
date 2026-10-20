@@ -28,7 +28,9 @@ describe 'nfs' do
 
       when 'Debian'
 
-        server_service = 'nfs-kernel-server'
+        # Debian 12 (systemd v252+) exposes nfs-kernel-server only as an alias
+        # of the canonical nfs-server unit, so we manage nfs-server.
+        server_service = 'nfs-server'
         server_servicehelpers = %w[nfs-idmapd]
         server_packages = %w[nfs-common nfs-kernel-server nfs4-acl-tools rpcbind]
         client_services = %w[rpcbind]
@@ -82,6 +84,20 @@ describe 'nfs' do
 
       end
       ### ^^ Switch Case to set OS specific values ^^ ###
+
+      # Regression test: on Debian 12 (systemd v252+), `systemctl is-enabled
+      # nfs-kernel-server` returns `alias` instead of `enabled`/`disabled`,
+      # which breaks Puppet's systemd service provider. Manage the canonical
+      # unit name `nfs-server` (present since Debian 9) instead of the alias.
+      if facts[:os]['name'] == 'Debian'
+        context 'when server_enabled => true (canonical service name)' do
+          let(:params) { { server_enabled: true, client_enabled: false, nfs_v4: true, nfs_v4_idmap_domain: 'teststring' } }
+
+          it { is_expected.to contain_service('nfs-server').with('ensure' => 'running').with('enable' => true) }
+          it { is_expected.not_to contain_service('nfs-kernel-server') }
+          it { is_expected.to contain_package('nfs-kernel-server').that_notifies('Service[nfs-server]') }
+        end
+      end
 
       it { is_expected.to compile.with_all_deps }
 
