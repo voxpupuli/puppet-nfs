@@ -762,7 +762,7 @@ param nfs_v4
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 class { 'nfs':
@@ -1115,7 +1115,7 @@ Manage all exported resources on a NFS server.
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 class { 'nfs':
@@ -1298,4 +1298,3 @@ Data type: `Boolean`
 Whether or not to manage the directory to be exported.
 
 Default value: `true`
-
