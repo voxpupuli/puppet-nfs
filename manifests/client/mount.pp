@@ -102,7 +102,9 @@ define nfs::client::mount (
     }
 
     if $share != undef {
-      $sharename = "${root}/${share}"
+      $root_trimmed = regsubst($root, '/+$', '')
+      $share_trimmed = regsubst($share, '^/+', '')
+      $sharename = "${root_trimmed}/${share_trimmed}"
     } else {
       $sharename = regsubst($mount, '.*(/.*)', '\1')
     }
