@@ -90,7 +90,7 @@ define nfs::server::export (
   Boolean             $manage_directory       = true,
 ) {
   if $nfs::server::nfs_v4 {
-    if $nfsv4_bindmount_enable {
+    if $nfsv4_bindmount_enable and $nfs::nfs_v4_export_style != 'freebsd' {
       $export_name = $v4_export_name
       $export_title = "${nfs::server::nfs_v4_export_root}/${export_name}"
       $create_export_require = [Nfs::Functions::Nfsv4_bindmount[$name]]

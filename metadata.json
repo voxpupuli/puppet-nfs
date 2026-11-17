@@ -88,6 +88,13 @@
       ]
     },
     {
+      "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "14",
+        "15"
+      ]
+    },
+    {
       "operatingsystem": "Gentoo",
       "operatingsystemrelease": [
         "1.0"
