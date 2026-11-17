@@ -31,7 +31,12 @@ define nfs::functions::create_export (
   Optional[String[1]]                  $mode   = undef,
 ) {
   if $ensure != 'absent' {
-    $line = "${name} ${join(any2array($clients),' ')}\n"
+    # FreeBSD: one exports line per host set. Linux: all host specs on one line.
+    if $nfs::nfs_v4_export_style == 'freebsd' {
+      $line = sprintf("%s\n", join(any2array($clients).map |$client| { "${name} ${client}" }, "\n"))
+    } else {
+      $line = "${name} ${join(any2array($clients), ' ')}\n"
+    }
 
     concat::fragment { $name:
       target  => $nfs::exports_file,

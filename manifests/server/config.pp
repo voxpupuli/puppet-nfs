@@ -16,21 +16,51 @@ class nfs::server::config {
   }
 
   if $nfs::nfs_v4 {
-    if $nfs::nfsv4_bindmount_enable {
-      concat::fragment { 'nfs_exports_root':
+    if $nfs::nfs_v4_export_style == 'freebsd' {
+      concat::fragment { 'nfs_exports_v4root':
         target  => $nfs::exports_file,
-        content => "${nfs::server::nfs_v4_export_root} ${nfs::server::nfs_v4_export_root_clients}\n",
+        content => "V4: ${nfs::server::nfs_v4_export_root} -sec=${nfs::nfs_v4_sec}\n",
         order   => 2,
       }
-    }
 
-    if ! defined(File[$nfs::server::nfs_v4_export_root]) {
-      file { $nfs::server::nfs_v4_export_root:
-        ensure => directory,
+      if $nfs::rcconf_file {
+        shellvar { 'nfsv4_server_enable':
+          ensure => present,
+          target => $nfs::rcconf_file,
+          value  => 'YES',
+        }
+
+        if $nfs::manage_nfsuserd {
+          shellvar { 'nfsuserd_flags':
+            ensure => present,
+            target => $nfs::rcconf_file,
+            value  => "-domain ${nfs::server::nfs_v4_idmap_domain}",
+          }
+        }
+      }
+    } else {
+      if $nfs::nfsv4_bindmount_enable {
+        concat::fragment { 'nfs_exports_root':
+          target  => $nfs::exports_file,
+          content => "${nfs::server::nfs_v4_export_root} ${nfs::server::nfs_v4_export_root_clients}\n",
+          order   => 2,
+        }
+      }
+
+      if ! defined(File[$nfs::server::nfs_v4_export_root]) {
+        file { $nfs::server::nfs_v4_export_root:
+          ensure => directory,
+        }
       }
     }
 
-    if $nfs::nfs_v4_idmap_localrealms != '' {
+    if $nfs::manage_idmapd and $nfs::idmapd_file {
+      $_idmap = true
+    } else {
+      $_idmap = false
+    }
+
+    if $_idmap and $nfs::nfs_v4_idmap_localrealms != '' {
       if $nfs::nfs_v4_idmap_localrealms =~ String {
         $_localrealms = $nfs::nfs_v4_idmap_localrealms
       } else {
@@ -55,17 +85,19 @@ class nfs::server::config {
       $_group = undef
     }
 
-    $changes = ["set General/Domain ${nfs::server::nfs_v4_idmap_domain}", $_aug_localrealm, $_cache, $_user, $_group]
-    $filtered_changes = filter($changes) |$val| { $val =~ NotUndef }
+    if $_idmap {
+      $changes = ["set General/Domain ${nfs::server::nfs_v4_idmap_domain}", $_aug_localrealm, $_cache, $_user, $_group]
+      $filtered_changes = filter($changes) |$val| { $val =~ NotUndef }
 
-    augeas { $nfs::idmapd_file:
-      context => "/files/${nfs::idmapd_file}",
-      lens    => 'Puppet.lns',
-      incl    => $nfs::idmapd_file,
-      changes => $filtered_changes,
+      augeas { $nfs::idmapd_file:
+        context => "/files/${nfs::idmapd_file}",
+        lens    => 'Puppet.lns',
+        incl    => $nfs::idmapd_file,
+        changes => $filtered_changes,
+      }
     }
 
-    if $nfs::storeconfigs_enabled {
+    if $nfs::storeconfigs_enabled and $nfs::nfs_v4_export_style != 'freebsd' {
       @@nfs::client::mount { $nfs::nfs_v4_mount_root:
         ensure        => $nfs::server::nfs_v4_root_export_ensure,
         server        => $facts['clientcert'],

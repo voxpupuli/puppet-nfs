@@ -99,6 +99,15 @@ The following parameters are available in the `nfs` class:
 * [`client_services_hasrestart`](#-nfs--client_services_hasrestart)
 * [`client_services_hasstatus`](#-nfs--client_services_hasstatus)
 * [`client_gssdopt_name`](#-nfs--client_gssdopt_name)
+* [`manage_idmapd`](#-nfs--manage_idmapd)
+* [`nfs_v4_export_style`](#-nfs--nfs_v4_export_style)
+* [`nfs_v4_sec`](#-nfs--nfs_v4_sec)
+* [`manage_nfsuserd`](#-nfs--manage_nfsuserd)
+* [`rcconf_file`](#-nfs--rcconf_file)
+* [`manage_nfs_client_enable`](#-nfs--manage_nfs_client_enable)
+* [`rpcbind_service`](#-nfs--rpcbind_service)
+* [`bindmount_fstype`](#-nfs--bindmount_fstype)
+* [`bindmount_options`](#-nfs--bindmount_options)
 
 ##### <a name="-nfs--ensure"></a>`ensure`
 
@@ -166,9 +175,11 @@ It defines the location of file with the NFS export resources used by the NFS se
 
 ##### <a name="-nfs--idmapd_file"></a>`idmapd_file`
 
-Data type: `Stdlib::Absolutepath`
+Data type: `Optional[Stdlib::Absolutepath]`
 
 It defines the location of the file with the idmapd settings.
+
+Default value: `undef`
 
 ##### <a name="-nfs--defaults_file"></a>`defaults_file`
 
@@ -562,6 +573,82 @@ Default value: `true`
 Data type: `String`
 
 It defines the name of the gssd option in `/etc/default/nfs-common`.
+
+##### <a name="-nfs--manage_idmapd"></a>`manage_idmapd`
+
+Data type: `Boolean`
+
+Whether to manage the NFSv4 idmapd configuration (`idmapd_file`). On systems without idmapd (e.g. FreeBSD) this
+is set to `false`.
+
+Default value: `true`
+
+##### <a name="-nfs--nfs_v4_export_style"></a>`nfs_v4_export_style`
+
+Data type: `Enum['linux', 'freebsd']`
+
+Selects the NFSv4 server export model. `linux` uses an export root with bindmounts and `fsid=root`; `freebsd`
+emits a single `V4:` line with the real export paths.
+
+Default value: `'linux'`
+
+##### <a name="-nfs--nfs_v4_sec"></a>`nfs_v4_sec`
+
+Data type: `String[1]`
+
+Security flavor for the FreeBSD `V4:` export line (e.g. `sys`).
+
+Default value: `'sys'`
+
+##### <a name="-nfs--manage_nfsuserd"></a>`manage_nfsuserd`
+
+Data type: `Boolean`
+
+On FreeBSD, whether to run `nfsuserd` for `<user>@<domain>` NFSv4 name mapping. When `false`, the numeric
+ownership model is assumed (handled outside this module via sysctls).
+
+Default value: `false`
+
+##### <a name="-nfs--rcconf_file"></a>`rcconf_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to the shell-style rc configuration file used for NFS rc variables (FreeBSD `/etc/rc.conf`).
+
+Default value: `undef`
+
+##### <a name="-nfs--manage_nfs_client_enable"></a>`manage_nfs_client_enable`
+
+Data type: `Boolean`
+
+On FreeBSD, whether to set `nfs_client_enable="YES"` in `rcconf_file`.
+
+Default value: `false`
+
+##### <a name="-nfs--rpcbind_service"></a>`rpcbind_service`
+
+Data type: `Optional[String[1]]`
+
+Name of the rpcbind service to run (shared by server and client roles, e.g. `rpcbind` on FreeBSD). When undef,
+rpcbind is not managed as a separate service.
+
+Default value: `undef`
+
+##### <a name="-nfs--bindmount_fstype"></a>`bindmount_fstype`
+
+Data type: `String[1]`
+
+Filesystem type used for bindmounts (`none` on Linux, `nullfs` on FreeBSD).
+
+Default value: `'none'`
+
+##### <a name="-nfs--bindmount_options"></a>`bindmount_options`
+
+Data type: `String[1]`
+
+Mount options used for bindmounts (`rw,bind` on Linux, `rw` on FreeBSD).
+
+Default value: `'rw,bind'`
 
 ### <a name="nfs--client"></a>`nfs::client`
 

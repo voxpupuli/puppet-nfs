@@ -1,0 +1,30 @@
+---
+nfs::exports_file: '/etc/exports'
+nfs::rcconf_file: '/etc/rc.conf'
+nfs::server_packages: []
+nfs::client_packages: []
+
+nfs::server_service_name: 'nfsd'
+nfs::rpcbind_service: 'rpcbind'
+nfs::manage_nfs_client_enable: true
+nfs::manage_idmapd: false
+
+nfs::nfs_v4_export_style: 'freebsd'
+nfs::nfs_v4_export_root: '/'
+nfs::nfs_v4_sec: 'sys'
+nfs::nfs_v4_idmap_nobody_user: 'nobody'
+nfs::nfs_v4_idmap_nobody_group: 'nobody'
+
+nfs::client_services_enable: true
+nfs::client_services:
+  'statd': {}
+  'lockd': {}
+nfs::client_nfsv4_services: {}
+nfs::client_gssdopt_name: ''
+nfs::client_nfs_fstype: 'nfs'
+nfs::client_nfs_options: 'rw'
+nfs::client_nfsv4_fstype: 'nfs'
+nfs::client_nfsv4_options: 'nfsv4'
+
+nfs::bindmount_fstype: 'nullfs'
+nfs::bindmount_options: 'rw'

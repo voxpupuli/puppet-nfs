@@ -5,6 +5,14 @@
 #   * Martin Alfke <tuxmea@betadots.de>
 #
 class nfs::client::config {
+  if $nfs::manage_nfs_client_enable and $nfs::rcconf_file {
+    shellvar { 'nfs_client_enable':
+      ensure => present,
+      target => $nfs::rcconf_file,
+      value  => 'YES',
+    }
+  }
+
   if $nfs::client::nfs_v4 {
     if $nfs::defaults_file != undef {
       if $nfs::client_gssd_options {

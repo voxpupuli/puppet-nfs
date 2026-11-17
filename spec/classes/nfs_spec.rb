@@ -82,6 +82,20 @@ describe 'nfs' do
         idmapd_file = '/etc/idmapd.conf'
         client_rpcbind_optname = 'RPCNFSDARGS'
 
+      when 'FreeBSD'
+
+        server_service = 'nfsd'
+        server_servicehelpers = ''
+        server_packages = []
+        client_services = %w[statd lockd]
+        client_nfs_vfour_services = []
+        client_packages = []
+        client_gssdopt_name = ''
+        defaults_file = ''
+        idmapd_file = ''
+        client_rpcbind_config = ''
+        client_rpcbind_optname = ''
+
       end
       ### ^^ Switch Case to set OS specific values ^^ ###
 
@@ -101,6 +115,31 @@ describe 'nfs' do
 
       it { is_expected.to compile.with_all_deps }
 
+      if facts[:os]['name'] == 'FreeBSD'
+        context 'when server_enabled => true, nfs_v4 => true (FreeBSD numeric model)' do
+          let(:params) { { server_enabled: true, nfs_v4: true } }
+
+          it { is_expected.to contain_shellvar('nfsv4_server_enable').with('value' => 'YES') }
+          it { is_expected.to contain_service('rpcbind') }
+          it { is_expected.not_to contain_service('nfsuserd') }
+          it { is_expected.not_to contain_shellvar('nfsuserd_flags') }
+          it { is_expected.not_to contain_augeas('/etc/idmapd.conf') }
+        end
+
+        context 'when server_enabled => true, nfs_v4 => true, manage_nfsuserd => true' do
+          let(:params) { { server_enabled: true, nfs_v4: true, manage_nfsuserd: true, nfs_v4_idmap_domain: 'example.org' } }
+
+          it { is_expected.to contain_service('nfsuserd').with('ensure' => 'running') }
+          it { is_expected.to contain_shellvar('nfsuserd_flags').with('value' => '-domain example.org') }
+        end
+
+        context 'when client_enabled => true (FreeBSD nfs_client_enable)' do
+          let(:params) { { client_enabled: true } }
+
+          it { is_expected.to contain_shellvar('nfs_client_enable').with('value' => 'YES') }
+        end
+      end
+
       context 'when server_enabled => true, client_enabled => false' do
         let(:params) { { server_enabled: true, client_enabled: false } }
 
@@ -118,9 +157,16 @@ describe 'nfs' do
         context 'when nfs_v4 => true' do
           let(:params) { { nfs_v4: true, server_enabled: true, client_enabled: false, nfs_v4_idmap_domain: 'teststring' } }
 
-          it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
-          it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
-          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set General/Domain teststring}) }
+          if idmapd_file == ''
+            it { is_expected.to contain_concat__fragment('nfs_exports_v4root').with('target' => '/etc/exports') }
+            it { is_expected.not_to contain_file('/export') }
+            it { is_expected.not_to contain_augeas('/etc/idmapd.conf') }
+            it { is_expected.to contain_shellvar('nfsv4_server_enable').with('value' => 'YES') }
+          else
+            it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
+            it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
+            it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set General/Domain teststring}) }
+          end
 
           context os do
             if server_servicehelpers != ''
@@ -154,7 +200,7 @@ describe 'nfs' do
         context 'when nfs_v4 => true' do
           let(:params) { { nfs_v4_client: true, server_enabled: false, client_enabled: true } }
 
-          it { is_expected.to contain_augeas('/etc/idmapd.conf') }
+          it { is_expected.to contain_augeas('/etc/idmapd.conf') } if idmapd_file != ''
 
           client_nfs_vfour_services.each do |service|
             context os do
@@ -187,10 +233,16 @@ describe 'nfs' do
         context 'when nfs_v4 => true, nfs_v4_client => true' do
           let(:params) { { nfs_v4: true, nfs_v4_client: true, server_enabled: true, client_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
 
-          it { is_expected.to contain_augeas('/etc/idmapd.conf') }
-          it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
-          it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
-          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set General/Domain teststring}) }
+          if idmapd_file == ''
+            it { is_expected.not_to contain_augeas('/etc/idmapd.conf') }
+            it { is_expected.to contain_concat__fragment('nfs_exports_v4root').with('target' => '/etc/exports') }
+            it { is_expected.to contain_shellvar('nfsv4_server_enable').with('value' => 'YES') }
+          else
+            it { is_expected.to contain_augeas('/etc/idmapd.conf') }
+            it { is_expected.to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
+            it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
+            it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set General/Domain teststring}) }
+          end
 
           context os do
             if server_servicehelpers != ''
@@ -248,7 +300,11 @@ describe 'nfs' do
         let(:params) { { nfs_v4: true, storeconfigs_enabled: true, server_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
 
         context os do
-          it { expect(exported_resources).to contain_nfs__client__mount('/srv') }
+          if idmapd_file == ''
+            it { expect(exported_resources).not_to contain_nfs__client__mount('/srv') }
+          else
+            it { expect(exported_resources).to contain_nfs__client__mount('/srv') }
+          end
         end
       end
 
@@ -272,7 +328,7 @@ describe 'nfs' do
         let(:params) { { server_enabled: true, client_enabled: true, nfs_v4: false, nfs_v4_client: true } }
 
         context os do
-          it { is_expected.to contain_augeas('/etc/idmapd.conf') }
+          it { is_expected.to contain_augeas('/etc/idmapd.conf') } if idmapd_file != ''
         end
       end
 
@@ -287,10 +343,11 @@ describe 'nfs' do
         context 'when nfs_v4 => true, nfs_v4_client => true' do
           let(:params) { { nfs_v4: true, nfsv4_bindmount_enable: false, nfs_v4_client: true, server_enabled: true, client_enabled: true, nfs_v4_idmap_domain: 'teststring' } }
 
-          it { is_expected.to contain_augeas('/etc/idmapd.conf') }
+          it { is_expected.to contain_augeas('/etc/idmapd.conf') } if idmapd_file != ''
           it { is_expected.not_to contain_concat__fragment('nfs_exports_root').with('target' => '/etc/exports') }
-          it { is_expected.to contain_file('/export').with('ensure' => 'directory') }
-          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set General/Domain teststring}) }
+
+          it { is_expected.to contain_file('/export').with('ensure' => 'directory') } if idmapd_file != ''
+          it { is_expected.to contain_augeas('/etc/idmapd.conf').with_changes(%r{set General/Domain teststring}) } if idmapd_file != ''
         end
       end
 
@@ -352,8 +409,10 @@ describe 'nfs' do
       context "when :nfs_v4_client => true, :client_enabled => true, nfs_v4 => true, client_rpcbind_config => #{client_rpcbind_config}" do
         let(:params) { { nfs_v4: true, nfs_v4_client: true, client_enabled: true, client_rpcbind_config: client_rpcbind_config, client_rpcbind_optname: client_rpcbind_optname, client_rpcbind_opts: 'rpcbind_option' } }
 
-        it { is_expected.to contain_augeas(client_rpcbind_config) }
-        it { is_expected.to contain_augeas(client_rpcbind_config).with_changes(%r{.*set #{client_rpcbind_optname}.*rpcbind_option}) }
+        if client_rpcbind_config != ''
+          it { is_expected.to contain_augeas(client_rpcbind_config) }
+          it { is_expected.to contain_augeas(client_rpcbind_config).with_changes(%r{.*set #{client_rpcbind_optname}.*rpcbind_option}) }
+        end
       end
     end
   end

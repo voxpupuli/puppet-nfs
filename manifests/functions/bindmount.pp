@@ -26,8 +26,8 @@ define nfs::functions::bindmount (
     ensure  => $ensure,
     device  => $name,
     atboot  => true,
-    fstype  => 'none',
-    options => 'rw,bind',
+    fstype  => $nfs::bindmount_fstype,
+    options => $nfs::bindmount_options,
     require => Nfs::Functions::Mkdir[$mount_name],
   }
 }

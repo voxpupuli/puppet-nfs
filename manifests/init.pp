@@ -189,6 +189,37 @@
 # @param client_gssdopt_name
 #   It defines the name of the gssd option in `/etc/default/nfs-common`.
 #
+# @param manage_idmapd
+#   Whether to manage the NFSv4 idmapd configuration (`idmapd_file`). On systems without idmapd (e.g. FreeBSD) this
+#   is set to `false`.
+#
+# @param nfs_v4_export_style
+#   Selects the NFSv4 server export model. `linux` uses an export root with bindmounts and `fsid=root`; `freebsd`
+#   emits a single `V4:` line with the real export paths.
+#
+# @param nfs_v4_sec
+#   Security flavor for the FreeBSD `V4:` export line (e.g. `sys`).
+#
+# @param manage_nfsuserd
+#   On FreeBSD, whether to run `nfsuserd` for `<user>@<domain>` NFSv4 name mapping. When `false`, the numeric
+#   ownership model is assumed (handled outside this module via sysctls).
+#
+# @param rcconf_file
+#   Path to the shell-style rc configuration file used for NFS rc variables (FreeBSD `/etc/rc.conf`).
+#
+# @param manage_nfs_client_enable
+#   On FreeBSD, whether to set `nfs_client_enable="YES"` in `rcconf_file`.
+#
+# @param rpcbind_service
+#   Name of the rpcbind service to run (shared by server and client roles, e.g. `rpcbind` on FreeBSD). When undef,
+#   rpcbind is not managed as a separate service.
+#
+# @param bindmount_fstype
+#   Filesystem type used for bindmounts (`none` on Linux, `nullfs` on FreeBSD).
+#
+# @param bindmount_options
+#   Mount options used for bindmounts (`rw,bind` on Linux, `rw` on FreeBSD).
+#
 # @see https://github.com/voxpupuli/puppet-nfs#examples Exemples
 #
 # @author
@@ -197,7 +228,6 @@
 #
 class nfs (
   Stdlib::Absolutepath $exports_file,
-  Stdlib::Absolutepath $idmapd_file,
   Array $server_packages,
   Array $client_packages,
   String $server_service_name,
@@ -256,6 +286,16 @@ class nfs (
   Boolean $nfs_v4_root_export_atboot = false,
   String $nfs_v4_root_export_options = '_netdev',
   Boolean $nfsv4_bindmount_enable = true,
+  Optional[Stdlib::Absolutepath] $idmapd_file = undef,
+  Boolean $manage_idmapd = true,
+  Enum['linux', 'freebsd'] $nfs_v4_export_style = 'linux',
+  String[1] $nfs_v4_sec = 'sys',
+  Boolean $manage_nfsuserd = false,
+  Optional[Stdlib::Absolutepath] $rcconf_file = undef,
+  Boolean $manage_nfs_client_enable = false,
+  Optional[String[1]] $rpcbind_service = undef,
+  String[1] $bindmount_fstype = 'none',
+  String[1] $bindmount_options = 'rw,bind',
 ) {
   if $server_enabled {
     if $server_nfsv4_servicehelper != undef {

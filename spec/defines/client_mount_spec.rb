@@ -21,6 +21,7 @@ describe 'nfs::client::mount', type: 'define' do
         'Suse' => [
           'Package[nfs-client]',
         ],
+        'FreeBSD' => [],
       }[facts[:os]['family']]
 
       context 'when nfs_v4 => false, minimal arguments' do
